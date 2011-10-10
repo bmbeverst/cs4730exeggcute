@@ -23,7 +23,8 @@ namespace Exeggcute.src.assets
         sprite,
         cursor,
         dot,
-        shot
+        shot,
+        testbg
     }
     class AssetNames
     {

@@ -38,6 +38,13 @@ namespace Exeggcute.src
 		    return cos[(int)(rad * radToIndex) & SIN_MASK];
 	    }
 
+        public static float Tan(float rad)
+        {
+            float cos = Cos(rad);
+            if (cos == 0.0f) throw new DivideByZeroException();
+            return Sin(rad) / cos;
+        }
+
         public static float SinDeg(float deg) 
         {
 		    return sin[(int)(deg * degToIndex) & SIN_MASK];

@@ -23,7 +23,7 @@ namespace Exeggcute.src
         private Player3D player;
         public Level(GraphicsDevice device, ContentManager content)
         {
-            camera = new Camera(100);
+            camera = new Camera(100, MathHelper.PiOver2, 1); ;
             hud = new HUD();
             particles = new TestParticleSystem(device, content);
             player = new Player3D(ModelName.testcube, Vector3.Zero);
@@ -32,13 +32,14 @@ namespace Exeggcute.src
         public void Update(ControlManager controls)
         {
             particles.Update();
-            for (int i = 0; i < 10; i += 1)
+            for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
                 particles.AddParticle(player.Position, -5*player.Velocity);
             }
 
             player.Update(controls);
+            player.LockPosition(camera);
         }
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)

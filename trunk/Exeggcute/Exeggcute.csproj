@@ -142,6 +142,7 @@
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\CollisionManager.cs" />
     <Compile Include="src\assets\Bank.cs" />
+    <Compile Include="src\Command.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
     <Compile Include="src\Direction.cs" />
     <Compile Include="src\entity\Entity3D.cs" />
@@ -164,6 +165,8 @@
     <Compile Include="src\particles\ParticleSystem.cs" />
     <Compile Include="src\entity\Player3D.cs" />
     <Compile Include="src\entity\Projectile.cs" />
+    <Compile Include="src\Shot.cs" />
+    <Compile Include="src\ShotSpawner.cs" />
     <Compile Include="src\text\Attractor.cs" />
     <Compile Include="src\text\TextBox.cs" />
     <Compile Include="src\text\TextBoxList.cs" />
