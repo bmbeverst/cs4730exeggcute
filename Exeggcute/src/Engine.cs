@@ -31,7 +31,7 @@ namespace Exeggcute.src
 
         static Engine()
         {
-            XRes = 800;
+            XRes = 1200;
             YRes = 600;
         }
 
@@ -39,7 +39,6 @@ namespace Exeggcute.src
         private static List<Menu> menus = new List<Menu>();
         public ContextStack world = new ContextStack();
         private Player3D player;
-        Vector3 camera = new Vector3(0.0f, 50.0f, 1000.0f);
         public Engine(GraphicsDevice device, ContentManager content, InputManager input)
         {
             loadTextures(content);
@@ -48,8 +47,6 @@ namespace Exeggcute.src
             loadModels(content);
             loadMenus();
             controls = new ControlManager(input);
-
-
             player = new Player3D(ModelName.testcube, Vector3.Zero);
             //
             //hardcoded

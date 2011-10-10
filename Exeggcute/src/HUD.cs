@@ -5,31 +5,51 @@ using System.Text;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
     class HUD
     {
-        public const int GAME_AREA_WIDTH = 400;
+        public const float GAME_AREA_RATIO = 0.8000000f;
+
+        public Rectangle GameRect { get; protected set; }
 
         private Doodad leftBox;
         private Doodad rightBox;
-        
+        private Doodad bottomBox;
+        private Doodad topBox;
+
+        private float HEIGHT_RATIO = 0.9333333f;
+
         public HUD()
         {
-            int boxWidth = (Engine.XRes - GAME_AREA_WIDTH) / 2;
-            RectSprite left = new RectSprite(boxWidth, Engine.YRes, Color.Black, true);
-            RectSprite right = new RectSprite(boxWidth, Engine.YRes, Color.Black, true);
-            leftBox = new Doodad(left, new Vector2(0, 0));
-            rightBox = new Doodad(right, new Vector2(boxWidth + GAME_AREA_WIDTH, 0));
-        
+            GameRect = Resize(Engine.XRes, Engine.YRes);
         }
+
+        public Rectangle Resize(int xres, int yres)
+        {
+            int gameHeight = (int)(HEIGHT_RATIO * yres);
+            int gameWidth = (int)(gameHeight * GAME_AREA_RATIO);
+            int boxWidth    = (xres - gameWidth)  / 2;
+            int stripHeight = (yres - gameHeight) / 2;
+            RectSprite sideSprite = new RectSprite(boxWidth, yres, Color.Black, true);
+            RectSprite topSprite = new RectSprite(gameWidth, stripHeight, Color.Black, true);
+            topBox = new Doodad(topSprite, new Vector2(boxWidth, 0));
+            bottomBox = new Doodad(topSprite, new Vector2(boxWidth, yres - stripHeight));
+            leftBox = new Doodad(sideSprite, new Vector2(0, 0));
+            rightBox = new Doodad(sideSprite, new Vector2(boxWidth + gameWidth, 0));
+            return new Rectangle(boxWidth, stripHeight, gameWidth, gameHeight);
+        }
+
 
         public void Draw(SpriteBatch batch)
         {
             //just messing around. draw whatever here
             leftBox.Draw(batch);
             rightBox.Draw(batch);
+            topBox.Draw(batch);
+            bottomBox.Draw(batch);
         }
     }
 }
