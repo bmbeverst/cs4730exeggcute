@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.graphics;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Exeggcute.src.assets;
+
+namespace Exeggcute.src.gui
+{
+    class MainMenu : Menu
+    {
+        StaticSprite cursorSprite;
+        Rectangle ButtonBox;
+        List<Vector2> drawPositions = new List<Vector2>();
+        Doodad buttonBoxOutline;
+        int vertButtonSpacing; 
+        public MainMenu(ContextStack parentStack)
+            : base(getButtons(parentStack), false)
+        {
+            cursorSprite = new StaticSprite(TextureName.cursor, new Point(0, 0), 16, 16);
+            int width = 100;
+            int height = 100;
+            int bottomOffset = Engine.YRes/4 + height;
+            ButtonBox = new Rectangle((Engine.XRes - width) / 2, Engine.YRes - bottomOffset, width, height);
+            buttonBoxOutline = new Doodad(ButtonBox, Color.Black, false);
+            vertButtonSpacing = ButtonBox.Height / buttons.Count;
+            for (int i = 0; i < buttons.Count; i += 1)
+            {
+                drawPositions.Add(new Vector2(ButtonBox.Left, ButtonBox.Top + vertButtonSpacing * i));
+            }
+        }
+
+        public override void Update(ControlManager controls)
+        {
+            base.Update(controls);
+        }
+
+        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        {
+            for (int i = 0; i < buttons.Count; i += 1)
+            {
+                buttons[i].Draw(batch, drawPositions[i]);
+            }
+            cursorSprite.Draw(batch, new Vector2(ButtonBox.Left - cursorSprite.Width, ButtonBox.Top + vertButtonSpacing * cursor));
+            buttonBoxOutline.Draw(batch);
+        }
+
+        public override void Move(Direction dir)
+        {
+            if (dir == Direction.Up)
+            {
+                cursor -= 1;
+            }
+            else if (dir == Direction.Down)
+            {
+                cursor += 1;
+            }
+            resolveCursor();
+        }
+
+        private static List<Button> getButtons(ContextStack parentStack)
+        {
+            List<Button> buttons = new List<Button>();
+            SpriteFont font = FontBank.Get(FontName.font0);
+            ListButton start =
+                new ListButton(parentStack,
+                               new MenuEvent(Direction.Up),
+                               new SpriteText(font, "Start", Color.Black));
+            ListButton quit =
+                new ListButton(parentStack,
+                               new MenuEvent(Direction.Up),
+                               new SpriteText(font, "End", Color.Black));
+            buttons.Add(start);
+            buttons.Add(quit);
+            return buttons;
+
+        }
+    }
+}
