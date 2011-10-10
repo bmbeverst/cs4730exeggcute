@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Exeggcute.src.assets;
+
+namespace Exeggcute.src.entity
+{
+    abstract class PlanarEntity3D : Entity3D
+    {
+        public Vector3 PrevPosition { get; protected set; }
+        public float Angle { get; protected set; }
+        public float Speed { get; protected set; }
+        public float AngularVelocity { get; protected set; }
+        public float LinearAccel { get; protected set; }
+        public float AngularAccel { get; protected set; }
+
+        private float vx
+        {
+            get { return Speed * FastTrig.Cos(Angle); }
+        }
+        private float vy
+        {
+            get { return Speed * FastTrig.Sin(Angle); }
+        }
+        public Vector3 Velocity
+        {
+            //FIXME: cache!
+            get { return new Vector3(vx, vy, 0); }
+        }
+
+        public PlanarEntity3D(ModelName name, Vector3 pos)
+            : base(name, pos)
+        {
+
+        }
+
+        public override void Update()
+        {
+            PrevPosition = Position;
+
+            // Process accelerations
+            Speed += LinearAccel;
+            Angle += AngularVelocity;
+
+            // Process velocities
+            Angle += AngularVelocity;
+            X += vx;
+            Y += vy;
+        }
+        
+    }
+}
