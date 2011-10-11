@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.entity;
 
 namespace Exeggcute.src
 {
@@ -154,7 +155,6 @@ namespace Exeggcute.src
         /// <param name="delim">the comment delimiting character</param>
         /// <param name="filepath">the file to be read</param>
         /// <param name="stripEmpty">empty lines are removed</param>
-        /// <returns>the processed lines</returns>
         public static List<string> StripComments(char delim, string filepath, bool stripEmpty=false)
         {
             List<string> lines = ReadLines(filepath);
@@ -162,10 +162,8 @@ namespace Exeggcute.src
             {
                 string[] parts = lines[i].Split(delim);
                 string trimmed = Trim(lines[i]);
-                if (parts.Length == 0) Util.Die("how do i without magic");
                 if ((stripEmpty && lines[i].Length == 0) ||
-                    (trimmed.Length == 0 || trimmed[0] == delim || lines[i].Length == 0)
-                    )
+                    (trimmed.Length == 0 || trimmed[0] == delim || lines[i].Length == 0))
                 {
                     lines.RemoveAt(i);
                 }
@@ -220,7 +218,7 @@ namespace Exeggcute.src
         public static TEnum ParseEnum<TEnum>(string name) where TEnum : struct
         {
             TEnum result;
-            bool success = Enum.TryParse<TEnum>(name, out result);
+            bool success = Enum.TryParse<TEnum>(name, true, out result);
             if (!success) throw new ParseError("Failed to parse {0} name from \"{1}\"",typeof(TEnum), name);
             return result;
         }
@@ -243,5 +241,6 @@ namespace Exeggcute.src
             }
             return result;
         }
+
     }
 }
