@@ -21,12 +21,15 @@ namespace Exeggcute.src
         private ParticleSystem particles;
         private Camera camera;
         private Player3D player;
+        private List<CommandEntity> entities = new List<CommandEntity>();
+
         public Level(GraphicsDevice device, ContentManager content)
         {
-            camera = new Camera(100, MathHelper.PiOver2, 1); ;
+            camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
             particles = new TestParticleSystem(device, content);
             player = new Player3D(ModelName.testcube, Vector3.Zero);
+            entities.Add(new CommandEntity(ModelName.testcube));
         }
 
         public void Update(ControlManager controls)
@@ -40,6 +43,8 @@ namespace Exeggcute.src
 
             player.Update(controls);
             player.LockPosition(camera);
+
+            entities.ForEach(e => e.Update());
         }
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -50,6 +55,7 @@ namespace Exeggcute.src
             player.Draw(graphics, view, projection);
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
+            entities.ForEach(e => e.Draw(graphics, view, projection));
             hud.Draw(batch);
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
+using Exeggcute.src.commands;
 
 namespace Exeggcute.src.entity
 {
@@ -20,43 +21,57 @@ namespace Exeggcute.src.entity
 
         private int counter = 0;
 
-        public CommandEntity(ModelName name, Vector3 pos)
-            : base(name, pos)
+        public CommandEntity(ModelName name)
+            : base(name, new Vector3(0,0,0))
         {
-
+            commandList = CommandListLoader.Load("test");
         }
 
         public void ProcessCommands()
         {
             if (commandList.Count == 0) return;
             Command current = commandList[cmdPtr];
-            if (current.Type == CommandType.MoveTo)
+            Console.WriteLine("type of command is {0}", current.GetType());
+            if (current is MoveCommand)
             {
+                MoveCommand move = (MoveCommand)current;
+                Speed = move.Speed;
+                Angle = move.Angle;
+                LinearAccel = move.LinearAccel;
+            }
+            
+            else if (current is ResetCommand)
+            {
+                Position = ((ResetCommand)current).Position;
+                Speed =
+                    Angle =
+                    LinearAccel =
+                    AngularAccel =
+                    AngularVelocity =
+                    VelocityZ = 0;
 
             }
 
-            counter += 1;
-            if (current.Duration <= counter)
+            if (current is WaitCommand)
             {
+                if (counter >= ((WaitCommand)current).Duration)
+                {
+                    cmdPtr += 1;
+                    counter = 0;
+                }
+                else
+                {
+
+                    counter += 1;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("PLUS {0}", commandList.Count);
                 cmdPtr += 1;
-                counter = 0;
             }
-        }
-
-        public void CalculateHeading(Vector2 target, int duration)
-        {
-            /*  from HF
-                distance = float(self.point_distance(position))
-                time = 2*float(distance)/speed
-                acceleration = -speed/float(time)
-                self.speed = speed
-                self.acceleration = acceleration */
-
-            float distance = Vector2.Distance(Position2D, target);
-            this.Speed = distance / duration;
-            this.Angle = FastTrig.Atan2(target.Y - Position2D.Y, target.X - Position2D.X);
-            this.LinearAccel = -Speed / duration;
-
+            
         }
 
         public override void Update()
