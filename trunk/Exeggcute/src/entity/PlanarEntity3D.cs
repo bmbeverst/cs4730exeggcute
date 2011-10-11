@@ -16,6 +16,7 @@ namespace Exeggcute.src.entity
         public float AngularVelocity { get; protected set; }
         public float LinearAccel { get; protected set; }
         public float AngularAccel { get; protected set; }
+        public float VelocityZ { get; protected set; }
 
         private float vx
         {
@@ -29,6 +30,11 @@ namespace Exeggcute.src.entity
         {
             //FIXME: cache!
             get { return new Vector3(vx, vy, 0); }
+        }
+
+        public Vector2 Position2D
+        {
+            get { return new Vector2(Position.X, Position.Y); }
         }
 
         public PlanarEntity3D(ModelName name, Vector3 pos)
@@ -49,6 +55,7 @@ namespace Exeggcute.src.entity
             Angle += AngularVelocity;
             X += vx;
             Y += vy;
+            Z += VelocityZ;
         }
         
     }

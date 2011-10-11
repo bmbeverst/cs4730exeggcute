@@ -15,6 +15,7 @@ namespace Exeggcute.src.entity
         public ShotSpawner spawner2;
         public List<Shot> shots = new List<Shot>();
         public List<ShotSpawner> spawners = new List<ShotSpawner>();
+        public static readonly Point Bounds = new Point(30, 37);
         public Player3D(ModelName name, Vector3 pos)
             : base(name, pos)
         {
@@ -22,26 +23,24 @@ namespace Exeggcute.src.entity
             spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
             spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
         }
-        int xBound = 30;
-        int yBound = 37;
         public void LockPosition(Camera camera)
         {
-            if (X < -xBound)
+            if (X < -Bounds.X)
             {
-                X = -xBound;
+                X = -Bounds.X;
             }
-            else if (X > xBound)
+            else if (X > Bounds.X)
             {
-                X = xBound;
+                X = Bounds.X;
             }
 
-            if (Y < -yBound)
+            if (Y < -Bounds.Y)
             {
-                Y = -yBound;
+                Y = -Bounds.Y;
             }
-            else if (Y > yBound)
+            else if (Y > Bounds.Y)
             {
-                Y = yBound;
+                Y = Bounds.Y;
             }
 
         }
@@ -101,7 +100,7 @@ namespace Exeggcute.src.entity
             {
                 Shot shot = shots[i];
                 shot.Update();
-                if (shot.Y > yBound + 4)
+                if (shot.Y > Bounds.Y + 4)
                 {
                     shots.RemoveAt(i);
                 }

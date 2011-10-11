@@ -145,6 +145,8 @@
     <Compile Include="src\Command.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
     <Compile Include="src\Direction.cs" />
+    <Compile Include="src\entity\CommandEntity.cs" />
+    <Compile Include="src\entity\CommandListLoader.cs" />
     <Compile Include="src\entity\Entity3D.cs" />
     <Compile Include="src\entity\MobileEntity3D.cs" />
     <Compile Include="src\entity\PlanarEntity3D.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="src\Util.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="test.cl" />
     <None Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
