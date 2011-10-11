@@ -1,4 +1,7 @@
 ﻿#example command list
 model testcube
-spawnat 0 -50
-moveto 0 0
+reset (-32,0,0)
+moveto (-32,0) (0,0) 60
+reset (0,0,0)
+wait 600
+

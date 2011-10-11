@@ -142,11 +142,15 @@
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\CollisionManager.cs" />
     <Compile Include="src\assets\Bank.cs" />
-    <Compile Include="src\Command.cs" />
+    <Compile Include="src\commands\Command.cs" />
+    <Compile Include="src\commands\MoveCommand.cs" />
+    <Compile Include="src\commands\ResetCommand.cs" />
+    <Compile Include="src\commands\VanishCommand.cs" />
+    <Compile Include="src\commands\WaitCommand.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
     <Compile Include="src\Direction.cs" />
     <Compile Include="src\entity\CommandEntity.cs" />
-    <Compile Include="src\entity\CommandListLoader.cs" />
+    <Compile Include="src\commands\CommandListLoader.cs" />
     <Compile Include="src\entity\Entity3D.cs" />
     <Compile Include="src\entity\MobileEntity3D.cs" />
     <Compile Include="src\entity\PlanarEntity3D.cs" />
@@ -214,7 +218,9 @@
     <Compile Include="src\Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.cl" />
+    <None Include="test.cl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

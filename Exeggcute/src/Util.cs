@@ -242,5 +242,45 @@ namespace Exeggcute.src
             return result;
         }
 
+        /// <summary>
+        /// Converts the input string into a Vector2. Expected format is (X,Y)
+        /// </summary>
+        public static Vector2 ParseVector2(string vec)
+        {
+            try
+            {
+                vec = vec.Replace("(", "").Replace(")", "");
+                string[] nums = vec.Split(',');
+                float x = float.Parse(nums[0]);
+                float y = float.Parse(nums[1]);
+                return new Vector2(x, y);
+            }
+            catch
+            {
+                throw new ParseError("Unable to parse string {0} into a Vector2", vec);
+            }
+
+        }
+
+        /// <summary>
+        /// Converts the input string into a Vector3. Expected format is (X,Y,Z)
+        /// </summary>
+        public static Vector3 ParseVector3(string vec)
+        {
+            try
+            {
+                vec = vec.Replace("(", "").Replace(")", "");
+                string[] nums = vec.Split(',');
+                float x = float.Parse(nums[0]);
+                float y = float.Parse(nums[1]);
+                float z = float.Parse(nums[2]);
+                return new Vector3(x, y, z);
+            }
+            catch
+            {
+                throw new ParseError("Unable to parse string {0} into a Vector3", vec);
+            }
+
+        }
     }
 }

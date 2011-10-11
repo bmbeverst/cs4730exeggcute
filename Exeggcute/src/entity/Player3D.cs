@@ -11,8 +11,6 @@ namespace Exeggcute.src.entity
 {
     class Player3D : PlanarEntity3D
     {
-        public ShotSpawner spawner1;
-        public ShotSpawner spawner2;
         public List<Shot> shots = new List<Shot>();
         public List<ShotSpawner> spawners = new List<ShotSpawner>();
         public static readonly Point Bounds = new Point(30, 37);
