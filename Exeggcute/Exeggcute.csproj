@@ -145,6 +145,7 @@
     <Compile Include="src\commands\Command.cs" />
     <Compile Include="src\commands\MoveCommand.cs" />
     <Compile Include="src\commands\ResetCommand.cs" />
+    <Compile Include="src\commands\ShootCommand.cs" />
     <Compile Include="src\commands\VanishCommand.cs" />
     <Compile Include="src\commands\WaitCommand.cs" />
     <Compile Include="src\DeletedResourceError.cs" />

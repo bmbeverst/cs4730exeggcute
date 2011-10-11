@@ -13,7 +13,8 @@ namespace Exeggcute.src.commands
         Reset,
         SetPos,
         Wait,
-        Vanish
+        Vanish,
+        Shoot
     }
 
 
