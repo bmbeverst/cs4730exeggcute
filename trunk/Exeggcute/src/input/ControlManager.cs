@@ -19,14 +19,15 @@ namespace Exeggcute.src
         private const string CONFIG_FILE = "controls.cfg";
         static ControlManager()
         {
-            defaults[Ctrl.Up]        = new Control(Keys.W,        Buttons.DPadUp);
-            defaults[Ctrl.Down]      = new Control(Keys.S,        Buttons.DPadDown);
-            defaults[Ctrl.Left]      = new Control(Keys.A,        Buttons.DPadLeft);
-            defaults[Ctrl.Right]     = new Control(Keys.D,        Buttons.DPadRight);
+            defaults[Ctrl.Up]        = new Control(Keys.W,        Buttons.LeftThumbstickUp);
+            defaults[Ctrl.Down]      = new Control(Keys.S,        Buttons.LeftThumbstickDown);
+            defaults[Ctrl.Left]      = new Control(Keys.A,        Buttons.LeftThumbstickLeft);
+            defaults[Ctrl.Right]     = new Control(Keys.D,        Buttons.LeftThumbstickRight);
             defaults[Ctrl.Start]     = new Control(Keys.Enter,    Buttons.Start);
             defaults[Ctrl.Select]    = new Control(Keys.Space,    Buttons.RightTrigger);
             defaults[Ctrl.Action]    = new Control(Keys.N,        Buttons.A);
-            defaults[Ctrl.Cancel]    = new Control(Keys.M,        Buttons.B);
+            defaults[Ctrl.Cancel]    = new Control(Keys.M,        Buttons.X);
+            defaults[Ctrl.Focus]     = new Control(Keys.Space,    Buttons.Y);
             defaults[Ctrl.LShoulder] = new Control(Keys.H,        Buttons.LeftShoulder);
             defaults[Ctrl.RShoulder] = new Control(Keys.J,        Buttons.RightShoulder);
             defaults[Ctrl.Skip]      = new Control(Keys.LeftShift,Buttons.X);
@@ -194,6 +195,7 @@ namespace Exeggcute.src
             {
                 if (!controls.ContainsKey(ctrl))
                 {
+                    Util.Warn("Did not find {0}", ctrl);
                     controls[ctrl] = defaults[ctrl];
                 }
             }

@@ -16,7 +16,8 @@ namespace Exeggcute.src.scripting
         Vanish,
         Shoot,
         Set,
-        Stop
+        Stop,
+        End
     }
 
 

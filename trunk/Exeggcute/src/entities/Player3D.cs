@@ -16,7 +16,8 @@ namespace Exeggcute.src.entities
         public List<ShotSpawner> spawners = new List<ShotSpawner>();
         public static readonly Point Bounds = new Point(30, 37);
 
-
+        public float MoveSpeed { get; protected set; }
+        public float FocusSpeed { get; protected set; }
 
         private int lives;
         private int bombs;
@@ -30,21 +31,29 @@ namespace Exeggcute.src.entities
         public Player3D(ModelName name)
             : base(name, ScriptName.playerspawn)
         {
-            Shot shot = new Shot(ModelName.testcube, Vector3.Zero);
+            Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0);
             spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
             spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
             lives = 3;
             bombs = 3;
             score = 1234;
+            MoveSpeed = 1;
+            FocusSpeed = 0.5f;
         }
 
         public override void Process(VanishAction vanish)
         {
-
+            actionList = null;
         }
 
         public void LockPosition(Camera camera)
         {
+            // HACK
+            // If we cant control, then don't lock us to the screen, we are
+            // probably respawning
+            if (!CanControl) return;
+
+
             if (X < -Bounds.X)
             {
                 X = -Bounds.X;
@@ -64,10 +73,17 @@ namespace Exeggcute.src.entities
             }
 
         }
-
-        public void Update(ControlManager controls)
+        protected void processControls(ControlManager controls)
         {
-            float speed = 1;
+            float speed;
+            if (controls[Ctrl.Focus].IsPressed)
+            {
+                speed = FocusSpeed;
+            }
+            else
+            {
+                speed = MoveSpeed;
+            }
             int dx = 0;
             int dy = 0;
             if (controls[Ctrl.Up].IsPressed)
@@ -112,10 +128,16 @@ namespace Exeggcute.src.entities
                 Shot spawned = spawner.TrySpawnAt(Position, controls[Ctrl.Action]);
                 if (spawned != null)
                 {
+                    Console.WriteLine(spawned.Position);
                     shots.Add(spawned);
                 }
             }
+        }
 
+        public void Update(ControlManager controls)
+        {
+
+            if (CanControl) processControls(controls);
             for (int i = shots.Count - 1; i >= 0; i -= 1)
             {
                 Shot shot = shots[i];

@@ -21,6 +21,7 @@ namespace Exeggcute.src.input
         RShoulder,
         Action, 
         Cancel, 
+        Focus,
         Skip,
         Quit
     }

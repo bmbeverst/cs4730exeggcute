@@ -37,7 +37,8 @@ namespace Exeggcute.src.assets
     {
         test,
         playerspawn,
-        item
+        item,
+        playershot0
     }
 
     class AssetNames

@@ -17,6 +17,7 @@ namespace Exeggcute.src.entities
         /// </summary>
         public bool IsDone { get; protected set; }
         public CommandEntity Parent { get; protected set; }
+        public ScriptName Script { get; protected set; }
         protected ActionList actionList;
         protected List<ShotSpawner> spawners = new List<ShotSpawner>();
 
@@ -39,7 +40,8 @@ namespace Exeggcute.src.entities
         public CommandEntity(ModelName name, ScriptName script)
             : base(name, Engine.Jail)
         {
-            actionList = ScriptBank.Get(script);
+            Script = script;
+            actionList = ScriptBank.Get(Script);
         }
 
         public virtual void Process(ActionBase cmd)
@@ -65,7 +67,10 @@ namespace Exeggcute.src.entities
         /// </summary>
         public void ProcessActions()
         {
-            if (actionList.Count == 0) return;
+            // FIXME: 
+            // seems excessively defensive. Also might be expensive
+            // for thousands of objects?
+            if (actionList == null || actionList.Count == 0) return;
             ActionBase current = actionList[cmdPtr];
             current.Process(this);
             
@@ -88,6 +93,11 @@ namespace Exeggcute.src.entities
                 throw new NotImplementedException();
             }
             cmdPtr += 1;
+        }
+
+        public virtual void Process(EndAction end)
+        {
+            //do nothing!
         }
 
         public virtual void Process(SetAction set)

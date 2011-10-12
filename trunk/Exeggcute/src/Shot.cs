@@ -8,19 +8,20 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
-    class Shot : PlanarEntity3D
+    class Shot : CommandEntity
     {
-        public Shot(ModelName name, Vector3 pos)
-            : base(name, pos)
+        public Shot(ModelName model, ScriptName script)
+            : base(model, script)
         {
 
         }
 
         public Shot Clone(Vector3 pos, float angle, float speed)
         {
-            Shot clone = new Shot(Name, pos);
+            Shot clone = new Shot(Name, Script);
             clone.Angle = angle;
             clone.Speed = speed;
+            clone.Position = pos;
             return clone;
         }
     }

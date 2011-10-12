@@ -18,7 +18,7 @@ namespace Exeggcute.src.scripting
             List<ActionBase> actions = new List<ActionBase>();
             try
             {
-                string filepath = string.Format("{0}.{1}", name, EXT);
+                string filepath = string.Format("data/{0}.{1}", name, EXT);
                 List<string> lines = Util.StripComments('#', filepath, true);
                 //lines.ForEach(lin => Console.WriteLine(lin));
                 lines.Reverse();
@@ -79,7 +79,19 @@ namespace Exeggcute.src.scripting
                 return new List<ActionBase> {
                     new MoveAction(angle, speed, 0, linearAccel, 0, 0),
                     new WaitAction(duration),
-                    new SetAction(target)
+                    new SetAction(target),
+                    new StopAction()
+                };
+            }
+            else if (type == CommandType.Move)
+            {
+                float angle           = float.Parse(tokens[1]) * FastTrig.degreesToRadians;
+                float speed           = float.Parse(tokens[2]);
+                float angularVelocity = float.Parse(tokens[3]);
+                float linearAccel     = float.Parse(tokens[4]);
+                float velocityZ       = float.Parse(tokens[5]);
+                return new List<ActionBase> {
+                    new MoveAction(angle, speed, angularVelocity, linearAccel, velocityZ)
                 };
             }
             else if (type == CommandType.Wait)
@@ -94,6 +106,10 @@ namespace Exeggcute.src.scripting
             else if (type == CommandType.Vanish)
             {
                 return new List<ActionBase> { new VanishAction() };
+            }
+            else if (type == CommandType.End)
+            {
+                return new List<ActionBase> { new EndAction() };
             }
             else if (type == CommandType.Shoot)
             {

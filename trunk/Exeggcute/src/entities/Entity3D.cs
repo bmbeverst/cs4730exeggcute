@@ -40,7 +40,6 @@ namespace Exeggcute.src.entities
             Position = pos;
             Hitbox = Util.MergeSpheres(Surface.Meshes);
             Hitbox = new BoundingSphere(Position, Hitbox.Radius);
-            Console.WriteLine(Hitbox);
         }
 
         public void SetPosition(Vector3 newpos)
