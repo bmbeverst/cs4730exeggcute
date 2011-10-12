@@ -9,7 +9,7 @@ namespace Exeggcute.src.entities
     class Collectable : CommandEntity
     {
         public Collectable(ModelName name)
-            : base(name, ScriptName.item)
+            : base(name, ScriptName.item, new List<Shot>())
         {
 
         }

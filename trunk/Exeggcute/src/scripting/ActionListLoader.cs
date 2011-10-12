@@ -77,7 +77,8 @@ namespace Exeggcute.src.scripting
                 Console.WriteLine(angle);
                 float linearAccel = -(speed / duration);
                 return new List<ActionBase> {
-                    new MoveAction(angle, speed, 0, linearAccel, 0, 0),
+                    new AimAction(angle),
+                    new MoveAction(speed, 0, linearAccel, 0, 0),
                     new WaitAction(duration),
                     new SetAction(target),
                     new StopAction()
@@ -85,13 +86,19 @@ namespace Exeggcute.src.scripting
             }
             else if (type == CommandType.Move)
             {
-                float angle           = float.Parse(tokens[1]) * FastTrig.degreesToRadians;
-                float speed           = float.Parse(tokens[2]);
-                float angularVelocity = float.Parse(tokens[3]);
-                float linearAccel     = float.Parse(tokens[4]);
-                float velocityZ       = float.Parse(tokens[5]);
+                float speed           = float.Parse(tokens[1]);
+                float angularVelocity = float.Parse(tokens[2]);
+                float linearAccel     = float.Parse(tokens[3]);
+                float velocityZ       = float.Parse(tokens[4]);
                 return new List<ActionBase> {
-                    new MoveAction(angle, speed, angularVelocity, linearAccel, velocityZ)
+                    new MoveAction(speed, angularVelocity, linearAccel, velocityZ)
+                };
+            }
+            else if (type == CommandType.Aim)
+            {
+                float angle = float.Parse(tokens[1]) * FastTrig.degreesToRadians;;
+                return new List<ActionBase> {
+                    new AimAction(angle)
                 };
             }
             else if (type == CommandType.Wait)
@@ -111,20 +118,14 @@ namespace Exeggcute.src.scripting
             {
                 return new List<ActionBase> { new EndAction() };
             }
-            else if (type == CommandType.Shoot)
+            else if (type == CommandType.Spawn)
             {
-                ShootAction command;
-                int shotID = int.Parse(tokens[1]);
-                if (shotID == -1)
-                {
-                    command = new ShootAction();
-                }
-                else
-                {
-                    command = new ShootAction(shotID);
-                }
-                return new List<ActionBase> { command };
-
+                float angleDeg = float.Parse(tokens[1]);
+                float distance = float.Parse(tokens[2]);
+                int id = int.Parse(tokens[3]);
+                return new List<ActionBase> {
+                    new SpawnAction(angleDeg, distance, id)
+                };
             }
             else if (type == CommandType.Set)
             {

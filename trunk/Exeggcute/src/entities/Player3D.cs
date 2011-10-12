@@ -12,8 +12,7 @@ namespace Exeggcute.src.entities
 {
     class Player3D : CommandEntity
     {
-        public List<Shot> shots = new List<Shot>();
-        public List<ShotSpawner> spawners = new List<ShotSpawner>();
+        public List<Shot> shots;
         public static readonly Point Bounds = new Point(30, 37);
 
         public float MoveSpeed { get; protected set; }
@@ -28,12 +27,14 @@ namespace Exeggcute.src.entities
             get { return actionList == null; }
         }
 
-        public Player3D(ModelName name)
-            : base(name, ScriptName.playerspawn)
+        public Player3D(ModelName name, List<Shot> shots)
+            : base(name, ScriptName.playerspawn, new List<Shot>())
         {
             Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0);
-            spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
-            spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
+            spawnList.Add(shot);
+            //spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
+            //spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
+            this.shots = shots;
             lives = 3;
             bombs = 3;
             score = 1234;
@@ -114,6 +115,7 @@ namespace Exeggcute.src.entities
                 Angle = FastTrig.Atan2(dy, dx);
             }
 
+            //FIXME: temporary, just for debugging
             if (controls[Ctrl.RShoulder].IsPressed)
             {
                 Z += speed;
@@ -123,15 +125,15 @@ namespace Exeggcute.src.entities
                 Z -= speed;
             }
 
-            foreach (ShotSpawner spawner in spawners)
+            /*foreach (ShotSpawner spawner in spawners)
             {
                 Shot spawned = spawner.TrySpawnAt(Position, controls[Ctrl.Action]);
                 if (spawned != null)
                 {
-                    Console.WriteLine(spawned.Position);
                     shots.Add(spawned);
                 }
-            }
+            }*/
+
         }
 
         public void Update(ControlManager controls)

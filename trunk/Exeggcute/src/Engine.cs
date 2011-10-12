@@ -47,7 +47,6 @@ namespace Exeggcute.src
         public ControlManager controls;
         private static List<Menu> menus = new List<Menu>();
         public ContextStack world = new ContextStack();
-        private Player3D player;
         public Engine(GraphicsDevice device, ContentManager content, InputManager input)
         {
             loadScripts(content);
@@ -58,7 +57,7 @@ namespace Exeggcute.src
             loadSprites(content);
             loadMenus();
             controls = new ControlManager(input);
-            player = new Player3D(ModelName.testcube);
+
             //
             //hardcoded
             world.PushContext(new Level(device, content));
@@ -114,7 +113,6 @@ namespace Exeggcute.src
         public void Update()
         {
             controls.Update();
-            player.Update(controls);
             world.Update(controls);
             if (controls[Ctrl.Quit].IsPressed)
             {

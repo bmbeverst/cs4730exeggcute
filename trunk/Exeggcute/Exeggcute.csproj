@@ -149,8 +149,10 @@
     <Compile Include="src\entities\LifeItem.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
+    <Compile Include="src\scripting\AimAction.cs" />
     <Compile Include="src\scripting\EndAction.cs" />
     <Compile Include="src\scripting\MoveAction.cs" />
+    <Compile Include="src\scripting\SpawnAction.cs" />
     <Compile Include="src\scripting\StopAction.cs" />
     <Compile Include="src\scripting\SetAction.cs" />
     <Compile Include="src\scripting\ShootAction.cs" />
@@ -182,7 +184,6 @@
     <Compile Include="src\entities\Player3D.cs" />
     <Compile Include="src\entities\Projectile.cs" />
     <Compile Include="src\Shot.cs" />
-    <Compile Include="src\ShotSpawner.cs" />
     <Compile Include="src\text\Attractor.cs" />
     <Compile Include="src\text\TextBox.cs" />
     <Compile Include="src\text\TextBoxList.cs" />
