@@ -13,7 +13,7 @@ namespace Exeggcute.src
 
         }
 
-        public void Collide(Player3D player, List<Entity3D> enemies)
+        public void Collide(Player3D player, List<CommandEntity> enemies)
         {
             foreach (Entity3D enemy in enemies)
             {
@@ -24,7 +24,7 @@ namespace Exeggcute.src
             }
         }
 
-        public void Collide(List<Shot> playerShots, List<Entity3D> enemies)
+        public void Collide(List<Shot> playerShots, List<CommandEntity> enemies)
         {
             foreach (Shot shot in playerShots)
             {

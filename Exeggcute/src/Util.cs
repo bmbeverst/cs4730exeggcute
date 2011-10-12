@@ -282,5 +282,16 @@ namespace Exeggcute.src
             }
 
         }
+
+        /// <summary>
+        /// Displaces the X and Y coordinates of the given Vector3 by the 
+        /// given angle and distance.
+        /// </summary>
+        public static Vector3 Displace(Vector3 origin, float angle, float distance)
+        {
+            float x = origin.X + distance * FastTrig.Sin(angle);
+            float y = origin.Y + distance * FastTrig.Cos(angle);
+            return new Vector3(x, y, origin.Z);
+        }
     }
 }

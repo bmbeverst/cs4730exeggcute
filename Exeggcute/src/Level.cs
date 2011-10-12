@@ -17,21 +17,24 @@ namespace Exeggcute.src
     /// </summary>
     class Level : IContext
     {
-        public HUD hud;
+        private HUD hud;
         private ParticleSystem particles;
         private Camera camera;
         private Player3D player;
         private CollisionManager collider;
-        private List<Entity3D> entities = new List<Entity3D>();
-
+        private List<CommandEntity> entities = new List<CommandEntity>();
+        private List<Shot> playerShots = new List<Shot>();
         public Level(GraphicsDevice device, ContentManager content)
         {
             collider = new CollisionManager();
             camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
             particles = new TestParticleSystem(device, content);
-            player = new Player3D(ModelName.testcube);
-            entities.Add(new CommandEntity(ModelName.testcube, ScriptName.test));
+            player = new Player3D(ModelName.testcube, playerShots);
+            List<Shot> shotList = new List<Shot> {
+                new Shot(ModelName.testcube, ScriptName.playershot0)
+            };
+            entities.Add(new CommandEntity(ModelName.testcube, ScriptName.test, shotList));
         }
 
         public void Update(ControlManager controls)
@@ -57,11 +60,19 @@ namespace Exeggcute.src
             player.Draw(graphics, view, projection);
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
+
+            //HACK FIXME
+            foreach (CommandEntity e in entities)
+            {
+                foreach (Shot shot in e.shotList)
+                {
+                    shot.Draw(graphics, view, projection);
+                    shot.Update();
+                }
+            }
             entities.ForEach(e => e.Draw(graphics, view, projection));
             hud.Draw(batch, player);
         }
-
-
 
         public void Load(ContentManager content)
         {

@@ -9,7 +9,9 @@ using System.Collections.ObjectModel;
 
 namespace Exeggcute.src.entities
 {
-
+    /// <summary>
+    /// TODO: process commands until a wait command is found
+    /// </summary>
     class CommandEntity : PlanarEntity3D
     {
         /// <summary>
@@ -19,10 +21,11 @@ namespace Exeggcute.src.entities
         public CommandEntity Parent { get; protected set; }
         public ScriptName Script { get; protected set; }
         protected ActionList actionList;
-        protected List<ShotSpawner> spawners = new List<ShotSpawner>();
+        //HACK public??
+        public List<Shot> shotList = new List<Shot>();
+        protected List<Shot> spawnList = new List<Shot>();
 
         protected int spawnPtr;
-        public virtual bool Shooting { get; protected set; }
 
         private int p;
         protected int cmdPtr
@@ -37,11 +40,13 @@ namespace Exeggcute.src.entities
         /// </summary>
         protected int counter = 0;
 
-        public CommandEntity(ModelName name, ScriptName script)
+        public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList)
             : base(name, Engine.Jail)
         {
             Script = script;
             actionList = ScriptBank.Get(Script);
+            this.spawnList = spawnList;
+            
         }
 
         public virtual void Process(ActionBase cmd)
@@ -80,8 +85,9 @@ namespace Exeggcute.src.entities
         public virtual void Process(MoveAction move)
         {
             Speed = move.Speed;
-            Angle = move.Angle;
             LinearAccel = move.LinearAccel;
+            AngularVelocity = move.AngularVelocity;
+            AngularAccel = move.AngularAccel;
             cmdPtr += 1;
         }
 
@@ -90,8 +96,19 @@ namespace Exeggcute.src.entities
             IsDone = true;
             if (Parent != null)
             {
+                // send a message to your parent that you are done
                 throw new NotImplementedException();
             }
+            cmdPtr += 1;
+        }
+
+        public virtual void Process(SpawnAction spawn)
+        {
+            Shot toSpawn = spawnList[spawn.ShotID];
+            float angle = spawn.AngleOffset + Angle;
+            Vector3 pos = Util.Displace(Position, angle, spawn.Distance);
+            Shot cloned = toSpawn.Clone(pos, angle);
+            shotList.Add(cloned);
             cmdPtr += 1;
         }
 
@@ -103,6 +120,12 @@ namespace Exeggcute.src.entities
         public virtual void Process(SetAction set)
         {
             Position = set.Position;
+            cmdPtr += 1;
+        }
+
+        public virtual void Process(AimAction aim)
+        {
+            Angle = aim.Angle;
             cmdPtr += 1;
         }
 
@@ -119,13 +142,6 @@ namespace Exeggcute.src.entities
             }
         }
 
-        public virtual void Process(ShootAction shoot)
-        {
-            if (shoot.Start) spawnPtr = shoot.ShotIndex;
-            Shooting = shoot.Start;
-            cmdPtr += 1;
-        }
-
         public virtual void Process(StopAction stop)
         {
             Speed = 0;
@@ -140,11 +156,6 @@ namespace Exeggcute.src.entities
         public override void Update()
         {
             ProcessActions();
-
-            if (Shooting)
-            {
-                spawners[spawnPtr].TrySpawnAt(Position);
-            }
 
             base.Update();
         }

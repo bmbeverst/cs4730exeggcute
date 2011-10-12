@@ -14,10 +14,11 @@ namespace Exeggcute.src.scripting
         SetPos,
         Wait,
         Vanish,
-        Shoot,
         Set,
         Stop,
-        End
+        End,
+        Spawn,
+        Aim
     }
 
 
