@@ -147,6 +147,7 @@
     <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
     <Compile Include="src\entities\LifeItem.cs" />
+    <Compile Include="src\gui\PauseMenu.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
     <Compile Include="src\scripting\AimAction.cs" />
@@ -198,7 +199,7 @@
     <Compile Include="src\gui\MainMenu.cs" />
     <Compile Include="src\gui\MenuEvent.cs" />
     <Compile Include="src\gui\MenuEventType.cs" />
-    <Compile Include="src\ContextStack.cs" />
+    <Compile Include="src\World.cs" />
     <Compile Include="src\IContext.cs" />
     <Compile Include="src\Engine.cs" />
     <Compile Include="src\entities\Entity2D.cs" />

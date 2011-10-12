@@ -10,8 +10,8 @@ namespace Exeggcute.src.gui
         protected int cursorX;
         protected List<Button> row;
         
-        public ButtonRow(ContextStack parent, List<Button> row, MenuEvent select, MenuEvent deselect)
-            : base(parent, select, deselect, null, null)
+        public ButtonRow(List<Button> row, MenuEvent select, MenuEvent deselect)
+            : base(select, deselect, null, null)
         {
             this.row = row;
         }

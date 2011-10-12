@@ -10,7 +10,6 @@ namespace Exeggcute.src.gui
 {
     abstract class Button
     {
-        protected ContextStack parentStack;
         protected MenuEvent onSelect;
         protected MenuEvent onDeselect;
         protected MenuEvent onActivate;
@@ -18,13 +17,11 @@ namespace Exeggcute.src.gui
         //protected Drawable image;
         public bool IsActive { get; protected set; }
         public bool IsSelected { get; protected set; }
-        public Button(ContextStack parent, 
-                      MenuEvent select, 
+        public Button(MenuEvent select, 
                       MenuEvent deselect, 
                       MenuEvent activate,
                       MenuEvent deactivate)
         {
-            parentStack = parent;
             onSelect = select;
             onDeselect = deselect;
             onActivate = activate;

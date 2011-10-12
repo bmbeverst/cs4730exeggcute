@@ -13,15 +13,17 @@ namespace Exeggcute.src
 
         }
 
-        public void Collide(Player3D player, List<CommandEntity> enemies)
+        public bool Collide(Player3D player, List<CommandEntity> enemies)
         {
+            if (!player.CanControl) return false;
             foreach (Entity3D enemy in enemies)
             {
                 if (enemy.Hitbox.Intersects(player.Hitbox))
                 {
-                    
+                    return true;
                 }
             }
+            return false;
         }
 
         public void Collide(List<Shot> playerShots, List<CommandEntity> enemies)
