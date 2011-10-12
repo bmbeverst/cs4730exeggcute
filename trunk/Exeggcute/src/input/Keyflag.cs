@@ -40,6 +40,7 @@ namespace Exeggcute.src.input
         /// If Value == 1, then Value += 1, and return true
         /// otherwise return true
         /// WARNING: this steals the "Just Pressed" state from anyone else
+        /// who might want it
         /// </summary>
         public bool DoEatPress()
         {

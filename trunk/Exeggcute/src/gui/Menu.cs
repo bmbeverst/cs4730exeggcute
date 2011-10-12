@@ -24,10 +24,7 @@ namespace Exeggcute.src.gui
         public virtual void Update(ControlManager controls)
         {
             resolveCursor();
-            foreach (Button button in buttons)
-            {
-                button.Update(controls);
-            }
+            buttons[cursor].Update(controls);
             //update the selected button specially
             
         }
@@ -36,7 +33,6 @@ namespace Exeggcute.src.gui
         {
             foreach (Button button in buttons)
             {
-                Console.WriteLine("URFF");
                 button.Draw(batch, new Vector2(50, 50));
                 // draw according to a layout NOT according to button position.
                 // A button has no position

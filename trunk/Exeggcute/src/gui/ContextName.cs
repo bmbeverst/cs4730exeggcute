@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Exeggcute.src.input
 {
-    enum MenuID
+    enum ContextName
     {
         None = -1,
         Main,
         Pause,
         Settings,
+        Level,
+        Quit
     }
 }

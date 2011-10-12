@@ -147,6 +147,7 @@
     <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
     <Compile Include="src\entities\LifeItem.cs" />
+    <Compile Include="src\gui\DifficultyMenu.cs" />
     <Compile Include="src\gui\PauseMenu.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
@@ -218,7 +219,7 @@
     <Compile Include="src\input\Joy.cs" />
     <Compile Include="src\input\Keyflag.cs" />
     <Compile Include="src\gui\ListButton.cs" />
-    <Compile Include="src\gui\MenuID.cs" />
+    <Compile Include="src\gui\ContextName.cs" />
     <Compile Include="src\config\ConfigItem.cs" />
     <Compile Include="src\config\Configuration.cs" />
     <Compile Include="src\Random.cs" />

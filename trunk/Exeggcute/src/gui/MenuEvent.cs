@@ -13,18 +13,18 @@ namespace Exeggcute.src.gui
         public MenuEventType Type { get; protected set; }
         public static MenuEvent Empty = new MenuEvent();
         public Direction Dir { get; protected set; }
-        public MenuID NextID { get; protected set; }
+        public ContextName NextID { get; protected set; }
         private MenuEvent()
         {
             Type = MenuEventType.None;
-            NextID = MenuID.None;
+            NextID = ContextName.None;
         }
         public MenuEvent(Direction dir)
         {
             Type = MenuEventType.Move;
             Dir = dir;
         }
-        public MenuEvent(MenuID next)
+        public MenuEvent(ContextName next)
         {
             Type = MenuEventType.Push;
             NextID = next;
