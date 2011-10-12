@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.entity
+namespace Exeggcute.src.entities
 {
     abstract class PlanarEntity3D : Entity3D
     {
@@ -45,6 +45,7 @@ namespace Exeggcute.src.entity
 
         public override void Update()
         {
+            base.Update();
             PrevPosition = Position;
 
             // Process accelerations

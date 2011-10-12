@@ -23,8 +23,20 @@ namespace Exeggcute.src.assets
         sprite,
         cursor,
         dot,
-        shot
+        shot,
+        life
     }
+
+    enum SpriteName
+    {
+        life
+    }
+
+    enum ScriptName
+    {
+        test
+    }
+
     class AssetNames
     {
 

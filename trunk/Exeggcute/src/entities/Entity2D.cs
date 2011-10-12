@@ -8,7 +8,7 @@ using Exeggcute.src.graphics;
 using Exeggcute.src.input;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.entity
+namespace Exeggcute.src.entities
 {
     class Entity2D
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.assets
 {
@@ -41,10 +42,24 @@ namespace Exeggcute.src.assets
             }
         }
 
+        /// <summary>
+        /// Allows the ContentManager to handle the loading of an asset which
+        /// XNA already knows how to load.
+        /// </summary>
         public virtual void Load(ContentManager content, TName name)
         {
             seen[name] = 1;
             bank[name] = content.Load<TAsset>(name.ToString());
+        }
+
+        /// <summary>
+        /// A hackish method of loading a non-XNA managed asset, such as a 
+        /// script or sprite.
+        /// </summary>
+        public virtual void Put(TAsset asset, TName name)
+        {
+            seen[name] = 1;
+            bank[name] = asset;
         }
 
         public virtual void Unload(ContentManager content, List<TName> names)

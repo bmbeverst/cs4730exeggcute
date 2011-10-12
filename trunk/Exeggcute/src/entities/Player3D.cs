@@ -7,19 +7,22 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.entity
+namespace Exeggcute.src.entities
 {
     class Player3D : PlanarEntity3D
     {
         public List<Shot> shots = new List<Shot>();
         public List<ShotSpawner> spawners = new List<ShotSpawner>();
         public static readonly Point Bounds = new Point(30, 37);
+
+        private int lives;
         public Player3D(ModelName name, Vector3 pos)
             : base(name, pos)
         {
             Shot shot = new Shot(ModelName.testcube, Vector3.Zero);
             spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
             spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
+            lives = 3;
         }
         public void LockPosition(Camera camera)
         {
@@ -110,6 +113,14 @@ namespace Exeggcute.src.entity
         {
             base.Draw(graphics, view, projection);
             shots.ForEach(shot => shot.Draw(graphics, view, projection));
+        }
+
+        public void DrawHUD(SpriteBatch batch)
+        {
+            for (int i = 0; i < lives; i += 1)
+            {
+
+            }
         }
     }
 }

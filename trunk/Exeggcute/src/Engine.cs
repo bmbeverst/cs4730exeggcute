@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
-using Exeggcute.src.entity;
+using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 
 namespace Exeggcute.src
@@ -41,10 +41,12 @@ namespace Exeggcute.src
         private Player3D player;
         public Engine(GraphicsDevice device, ContentManager content, InputManager input)
         {
+            loadScripts(content);
             loadTextures(content);
             loadFonts(content);
             loadEffects(content);
             loadModels(content);
+
             loadMenus();
             controls = new ControlManager(input);
             player = new Player3D(ModelName.testcube, Vector3.Zero);
@@ -58,6 +60,11 @@ namespace Exeggcute.src
         public static Menu GetMenu(MenuID id)
         {
             return menus[(int)id];
+        }
+
+        private void loadScripts(ContentManager content)
+        {
+            ScriptBank.LoadAll(content);
         }
 
         private void loadTextures(ContentManager content)

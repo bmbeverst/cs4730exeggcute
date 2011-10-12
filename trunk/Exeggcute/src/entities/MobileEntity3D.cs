@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.entity
+namespace Exeggcute.src.entities
 {
     class MobileEntity3D : Entity3D
     {
@@ -20,6 +20,7 @@ namespace Exeggcute.src.entity
 
         public override void Update()
         {
+            base.Update();
             PrevPosition = Position;
             Position += Velocity;
         }

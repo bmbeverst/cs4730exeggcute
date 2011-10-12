@@ -33,7 +33,7 @@ namespace Exeggcute.src.graphics
         /// </summary>
         /// <typeparam name="TSprite">the type of sprite expected</typeparam>
         /// <param name="name">the filename minus extension</param>
-        public static TSprite Load<TSprite>(string name) where TSprite : Sprite
+        public static Sprite Load(SpriteName name)
         {
             string filepath = String.Format("{0}.{1}", name, EXT);
             List<string> lines = Util.StripComments('#', filepath, true);
@@ -76,11 +76,11 @@ namespace Exeggcute.src.graphics
             {
                 //This is guaranteed safe because we checked it first
                 StaticAnimation staticAnim = (StaticAnimation)anims[0];
-                return (TSprite)((Sprite)(new StaticSprite(staticAnim)));
+                return new StaticSprite(staticAnim);
             }
             else
             {
-                return (TSprite)((Sprite)(new AnimatedSprite(anims)));
+                return new AnimatedSprite(anims);
             }
         }
 

@@ -6,6 +6,7 @@ using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src
 {
@@ -43,13 +44,14 @@ namespace Exeggcute.src
         }
 
 
-        public void Draw(SpriteBatch batch)
+        public void Draw(SpriteBatch batch, Player3D player)
         {
             //just messing around. draw whatever here
             leftBox.Draw(batch);
             rightBox.Draw(batch);
             topBox.Draw(batch);
             bottomBox.Draw(batch);
+            player.DrawHUD(batch);
         }
     }
 }

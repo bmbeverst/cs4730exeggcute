@@ -7,7 +7,7 @@ using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.entity
+namespace Exeggcute.src.entities
 {
     class Projectile : PlanarEntity3D
     {
