@@ -46,8 +46,9 @@ namespace Exeggcute.src
 
         public ControlManager controls;
         private static List<Menu> menus = new List<Menu>();
-        public Engine(GraphicsDevice device, ContentManager content, InputManager input)
+        public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
+            World.Initialize(content, graphics);
             loadScripts(content);
             loadTextures(content);
             loadFonts(content);
@@ -57,13 +58,12 @@ namespace Exeggcute.src
             loadMenus();
             controls = new ControlManager(input);
 
-            //hardcoded
-            World.PushContext(new Level(device, content));
+            
             
         }
 
 
-        public static Menu GetMenu(MenuID id)
+        public static Menu GetMenu(ContextName id)
         {
             return menus[(int)id];
         }
@@ -103,9 +103,10 @@ namespace Exeggcute.src
 
         private void loadMenus()
         {
-            //Main menu not ready
-            /*MainMenu main = new MainMenu(world);
-            world.PushContext(main);*/
+            MainMenu main = new MainMenu();
+            World.PushContext(main);
+            //for now lets ignore the level
+            World.LoadLevel();
         }
 
         public void Update()

@@ -18,7 +18,16 @@ namespace Exeggcute.src
     {
         private static Stack<IContext> stack = new Stack<IContext>();
         private static List<MenuEvent> eventList = new List<MenuEvent>();
+        private static bool isInitialized = false;
+        private static ContentManager content;
+        private static GraphicsDevice graphics;
 
+        public static void Initialize(ContentManager content, GraphicsDevice graphics)
+        {
+            World.content = content;
+            World.graphics = graphics;
+            isInitialized = true;
+        }
 
 
         public static void Update(ControlManager controls)
@@ -31,10 +40,26 @@ namespace Exeggcute.src
         {
             stack.Peek().Draw(graphics, batch);
         }
-        
+
+        public static void LoadLevel()
+        {
+            stack.Push(new Level(graphics, content));
+        }
+
         public static void SendEvent(MenuEvent eve)
         {
-            eventList.Add(eve);
+            Console.WriteLine(eve.NextID);
+            //FIXME hack
+            if (eve.NextID == input.ContextName.Level)
+            {
+                LoadLevel();
+            }
+            else if (eve.NextID == input.ContextName.Quit)
+            {
+                //so bad
+                Environment.Exit(0);
+            }
+
         }
         
         // Do I need the events at all if im doing it this way?

@@ -55,6 +55,8 @@ namespace Exeggcute.src.gui
             {
                 moveRight();
             }
+
+
         }
         
         protected abstract void moveUp();
