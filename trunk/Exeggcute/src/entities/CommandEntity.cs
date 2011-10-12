@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
 using System.Collections.ObjectModel;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
@@ -22,10 +23,8 @@ namespace Exeggcute.src.entities
         public ScriptName Script { get; protected set; }
         protected ActionList actionList;
         //HACK public??
-        public List<Shot> shotList = new List<Shot>();
+        public List<Shot> ShotList { get; protected set; }
         protected List<Shot> spawnList = new List<Shot>();
-
-        protected int spawnPtr;
 
         private int p;
         protected int cmdPtr
@@ -43,6 +42,7 @@ namespace Exeggcute.src.entities
         public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList)
             : base(name, Engine.Jail)
         {
+            ShotList = new List<Shot>();
             Script = script;
             actionList = ScriptBank.Get(Script);
             this.spawnList = spawnList;
@@ -76,8 +76,19 @@ namespace Exeggcute.src.entities
             // seems excessively defensive. Also might be expensive
             // for thousands of objects?
             if (actionList == null || actionList.Count == 0) return;
-            ActionBase current = actionList[cmdPtr];
-            current.Process(this);
+            ///////////yuck//////////////////
+            for (int i = cmdPtr; i < actionList.Count; i += 1)
+            {
+                ActionBase current = actionList[i];
+                current.Process(this);
+                if (current is WaitAction || actionList == null)
+                {
+                    break;
+                }
+            }
+            /////////////////////////////////////////////
+            //ActionBase current = actionList[cmdPtr];
+            //current.Process(this);
             
         }
 
@@ -108,7 +119,7 @@ namespace Exeggcute.src.entities
             float angle = spawn.AngleOffset + Angle;
             Vector3 pos = Util.Displace(Position, angle, spawn.Distance);
             Shot cloned = toSpawn.Clone(pos, angle);
-            shotList.Add(cloned);
+            ShotList.Add(cloned);
             cmdPtr += 1;
         }
 
@@ -156,10 +167,25 @@ namespace Exeggcute.src.entities
         public override void Update()
         {
             ProcessActions();
-
             base.Update();
         }
 
+        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            foreach (Shot shot in ShotList)
+            {
+                shot.Draw(graphics, view, projection);
+            }
+            base.Draw(graphics, view, projection);
+        }
+
+        public virtual void UpdateChildren()
+        {
+            foreach (Shot shot in ShotList)
+            {
+                shot.Update();
+            }
+        }
 
 
     }

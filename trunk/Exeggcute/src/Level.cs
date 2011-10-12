@@ -49,7 +49,7 @@ namespace Exeggcute.src
             player.Update(controls);
             player.LockPosition(camera);
 
-            entities.ForEach(e => e.Update());
+            //entities.ForEach(e => e.Update());
         }
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -64,13 +64,13 @@ namespace Exeggcute.src
             //HACK FIXME
             foreach (CommandEntity e in entities)
             {
-                foreach (Shot shot in e.shotList)
+                foreach (Shot shot in e.ShotList)
                 {
                     shot.Draw(graphics, view, projection);
                     shot.Update();
                 }
             }
-            entities.ForEach(e => e.Draw(graphics, view, projection));
+            //entities.ForEach(e => e.Draw(graphics, view, projection));
             hud.Draw(batch, player);
         }
 

@@ -35,6 +35,7 @@ namespace Exeggcute.src.assets
 
     enum ScriptName
     {
+        playerspawner0,
         test,
         playerspawn,
         item,
