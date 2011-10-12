@@ -16,6 +16,8 @@ namespace Exeggcute.src
 
         public Rectangle GameRect { get; protected set; }
 
+        private SpriteFont scoreFont;
+
         private Doodad leftBox;
         private Doodad rightBox;
         private Doodad bottomBox;
@@ -26,6 +28,7 @@ namespace Exeggcute.src
         public HUD()
         {
             GameRect = Resize(Engine.XRes, Engine.YRes);
+            scoreFont = FontBank.Get(FontName.font0);
         }
 
         public Rectangle Resize(int xres, int yres)
@@ -51,7 +54,7 @@ namespace Exeggcute.src
             rightBox.Draw(batch);
             topBox.Draw(batch);
             bottomBox.Draw(batch);
-            player.DrawHUD(batch);
+            player.DrawHUD(batch, scoreFont);
         }
     }
 }

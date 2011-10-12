@@ -29,6 +29,15 @@ namespace Exeggcute.src
             get { return (float)XRes / (float)YRes; }
         }
 
+        /// <summary>
+        /// FIXME: HACK
+        /// Sort of hackish. Entities are placed here when they spawn so that
+        /// they don't show up. A better alternative would be to give things
+        /// a bool which specifies that they are "Active" or "Initialized"
+        /// or something
+        /// </summary>
+        public static readonly Vector3 Jail = new Vector3(0, 0, -10000);
+
         static Engine()
         {
             XRes = 1200;
@@ -46,10 +55,10 @@ namespace Exeggcute.src
             loadFonts(content);
             loadEffects(content);
             loadModels(content);
-
+            loadSprites(content);
             loadMenus();
             controls = new ControlManager(input);
-            player = new Player3D(ModelName.testcube, Vector3.Zero);
+            player = new Player3D(ModelName.testcube);
             //
             //hardcoded
             world.PushContext(new Level(device, content));
@@ -85,6 +94,14 @@ namespace Exeggcute.src
         private void loadModels(ContentManager content)
         {
             ModelBank.LoadAll(content);
+        }
+
+        private void loadSprites(ContentManager content)
+        {
+            SpriteBank.LoadAll(content);
+            //HACK
+            LifeItem.HUDSprite = SpriteBank.Get(SpriteName.life);
+            BombItem.HUDSprite = SpriteBank.Get(SpriteName.bomb);
         }
 
         private void loadMenus()

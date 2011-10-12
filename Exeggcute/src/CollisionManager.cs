@@ -17,10 +17,9 @@ namespace Exeggcute.src
         {
             foreach (Entity3D entity in enemies)
             {
-                Console.WriteLine("{0} {1}", player.Hitbox, entity.Hitbox);
                 if (entity.Hitbox.Intersects(player.Hitbox))
                 {
-                    Util.Die("YOU DEAD");
+                    
                 }
             }
         }

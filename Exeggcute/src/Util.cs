@@ -249,7 +249,7 @@ namespace Exeggcute.src
         {
             try
             {
-                vec = vec.Replace("(", "").Replace(")", "");
+                vec = vec.Replace("(", "").Replace(")", "").Replace(" ", "");
                 string[] nums = vec.Split(',');
                 float x = float.Parse(nums[0]);
                 float y = float.Parse(nums[1]);
@@ -269,7 +269,7 @@ namespace Exeggcute.src
         {
             try
             {
-                vec = vec.Replace("(", "").Replace(")", "");
+                vec = vec.Replace("(", "").Replace(")", "").Replace(" ", "");
                 string[] nums = vec.Split(',');
                 float x = float.Parse(nums[0]);
                 float y = float.Parse(nums[1]);

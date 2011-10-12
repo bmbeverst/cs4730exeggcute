@@ -35,7 +35,7 @@ namespace Exeggcute.src.graphics
         /// <param name="name">the filename minus extension</param>
         public static Sprite Load(SpriteName name)
         {
-            string filepath = String.Format("{0}.{1}", name, EXT);
+            string filepath = String.Format("Content/{0}.{1}", name, EXT);
             List<string> lines = Util.StripComments('#', filepath, true);
             lines.Reverse(); //???
             Stack<string> lineStack = new Stack<string>(lines);
@@ -56,7 +56,7 @@ namespace Exeggcute.src.graphics
                 if (frames.Length == 1)
                 {
                     // I need a cast? really??
-                    anims.Add(new StaticAnimation(textureName, frames[0]));
+                    anims.Add(new StaticAnimation(textureName, frames[0], width, height));
                     continue;
                 }
                 //else, animated sprite

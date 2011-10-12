@@ -17,14 +17,14 @@ namespace Exeggcute.src.entities
         /// </summary>
         public bool IsDone { get; protected set; }
         public CommandEntity Parent { get; protected set; }
-        private ActionList actionList;
-        private List<ShotSpawner> spawners = new List<ShotSpawner>();
-        
-        private int spawnPtr;
-        private bool shooting;
+        protected ActionList actionList;
+        protected List<ShotSpawner> spawners = new List<ShotSpawner>();
+
+        protected int spawnPtr;
+        public virtual bool Shooting { get; protected set; }
 
         private int p;
-        private int cmdPtr
+        protected int cmdPtr
         {
             get { return p; }
             set { p = value % actionList.Count; }
@@ -34,15 +34,15 @@ namespace Exeggcute.src.entities
         /// keeps track of how long a command has been processed before
         /// not applicable for all commands 
         /// </summary>
-        private int counter = 0;
+        protected int counter = 0;
 
-        public CommandEntity(ModelName name)
-            : base(name, new Vector3(0,0,0))
+        public CommandEntity(ModelName name, ScriptName script)
+            : base(name, Engine.Jail)
         {
-            actionList = ScriptBank.Get(ScriptName.test);
+            actionList = ScriptBank.Get(script);
         }
 
-        public void Process(ActionBase cmd)
+        public virtual void Process(ActionBase cmd)
         {
             string error = @"
             This is the default ActionBase handler. This was called
@@ -72,7 +72,7 @@ namespace Exeggcute.src.entities
         }
 
 
-        public void Process(MoveAction move)
+        public virtual void Process(MoveAction move)
         {
             Speed = move.Speed;
             Angle = move.Angle;
@@ -80,7 +80,7 @@ namespace Exeggcute.src.entities
             cmdPtr += 1;
         }
 
-        public void Process(VanishAction vanish)
+        public virtual void Process(VanishAction vanish)
         {
             IsDone = true;
             if (Parent != null)
@@ -90,13 +90,13 @@ namespace Exeggcute.src.entities
             cmdPtr += 1;
         }
 
-        public void Process(SetAction set)
+        public virtual void Process(SetAction set)
         {
             Position = set.Position;
             cmdPtr += 1;
         }
 
-        public void Process(WaitAction wait)
+        public virtual void Process(WaitAction wait)
         {
             if (counter >= wait.Duration)
             {
@@ -109,14 +109,14 @@ namespace Exeggcute.src.entities
             }
         }
 
-        public void Process(ShootAction shoot)
+        public virtual void Process(ShootAction shoot)
         {
             if (shoot.Start) spawnPtr = shoot.ShotIndex;
-            shooting = shoot.Start;
+            Shooting = shoot.Start;
             cmdPtr += 1;
         }
 
-        public void Process(StopAction stop)
+        public virtual void Process(StopAction stop)
         {
             Speed = 0;
             Angle = 0;
@@ -131,7 +131,7 @@ namespace Exeggcute.src.entities
         {
             ProcessActions();
 
-            if (shooting)
+            if (Shooting)
             {
                 spawners[spawnPtr].TrySpawnAt(Position);
             }

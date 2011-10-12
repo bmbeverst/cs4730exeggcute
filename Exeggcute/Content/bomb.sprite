@@ -1,10 +1,4 @@
 #display for lives on the HUD
 collectables
 32x32
-(0,0)
-
-
-
-
-
-
+(32,0)

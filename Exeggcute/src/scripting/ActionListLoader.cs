@@ -24,10 +24,14 @@ namespace Exeggcute.src.scripting
                 lines.Reverse();
                 Stack<string> lineStack = new Stack<string>(lines);
 
+                /*
+                // We don't get the model from an action list
+                // get it from the enemy script (not existent yet)
                 string modelString = lineStack.Pop();
 
                 string[] modelTokens = modelString.Split(' ');
                 ModelName modelName = Util.ParseEnum<ModelName>(modelTokens[1]);
+                */
 
                 int size = lineStack.Count;
                 for (int i = 0; i < size; i += 1)

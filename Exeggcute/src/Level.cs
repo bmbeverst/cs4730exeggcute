@@ -30,8 +30,8 @@ namespace Exeggcute.src
             camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
             particles = new TestParticleSystem(device, content);
-            player = new Player3D(ModelName.testcube, new Vector3(-20,0,0));
-            entities.Add(new CommandEntity(ModelName.testcube));
+            player = new Player3D(ModelName.testcube);
+            entities.Add(new CommandEntity(ModelName.testcube, ScriptName.test));
         }
 
         public void Update(ControlManager controls)

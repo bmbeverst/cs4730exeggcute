@@ -144,8 +144,9 @@
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\CollisionManager.cs" />
     <Compile Include="src\assets\Bank.cs" />
+    <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
-    <Compile Include="src\entities\ExtraLife.cs" />
+    <Compile Include="src\entities\LifeItem.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
     <Compile Include="src\scripting\MoveAction.cs" />
@@ -226,6 +227,12 @@
     <Compile Include="src\Util.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="item.cl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="playerspawn.cl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="test.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -296,6 +303,9 @@
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

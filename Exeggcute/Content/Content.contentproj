@@ -82,6 +82,10 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <None Include="bomb.sprite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Name>bomb</Name>
+    </None>
     <None Include="life.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>life</Name>
@@ -158,8 +162,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="life.png">
-      <Name>life</Name>
+    <Compile Include="collectables.png">
+      <Name>collectables</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

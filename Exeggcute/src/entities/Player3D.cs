@@ -6,24 +6,43 @@ using Exeggcute.src.input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.entities
 {
-    class Player3D : PlanarEntity3D
+    class Player3D : CommandEntity
     {
         public List<Shot> shots = new List<Shot>();
         public List<ShotSpawner> spawners = new List<ShotSpawner>();
         public static readonly Point Bounds = new Point(30, 37);
 
+
+
         private int lives;
-        public Player3D(ModelName name, Vector3 pos)
-            : base(name, pos)
+        private int bombs;
+        private int score;
+
+        public bool CanControl
+        {
+            get { return actionList == null; }
+        }
+
+        public Player3D(ModelName name)
+            : base(name, ScriptName.playerspawn)
         {
             Shot shot = new Shot(ModelName.testcube, Vector3.Zero);
             spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
             spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
             lives = 3;
+            bombs = 3;
+            score = 1234;
         }
+
+        public override void Process(VanishAction vanish)
+        {
+
+        }
+
         public void LockPosition(Camera camera)
         {
             if (X < -Bounds.X)
@@ -106,6 +125,7 @@ namespace Exeggcute.src.entities
                     shots.RemoveAt(i);
                 }
             }
+            score += 123;
             base.Update();
         }
 
@@ -115,12 +135,21 @@ namespace Exeggcute.src.entities
             shots.ForEach(shot => shot.Draw(graphics, view, projection));
         }
 
-        public void DrawHUD(SpriteBatch batch)
+        public void DrawHUD(SpriteBatch batch, SpriteFont scoreFont)
         {
             for (int i = 0; i < lives; i += 1)
             {
-
+                LifeItem.HUDSprite.Draw(batch, new Vector2(50, i * 40));
             }
+
+            for (int i = 0; i < bombs; i += 1)
+            {
+                BombItem.HUDSprite.Draw(batch, new Vector2(100, i * 40));
+            }
+            //9 decimal places
+            string scoreString = string.Format("{0:000,000,000}", score);
+            batch.DrawString(scoreFont, scoreString, new Vector2(10, 120), Color.White);
+
         }
     }
 }
