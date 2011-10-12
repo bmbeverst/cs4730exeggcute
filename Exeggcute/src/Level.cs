@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.particles;
-using Exeggcute.src.entity;
+using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 
 namespace Exeggcute.src
@@ -21,14 +21,16 @@ namespace Exeggcute.src
         private ParticleSystem particles;
         private Camera camera;
         private Player3D player;
-        private List<CommandEntity> entities = new List<CommandEntity>();
+        private CollisionManager collider;
+        private List<Entity3D> entities = new List<Entity3D>();
 
         public Level(GraphicsDevice device, ContentManager content)
         {
+            collider = new CollisionManager();
             camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
             particles = new TestParticleSystem(device, content);
-            player = new Player3D(ModelName.testcube, Vector3.Zero);
+            player = new Player3D(ModelName.testcube, new Vector3(-20,0,0));
             entities.Add(new CommandEntity(ModelName.testcube));
         }
 
@@ -40,7 +42,7 @@ namespace Exeggcute.src
                 if (player.Velocity.Equals(Vector3.Zero)) break;
                 particles.AddParticle(player.Position, -5*player.Velocity);
             }
-
+            collider.Collide(player, entities);
             player.Update(controls);
             player.LockPosition(camera);
 
@@ -56,7 +58,7 @@ namespace Exeggcute.src
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
             entities.ForEach(e => e.Draw(graphics, view, projection));
-            hud.Draw(batch);
+            hud.Draw(batch, player);
         }
 
 

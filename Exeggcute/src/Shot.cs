@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Exeggcute.src.entity;
+using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 

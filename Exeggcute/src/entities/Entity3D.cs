@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.entity
+namespace Exeggcute.src.entities
 {
     abstract class Entity3D 
     {
@@ -39,6 +39,8 @@ namespace Exeggcute.src.entity
             Surface = ModelBank.Get(name);
             Position = pos;
             Hitbox = Util.MergeSpheres(Surface.Meshes);
+            Hitbox = new BoundingSphere(Position, Hitbox.Radius);
+            Console.WriteLine(Hitbox);
         }
 
         public void SetPosition(Vector3 newpos)
@@ -47,7 +49,11 @@ namespace Exeggcute.src.entity
         }
 
 
-        public abstract void Update();
+        public virtual void Update()
+        {
+            Hitbox = new BoundingSphere(Position, Hitbox.Radius);
+        }
+
         public virtual void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             Matrix[] transforms = new Matrix[Surface.Bones.Count];

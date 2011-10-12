@@ -19,7 +19,7 @@ namespace Exeggcute.src
         {
             this.shot = shot;
             this.offset = new Vector3(offset.X, offset.Y, 0);
-            timer = new Timer(cooldown,cooldown - cdoffset);
+            this.timer = new Timer(cooldown,cooldown - cdoffset);
             this.angle = angle;
             this.speed = speed;
         }
@@ -40,6 +40,17 @@ namespace Exeggcute.src
             {
                 return null;
             }
+        }
+
+        public Shot TrySpawnAt(Vector3 pos)
+        {
+            timer.Increment();
+            if (timer.IsDone)
+            {
+                timer.Reset();
+                return shot.Clone(pos + offset, angle, speed);
+            }
+            return null;
         }
     }
 }

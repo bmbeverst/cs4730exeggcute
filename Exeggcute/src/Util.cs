@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.entity;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src
 {

@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
-using Exeggcute.src.commands;
+using Exeggcute.src.scripting;
 
-namespace Exeggcute.src.commands
+namespace Exeggcute.src.scripting
 {
-    class CommandListLoader
+    class ActionListLoader
     {
         ///<summary>File extention for command list scripts</summary>
         public const string EXT = "cl";
 
-        public static List<Command> Load(string name)
+        public static ActionList Load(ScriptName name)
         {
-            List<Command> result = new List<Command>();
+            List<ActionBase> actions = new List<ActionBase>();
             try
             {
                 string filepath = string.Format("{0}.{1}", name, EXT);
@@ -35,12 +35,10 @@ namespace Exeggcute.src.commands
                     string line = lineStack.Pop();
                     try
                     {
-                        
-                        Console.WriteLine(line);
-                        List<Command> parsed = parseCommand(line);
-                        foreach (Command cmd in parsed)
+                        List<ActionBase> parsed = parseCommand(line);
+                        foreach (ActionBase cmd in parsed)
                         {
-                            result.Add(cmd);
+                            actions.Add(cmd);
                         }
                     }
                     catch
@@ -57,10 +55,10 @@ namespace Exeggcute.src.commands
             {
                 throw new ParseError("parse error");
             }
-            return result;
+            return new ActionList(actions);
         }
 
-        public static List<Command> parseCommand(string line)
+        public static List<ActionBase> parseCommand(string line)
         {
             string[] tokens = line.Split(' ');
             CommandType type = Util.ParseEnum<CommandType>(tokens[0]);
@@ -70,24 +68,48 @@ namespace Exeggcute.src.commands
                 Vector2 target = Util.ParseVector2(tokens[2]);
                 int duration = int.Parse(tokens[3]);
                 float distance = Vector2.Distance(start, target);
-                float speed = (distance / duration)*2;
+                float speed = (distance / (duration - 1))*2;
                 float angle = FastTrig.Atan2(target.Y - start.Y, target.X - start.X);
                 Console.WriteLine(angle);
                 float linearAccel = -(speed / duration);
-                return new List<Command> {
-                    new MoveCommand(angle, speed, 0, linearAccel, 0, 0),
-                    new WaitCommand(duration)
+                return new List<ActionBase> {
+                    new MoveAction(angle, speed, 0, linearAccel, 0, 0),
+                    new WaitAction(duration),
+                    new SetAction(target)
                 };
             }
             else if (type == CommandType.Wait)
             {
                 int duration = int.Parse(tokens[1]);
-                return new List<Command> { new WaitCommand(duration) };
+                return new List<ActionBase> { new WaitAction(duration) };
             }
-            else if (type == CommandType.Reset)
+            else if (type == CommandType.Stop)
             {
-                Vector3 position = Util.ParseVector3(tokens[1]);
-                return new List<Command> { new ResetCommand(position) };
+                return new List<ActionBase> { new StopAction() };
+            }
+            else if (type == CommandType.Vanish)
+            {
+                return new List<ActionBase> { new VanishAction() };
+            }
+            else if (type == CommandType.Shoot)
+            {
+                ShootAction command;
+                int shotID = int.Parse(tokens[1]);
+                if (shotID == -1)
+                {
+                    command = new ShootAction();
+                }
+                else
+                {
+                    command = new ShootAction(shotID);
+                }
+                return new List<ActionBase> { command };
+
+            }
+            else if (type == CommandType.Set)
+            {
+                Vector3 pos = Util.ParseVector3(tokens[1]);
+                return new List<ActionBase> { new SetAction(pos) };
             }
             else
             {

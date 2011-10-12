@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Exeggcute.src.entities;
 
-namespace Exeggcute.src.commands
+namespace Exeggcute.src.scripting
 {
-    class MoveCommand : Command
+    class MoveAction : ActionBase
     {
         public float Angle { get; protected set; }
         public float Speed { get; protected set; }
@@ -14,13 +15,12 @@ namespace Exeggcute.src.commands
         public float AngularAccel { get; protected set; }
         public float VelocityZ { get; protected set; }
 
-        public MoveCommand(float angle = 0,
+        public MoveAction(float angle = 0,
                            float speed = 0,
                            float angularVelocity = 0,
                            float linearAccel = 0,
                            float angularAccel = 0,
                            float velocityZ = 0)
-            : base(CommandType.Move)
         {
             Angle = angle;
             Speed = speed;
@@ -28,6 +28,16 @@ namespace Exeggcute.src.commands
             LinearAccel = linearAccel;
             AngularAccel = angularAccel;
             VelocityZ = velocityZ;
+        }
+
+        public override void Process(CommandEntity entity)
+        {
+            entity.Process(this);
+        }
+
+        public override ActionBase Copy()
+        {
+            return new MoveAction(Angle, Speed, AngularVelocity, LinearAccel, AngularAccel, VelocityZ);
         }
     }
 }
