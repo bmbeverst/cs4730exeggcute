@@ -16,8 +16,8 @@ namespace Exeggcute.src.gui
     class ListButton : Button 
     {
         public IDrawable2D Image { get; protected set; }
-        public ListButton(ContextStack parent, MenuEvent activate, IDrawable2D image)
-            : base(parent, null, null, activate, null)
+        public ListButton(MenuEvent activate, IDrawable2D image)
+            : base(null, null, activate, null)
         {
             Image = image;
         }
@@ -27,11 +27,11 @@ namespace Exeggcute.src.gui
             IsActive = true;
             if (controls[Ctrl.Action].DoEatPress())
             {
-                parentStack.SendEvent(onActivate);
+                World.SendEvent(onActivate);
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
-                //parentStack.Send(MenuEventType.Pop);
+                //ContextStack.Send(MenuEventType.Pop);
             }
             base.Update(controls);
         }
@@ -45,13 +45,13 @@ namespace Exeggcute.src.gui
         
         protected override void moveUp()
         {
-            parentStack.SendMove(Direction.Up);
+            World.SendMove(Direction.Up);
             IsActive = false;
         }
         
         protected override void moveDown()
         {
-            parentStack.SendMove(Direction.Down);
+            World.SendMove(Direction.Down);
             IsActive = false;
         }
 

@@ -37,9 +37,9 @@ namespace Exeggcute.src.input
         }
 
         /// <summary>
-        /// if Value == 1 then 
-        ///     begin Value += 1 ; true end 
-        /// else false
+        /// If Value == 1, then Value += 1, and return true
+        /// otherwise return true
+        /// WARNING: this steals the "Just Pressed" state from anyone else
         /// </summary>
         public bool DoEatPress()
         {

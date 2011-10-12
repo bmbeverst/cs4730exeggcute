@@ -46,7 +46,6 @@ namespace Exeggcute.src
 
         public ControlManager controls;
         private static List<Menu> menus = new List<Menu>();
-        public ContextStack world = new ContextStack();
         public Engine(GraphicsDevice device, ContentManager content, InputManager input)
         {
             loadScripts(content);
@@ -58,9 +57,8 @@ namespace Exeggcute.src
             loadMenus();
             controls = new ControlManager(input);
 
-            //
             //hardcoded
-            world.PushContext(new Level(device, content));
+            World.PushContext(new Level(device, content));
             
         }
 
@@ -113,7 +111,7 @@ namespace Exeggcute.src
         public void Update()
         {
             controls.Update();
-            world.Update(controls);
+            World.Update(controls);
             if (controls[Ctrl.Quit].IsPressed)
             {
                 Exit();
@@ -125,7 +123,7 @@ namespace Exeggcute.src
         {
             graphics.Clear(Color.CornflowerBlue);
             batch.Begin();
-            world.Draw(graphics, batch);
+            World.Draw(graphics, batch);
             batch.End();
         }
 

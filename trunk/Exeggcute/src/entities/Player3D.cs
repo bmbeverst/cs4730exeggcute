@@ -130,13 +130,20 @@ namespace Exeggcute.src.entities
             {
                 shotSpawner.Update();
             }
-            shotSpawner.UpdateChildren();
+
+            if (controls[Ctrl.Start].DoEatPress())
+            {
+                World.Pause();
+            }
+
+            
         }
 
         public void Update(ControlManager controls)
         {
             shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
+            shotSpawner.UpdateChildren();
             for (int i = shotSpawner.ShotList.Count - 1; i >= 0; i -= 1)
             {
                 Shot shot = shotSpawner.ShotList[i];
@@ -172,6 +179,15 @@ namespace Exeggcute.src.entities
             string scoreString = string.Format("{0:000,000,000}", score);
             batch.DrawString(scoreFont, scoreString, new Vector2(10, 120), Color.White);
 
+        }
+
+        public void Kill()
+        {
+            Console.WriteLine("KILLED!");
+            actionList = ScriptBank.Get(ScriptName.playerspawn);
+            cmdPtr = 0;
+            lives -= 1;
+            //spawn the death animation
         }
     }
 }

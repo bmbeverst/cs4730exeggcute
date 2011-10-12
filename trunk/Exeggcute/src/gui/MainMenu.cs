@@ -16,8 +16,8 @@ namespace Exeggcute.src.gui
         List<Vector2> drawPositions = new List<Vector2>();
         Doodad buttonBoxOutline;
         int vertButtonSpacing; 
-        public MainMenu(ContextStack parentStack)
-            : base(getButtons(parentStack), false)
+        public MainMenu()
+            : base(getButtons(), false)
         {
             cursorSprite = new StaticSprite(TextureName.cursor, new Point(0, 0), 16, 16);
             int width = 100;
@@ -60,17 +60,15 @@ namespace Exeggcute.src.gui
             resolveCursor();
         }
 
-        private static List<Button> getButtons(ContextStack parentStack)
+        private static List<Button> getButtons()
         {
             List<Button> buttons = new List<Button>();
             SpriteFont font = FontBank.Get(FontName.font0);
             ListButton start =
-                new ListButton(parentStack,
-                               new MenuEvent(Direction.Up),
+                new ListButton(new MenuEvent(Direction.Up),
                                new SpriteText(font, "Start", Color.Black));
             ListButton quit =
-                new ListButton(parentStack,
-                               new MenuEvent(Direction.Up),
+                new ListButton(new MenuEvent(Direction.Up),
                                new SpriteText(font, "End", Color.Black));
             buttons.Add(start);
             buttons.Add(quit);

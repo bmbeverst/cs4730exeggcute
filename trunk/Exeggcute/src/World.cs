@@ -14,54 +14,65 @@ namespace Exeggcute.src
     /// or the ReallyQuit? menu is pushed on top of the PauseMenu is 
     /// pushed on the Level Context.
     /// </summary>
-    class ContextStack 
+    static class World 
     {
-        private Stack<IContext> stack = new Stack<IContext>();
-        private List<MenuEvent> eventList = new List<MenuEvent>();
+        private static Stack<IContext> stack = new Stack<IContext>();
+        private static List<MenuEvent> eventList = new List<MenuEvent>();
 
-        public ContextStack()
-        {
 
-        }
 
-        public void Update(ControlManager controls)
+        public static void Update(ControlManager controls)
         {
             stack.Peek().Update(controls);
             handleEvents();
         }
         
-        public void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public static void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
             stack.Peek().Draw(graphics, batch);
         }
         
-        public void SendEvent(MenuEvent eve)
+        public static void SendEvent(MenuEvent eve)
         {
             eventList.Add(eve);
         }
         
         // Do I need the events at all if im doing it this way?
-        public void SendMove(Direction dir)
+        public static void SendMove(Direction dir)
         {
             ((Menu)(stack.Peek())).Move(dir);
         }
         
-        public void SendAccept()
+        public static void SendAccept()
         {
             
         }
         
-        public void SendBack()
+        public static void SendBack()
         {
           
         }
 
-        public void PushContext(IContext context)
+        public static void Pause()
+        {
+            stack.Push(new PauseMenu());
+        }
+
+        public static void Unpause()
+        {
+            if (!(stack.Peek() is PauseMenu))
+            {
+                throw new InvalidOperationException("Only can unpause from the pause menu");
+            }
+            stack.Pop();
+        }
+
+        public static void PushContext(IContext context)
         {
             stack.Push(context);
         }
         
-        private void handleEvents()
+        private static void handleEvents()
         {
             /*foreach (MenuEvent m_event in eventList)
             {
@@ -95,7 +106,7 @@ namespace Exeggcute.src
         /// Removes all elements from the stack, calling their Cleanup method
         /// as they are removed.
         /// </summary>
-        public void Cleanup(ContentManager content)
+        public static void Cleanup(ContentManager content)
         {
             for (int i = 0; i < stack.Count; i += 1)
             {

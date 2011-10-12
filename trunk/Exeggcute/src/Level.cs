@@ -45,11 +45,16 @@ namespace Exeggcute.src
                 if (player.Velocity.Equals(Vector3.Zero)) break;
                 particles.AddParticle(player.Position, -5*player.Velocity);
             }
-            collider.Collide(player, entities);
+
+            bool hit = collider.Collide(player, entities);
+            if (hit)
+            {
+                player.Kill();
+            }
             player.Update(controls);
             player.LockPosition(camera);
 
-            //entities.ForEach(e => e.Update());
+            entities.ForEach(e => e.Update());
         }
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -70,7 +75,7 @@ namespace Exeggcute.src
                     shot.Update();
                 }
             }
-            //entities.ForEach(e => e.Draw(graphics, view, projection));
+            entities.ForEach(e => e.Draw(graphics, view, projection));
             hud.Draw(batch, player);
         }
 
