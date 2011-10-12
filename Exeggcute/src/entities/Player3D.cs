@@ -18,6 +18,8 @@ namespace Exeggcute.src.entities
         public float MoveSpeed { get; protected set; }
         public float FocusSpeed { get; protected set; }
 
+        private CommandEntity shotSpawner;
+
         private int lives;
         private int bombs;
         private int score;
@@ -32,8 +34,6 @@ namespace Exeggcute.src.entities
         {
             Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0);
             spawnList.Add(shot);
-            //spawners.Add(new ShotSpawner(shot, Vector2.UnitX, 10, 10, MathHelper.Pi / 2, 2));
-            //spawners.Add(new ShotSpawner(shot, -Vector2.UnitX, 10, 5, MathHelper.Pi / 2, 2));
             this.shots = shots;
             lives = 3;
             bombs = 3;
@@ -124,6 +124,13 @@ namespace Exeggcute.src.entities
             {
                 Z -= speed;
             }
+
+            /*if (controls[Ctrl.Action].IsPressed)
+            {
+                shotSpawner.Update();
+            }
+            shotSpawner.Update();*/
+
 
             /*foreach (ShotSpawner spawner in spawners)
             {
