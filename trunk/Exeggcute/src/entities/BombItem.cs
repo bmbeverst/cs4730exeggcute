@@ -7,13 +7,17 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src.entities
 {
-    class ExtraLife : Collectable
+    class BombItem : Collectable
     {
         public static Sprite HUDSprite;
 
-        public static void Load()
+        public BombItem(ModelName name)
+            : base(name)
         {
-            HUDSprite = SpriteBank.Get(
+            if (HUDSprite == null)
+            {
+                HUDSprite = SpriteBank.Get(SpriteName.bomb);
+            }
         }
     }
 }
