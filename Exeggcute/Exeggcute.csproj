@@ -149,6 +149,7 @@
     <Compile Include="src\entities\LifeItem.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
+    <Compile Include="src\scripting\EndAction.cs" />
     <Compile Include="src\scripting\MoveAction.cs" />
     <Compile Include="src\scripting\StopAction.cs" />
     <Compile Include="src\scripting\SetAction.cs" />
@@ -227,14 +228,17 @@
     <Compile Include="src\Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="item.cl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="data\playershot0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="playerspawn.cl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="data\item.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="test.cl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="data\playerspawn.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\test.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -304,9 +308,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>

@@ -15,11 +15,22 @@ namespace Exeggcute.src
 
         public void Collide(Player3D player, List<Entity3D> enemies)
         {
-            foreach (Entity3D entity in enemies)
+            foreach (Entity3D enemy in enemies)
             {
-                if (entity.Hitbox.Intersects(player.Hitbox))
+                if (enemy.Hitbox.Intersects(player.Hitbox))
                 {
                     
+                }
+            }
+        }
+
+        public void Collide(List<Shot> playerShots, List<Entity3D> enemies)
+        {
+            foreach (Shot shot in playerShots)
+            {
+                foreach (Entity3D enemy in enemies)
+                {
+
                 }
             }
         }

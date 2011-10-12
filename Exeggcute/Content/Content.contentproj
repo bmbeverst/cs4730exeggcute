@@ -81,6 +81,7 @@
       <Name>font0</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
     <None Include="bomb.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
