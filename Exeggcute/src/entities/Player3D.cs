@@ -33,6 +33,7 @@ namespace Exeggcute.src.entities
             : base(name, ScriptName.playerspawn, new List<Shot>())
         {
             Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0);
+            shotSpawner = new CommandEntity(ModelName.testcube, ScriptName.playerspawner0, new List<Shot> { shot });
             spawnList.Add(shot);
             this.shots = shots;
             lives = 3;
@@ -125,45 +126,35 @@ namespace Exeggcute.src.entities
                 Z -= speed;
             }
 
-            /*if (controls[Ctrl.Action].IsPressed)
+            if (controls[Ctrl.Action].IsPressed)
             {
                 shotSpawner.Update();
             }
-            shotSpawner.Update();*/
-
-
-            /*foreach (ShotSpawner spawner in spawners)
-            {
-                Shot spawned = spawner.TrySpawnAt(Position, controls[Ctrl.Action]);
-                if (spawned != null)
-                {
-                    shots.Add(spawned);
-                }
-            }*/
-
+            shotSpawner.UpdateChildren();
         }
 
         public void Update(ControlManager controls)
         {
-
+            shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
-            for (int i = shots.Count - 1; i >= 0; i -= 1)
+            for (int i = shotSpawner.ShotList.Count - 1; i >= 0; i -= 1)
             {
-                Shot shot = shots[i];
-                shot.Update();
+                Shot shot = shotSpawner.ShotList[i];
                 if (shot.Y > Bounds.Y + 4)
                 {
-                    shots.RemoveAt(i);
+                    shotSpawner.ShotList.RemoveAt(i);
                 }
             }
             score += 123;
+            
             base.Update();
         }
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             base.Draw(graphics, view, projection);
-            shots.ForEach(shot => shot.Draw(graphics, view, projection));
+            shotSpawner.Draw(graphics, view, projection);
+            //shots.ForEach(shot => shot.Draw(graphics, view, projection) );
         }
 
         public void DrawHUD(SpriteBatch batch, SpriteFont scoreFont)
