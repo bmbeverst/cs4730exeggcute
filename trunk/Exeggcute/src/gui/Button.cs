@@ -5,22 +5,23 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.input;
+using Exeggcute.src.contexts;
 
 namespace Exeggcute.src.gui
 {
     abstract class Button
     {
-        protected MenuEvent onSelect;
-        protected MenuEvent onDeselect;
-        protected MenuEvent onActivate;
-        protected MenuEvent onDeactivate;
+        protected ContextEvent onSelect;
+        protected ContextEvent onDeselect;
+        protected ContextEvent onActivate;
+        protected ContextEvent onDeactivate;
         //protected Drawable image;
         public bool IsActive { get; protected set; }
         public bool IsSelected { get; protected set; }
-        public Button(MenuEvent select, 
-                      MenuEvent deselect, 
-                      MenuEvent activate,
-                      MenuEvent deactivate)
+        public Button(ContextEvent select,
+                      ContextEvent deselect,
+                      ContextEvent activate,
+                      ContextEvent deactivate)
         {
             onSelect = select;
             onDeselect = deselect;

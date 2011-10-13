@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 using Exeggcute.src.input;
+using Exeggcute.src.contexts;
 
 namespace Exeggcute.src.gui
 {
@@ -66,10 +67,10 @@ namespace Exeggcute.src.gui
             List<Button> buttons = new List<Button>();
             SpriteFont font = FontBank.Get(FontName.font0);
             ListButton start =
-                new ListButton(new MenuEvent(ContextName.Level),
+                new ListButton(new LoadLevelEvent(),
                                new SpriteText(font, "Start", Color.Black));
             ListButton quit =
-                new ListButton(new MenuEvent(ContextName.Quit),
+                new ListButton(new QuitEvent(),
                                new SpriteText(font, "End", Color.Black));
             buttons.Add(start);
             buttons.Add(quit);

@@ -144,6 +144,10 @@
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\CollisionManager.cs" />
     <Compile Include="src\assets\Bank.cs" />
+    <Compile Include="src\contexts\BackEvent.cs" />
+    <Compile Include="src\contexts\ContextEvent.cs" />
+    <Compile Include="src\contexts\LoadLevelEvent.cs" />
+    <Compile Include="src\contexts\QuitEvent.cs" />
     <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
     <Compile Include="src\entities\LifeItem.cs" />
@@ -198,7 +202,6 @@
     <Compile Include="src\graphics\SpriteText.cs" />
     <Compile Include="src\gui\Button.cs" />
     <Compile Include="src\gui\MainMenu.cs" />
-    <Compile Include="src\gui\MenuEvent.cs" />
     <Compile Include="src\gui\MenuEventType.cs" />
     <Compile Include="src\World.cs" />
     <Compile Include="src\IContext.cs" />

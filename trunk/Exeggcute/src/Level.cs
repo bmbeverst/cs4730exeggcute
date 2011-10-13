@@ -24,12 +24,12 @@ namespace Exeggcute.src
         private CollisionManager collider;
         private List<CommandEntity> entities = new List<CommandEntity>();
         private List<Shot> playerShots = new List<Shot>();
-        public Level(GraphicsDevice device, ContentManager content)
+        public Level(GraphicsDevice graphics, ContentManager content)
         {
             collider = new CollisionManager();
             camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
-            particles = new TestParticleSystem(device, content);
+            particles = new TestParticleSystem(graphics, content);
             player = new Player3D(ModelName.testcube, playerShots);
             List<Shot> shotList = new List<Shot> {
                 new Shot(ModelName.testcube, ScriptName.playershot0)

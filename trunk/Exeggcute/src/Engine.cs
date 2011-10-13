@@ -106,7 +106,7 @@ namespace Exeggcute.src
             MainMenu main = new MainMenu();
             World.PushContext(main);
             //for now lets ignore the level
-            World.LoadLevel();
+            //World.LoadLevel();
         }
 
         public void Update()
