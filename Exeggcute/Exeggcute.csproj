@@ -150,6 +150,8 @@
     <Compile Include="src\contexts\QuitEvent.cs" />
     <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
+    <Compile Include="src\entities\Entity.cs" />
+    <Compile Include="src\entities\HashList.cs" />
     <Compile Include="src\entities\LifeItem.cs" />
     <Compile Include="src\gui\DifficultyMenu.cs" />
     <Compile Include="src\gui\PauseMenu.cs" />

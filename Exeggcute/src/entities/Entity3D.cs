@@ -8,7 +8,7 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src.entities
 {
-    abstract class Entity3D 
+    abstract class Entity3D : Entity
     {
         public virtual Vector3 Position { get; protected set; }
         public virtual Model Surface { get; protected set; }

@@ -10,7 +10,7 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src.entities
 {
-    class Entity2D
+    class Entity2D : Entity
     {
 
         public virtual Sprite Sprite { get; protected set; }

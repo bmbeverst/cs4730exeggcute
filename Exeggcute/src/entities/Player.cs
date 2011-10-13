@@ -27,7 +27,7 @@ namespace Exeggcute.src.entities
             get { return actionList == null; }
         }
 
-        public Player(ModelName name, List<Shot> shotList)
+        public Player(ModelName name, HashList<Shot> shotList)
             : base(name, ScriptName.playerspawn, new List<Shot>(), shotList)
         {
             Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0, shotList);

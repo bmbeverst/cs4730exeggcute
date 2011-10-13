@@ -10,7 +10,7 @@ namespace Exeggcute.src
 {
     class Shot : CommandEntity
     {
-        public Shot(ModelName model, ScriptName script, List<Shot> shotList)
+        public Shot(ModelName model, ScriptName script, HashList<Shot> shotList)
             : base(model, script, new List<Shot>(), shotList)
         {
 
