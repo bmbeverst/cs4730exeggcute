@@ -20,7 +20,7 @@ namespace Exeggcute.src
         private HUD hud;
         private ParticleSystem particles;
         private Camera camera;
-        private Player3D player;
+        private Player player;
         private CollisionManager collider;
         private List<CommandEntity> entities = new List<CommandEntity>();
         private List<Shot> playerShots = new List<Shot>();
@@ -30,7 +30,7 @@ namespace Exeggcute.src
             camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
             particles = new TestParticleSystem(graphics, content);
-            player = new Player3D(ModelName.testcube, playerShots);
+            player = new Player(ModelName.testcube, playerShots);
             List<Shot> shotList = new List<Shot> {
                 new Shot(ModelName.testcube, ScriptName.playershot0)
             };

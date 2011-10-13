@@ -13,7 +13,7 @@ namespace Exeggcute.src
 
         }
 
-        public bool Collide(Player3D player, List<CommandEntity> enemies)
+        public bool Collide(Player player, List<CommandEntity> enemies)
         {
             if (!player.CanControl) return false;
             foreach (Entity3D enemy in enemies)
