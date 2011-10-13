@@ -47,7 +47,7 @@ namespace Exeggcute.src
         }
 
 
-        public void Draw(SpriteBatch batch, Player3D player)
+        public void Draw(SpriteBatch batch, Player player)
         {
             //just messing around. draw whatever here
             leftBox.Draw(batch);
