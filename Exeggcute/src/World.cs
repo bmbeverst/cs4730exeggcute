@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.gui;
 using Microsoft.Xna.Framework.Content;
+using Exeggcute.src.input;
+using Exeggcute.src.contexts;
 
 namespace Exeggcute.src
 {
@@ -17,7 +19,6 @@ namespace Exeggcute.src
     static class World 
     {
         private static Stack<IContext> stack = new Stack<IContext>();
-        private static List<MenuEvent> eventList = new List<MenuEvent>();
         private static bool isInitialized = false;
         private static ContentManager content;
         private static GraphicsDevice graphics;
@@ -33,7 +34,6 @@ namespace Exeggcute.src
         public static void Update(ControlManager controls)
         {
             stack.Peek().Update(controls);
-            handleEvents();
         }
         
         public static void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -46,20 +46,20 @@ namespace Exeggcute.src
             stack.Push(new Level(graphics, content));
         }
 
-        public static void SendEvent(MenuEvent eve)
+        public static void Process(ContextEvent ent)
         {
-            Console.WriteLine(eve.NextID);
-            //FIXME hack
-            if (eve.NextID == input.ContextName.Level)
-            {
-                LoadLevel();
-            }
-            else if (eve.NextID == input.ContextName.Quit)
-            {
-                //so bad
-                Environment.Exit(0);
-            }
 
+        }
+
+        public static void Process(LoadLevelEvent ent)
+        {
+            stack.Push(new Level(graphics, content));
+        }
+
+        public static void Process(QuitEvent ent)
+        {
+            //FIXME
+            Environment.Exit(0);
         }
         
         // Do I need the events at all if im doing it this way?
@@ -97,36 +97,6 @@ namespace Exeggcute.src
             stack.Push(context);
         }
         
-        private static void handleEvents()
-        {
-            /*foreach (MenuEvent m_event in eventList)
-            {
-                MenuEventType type = m_event.Type;
-                if (type == MenuEventType.Pop)
-                {
-                    stack.Pop().Cleanup();
-                }
-                else if (type == MenuEventType.Push)
-                {
-                    stack.Push(Engine.GetMenu(m_event.ID));
-                }
-                else if (type == MenuEventType.Move)
-                {
-                    stack.Peek().Move(m_event.Dir);
-                }
-                else if (type == MenuEventType.Replace)
-                {
-                    this.Cleanup();
-                    stack.Push(Engine.GetMenu(m_event.ID));
-                }
-                else
-                {
-                    string error = string.Format("Unimplemented event type: {0}", type);
-                    throw new ArgumentException(error);
-                }
-            }*/
-            eventList.Clear();
-        }
         /// <summary>
         /// Removes all elements from the stack, calling their Cleanup method
         /// as they are removed.

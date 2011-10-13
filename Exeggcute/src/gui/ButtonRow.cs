@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.contexts;
 
 namespace Exeggcute.src.gui
 {
@@ -9,8 +10,8 @@ namespace Exeggcute.src.gui
     {
         protected int cursorX;
         protected List<Button> row;
-        
-        public ButtonRow(List<Button> row, MenuEvent select, MenuEvent deselect)
+
+        public ButtonRow(List<Button> row, ContextEvent select, ContextEvent deselect)
             : base(select, deselect, null, null)
         {
             this.row = row;

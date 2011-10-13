@@ -6,6 +6,7 @@ using Exeggcute.src.input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.graphics;
+using Exeggcute.src.contexts;
 
 namespace Exeggcute.src.gui
 {
@@ -16,7 +17,7 @@ namespace Exeggcute.src.gui
     class ListButton : Button 
     {
         public IDrawable2D Image { get; protected set; }
-        public ListButton(MenuEvent activate, IDrawable2D image)
+        public ListButton(ContextEvent activate, IDrawable2D image)
             : base(null, null, activate, null)
         {
             Image = image;
@@ -27,7 +28,7 @@ namespace Exeggcute.src.gui
             IsActive = true;
             if (controls[Ctrl.Action].DoEatPress())
             {
-                World.SendEvent(onActivate);
+                onActivate.Process();
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
