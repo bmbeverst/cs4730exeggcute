@@ -49,7 +49,16 @@ namespace Exeggcute.src
         /// </summary>
         public static void Die(string message, params object[] args)
         {
-            Console.Error.WriteLine(String.Format(message, args));
+            string msg;
+            if (args.Length == 0)
+            {
+                msg = message;
+            }
+            else
+            {
+                msg = string.Format(message, args);
+            }
+            Console.Error.WriteLine(msg);
             Console.Error.WriteLine("Press enter to exit");
             Console.ReadLine();
             Environment.Exit(1);
@@ -292,6 +301,21 @@ namespace Exeggcute.src
             float x = origin.X + distance * FastTrig.Sin(angle);
             float y = origin.Y + distance * FastTrig.Cos(angle);
             return new Vector3(x, y, origin.Z);
+        }
+
+        /// <summary>
+        /// Returns the given rectangle grown by the given percentage on all sides.
+        /// Assumes liveBuffer &gt; 0  
+        /// </summary>
+        public static Rectangle GrowRect(Rectangle rect, float liveBuffer)
+        {
+            int newWidth = (int)(rect.Width * (1 + 2 * liveBuffer));
+            int newHeight = (int)(rect.Height * (1 + 2 * liveBuffer));
+            int newLeft = rect.Left - (int)(rect.Width * liveBuffer);
+            int newTop = rect.Top - (int)(rect.Height * liveBuffer);
+
+            return new Rectangle(newLeft, newTop, newWidth, newHeight);
+            
         }
     }
 }

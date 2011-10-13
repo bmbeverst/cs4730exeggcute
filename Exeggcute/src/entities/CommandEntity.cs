@@ -22,8 +22,8 @@ namespace Exeggcute.src.entities
         public CommandEntity Parent { get; protected set; }
         public ScriptName Script { get; protected set; }
         protected ActionList actionList;
-        //HACK public??
-        public List<Shot> ShotList { get; protected set; }
+
+        protected List<Shot> ShotList;
         protected List<Shot> spawnList = new List<Shot>();
 
         private int p;
@@ -39,10 +39,10 @@ namespace Exeggcute.src.entities
         /// </summary>
         protected int counter = 0;
 
-        public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList)
+        public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList, List<Shot> shotList)
             : base(name, Engine.Jail)
         {
-            ShotList = new List<Shot>();
+            ShotList = shotList;
             Script = script;
             actionList = ScriptBank.Get(Script);
             this.spawnList = spawnList;
@@ -172,19 +172,7 @@ namespace Exeggcute.src.entities
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            foreach (Shot shot in ShotList)
-            {
-                shot.Draw(graphics, view, projection);
-            }
             base.Draw(graphics, view, projection);
-        }
-
-        public virtual void UpdateChildren()
-        {
-            foreach (Shot shot in ShotList)
-            {
-                shot.Update();
-            }
         }
 
 

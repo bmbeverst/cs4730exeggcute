@@ -12,8 +12,6 @@ namespace Exeggcute.src.entities
 {
     class Player : CommandEntity
     {
-        public List<Shot> shots;
-        public static readonly Point Bounds = new Point(30, 37);
 
         public float MoveSpeed { get; protected set; }
         public float FocusSpeed { get; protected set; }
@@ -29,13 +27,12 @@ namespace Exeggcute.src.entities
             get { return actionList == null; }
         }
 
-        public Player(ModelName name, List<Shot> shots)
-            : base(name, ScriptName.playerspawn, new List<Shot>())
+        public Player(ModelName name, List<Shot> shotList)
+            : base(name, ScriptName.playerspawn, new List<Shot>(), shotList)
         {
-            Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0);
-            shotSpawner = new CommandEntity(ModelName.testcube, ScriptName.playerspawner0, new List<Shot> { shot });
+            Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0, shotList);
+            shotSpawner = new CommandEntity(ModelName.testcube, ScriptName.playerspawner0, new List<Shot> { shot }, shotList);
             spawnList.Add(shot);
-            this.shots = shots;
             lives = 3;
             bombs = 3;
             score = 1234;
@@ -48,7 +45,7 @@ namespace Exeggcute.src.entities
             actionList = null;
         }
 
-        public void LockPosition(Camera camera)
+        public void LockPosition(Camera camera, Rectangle gameArea)
         {
             // HACK
             // If we cant control, then don't lock us to the screen, we are
@@ -56,22 +53,22 @@ namespace Exeggcute.src.entities
             if (!CanControl) return;
 
 
-            if (X < -Bounds.X)
+            if (X < gameArea.Left)
             {
-                X = -Bounds.X;
+                X = gameArea.Left;
             }
-            else if (X > Bounds.X)
+            else if (X > -gameArea.Left)
             {
-                X = Bounds.X;
+                X = -gameArea.Left;
             }
 
-            if (Y < -Bounds.Y)
+            if (Y < gameArea.Top)
             {
-                Y = -Bounds.Y;
+                Y = gameArea.Top;
             }
-            else if (Y > Bounds.Y)
+            else if (Y > -gameArea.Top)
             {
-                Y = Bounds.Y;
+                Y = -gameArea.Top;
             }
 
         }
@@ -143,15 +140,6 @@ namespace Exeggcute.src.entities
         {
             shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
-            shotSpawner.UpdateChildren();
-            for (int i = shotSpawner.ShotList.Count - 1; i >= 0; i -= 1)
-            {
-                Shot shot = shotSpawner.ShotList[i];
-                if (shot.Y > Bounds.Y + 4)
-                {
-                    shotSpawner.ShotList.RemoveAt(i);
-                }
-            }
             score += 123;
             
             base.Update();
@@ -160,8 +148,6 @@ namespace Exeggcute.src.entities
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             base.Draw(graphics, view, projection);
-            shotSpawner.Draw(graphics, view, projection);
-            //shots.ForEach(shot => shot.Draw(graphics, view, projection) );
         }
 
         public void DrawHUD(SpriteBatch batch, SpriteFont scoreFont)
