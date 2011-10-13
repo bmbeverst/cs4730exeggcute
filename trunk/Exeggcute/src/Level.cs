@@ -24,8 +24,8 @@ namespace Exeggcute.src
         private CollisionManager collider;
         private List<CommandEntity> entities = new List<CommandEntity>();
 
-        private List<Shot> playerShots = new List<Shot>();
-        private List<Shot> enemyShots = new List<Shot>();
+        private HashList<Shot> playerShots = new HashList<Shot>();
+        private HashList<Shot> enemyShots = new HashList<Shot>();
 
         public static readonly int HalfWidth = 30;
         public static readonly int HalfHeight = 37;
@@ -59,16 +59,25 @@ namespace Exeggcute.src
             entities.Add(new CommandEntity(ModelName.testcube, ScriptName.test, spawnList, enemyShots));
         }
 
-        private void filterShots(List<Shot> list)
+        private void updateShots(HashList<Shot> list)
         {
-            for (int i = list.Count - 1; i >= 0; i -= 1)
+            List<Shot> toRemove = new List<Shot>();
+            foreach (var pair in list)
             {
-                if (!list[i].ContainedIn(LiveArea))
+                Shot current = pair.Key;
+                current.Update();
+                if (!current.ContainedIn(LiveArea))
                 {
-                    list.RemoveAt(i);
+                    toRemove.Add(current);
                 }
             }
+            foreach (Shot shot in toRemove)
+            {
+                list.Remove(shot);
+            }
         }
+
+
 
         public void Update(ControlManager controls)
         {
@@ -85,15 +94,20 @@ namespace Exeggcute.src
                 player.Kill();
             }
 
-            filterShots(playerShots);
-            filterShots(enemyShots);
+            updateShots(playerShots);
+            updateShots(enemyShots);
             player.Update(controls);
             player.LockPosition(camera, GameArea);
 
-            playerShots.ForEach(shot => shot.Update());
-            enemyShots.ForEach(shot => shot.Update());
-
             entities.ForEach(e => e.Update());
+        }
+
+        private void drawShots(HashList<Shot> shots, GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            foreach (Shot shot in shots.GetKeys())
+            {
+                shot.Draw(graphics, view, projection);
+            }
         }
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -103,15 +117,16 @@ namespace Exeggcute.src
 
             player.Draw(graphics, view, projection);
 
-            playerShots.ForEach(shot => shot.Draw(graphics, view, projection));
-            enemyShots.ForEach(shot => shot.Draw(graphics, view, projection));
-
+            drawShots(playerShots, graphics, view, projection);
+            drawShots(enemyShots, graphics, view, projection);
             entities.ForEach(e => e.Draw(graphics, view, projection));
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
             hud.Draw(batch, player);
         }
+
+
 
         public void Load(ContentManager content)
         {

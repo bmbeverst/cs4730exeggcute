@@ -10,7 +10,7 @@ namespace Exeggcute.src.entities
     {
         public Collectable(ModelName name)
             //----------------------------------------------Collectables *never* spawn shots
-            : base(name, ScriptName.item, new List<Shot>(), new List<Shot>())
+            : base(name, ScriptName.item, new List<Shot>(), new HashList<Shot>())
         {
 
         }

@@ -23,8 +23,8 @@ namespace Exeggcute.src.entities
         public ScriptName Script { get; protected set; }
         protected ActionList actionList;
 
-        protected List<Shot> ShotList;
-        protected List<Shot> spawnList = new List<Shot>();
+        protected HashList<Shot> ShotList;
+        protected List<Shot> spawnList;
 
         private int p;
         protected int cmdPtr
@@ -39,7 +39,7 @@ namespace Exeggcute.src.entities
         /// </summary>
         protected int counter = 0;
 
-        public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList, List<Shot> shotList)
+        public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList, HashList<Shot> shotList)
             : base(name, Engine.Jail)
         {
             ShotList = shotList;
@@ -120,6 +120,7 @@ namespace Exeggcute.src.entities
             Vector3 pos = Util.Displace(Position, angle, spawn.Distance);
             Shot cloned = toSpawn.Clone(pos, angle);
             ShotList.Add(cloned);
+            Console.WriteLine("SPAWN");
             cmdPtr += 1;
         }
 
