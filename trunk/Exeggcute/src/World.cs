@@ -22,14 +22,16 @@ namespace Exeggcute.src
         private static bool isInitialized = false;
         private static ContentManager content;
         private static GraphicsDevice graphics;
+        private static Engine engine;
 
         public static HashList<Shot> PlayerShots = new HashList<Shot>();
         public static HashList<Shot> EnemyShots = new HashList<Shot>();
 
-        public static void Initialize(ContentManager content, GraphicsDevice graphics)
+        public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
             World.content = content;
             World.graphics = graphics;
+            World.engine = engine;
             isInitialized = true;
         }
 
@@ -60,8 +62,7 @@ namespace Exeggcute.src
 
         public static void Process(QuitEvent ent)
         {
-            //FIXME
-            Environment.Exit(0);
+            engine.Exit();
         }
         
         // Do I need the events at all if im doing it this way?

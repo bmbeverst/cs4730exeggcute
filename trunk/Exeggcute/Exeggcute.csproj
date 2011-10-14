@@ -137,6 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\ScoreSet.cs" />
     <Compile Include="src\Arsenal.cs" />
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="src\contexts\LoadLevelEvent.cs" />
     <Compile Include="src\contexts\QuitEvent.cs" />
     <Compile Include="src\entities\EntityParams.cs" />
+    <Compile Include="src\gui\ScoreMenu.cs" />
     <Compile Include="src\Roster.cs" />
     <Compile Include="src\contexts\scripting\MessageTask.cs" />
     <Compile Include="src\contexts\scripting\SpawnTask.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="src\gui\DifficultyMenu.cs" />
     <Compile Include="src\gui\PauseMenu.cs" />
     <Compile Include="src\Pair.cs" />
+    <Compile Include="src\ScoreEntry.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
     <Compile Include="src\scripting\AimAction.cs" />
@@ -280,6 +283,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="data\arsenals\test.arsenal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\score.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Exeggcute.ico" />
