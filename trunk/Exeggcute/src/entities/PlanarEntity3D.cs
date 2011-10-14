@@ -43,6 +43,12 @@ namespace Exeggcute.src.entities
 
         }
 
+        public PlanarEntity3D(Vector3 pos)
+            : base (pos)
+        {
+
+        }
+
         public override void Update()
         {
             base.Update();

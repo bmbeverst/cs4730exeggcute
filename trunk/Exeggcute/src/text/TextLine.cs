@@ -9,18 +9,18 @@ namespace Exeggcute.src.text
 {
     class TextLine
     {
-        private string line;
+        public string Line { get; protected set; }
         private int linePtr;
         public float Width { get; protected set; }
         public float Height { get; protected set; }
         public bool IsDone
         {
-            get { return linePtr == line.Length; }
+            get { return linePtr == Line.Length; }
         }
 
         public TextLine(string line)
         {
-            this.line = line;
+            this.Line = line;
             this.linePtr = 0;
         }
 
@@ -48,7 +48,7 @@ namespace Exeggcute.src.text
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
         {
-            batch.DrawString(font, line.Substring(0, linePtr), pos, color);
+            batch.DrawString(font, Line.Substring(0, linePtr), pos, color);
         }
 
     }

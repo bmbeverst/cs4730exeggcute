@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.particles;
 using Exeggcute.src.entities;
 using Exeggcute.src.assets;
+using Exeggcute.src.contexts.scripting;
 
 namespace Exeggcute.src
 {
@@ -27,6 +28,9 @@ namespace Exeggcute.src
         private HashList<Shot> playerShots = new HashList<Shot>();
         private HashList<Shot> enemyShots = new HashList<Shot>();
 
+        private List<Task> taskList;
+        private int taskPtr;
+
         public static readonly int HalfWidth = 30;
         public static readonly int HalfHeight = 37;
         public Rectangle GameArea { get; protected set; }
@@ -43,6 +47,10 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content)
         {
+
+            TaskListLoader loader = new TaskListLoader();
+            taskList = loader.Load(0);
+
             collider = new CollisionManager();
             camera = new Camera(100, MathHelper.PiOver2, 1);
             hud = new HUD();
@@ -56,7 +64,7 @@ namespace Exeggcute.src
             List<Shot> spawnList = new List<Shot> {
                 new Shot(ModelName.testcube, ScriptName.playershot0, enemyShots)
             };
-            entities.Add(new CommandEntity(ModelName.testcube, ScriptName.test, spawnList, enemyShots));
+            entities.Add(new Enemy(ModelName.testcube, ScriptName.test, spawnList, enemyShots));
         }
 
         private void updateShots(HashList<Shot> list)
@@ -77,10 +85,26 @@ namespace Exeggcute.src
             }
         }
 
+        public void Process(Task task)
+        {
 
+        }
+
+        public void Process(MessageTask task)
+        {
+            taskPtr += 1;
+        }
+
+        public void ProcessTasks()
+        {
+            if (taskPtr >= taskList.Count) return;
+            Task current = taskList[taskPtr];
+            current.Process(this);
+        }
 
         public void Update(ControlManager controls)
         {
+            ProcessTasks();
             particles.Update();
             for (int i = 0; i < 1; i += 1)
             {

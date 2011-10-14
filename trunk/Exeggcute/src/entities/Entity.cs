@@ -13,7 +13,6 @@ namespace Exeggcute.src.entities
         public Entity()
         {
             id = totalInstances++;
-            Console.WriteLine(id);
         }
 
         public override int GetHashCode()

@@ -31,7 +31,7 @@ namespace Exeggcute.src.entities
             : base(name, ScriptName.playerspawn, new List<Shot>(), shotList)
         {
             Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0, shotList);
-            shotSpawner = new CommandEntity(ModelName.testcube, ScriptName.playerspawner0, new List<Shot> { shot }, shotList);
+            shotSpawner = new Spawner(ScriptName.playerspawner0, new List<Shot> { shot }, shotList);
             spawnList.Add(shot);
             lives = 3;
             bombs = 3;

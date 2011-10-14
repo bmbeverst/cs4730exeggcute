@@ -8,63 +8,23 @@ using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.scripting
 {
-    class ActionListLoader
+    class ActionListLoader : ScriptParser<ActionBase, ScriptName>
     {
-        ///<summary>File extention for command list scripts</summary>
-        public const string EXT = "cl";
-
-        public static ActionList Load(ScriptName name)
+        public static readonly string EXT = "cl";
+        public static readonly string ROOT = "data";
+        public override string getFilepath(string name)
         {
-            List<ActionBase> actions = new List<ActionBase>();
-            try
-            {
-                string filepath = string.Format("data/{0}.{1}", name, EXT);
-                List<string> lines = Util.StripComments('#', filepath, true);
-                //lines.ForEach(lin => Console.WriteLine(lin));
-                lines.Reverse();
-                Stack<string> lineStack = new Stack<string>(lines);
-
-                /*
-                // We don't get the model from an action list
-                // get it from the enemy script (not existent yet)
-                string modelString = lineStack.Pop();
-
-                string[] modelTokens = modelString.Split(' ');
-                ModelName modelName = Util.ParseEnum<ModelName>(modelTokens[1]);
-                */
-
-                int size = lineStack.Count;
-                for (int i = 0; i < size; i += 1)
-                {
-                    string line = lineStack.Pop();
-                    try
-                    {
-                        List<ActionBase> parsed = parseCommand(line);
-                        foreach (ActionBase cmd in parsed)
-                        {
-                            actions.Add(cmd);
-                        }
-                    }
-                    catch
-                    {
-                        throw new ParseError("failed to parse line {0}", line);
-                    }
-                }
-            }
-            catch (ParseError pe)
-            {
-                throw pe;
-            }
-            catch
-            {
-                throw new ParseError("parse error");
-            }
-            return new ActionList(actions);
+            return string.Format("{0}/{1}.{2}", ROOT, name, EXT);
         }
 
-        public static List<ActionBase> parseCommand(string line)
+        public ActionListLoader()
         {
-            string[] tokens = line.Split(' ');
+            Delim = ' ';
+        }
+
+
+        protected override List<ActionBase> parseElement(string[] tokens)
+        {
             CommandType type = Util.ParseEnum<CommandType>(tokens[0]);
             if (type == CommandType.MoveTo)
             {
@@ -72,7 +32,7 @@ namespace Exeggcute.src.scripting
                 Vector2 target = Util.ParseVector2(tokens[2]);
                 int duration = int.Parse(tokens[3]);
                 float distance = Vector2.Distance(start, target);
-                float speed = (distance / (duration - 1))*2;
+                float speed = (distance / (duration - 1)) * 2;
                 float angle = FastTrig.Atan2(target.Y - start.Y, target.X - start.X);
                 Console.WriteLine(angle);
                 float linearAccel = -(speed / duration);
@@ -86,17 +46,17 @@ namespace Exeggcute.src.scripting
             }
             else if (type == CommandType.Move)
             {
-                float speed           = float.Parse(tokens[1]);
+                float speed = float.Parse(tokens[1]);
                 float angularVelocity = float.Parse(tokens[2]);
-                float linearAccel     = float.Parse(tokens[3]);
-                float velocityZ       = float.Parse(tokens[4]);
+                float linearAccel = float.Parse(tokens[3]);
+                float velocityZ = float.Parse(tokens[4]);
                 return new List<ActionBase> {
                     new MoveAction(speed, angularVelocity, linearAccel, velocityZ)
                 };
             }
             else if (type == CommandType.Aim)
             {
-                float angle = float.Parse(tokens[1]) * FastTrig.degreesToRadians;;
+                float angle = float.Parse(tokens[1]) * FastTrig.degreesToRadians; ;
                 return new List<ActionBase> {
                     new AimAction(angle)
                 };
@@ -137,7 +97,5 @@ namespace Exeggcute.src.scripting
                 throw new ParseError("Unable to parse type {0}", tokens[0]);
             }
         }
-
-
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
 using Exeggcute.src.entities;
 using Exeggcute.src.assets;
+using Exeggcute.src.text;
 
 namespace Exeggcute.src
 {
@@ -46,6 +47,8 @@ namespace Exeggcute.src
 
         public ControlManager controls;
         private static List<Menu> menus = new List<Menu>();
+        private static List<TextBoxList> boxes = new List<TextBoxList>();
+        
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
             World.Initialize(content, graphics);
@@ -55,11 +58,34 @@ namespace Exeggcute.src
             loadEffects(content);
             loadModels(content);
             loadSprites(content);
+            loadMsgBoxes(content);
             loadMenus();
+
             controls = new ControlManager(input);
 
             
             
+        }
+
+        private int scrollSpeed = 10;
+        public void loadMsgBoxes(ContentManager content)
+        {
+            List<string> allLines = Util.ReadLines("data/msg_boxes.txt");
+            string total = "";
+            for (int i = 0; i < allLines.Count; i += 1)
+            {
+                string line = allLines[i].TrimEnd(' ');
+                line = line + ' ';
+                total += line;
+
+            }
+
+            string[] messages = total.Split('@');
+            SpriteFont font = FontBank.Get(FontName.font0);
+            for (int i = 1; i < messages.Length; i += 1)
+            {
+                boxes.Add(new TextBoxList(font, messages[i], scrollSpeed));
+            }
         }
 
 
@@ -106,7 +132,7 @@ namespace Exeggcute.src
             MainMenu main = new MainMenu();
             World.PushContext(main);
             //for now lets ignore the level
-            //World.LoadLevel();
+            World.LoadLevel();
         }
 
         public void Update()
