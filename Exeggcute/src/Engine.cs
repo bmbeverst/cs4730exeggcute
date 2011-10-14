@@ -48,10 +48,12 @@ namespace Exeggcute.src
         public ControlManager controls;
         private static List<Menu> menus = new List<Menu>();
         private static List<TextBoxList> boxes = new List<TextBoxList>();
-        
+
+        private ScoreSet scoreSet;
+
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
-            World.Initialize(content, graphics);
+            World.Initialize(this, content, graphics);
             loadScripts(content);
             loadTextures(content);
             loadFonts(content);
@@ -60,6 +62,9 @@ namespace Exeggcute.src
             loadSprites(content);
             loadArsenals(content);
             loadMenus();
+
+            scoreSet = new ScoreSet();
+            
 
             controls = new ControlManager(input);
 
@@ -143,6 +148,7 @@ namespace Exeggcute.src
         public void Exit()
         {
             controls.WriteToFile();
+            scoreSet.WriteLocal();
             Environment.Exit(1);
         }
     }

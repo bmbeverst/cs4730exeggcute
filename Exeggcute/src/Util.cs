@@ -95,8 +95,7 @@ namespace Exeggcute.src
             }
             catch (Exception ex)
             {
-                Console.Error.Write(ex.StackTrace);
-                Die("Failed to write file");
+                throw new IOException(string.Format("{0}\nFailed to write data to file {1}", ex.Message, filepath));
             }
         }
 

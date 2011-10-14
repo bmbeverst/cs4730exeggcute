@@ -25,7 +25,6 @@ namespace Exeggcute.src.gui
         {
             resolveCursor();
             buttons[cursor].Update(controls);
-            //update the selected button specially
             
         }
 
