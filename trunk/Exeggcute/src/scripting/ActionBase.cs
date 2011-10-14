@@ -9,6 +9,7 @@ namespace Exeggcute.src.scripting
 {
     enum CommandType
     {
+        MoveRelative,
         MoveTo,
         Move,
         SetPos,

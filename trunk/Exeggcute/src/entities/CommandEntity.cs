@@ -137,6 +137,31 @@ namespace Exeggcute.src.entities
             cmdPtr += 1;
         }
 
+        public virtual void Process(MoveToAction moveTo)
+        {
+            Vector3 start = Position;
+            Vector3 target = moveTo.Destination;
+            doSmoothTransition(start, target, moveTo.Duration);
+        }
+
+        public virtual void Process(MoveRelativeAction moveRel)
+        {
+            Vector3 start = Position;
+            Vector3 target = start + moveRel.Displacement;
+            doSmoothTransition(start, target, moveRel.Duration);
+        }
+
+        protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)
+        {
+            float distance = Vector3.Distance(start, target);
+            float speed = (distance / (duration - 1)) * 2;
+            float angle = FastTrig.Atan2(target.Y - start.Y, target.X - start.X);
+            float linearAccel = -(speed / duration);
+            Speed = speed;
+            Angle = angle;
+            LinearAccel = linearAccel;
+        }
+
         public virtual void Process(VanishAction vanish)
         {
             IsDone = true;

@@ -22,18 +22,17 @@ namespace Exeggcute.src
             {
                 string line = lineStack.Pop();
                 string[] tokens = line.Split(Delim);
+                List<TElement> parsed;
                 try
                 {
-                    List<TElement> parsed = parseElement(tokens);
-                    foreach (TElement item in parsed)
-                    {
-                        result.Add(item);
-                    }
+                    parsed = parseElement(tokens);
                 }
                 catch (Exception error)
                 {
                     throw new ParseError("{0}\nFailed to parse line {1}", error.Message, line);
                 }
+
+                result.AddRange(parsed);
             }
             return result;
         }

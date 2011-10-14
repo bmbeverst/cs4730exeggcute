@@ -177,6 +177,8 @@
     <Compile Include="src\scripting\AimAction.cs" />
     <Compile Include="src\scripting\EndAction.cs" />
     <Compile Include="src\scripting\MoveAction.cs" />
+    <Compile Include="src\scripting\MoveRelativeAction.cs" />
+    <Compile Include="src\scripting\MoveToAction.cs" />
     <Compile Include="src\scripting\SpawnAction.cs" />
     <Compile Include="src\scripting\StopAction.cs" />
     <Compile Include="src\scripting\SetAction.cs" />

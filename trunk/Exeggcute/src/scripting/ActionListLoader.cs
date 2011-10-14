@@ -28,19 +28,23 @@ namespace Exeggcute.src.scripting
             CommandType type = Util.ParseEnum<CommandType>(tokens[0]);
             if (type == CommandType.MoveTo)
             {
-                Vector2 start = Util.ParseVector2(tokens[1]);
-                Vector2 target = Util.ParseVector2(tokens[2]);
-                int duration = int.Parse(tokens[3]);
-                float distance = Vector2.Distance(start, target);
-                float speed = (distance / (duration - 1)) * 2;
-                float angle = FastTrig.Atan2(target.Y - start.Y, target.X - start.X);
-                Console.WriteLine(angle);
-                float linearAccel = -(speed / duration);
+                Vector3 destination = Util.ParseVector3(tokens[1]);
+                int duration = int.Parse(tokens[2]);
                 return new List<ActionBase> {
-                    new AimAction(angle),
-                    new MoveAction(speed, 0, linearAccel, 0, 0),
+                    new MoveToAction(destination, duration),
                     new WaitAction(duration),
-                    new SetAction(target),
+                    new SetAction(destination),
+                    new StopAction()
+
+                };
+            }
+            else if (type == CommandType.MoveRelative)
+            {
+                Vector3 displacement = Util.ParseVector3(tokens[1]);
+                int duration = int.Parse(tokens[2]);
+                return new List<ActionBase> {
+                    new MoveRelativeAction(displacement, duration),
+                    new WaitAction(duration),
                     new StopAction()
                 };
             }

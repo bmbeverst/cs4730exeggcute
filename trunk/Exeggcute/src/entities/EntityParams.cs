@@ -7,5 +7,6 @@ namespace Exeggcute.src.entities
 {
     class EntityParams
     {
+        //public 
     }
 }
