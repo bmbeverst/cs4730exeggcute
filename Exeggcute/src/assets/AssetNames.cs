@@ -7,7 +7,8 @@ namespace Exeggcute.src.assets
 {
     enum ModelName
     {
-        testcube
+        testcube,
+        
     }
     enum EffectName
     {
@@ -30,7 +31,8 @@ namespace Exeggcute.src.assets
     enum SpriteName
     {
         life,
-        bomb
+        bomb,
+        cursor
     }
 
     enum ScriptName

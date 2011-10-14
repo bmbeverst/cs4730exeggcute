@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
+using Exeggcute.src.text;
 
 namespace Exeggcute.src
 {
@@ -20,7 +21,6 @@ namespace Exeggcute.src
         public Point ScreenSize;
         public Game()
         {
-
             ServiceProvider = Content.ServiceProvider;
             StaticInitialized = true;
 

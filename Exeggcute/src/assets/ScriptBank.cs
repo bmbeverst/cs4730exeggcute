@@ -11,6 +11,7 @@ namespace Exeggcute.src.assets
     {
         private static Bank<ScriptName, ActionList> bank = new Bank<ScriptName, ActionList>();
         public static List<ScriptName> AllNames = bank.AllNames;
+        public static ActionListLoader loader = new ActionListLoader();
         public static ActionList Get(ScriptName name)
         {
             return bank[name];
@@ -23,7 +24,9 @@ namespace Exeggcute.src.assets
 
         public static void Load(ContentManager content, ScriptName name)
         {
-            bank.Put(ActionListLoader.Load(name), name);
+            List<ActionBase> actions = loader.Load(name);
+            ActionList list = new ActionList(actions);
+            bank.Put(list, name);
         }
     }
 }

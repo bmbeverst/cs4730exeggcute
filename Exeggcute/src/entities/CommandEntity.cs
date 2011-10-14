@@ -13,7 +13,7 @@ namespace Exeggcute.src.entities
     /// <summary>
     /// TODO: process commands until a wait command is found
     /// </summary>
-    class CommandEntity : PlanarEntity3D
+    abstract class CommandEntity : PlanarEntity3D
     {
         /// <summary>
         /// If the entity is done, it should be removed from the world.
@@ -25,6 +25,8 @@ namespace Exeggcute.src.entities
 
         protected HashList<Shot> ShotList;
         protected List<Shot> spawnList;
+
+        public int Health { get; protected set; }
 
         private int p;
         protected int cmdPtr
@@ -47,6 +49,15 @@ namespace Exeggcute.src.entities
             actionList = ScriptBank.Get(Script);
             this.spawnList = spawnList;
             
+        }
+
+        public CommandEntity(ScriptName script, List<Shot> spawnList, HashList<Shot> shotList)
+            : base(Engine.Jail)
+        {
+            ShotList = shotList;
+            Script = script;
+            actionList = ScriptBank.Get(Script);
+            this.spawnList = spawnList;
         }
 
         public virtual void Process(ActionBase cmd)
@@ -120,7 +131,6 @@ namespace Exeggcute.src.entities
             Vector3 pos = Util.Displace(Position, angle, spawn.Distance);
             Shot cloned = toSpawn.Clone(pos, angle);
             ShotList.Add(cloned);
-            Console.WriteLine("SPAWN");
             cmdPtr += 1;
         }
 

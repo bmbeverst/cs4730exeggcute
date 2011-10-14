@@ -33,8 +33,8 @@ namespace Exeggcute.src
 
         public Rectangle Resize(int xres, int yres)
         {
-            int gameHeight = (int)(HEIGHT_RATIO * yres);
-            int gameWidth = (int)(gameHeight * GAME_AREA_RATIO);
+            int gameHeight  = (int)(HEIGHT_RATIO * yres);
+            int gameWidth   = (int)(gameHeight * GAME_AREA_RATIO);
             int boxWidth    = (xres - gameWidth)  / 2;
             int stripHeight = (yres - gameHeight) / 2;
             RectSprite sideSprite = new RectSprite(boxWidth, yres, Color.Black, true);

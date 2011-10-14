@@ -30,7 +30,7 @@ namespace Exeggcute.src.text
             this.lines = lines;
         }
 
-        public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color, int spacingY)
+        public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color, float spacingY)
         {
             //I don't remember why this works!
             int jMax = linePtr < lines.Count ? linePtr + 1 : linePtr;

@@ -148,11 +148,18 @@
     <Compile Include="src\contexts\ContextEvent.cs" />
     <Compile Include="src\contexts\LoadLevelEvent.cs" />
     <Compile Include="src\contexts\QuitEvent.cs" />
+    <Compile Include="src\contexts\scripting\MessageTask.cs" />
+    <Compile Include="src\contexts\scripting\Task.cs" />
+    <Compile Include="src\contexts\scripting\TaskListLoader.cs" />
+    <Compile Include="src\contexts\scripting\TaskType.cs" />
+    <Compile Include="src\Difficulty.cs" />
     <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
+    <Compile Include="src\entities\Enemy.cs" />
     <Compile Include="src\entities\Entity.cs" />
     <Compile Include="src\entities\HashList.cs" />
     <Compile Include="src\entities\LifeItem.cs" />
+    <Compile Include="src\entities\Spawner.cs" />
     <Compile Include="src\gui\DifficultyMenu.cs" />
     <Compile Include="src\gui\PauseMenu.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
@@ -164,7 +171,6 @@
     <Compile Include="src\scripting\StopAction.cs" />
     <Compile Include="src\scripting\SetAction.cs" />
     <Compile Include="src\scripting\ShootAction.cs" />
-    <Compile Include="src\scripting\Task.cs" />
     <Compile Include="src\scripting\VanishAction.cs" />
     <Compile Include="src\scripting\WaitAction.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
@@ -191,8 +197,9 @@
     <Compile Include="src\particles\ParticleSystem.cs" />
     <Compile Include="src\entities\Player.cs" />
     <Compile Include="src\entities\Projectile.cs" />
+    <Compile Include="src\ScriptParser.cs" />
     <Compile Include="src\Shot.cs" />
-    <Compile Include="src\text\Attractor.cs" />
+    <Compile Include="src\text\Conversation.cs" />
     <Compile Include="src\text\TextBox.cs" />
     <Compile Include="src\text\TextBoxList.cs" />
     <Compile Include="src\text\TextLine.cs" />
@@ -258,6 +265,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="lib\SlimDX.DirectInput.dll" />
+    <None Include="data\levels\0.level">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="data\msg_boxes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Exeggcute.ico" />
     <Content Include="GameThumbnail.png" />
     <None Include="settings.cfg">

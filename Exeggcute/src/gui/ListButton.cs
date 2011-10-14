@@ -28,7 +28,7 @@ namespace Exeggcute.src.gui
             IsActive = true;
             if (controls[Ctrl.Action].DoEatPress())
             {
-                onActivate.Process();
+                //onActivate.Process();
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {

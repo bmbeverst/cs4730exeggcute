@@ -42,6 +42,12 @@ namespace Exeggcute.src.entities
             Hitbox = new BoundingSphere(Position, Hitbox.Radius);
         }
 
+        public Entity3D(Vector3 pos)
+        {
+            Position = pos;
+        }
+
+
         public void SetPosition(Vector3 newpos)
         {
             Position = newpos;
@@ -63,6 +69,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            if (Surface == null) return;
             Matrix[] transforms = new Matrix[Surface.Bones.Count];
             Surface.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in Surface.Meshes)
