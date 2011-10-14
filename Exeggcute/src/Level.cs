@@ -24,8 +24,8 @@ namespace Exeggcute.src
         private Camera camera;
         private Player player;
         private CollisionManager collider;
-        private List<CommandEntity> entities = new List<CommandEntity>();
-        private List<EntityInfo> spawnList = new List<EntityInfo>();
+
+        private HashList<Enemy> enemies = new HashList<Enemy>();
 
         private HashList<Shot> playerShots = new HashList<Shot>();
         private HashList<Shot> enemyShots = new HashList<Shot>();
@@ -67,7 +67,7 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             player = new Player(ModelName.testcube, ArsenalName.test, World.PlayerShots);
-            entities.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
+            enemies.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
         }
 
         private int scrollSpeed = 10;
@@ -142,18 +142,22 @@ namespace Exeggcute.src
                 particles.AddParticle(player.Position, -5*player.Velocity);
             }
 
-            bool hit = collider.Collide(player, entities);
+            bool hit = collider.Collide(player, enemies);
             if (hit)
             {
                 player.Kill();
             }
 
+            collider.Collide(playerShots, enemies);
             updateShots(playerShots);
             updateShots(enemyShots);
             player.Update(controls);
             player.LockPosition(camera, GameArea);
 
-            entities.ForEach(e => e.Update());
+            foreach (Enemy enemy in enemies.GetKeys())
+            {
+                enemy.Update();
+            }
         }
 
         private void drawShots(HashList<Shot> shots, GraphicsDevice graphics, Matrix view, Matrix projection)
@@ -173,7 +177,11 @@ namespace Exeggcute.src
 
             drawShots(playerShots, graphics, view, projection);
             drawShots(enemyShots, graphics, view, projection);
-            entities.ForEach(e => e.Draw(graphics, view, projection));
+
+            foreach (Enemy enemy in enemies.GetKeys())
+            {
+                enemy.Draw(graphics, view, projection);
+            }
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);

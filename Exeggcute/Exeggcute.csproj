@@ -150,6 +150,8 @@
     <Compile Include="src\contexts\ContextEvent.cs" />
     <Compile Include="src\contexts\LoadLevelEvent.cs" />
     <Compile Include="src\contexts\QuitEvent.cs" />
+    <Compile Include="src\entities\EntityParams.cs" />
+    <Compile Include="src\Roster.cs" />
     <Compile Include="src\contexts\scripting\MessageTask.cs" />
     <Compile Include="src\contexts\scripting\SpawnTask.cs" />
     <Compile Include="src\contexts\scripting\Task.cs" />
