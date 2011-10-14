@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\assets\RosterBank.cs" />
+    <Compile Include="src\entities\MassSpawner.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
     <Compile Include="src\ScoreSet.cs" />

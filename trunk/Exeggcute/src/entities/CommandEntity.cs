@@ -94,6 +94,12 @@ namespace Exeggcute.src.entities
             this.arsenal = null;
         }
 
+        public void Reset()
+        {
+            this.counter = 0;
+            this.cmdPtr = 0;
+        }
+
         public virtual void Process(ActionBase cmd)
         {
             string error = @"

@@ -14,6 +14,7 @@ using Exeggcute.src.scripting.roster;
 
 namespace Exeggcute.src
 {
+
     /// <summary>
     /// Base class for game "levels". If there is only one persistent
     /// level in our game, then that counts too.
@@ -51,14 +52,16 @@ namespace Exeggcute.src
 
         public List<TextBoxList> boxes = new List<TextBoxList>();
 
+        private TaskListLoader loader = new TaskListLoader();
+
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.roster = RosterBank.Get(rosterName);
-            TaskListLoader loader = new TaskListLoader();
-            taskList = loader.Load(0);
+            this.taskList = loader.Load(0);
+
             loadMsgBoxes(content);
 
             collider = new CollisionManager();
