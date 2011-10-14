@@ -5,6 +5,7 @@ using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
 {
@@ -22,7 +23,6 @@ namespace Exeggcute.src.scripting.action
             Delim = ' ';
         }
 
-
         protected override List<ActionBase> parseElement(string[] tokens)
         {
             CommandType type = Util.ParseEnum<CommandType>(tokens[0]);
@@ -35,7 +35,6 @@ namespace Exeggcute.src.scripting.action
                     new WaitAction(duration),
                     new SetAction(destination),
                     new StopAction()
-
                 };
             }
             else if (type == CommandType.MoveRelative)
@@ -82,13 +81,18 @@ namespace Exeggcute.src.scripting.action
             {
                 return new List<ActionBase> { new EndAction() };
             }
+            else if (type == CommandType.Shoot)
+            {
+                return new List<ActionBase> { new ShootAction() };
+            }
             else if (type == CommandType.Spawn)
             {
-                float angleDeg = float.Parse(tokens[1]);
-                float distance = float.Parse(tokens[2]);
-                int id = int.Parse(tokens[3]);
+                int id = int.Parse(tokens[1]);
+                Vector3 displace = Util.ParseVector3(tokens[2]);
+                float angle = float.Parse(tokens[3]) * FastTrig.degreesToRadians;
+                EntityArgs args = new EntityArgs(displace, angle);
                 return new List<ActionBase> {
-                    new SpawnAction(angleDeg, distance, id)
+                    new SpawnAction(id, args)
                 };
             }
             else if (type == CommandType.Set)

@@ -18,27 +18,38 @@ namespace Exeggcute.src.entities
         protected ModelName modelName;
         protected ScriptName scriptName;
         protected ArsenalName arsenalName;
+        protected ScriptName spawnerName;
 
-        public Enemy(ModelName modelName, ScriptName scriptName, ArsenalName arsenalName, HashList<Shot> enemyShots)
-            : base(modelName, scriptName, arsenalName, enemyShots)
+        public Enemy(ModelName modelName, 
+                     ScriptName scriptName, 
+                     ArsenalName arsenalName,
+                     ScriptName spawnerName,
+                     HashList<Shot> enemyShots)
+            : base(modelName, scriptName, arsenalName, spawnerName, enemyShots)
         {
             this.modelName = modelName;
             this.scriptName = scriptName;
             this.arsenalName = arsenalName;
+            this.spawnerName = spawnerName;
             
         }
 
         public Enemy(RosterEntry entry, HashList<Shot> enemyShots)
-            : base(entry.ModelName, entry.ScriptName, entry.ArsenalName, enemyShots)
+            : base(entry.ModelName, entry.ScriptName, entry.ArsenalName, entry.SpawnerName, enemyShots)
         {
             this.modelName = entry.ModelName;
             this.scriptName = entry.ScriptName;
             this.arsenalName = entry.ArsenalName;
+            this.spawnerName = entry.SpawnerName;
         }
 
-        public Enemy Clone(EntityParams args)
+        public Enemy Clone(EntityArgs args)
         {
-            return new Enemy(modelName, scriptName, arsenalName, ShotList);
+            
+            Enemy cloned = new Enemy(modelName, scriptName, arsenalName, spawnerName, ShotList);
+            cloned.Position = args.SpawnPosition;
+            cloned.Angle = args.AngleHeading;
+            return cloned;
         }
 
     }

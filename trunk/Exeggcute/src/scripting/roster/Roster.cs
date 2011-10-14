@@ -38,9 +38,9 @@ namespace Exeggcute.src.scripting.roster
         }
 
 
-        public Enemy Clone(EntityParams parms)
+        public Enemy Clone(int id, EntityArgs args)
         {
-            throw new NotImplementedException();
+            return enemies[id].Clone(args);
         }
     }
 }

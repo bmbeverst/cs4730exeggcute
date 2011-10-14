@@ -1,6 +1,5 @@
 ﻿#example command list
-set (10,0,0)
-moveto (0,1,0) 60
-spawn 45 0 0
+moverelative (0,-30,0) 100
+shoot
 wait 600
 vanish

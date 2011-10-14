@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting;
+using Microsoft.Xna.Framework;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.task
 {
@@ -32,9 +34,20 @@ namespace Exeggcute.src.scripting.task
             else if (type == TaskType.Spawn)
             {
                 int id = int.Parse(tokens[1]);
+                Vector3 pos = Util.ParseVector3(tokens[2]);
+                float angle = float.Parse(tokens[3]) * FastTrig.degreesToRadians;
+                EntityArgs args = new EntityArgs(pos, angle);
                 return new List<Task> {
-                    new SpawnTask(id)
+                    new SpawnTask(id, args)
                 };
+            }
+            else if (type == TaskType.Wait)
+            {
+                int duration = int.Parse(tokens[1]);
+                return new List<Task> { 
+                    new WaitTask(duration)
+                };
+
             }
             else
             {

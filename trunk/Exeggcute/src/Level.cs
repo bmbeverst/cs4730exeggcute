@@ -10,6 +10,7 @@ using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 using Exeggcute.src.text;
 using Exeggcute.src.scripting.task;
+using Exeggcute.src.scripting.roster;
 
 namespace Exeggcute.src
 {
@@ -24,6 +25,8 @@ namespace Exeggcute.src
         private Camera camera;
         private Player player;
         private CollisionManager collider;
+
+        private Roster roster;
 
         private HashList<Enemy> enemies = new HashList<Enemy>();
 
@@ -49,10 +52,11 @@ namespace Exeggcute.src
         public List<TextBoxList> boxes = new List<TextBoxList>();
 
         //FIXME put a lot of this stuff in Load!
-        public Level(GraphicsDevice graphics, ContentManager content)
+        public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
+            this.roster = RosterBank.Get(rosterName);
             TaskListLoader loader = new TaskListLoader();
             taskList = loader.Load(0);
             loadMsgBoxes(content);
@@ -67,7 +71,7 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             player = new Player(ModelName.testcube, ArsenalName.test, World.PlayerShots);
-            enemies.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
+            //enemies.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
         }
 
         private int scrollSpeed = 10;
@@ -122,7 +126,20 @@ namespace Exeggcute.src
 
         public void Process(SpawnTask task)
         {
-            throw new NotImplementedException();
+            Enemy toSpawn = roster.Clone(task.ID, task.Args);
+            enemies.Add(toSpawn);
+            taskPtr += 1;
+        }
+
+        int counter = 0;
+        public void Process(WaitTask task)
+        {
+            if (counter >= task.Duration)
+            {
+                counter = 0;
+                taskPtr += 1;
+            }
+            counter += 1;
         }
 
         public void ProcessTasks()

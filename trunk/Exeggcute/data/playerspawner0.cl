@@ -1,7 +1,6 @@
-﻿#the empty command list
-spawn 95 2 0
+﻿spawn 0 (0,2,0) 95
 wait 2
-spawn 90 0 0
+spawn 0 (0,2,0) 85
 wait 2
-spawn 85 -2 0
+spawn 0 (0,2,0) 90
 wait 2

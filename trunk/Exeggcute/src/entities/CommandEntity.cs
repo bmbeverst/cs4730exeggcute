@@ -26,6 +26,7 @@ namespace Exeggcute.src.entities
 
         protected HashList<Shot> ShotList;
         protected Arsenal arsenal;
+        protected Spawner spawner;
 
         public int Health { get; protected set; }
 
@@ -35,6 +36,8 @@ namespace Exeggcute.src.entities
             get { return p; }
             set { p = value % actionList.Count; }
         }
+
+        public bool IsShooting { get; protected set; }
 
         /// <summary>
         /// keeps track of how long a command has been processed before
@@ -49,14 +52,18 @@ namespace Exeggcute.src.entities
         /// <para> - A model</para>
         /// <para> - An arsenal</para>
         /// </summary>
-        public CommandEntity(ModelName modelName, ScriptName scriptName, ArsenalName arsenalName, HashList<Shot> shotList)
+        public CommandEntity(ModelName modelName, 
+                             ScriptName scriptName, 
+                             ArsenalName arsenalName, 
+                             ScriptName spawnerName, 
+                             HashList<Shot> shotList)
             : base(modelName, Engine.Jail)
         {
             Health = 100;
             ShotList = shotList;
             actionList = ScriptBank.Get(scriptName);
             this.arsenal = ArsenalBank.Get(arsenalName);
-            
+            this.spawner = new Spawner(spawnerName, arsenalName, shotList);
         }
 
         /// <summary>
@@ -139,11 +146,19 @@ namespace Exeggcute.src.entities
             cmdPtr += 1;
         }
 
+        public virtual void Process(ShootAction shoot)
+        {
+            IsShooting = !IsShooting;
+            cmdPtr += 1;
+
+        }
+
         public virtual void Process(MoveToAction moveTo)
         {
             Vector3 start = Position;
             Vector3 target = moveTo.Destination;
             doSmoothTransition(start, target, moveTo.Duration);
+            cmdPtr += 1;
         }
 
         public virtual void Process(MoveRelativeAction moveRel)
@@ -151,6 +166,7 @@ namespace Exeggcute.src.entities
             Vector3 start = Position;
             Vector3 target = start + moveRel.Displacement;
             doSmoothTransition(start, target, moveRel.Duration);
+            cmdPtr += 1;
         }
 
         protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)
@@ -167,19 +183,15 @@ namespace Exeggcute.src.entities
         public virtual void Process(VanishAction vanish)
         {
             IsDone = true;
-            if (Parent != null)
-            {
-                // send a message to your parent that you are done
-                throw new NotImplementedException();
-            }
             cmdPtr += 1;
         }
 
         public virtual void Process(SpawnAction spawn)
         {
-            float angle = spawn.AngleOffset + Angle;
-            Vector3 pos = Util.Displace(Position, angle, spawn.Distance);
-            Shot cloned = arsenal.Clone(spawn.ShotID, pos, angle);
+            EntityArgs args = spawn.Args;
+            float angle = args.AngleHeading + Angle;
+            Vector3 pos = Position + args.SpawnPosition;
+            Shot cloned = arsenal.Clone(spawn.ID, pos, angle);
             ShotList.Add(cloned);
             cmdPtr += 1;
         }
@@ -233,6 +245,11 @@ namespace Exeggcute.src.entities
         public override void Update()
         {
             ProcessActions();
+            if (spawner != null && IsShooting)
+            {
+                spawner.SetPosition(Position);
+                spawner.Update();
+            }
             base.Update();
         }
 

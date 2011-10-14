@@ -154,7 +154,7 @@
     <Compile Include="src\contexts\ContextEvent.cs" />
     <Compile Include="src\contexts\LoadLevelEvent.cs" />
     <Compile Include="src\contexts\QuitEvent.cs" />
-    <Compile Include="src\entities\EntityParams.cs" />
+    <Compile Include="src\entities\EntityArgs.cs" />
     <Compile Include="src\gui\ScoreMenu.cs" />
     <Compile Include="src\scripting\roster\Roster.cs" />
     <Compile Include="src\scripting\task\MessageTask.cs" />
@@ -215,6 +215,7 @@
     <Compile Include="src\entities\Player.cs" />
     <Compile Include="src\entities\Projectile.cs" />
     <Compile Include="src\scripting\ScriptParser.cs" />
+    <Compile Include="src\scripting\task\WaitTask.cs" />
     <Compile Include="src\Shot.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalLoader.cs" />
     <Compile Include="src\text\Conversation.cs" />
@@ -253,10 +254,6 @@
     <Compile Include="src\config\ConfigItem.cs" />
     <Compile Include="src\config\Configuration.cs" />
     <Compile Include="src\Random.cs" />
-    <Compile Include="src\oldtext\TextBox.cs" />
-    <Compile Include="src\oldtext\TextBoxList.cs" />
-    <Compile Include="src\oldtext\TextDisplay.cs" />
-    <Compile Include="src\oldtext\TextLine.cs" />
     <Compile Include="src\Timer.cs" />
     <Compile Include="src\Util.cs" />
   </ItemGroup>
