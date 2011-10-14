@@ -5,6 +5,8 @@ using System.Text;
 using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
+using Exeggcute.src.scripting;
+using Exeggcute.src.scripting.arsenal;
 
 namespace Exeggcute.src
 {
@@ -21,8 +23,16 @@ namespace Exeggcute.src
             : base(modelName, scriptName)
         {
             Damage = 10;
-            this.scriptName = scriptName;
             this.modelName = modelName;
+            this.scriptName = scriptName;
+        }
+
+        public Shot(ArsenalEntry entry)
+            : base(entry.ModelName, entry.ScriptName)
+        {
+            Damage = 10;
+            this.modelName = entry.ModelName;
+            this.scriptName = entry.ScriptName;
         }
 
         public Shot Clone(Vector3 pos, float angle)

@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.scripting
 {
     abstract class ScriptParser<TElement, TName>
     {
-
-        public abstract string getFilepath(string name);
+        
         public char Delim { get; protected set; }
         public List<TElement> Load(TName name)
         {
             string filepath = getFilepath(name.ToString());
-            List<string> lines = Util.StripComments('#', filepath, true);
+            List<string> lines = Util.StripComments(filepath, '#', true);
             lines.Reverse();
             Stack<string> lineStack = new Stack<string>(lines);
             int size = lineStack.Count;
@@ -38,5 +37,6 @@ namespace Exeggcute.src
         }
 
         protected abstract List<TElement> parseElement(string[] tokens);
+        protected abstract string getFilepath(string name);
     }
 }

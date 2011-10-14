@@ -61,6 +61,7 @@ namespace Exeggcute.src
             loadModels(content);
             loadSprites(content);
             loadArsenals(content);
+            loadRosters(content);
             loadMenus();
 
             scoreSet = new ScoreSet();
@@ -70,6 +71,11 @@ namespace Exeggcute.src
 
             
             
+        }
+
+        private void loadRosters(ContentManager content)
+        {
+            RosterBank.LoadAll(content);
         }
 
         private void loadArsenals(ContentManager content)

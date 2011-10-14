@@ -137,8 +137,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\assets\RosterBank.cs" />
+    <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
+    <Compile Include="src\scripting\ListParser.cs" />
     <Compile Include="src\ScoreSet.cs" />
-    <Compile Include="src\Arsenal.cs" />
+    <Compile Include="src\scripting\arsenal\Arsenal.cs" />
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
     <Compile Include="src\assets\ScriptBank.cs" />
@@ -153,7 +156,7 @@
     <Compile Include="src\contexts\QuitEvent.cs" />
     <Compile Include="src\entities\EntityParams.cs" />
     <Compile Include="src\gui\ScoreMenu.cs" />
-    <Compile Include="src\Roster.cs" />
+    <Compile Include="src\scripting\roster\Roster.cs" />
     <Compile Include="src\contexts\scripting\MessageTask.cs" />
     <Compile Include="src\contexts\scripting\SpawnTask.cs" />
     <Compile Include="src\contexts\scripting\Task.cs" />
@@ -179,6 +182,8 @@
     <Compile Include="src\scripting\MoveAction.cs" />
     <Compile Include="src\scripting\MoveRelativeAction.cs" />
     <Compile Include="src\scripting\MoveToAction.cs" />
+    <Compile Include="src\scripting\roster\RosterEntry.cs" />
+    <Compile Include="src\scripting\roster\RosterLoader.cs" />
     <Compile Include="src\scripting\SpawnAction.cs" />
     <Compile Include="src\scripting\StopAction.cs" />
     <Compile Include="src\scripting\SetAction.cs" />
@@ -209,14 +214,14 @@
     <Compile Include="src\particles\ParticleSystem.cs" />
     <Compile Include="src\entities\Player.cs" />
     <Compile Include="src\entities\Projectile.cs" />
-    <Compile Include="src\ScriptParser.cs" />
+    <Compile Include="src\scripting\ScriptParser.cs" />
     <Compile Include="src\Shot.cs" />
-    <Compile Include="src\scripting\ArsenalLoader.cs" />
+    <Compile Include="src\scripting\arsenal\ArsenalLoader.cs" />
     <Compile Include="src\text\Conversation.cs" />
     <Compile Include="src\text\TextBox.cs" />
     <Compile Include="src\text\TextBoxList.cs" />
     <Compile Include="src\text\TextLine.cs" />
-    <Compile Include="src\ParseError.cs" />
+    <Compile Include="src\scripting\ParseError.cs" />
     <Compile Include="src\assets\FontBank.cs" />
     <Compile Include="src\graphics\IDrawable2D.cs" />
     <Compile Include="src\graphics\RectSprite.cs" />
@@ -288,6 +293,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\score.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\rosters\test.roster">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Exeggcute.ico" />

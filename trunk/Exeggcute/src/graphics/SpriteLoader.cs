@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.graphics
 {
@@ -36,7 +37,7 @@ namespace Exeggcute.src.graphics
         public static Sprite Load(SpriteName name)
         {
             string filepath = String.Format("Content/{0}.{1}", name, EXT);
-            List<string> lines = Util.StripComments('#', filepath, true);
+            List<string> lines = Util.StripComments(filepath, '#', true);
             lines.Reverse(); //???
             Stack<string> lineStack = new Stack<string>(lines);
             List<IAnimation> anims = new List<IAnimation>();

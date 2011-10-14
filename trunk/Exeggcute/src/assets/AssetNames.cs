@@ -5,6 +5,11 @@ using System.Text;
 
 namespace Exeggcute.src.assets
 {
+    enum RosterName
+    {
+        test
+    }
+
     enum ArsenalName
     {
         test
