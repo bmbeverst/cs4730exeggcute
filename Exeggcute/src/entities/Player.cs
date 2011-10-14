@@ -28,6 +28,8 @@ namespace Exeggcute.src.entities
             get { return actionList == null; }
         }
 
+        public MassSpawner bomb;
+
         public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList)
             : base(model, ScriptName.playerspawn, arsenalName, ScriptName.playerspawner0, shotList)
         {
