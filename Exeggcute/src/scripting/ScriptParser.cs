@@ -28,7 +28,7 @@ namespace Exeggcute.src.scripting
                 }
                 catch (Exception error)
                 {
-                    throw new ParseError("{0}\nFailed to parse line {1}", error.Message, line);
+                    throw new ParseError(error, line, filepath);
                 }
 
                 result.AddRange(parsed);

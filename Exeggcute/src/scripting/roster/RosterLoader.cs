@@ -23,7 +23,8 @@ namespace Exeggcute.src.scripting.roster
             ModelName modelname = Util.ParseEnum<ModelName>(tokens.Pop());
             ScriptName scriptname = Util.ParseEnum<ScriptName>(tokens.Pop());
             ArsenalName arsenalname = Util.ParseEnum<ArsenalName>(tokens.Pop());
-            return new RosterEntry(modelname, scriptname, arsenalname);
+            ScriptName spawnername = Util.ParseEnum<ScriptName>(tokens.Pop());
+            return new RosterEntry(modelname, scriptname, arsenalname, spawnername);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Exeggcute.src.entities
         public float MoveSpeed { get; protected set; }
         public float FocusSpeed { get; protected set; }
 
-        private CommandEntity shotSpawner;
+        //private Spawner shotSpawner;
 
         private int lives;
         private int bombs;
@@ -29,9 +29,9 @@ namespace Exeggcute.src.entities
         }
 
         public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList)
-            : base(model, ScriptName.playerspawn, arsenalName, shotList)
+            : base(model, ScriptName.playerspawn, arsenalName, ScriptName.playerspawner0, shotList)
         {
-            shotSpawner = new Spawner(ScriptName.playerspawner0, ArsenalName.test, shotList);
+            //shotSpawner = new Spawner(ScriptName.playerspawner0, ArsenalName.test, shotList);
             lives = 3;
             bombs = 3;
             score = 1234;
@@ -122,10 +122,7 @@ namespace Exeggcute.src.entities
                 Z -= speed;
             }
 
-            if (controls[Ctrl.Action].IsPressed)
-            {
-                shotSpawner.Update();
-            }
+            IsShooting = controls[Ctrl.Action].IsPressed;
 
             if (controls[Ctrl.Start].DoEatPress())
             {
@@ -137,7 +134,7 @@ namespace Exeggcute.src.entities
 
         public void Update(ControlManager controls)
         {
-            shotSpawner.SetPosition(Position);
+            //shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
             score += 123;
             

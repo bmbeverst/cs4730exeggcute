@@ -8,6 +8,7 @@ namespace Exeggcute.src.scripting.task
     enum TaskType
     {
         Msg,
-        Spawn
+        Spawn,
+        Wait
     }
 }

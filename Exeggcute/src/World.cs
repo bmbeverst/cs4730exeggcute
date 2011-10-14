@@ -7,6 +7,7 @@ using Exeggcute.src.gui;
 using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.input;
 using Exeggcute.src.contexts;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
@@ -47,7 +48,7 @@ namespace Exeggcute.src
 
         public static void LoadLevel()
         {
-            stack.Push(new Level(graphics, content));
+            stack.Push(new Level(graphics, content, RosterName.test));
         }
 
         public static void Process(ContextEvent ent)
@@ -57,7 +58,7 @@ namespace Exeggcute.src
 
         public static void Process(LoadLevelEvent ent)
         {
-            stack.Push(new Level(graphics, content));
+            stack.Push(new Level(graphics, content, RosterName.test));
         }
 
         public static void Process(QuitEvent ent)

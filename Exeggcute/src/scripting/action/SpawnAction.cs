@@ -9,15 +9,13 @@ namespace Exeggcute.src.scripting.action
 {
     class SpawnAction : ActionBase
     {
-        public float AngleOffset { get; protected set; }
-        public float Distance { get; protected set; }
-        public int ShotID { get; protected set; }
+        public int ID { get; protected set; }
+        public EntityArgs Args { get; protected set; }
         
-        public SpawnAction(float angleDeg, float distance, int id)
+        public SpawnAction(int id, EntityArgs args)
         {
-            AngleOffset = angleDeg * FastTrig.degreesToRadians;
-            Distance = distance;
-            ShotID = id;
+            ID = id;
+            Args = args;
         }
 
         public override void Process(CommandEntity entity)
@@ -27,7 +25,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new SpawnAction(AngleOffset, Distance, ShotID);
+            return new SpawnAction(ID, Args);
         }
     }
 }

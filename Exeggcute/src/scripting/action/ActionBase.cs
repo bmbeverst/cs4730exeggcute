@@ -19,7 +19,8 @@ namespace Exeggcute.src.scripting.action
         Stop,
         End,
         Spawn,
-        Aim
+        Aim,
+        Shoot
     }
 
 
