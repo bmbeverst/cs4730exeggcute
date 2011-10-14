@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.entities;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src
 {
@@ -160,10 +161,10 @@ namespace Exeggcute.src
         /// by 'delim'). Also removes all parts of a line after an occurance 
         /// of 'delim'.
         /// </summary>
-        /// <param name="delim">the comment delimiting character</param>
         /// <param name="filepath">the file to be read</param>
+        /// <param name="delim">the comment delimiting character</param>
         /// <param name="stripEmpty">empty lines are removed</param>
-        public static List<string> StripComments(char delim, string filepath, bool stripEmpty=false)
+        public static List<string> StripComments(string filepath, char delim, bool stripEmpty = false)
         {
             List<string> lines = ReadLines(filepath);
             for (int i = lines.Count - 1; i >= 0; i -= 1)
@@ -184,6 +185,18 @@ namespace Exeggcute.src
         }
 
         /// <summary>
+        /// Removes all the comments from a file and returns a stack ordered
+        /// with the first line on top.
+        /// </summary>
+        /// <param name="filepath">path to the file to be read</param>
+        /// <param name="delim">character beginning a comment</param>
+        public static Stack<string> StackifyFile(string filepath, char delim)
+        {
+            List<string> lines = Util.StripComments(filepath, delim, true);
+            return Util.Stackify(lines);
+        }
+
+        /// <summary>
         /// Removes whitespace from the beginning and end of a string.
         /// </summary>
         /// <param name="input">the string to be trimmed</param>
@@ -194,7 +207,7 @@ namespace Exeggcute.src
         }
 
         /// <summary>
-        /// Removes all whitespace characters from the given string.
+        /// Removes *all* whitespace characters from the given string.
         /// </summary>
         /// <param name="input">the string to be stripped</param>
         /// <returns>input string with all whitespace removed</returns>
@@ -315,6 +328,21 @@ namespace Exeggcute.src
 
             return new Rectangle(newLeft, newTop, newWidth, newHeight);
             
+        }
+
+        /// <summary>
+        /// Turns a list of strings into a stack of strings, with the 
+        /// top of the file at the top of the stack.
+        /// </summary>
+        public static Stack<T> Stackify<T>(IEnumerable<T> lines)
+        {
+            lines = lines.Reverse();
+            return new Stack<T>(lines);
+        }
+
+        public static Stack<string> Tokenize(string line, char delim)
+        {
+            return Util.Stackify<string>(line.Split(delim));
         }
     }
 }

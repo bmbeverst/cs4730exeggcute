@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.contexts.scripting
 {
@@ -9,7 +10,7 @@ namespace Exeggcute.src.contexts.scripting
     {
         public static readonly string EXT = "level";
         public static readonly string ROOT = "data/levels";
-        public override string getFilepath(string name)
+        protected override string getFilepath(string name)
         {
             return string.Format("{0}/{1}.{2}", ROOT, name, EXT);
         }

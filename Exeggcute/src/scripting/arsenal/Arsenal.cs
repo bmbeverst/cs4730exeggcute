@@ -6,8 +6,9 @@ using Exeggcute.src;
 using Exeggcute.src.assets;
 using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
+using Exeggcute.src.scripting;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.scripting.arsenal
 {
     /// <summary>
     /// An Arsenal is a list of shots which are available to a particular
@@ -19,8 +20,8 @@ namespace Exeggcute.src
         /// Used to hold cached shots since many will exist in more than one 
         /// arsenal.
         /// </summary>
-        protected static Dictionary<Pair<ModelName, ScriptName>, Shot> cache = 
-            new Dictionary<Pair<ModelName, ScriptName>, Shot>();
+        protected static Dictionary<ArsenalEntry, Shot> cache =
+            new Dictionary<ArsenalEntry, Shot>();
         protected List<Shot> shots = new List<Shot>();
 
         public int Count
@@ -28,18 +29,18 @@ namespace Exeggcute.src
             get { return shots.Count; }
         }
 
-        public Arsenal(List<Pair<ModelName, ScriptName>> pairs)
+        public Arsenal(List<ArsenalEntry> entries)
         {
-            foreach (var pair in pairs)
+            foreach (var entry in entries)
             {
-                if (cache.ContainsKey(pair))
+                if (cache.ContainsKey(entry))
                 {
-                    shots.Add(cache[pair]);
+                    shots.Add(cache[entry]);
                 }
-                ScriptName scriptName = pair.Second;
-                ModelName modelName = pair.First;
+                ScriptName scriptName = entry.ScriptName;
+                ModelName modelName = entry.ModelName;
                 Shot shot = new Shot(modelName, scriptName);
-                cache[pair] = shot;
+                cache[entry] = shot;
                 shots.Add(shot);
             }
         }

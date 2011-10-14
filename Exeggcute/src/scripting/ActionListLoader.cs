@@ -12,7 +12,7 @@ namespace Exeggcute.src.scripting
     {
         public static readonly string EXT = "cl";
         public static readonly string ROOT = "data";
-        public override string getFilepath(string name)
+        protected override string getFilepath(string name)
         {
             return string.Format("{0}/{1}.{2}", ROOT, name, EXT);
         }
