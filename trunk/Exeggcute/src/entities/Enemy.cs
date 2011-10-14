@@ -8,10 +8,12 @@ namespace Exeggcute.src.entities
 {
     class Enemy : CommandEntity
     {
-        public Enemy(ModelName name, ScriptName script, List<Shot> spawnList, HashList<Shot> shotList)
-            : base(name, script, spawnList, shotList)
+
+        public Enemy(ModelName modelName, ScriptName scriptName, ArsenalName arsenalName, HashList<Shot> shotList)
+            : base(modelName, scriptName, arsenalName, shotList)
         {
 
         }
+
     }
 }

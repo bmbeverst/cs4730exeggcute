@@ -27,12 +27,10 @@ namespace Exeggcute.src.entities
             get { return actionList == null; }
         }
 
-        public Player(ModelName name, HashList<Shot> shotList)
-            : base(name, ScriptName.playerspawn, new List<Shot>(), shotList)
+        public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList)
+            : base(model, ScriptName.playerspawn, arsenalName, shotList)
         {
-            Shot shot = new Shot(ModelName.testcube, ScriptName.playershot0, shotList);
-            shotSpawner = new Spawner(ScriptName.playerspawner0, new List<Shot> { shot }, shotList);
-            spawnList.Add(shot);
+            shotSpawner = new Spawner(ScriptName.playerspawner0, ArsenalName.test, shotList);
             lives = 3;
             bombs = 3;
             score = 1234;

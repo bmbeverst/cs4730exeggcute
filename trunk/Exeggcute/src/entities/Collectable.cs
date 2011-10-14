@@ -8,9 +8,8 @@ namespace Exeggcute.src.entities
 {
     class Collectable : CommandEntity
     {
-        public Collectable(ModelName name)
-            //----------------------------------------------Collectables *never* spawn shots
-            : base(name, ScriptName.item, new List<Shot>(), new HashList<Shot>())
+        public Collectable(ModelName modelName)
+            : base(modelName, ScriptName.item)
         {
 
         }

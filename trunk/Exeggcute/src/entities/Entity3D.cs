@@ -12,7 +12,6 @@ namespace Exeggcute.src.entities
     {
         public virtual Vector3 Position { get; protected set; }
         public virtual Model Surface { get; protected set; }
-        public virtual ModelName Name { get; protected set; }
         public virtual BoundingSphere Hitbox { get; protected set; }
 
         public virtual float X
@@ -33,10 +32,9 @@ namespace Exeggcute.src.entities
             protected set { Position = new Vector3(Position.X, Position.Y, value); }
         }
 
-        public Entity3D(ModelName name, Vector3 pos)
+        public Entity3D(ModelName modelName, Vector3 pos)
         {
-            Name = name;
-            Surface = ModelBank.Get(name);
+            Surface = ModelBank.Get(modelName);
             Position = pos;
             Hitbox = Util.MergeSpheres(Surface.Meshes);
             Hitbox = new BoundingSphere(Position, Hitbox.Radius);

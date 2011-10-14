@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace Exeggcute.src.entities
+namespace Exeggcute.src
 {
     class HashList<T> : IEnumerable<KeyValuePair<T, bool>>
     {

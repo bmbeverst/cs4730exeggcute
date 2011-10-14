@@ -7,6 +7,7 @@ namespace Exeggcute.src.contexts.scripting
 {
     enum TaskType
     {
-        Msg
+        Msg,
+        Spawn
     }
 }

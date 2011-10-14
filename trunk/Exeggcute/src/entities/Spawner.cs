@@ -8,8 +8,8 @@ namespace Exeggcute.src.entities
 {
     class Spawner : CommandEntity
     {
-        public Spawner(ScriptName script, List<Shot> spawnList, HashList<Shot> shotList)
-            : base(script, spawnList, shotList)
+        public Spawner(ScriptName script, ArsenalName arsenalName, HashList<Shot> shotList)
+            : base(script, arsenalName, shotList)
         {
 
         }

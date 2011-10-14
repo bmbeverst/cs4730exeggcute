@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.contexts.scripting
 {
-    class MessageTask : Task
+    class SpawnTask : Task
     {
         public int ID { get; protected set; }
-
-        public MessageTask(int id)
+        public SpawnTask(int id)
         {
             ID = id;
         }
@@ -18,5 +18,7 @@ namespace Exeggcute.src.contexts.scripting
         {
             level.Process(this);
         }
+
+
     }
 }
