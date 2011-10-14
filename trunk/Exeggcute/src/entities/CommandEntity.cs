@@ -50,6 +50,7 @@ namespace Exeggcute.src.entities
         public CommandEntity(ModelName modelName, ScriptName scriptName, ArsenalName arsenalName, HashList<Shot> shotList)
             : base(modelName, Engine.Jail)
         {
+            Health = 100;
             ShotList = shotList;
             actionList = ScriptBank.Get(scriptName);
             this.arsenal = ArsenalBank.Get(arsenalName);
@@ -93,7 +94,6 @@ namespace Exeggcute.src.entities
             Util.Warn(error, cmd.GetType());
             throw new NotImplementedException();
         }
-
 
         /// <summary>
         /// In order to handle the different subtypes of ActionBase, we employ 
@@ -196,6 +196,11 @@ namespace Exeggcute.src.entities
             AngularVelocity = 0;
             VelocityZ = 0;
             cmdPtr += 1;
+        }
+
+        public void Collide(Shot shot)
+        {
+            Health -= shot.Damage;
         }
 
         public override void Update()

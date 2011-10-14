@@ -12,9 +12,15 @@ namespace Exeggcute.src
     {
         protected ScriptName scriptName;
         protected ModelName modelName;
+
+        public bool IsDestroyed { get; protected set; }
+
+        public int Damage { get; protected set; }
+
         public Shot(ModelName modelName, ScriptName scriptName)
             : base(modelName, scriptName)
         {
+            Damage = 10;
             this.scriptName = scriptName;
             this.modelName = modelName;
         }
@@ -25,6 +31,11 @@ namespace Exeggcute.src
             clone.Angle = angle;
             clone.Position = pos;
             return clone;
+        }
+
+        public virtual void Collide(CommandEntity entity)
+        {
+            IsDestroyed = true;
         }
 
     }

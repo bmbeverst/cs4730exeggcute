@@ -13,10 +13,11 @@ namespace Exeggcute.src
 
         }
 
-        public bool Collide(Player player, List<CommandEntity> enemies)
+        public bool Collide(Player player, HashList<Enemy> enemies)
         {
             if (!player.CanControl) return false;
-            foreach (Entity3D enemy in enemies)
+            var keys = enemies.GetKeys();
+            foreach (Enemy enemy in keys)
             {
                 if (enemy.Hitbox.Intersects(player.Hitbox))
                 {
@@ -26,15 +27,31 @@ namespace Exeggcute.src
             return false;
         }
 
-        public void Collide(List<Shot> playerShots, List<CommandEntity> enemies)
+        public void Collide(HashList<Shot> playerShots, HashList<Enemy> enemies)
         {
-            foreach (Shot shot in playerShots)
+            List<Shot> shotsRemoved = new List<Shot>();
+            List<Enemy> enemiesRemoved = new List<Enemy>();
+            foreach (Shot shot in playerShots.GetKeys())
             {
-                foreach (Entity3D enemy in enemies)
+                foreach (Enemy enemy in enemies.GetKeys())
                 {
-
+                    if (enemy.Hitbox.Intersects(shot.Hitbox))
+                    {
+                        enemy.Collide(shot);
+                        shot.Collide(enemy);
+                        if (shot.IsDestroyed)
+                        {
+                            shotsRemoved.Add(shot);
+                        }
+                        if (enemy.IsDestroyed)
+                        {
+                            enemiesRemoved.Add(enemy);
+                        }
+                    }
                 }
             }
+            shotsRemoved.ForEach(shot => playerShots.Remove(shot));
+            enemiesRemoved.ForEach(enemy => enemies.Remove(enemy));
         }
 
         public void Collide(List<Entity3D> entities)

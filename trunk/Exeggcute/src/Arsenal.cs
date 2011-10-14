@@ -9,31 +9,37 @@ using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src
 {
+    /// <summary>
+    /// An Arsenal is a list of shots which are available to a particular
+    /// entity to spawn.
+    /// </summary>
     class Arsenal
     {
         /// <summary>
         /// Used to hold cached shots since many will exist in more than one 
         /// arsenal.
         /// </summary>
-        public static Dictionary<Pair<ModelName, ScriptName>, Shot> AllShots = 
+        protected static Dictionary<Pair<ModelName, ScriptName>, Shot> cache = 
             new Dictionary<Pair<ModelName, ScriptName>, Shot>();
-        protected  List<Shot> shots = new List<Shot>();
+        protected List<Shot> shots = new List<Shot>();
+
         public int Count
         {
             get { return shots.Count; }
         }
+
         public Arsenal(List<Pair<ModelName, ScriptName>> pairs)
         {
             foreach (var pair in pairs)
             {
-                if (AllShots.ContainsKey(pair))
+                if (cache.ContainsKey(pair))
                 {
-                    shots.Add(AllShots[pair]);
+                    shots.Add(cache[pair]);
                 }
                 ScriptName scriptName = pair.Second;
                 ModelName modelName = pair.First;
                 Shot shot = new Shot(modelName, scriptName);
-                AllShots[pair] = shot;
+                cache[pair] = shot;
                 shots.Add(shot);
             }
         }
