@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
+using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.entities
 {

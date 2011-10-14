@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
     enum CommandType
     {

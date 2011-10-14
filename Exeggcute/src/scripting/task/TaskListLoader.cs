@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting;
 
-namespace Exeggcute.src.contexts.scripting
+namespace Exeggcute.src.scripting.task
 {
     class TaskListLoader : ScriptParser<Task, int>
     {

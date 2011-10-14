@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
     class MoveAction : ActionBase
     {

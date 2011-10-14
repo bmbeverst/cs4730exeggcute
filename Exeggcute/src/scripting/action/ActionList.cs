@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
     /// <summary>
     /// A read-only wrapper for a List of ActionBase.

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
-    class VanishAction : ActionBase
+    class StopAction : ActionBase
     {
-        public VanishAction()
-            : base()
+        public StopAction()
         {
-
+            
         }
 
         public override void Process(CommandEntity entity)
@@ -21,9 +21,7 @@ namespace Exeggcute.src.scripting
 
         public override ActionBase Copy()
         {
-            return new VanishAction();
+            return new StopAction();
         }
-
-
     }
 }

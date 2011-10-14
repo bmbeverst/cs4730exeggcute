@@ -8,8 +8,8 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.particles;
 using Exeggcute.src.entities;
 using Exeggcute.src.assets;
-using Exeggcute.src.contexts.scripting;
 using Exeggcute.src.text;
+using Exeggcute.src.scripting.task;
 
 namespace Exeggcute.src
 {

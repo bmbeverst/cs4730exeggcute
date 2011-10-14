@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
-    class AimAction : ActionBase
+    class VanishAction : ActionBase
     {
-        public float Angle { get; protected set; }
-        public AimAction(float angle)
+        public VanishAction()
+            : base()
         {
-            Angle = angle;
+
         }
 
         public override void Process(CommandEntity entity)
@@ -21,7 +21,9 @@ namespace Exeggcute.src.scripting
 
         public override ActionBase Copy()
         {
-            return new AimAction(Angle);
+            return new VanishAction();
         }
+
+
     }
 }
