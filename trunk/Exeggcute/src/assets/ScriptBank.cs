@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.scripting;
+using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.assets
 {

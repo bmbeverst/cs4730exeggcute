@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
-    class WaitAction : ActionBase
+    class MoveRelativeAction : ActionBase
     {
+        public Vector3 Displacement { get; protected set; }
         public int Duration { get; protected set; }
-        public WaitAction(int duration)
+
+
+        public MoveRelativeAction(Vector3 displacement, int duration)
         {
+            Displacement = displacement;
             Duration = duration;
         }
 
@@ -21,9 +26,7 @@ namespace Exeggcute.src.scripting
 
         public override ActionBase Copy()
         {
-            WaitAction result = new WaitAction(Duration);
-
-            return result;
+            return new MoveRelativeAction(Displacement, Duration);
         }
     }
 }

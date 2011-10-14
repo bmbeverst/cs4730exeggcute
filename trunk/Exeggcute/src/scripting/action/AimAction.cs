@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
-    class StopAction : ActionBase
+    class AimAction : ActionBase
     {
-        public StopAction()
+        public float Angle { get; protected set; }
+        public AimAction(float angle)
         {
-            
+            Angle = angle;
         }
 
         public override void Process(CommandEntity entity)
@@ -21,7 +21,7 @@ namespace Exeggcute.src.scripting
 
         public override ActionBase Copy()
         {
-            return new StopAction();
+            return new AimAction(Angle);
         }
     }
 }

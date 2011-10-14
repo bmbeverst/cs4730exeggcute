@@ -6,7 +6,7 @@ using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
     class ActionListLoader : ScriptParser<ActionBase, ScriptName>
     {

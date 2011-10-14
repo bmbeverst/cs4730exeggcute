@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Exeggcute.src.contexts.scripting
+namespace Exeggcute.src.scripting.task
 {
     enum TaskType
     {

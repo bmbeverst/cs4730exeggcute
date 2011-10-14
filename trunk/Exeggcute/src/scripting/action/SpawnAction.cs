@@ -5,7 +5,7 @@ using System.Text;
 using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src.scripting
+namespace Exeggcute.src.scripting.action
 {
     class SpawnAction : ActionBase
     {
