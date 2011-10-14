@@ -10,15 +10,18 @@ namespace Exeggcute.src
 {
     class Shot : CommandEntity
     {
-        public Shot(ModelName model, ScriptName script, HashList<Shot> shotList)
-            : base(model, script, new List<Shot>(), shotList)
+        protected ScriptName scriptName;
+        protected ModelName modelName;
+        public Shot(ModelName modelName, ScriptName scriptName)
+            : base(modelName, scriptName)
         {
-
+            this.scriptName = scriptName;
+            this.modelName = modelName;
         }
 
         public Shot Clone(Vector3 pos, float angle)
         {
-            Shot clone = new Shot(Name, Script, ShotList);
+            Shot clone = new Shot(modelName, scriptName);
             clone.Angle = angle;
             clone.Position = pos;
             return clone;

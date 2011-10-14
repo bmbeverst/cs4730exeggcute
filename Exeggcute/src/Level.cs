@@ -9,6 +9,7 @@ using Exeggcute.src.particles;
 using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 using Exeggcute.src.contexts.scripting;
+using Exeggcute.src.text;
 
 namespace Exeggcute.src
 {
@@ -24,6 +25,7 @@ namespace Exeggcute.src
         private Player player;
         private CollisionManager collider;
         private List<CommandEntity> entities = new List<CommandEntity>();
+        private List<EntityInfo> spawnList = new List<EntityInfo>();
 
         private HashList<Shot> playerShots = new HashList<Shot>();
         private HashList<Shot> enemyShots = new HashList<Shot>();
@@ -44,12 +46,16 @@ namespace Exeggcute.src
         ///<summary> Outside of this area, enemies and shots are destroyed. </summary>
         public Rectangle LiveArea { get; protected set; }
 
+        public List<TextBoxList> boxes = new List<TextBoxList>();
+
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content)
         {
-
+            this.playerShots = World.PlayerShots;
+            this.enemyShots = World.EnemyShots;
             TaskListLoader loader = new TaskListLoader();
             taskList = loader.Load(0);
+            loadMsgBoxes(content);
 
             collider = new CollisionManager();
             camera = new Camera(100, MathHelper.PiOver2, 1);
@@ -60,11 +66,29 @@ namespace Exeggcute.src
 
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
-            player = new Player(ModelName.testcube, playerShots);
-            List<Shot> spawnList = new List<Shot> {
-                new Shot(ModelName.testcube, ScriptName.playershot0, enemyShots)
-            };
-            entities.Add(new Enemy(ModelName.testcube, ScriptName.test, spawnList, enemyShots));
+            player = new Player(ModelName.testcube, ArsenalName.test, World.PlayerShots);
+            entities.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
+        }
+
+        private int scrollSpeed = 10;
+        public void loadMsgBoxes(ContentManager content)
+        {
+            List<string> allLines = Util.ReadLines("data/msg_boxes.txt");
+            string total = "";
+            for (int i = 0; i < allLines.Count; i += 1)
+            {
+                string line = allLines[i].TrimEnd(' ');
+                line = line + ' ';
+                total += line;
+
+            }
+
+            string[] messages = total.Split('@');
+            SpriteFont font = FontBank.Get(FontName.font0);
+            for (int i = 1; i < messages.Length; i += 1)
+            {
+                boxes.Add(new TextBoxList(font, messages[i], scrollSpeed));
+            }
         }
 
         private void updateShots(HashList<Shot> list)
@@ -87,12 +111,18 @@ namespace Exeggcute.src
 
         public void Process(Task task)
         {
-
+            throw new InvalidOperationException("Must call a subclass overload");
         }
 
         public void Process(MessageTask task)
         {
+            World.PushContext(new Conversation(this, boxes[task.ID]));
             taskPtr += 1;
+        }
+
+        public void Process(SpawnTask task)
+        {
+            throw new NotImplementedException();
         }
 
         public void ProcessTasks()

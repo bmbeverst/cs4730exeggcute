@@ -37,8 +37,8 @@ namespace Exeggcute.src.entities
             get { return new Vector2(Position.X, Position.Y); }
         }
 
-        public PlanarEntity3D(ModelName name, Vector3 pos)
-            : base(name, pos)
+        public PlanarEntity3D(ModelName modelName, Vector3 pos)
+            : base(modelName, pos)
         {
 
         }

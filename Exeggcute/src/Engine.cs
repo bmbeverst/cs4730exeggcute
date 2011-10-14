@@ -58,7 +58,7 @@ namespace Exeggcute.src
             loadEffects(content);
             loadModels(content);
             loadSprites(content);
-            loadMsgBoxes(content);
+            loadArsenals(content);
             loadMenus();
 
             controls = new ControlManager(input);
@@ -67,26 +67,12 @@ namespace Exeggcute.src
             
         }
 
-        private int scrollSpeed = 10;
-        public void loadMsgBoxes(ContentManager content)
+        private void loadArsenals(ContentManager content)
         {
-            List<string> allLines = Util.ReadLines("data/msg_boxes.txt");
-            string total = "";
-            for (int i = 0; i < allLines.Count; i += 1)
-            {
-                string line = allLines[i].TrimEnd(' ');
-                line = line + ' ';
-                total += line;
-
-            }
-
-            string[] messages = total.Split('@');
-            SpriteFont font = FontBank.Get(FontName.font0);
-            for (int i = 1; i < messages.Length; i += 1)
-            {
-                boxes.Add(new TextBoxList(font, messages[i], scrollSpeed));
-            }
+            ArsenalBank.LoadAll(content);
         }
+
+        
 
 
         public static Menu GetMenu(ContextName id)

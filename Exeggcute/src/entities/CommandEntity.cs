@@ -20,11 +20,10 @@ namespace Exeggcute.src.entities
         /// </summary>
         public bool IsDone { get; protected set; }
         public CommandEntity Parent { get; protected set; }
-        public ScriptName Script { get; protected set; }
         protected ActionList actionList;
 
         protected HashList<Shot> ShotList;
-        protected List<Shot> spawnList;
+        protected Arsenal arsenal;
 
         public int Health { get; protected set; }
 
@@ -41,23 +40,48 @@ namespace Exeggcute.src.entities
         /// </summary>
         protected int counter = 0;
 
-        public CommandEntity(ModelName name, ScriptName script, List<Shot> spawnList, HashList<Shot> shotList)
-            : base(name, Engine.Jail)
+        /// <summary>
+        /// <para>Initializes the command entity for use as an enemy/player/boss 
+        /// with:</para>
+        /// <para> - An action script</para>
+        /// <para> - A model</para>
+        /// <para> - An arsenal</para>
+        /// </summary>
+        public CommandEntity(ModelName modelName, ScriptName scriptName, ArsenalName arsenalName, HashList<Shot> shotList)
+            : base(modelName, Engine.Jail)
         {
             ShotList = shotList;
-            Script = script;
-            actionList = ScriptBank.Get(Script);
-            this.spawnList = spawnList;
+            actionList = ScriptBank.Get(scriptName);
+            this.arsenal = ArsenalBank.Get(arsenalName);
             
         }
 
-        public CommandEntity(ScriptName script, List<Shot> spawnList, HashList<Shot> shotList)
+        /// <summary>
+        /// <para>Initializes the command entity for use as a spawner with:</para>
+        /// <para> - An action script</para>
+        /// <para> - An arsenal</para>
+        /// <para> - No model</para>
+        /// </summary>
+        public CommandEntity(ScriptName script, ArsenalName arsenalName, HashList<Shot> shotList)
             : base(Engine.Jail)
         {
             ShotList = shotList;
-            Script = script;
-            actionList = ScriptBank.Get(Script);
-            this.spawnList = spawnList;
+            actionList = ScriptBank.Get(script);
+            this.arsenal = ArsenalBank.Get(arsenalName);
+        }
+
+        /// <summary>
+        /// <para>Initializes the command entity for use as a shot/collectable with:</para>
+        /// <para> - A action script</para>
+        /// <para> - A model</para>
+        /// <para> - No arsenal</para>
+        /// </summary>
+        public CommandEntity(ModelName model, ScriptName script)
+            : base(model, Engine.Jail)
+        {
+            ShotList = null;
+            actionList = ScriptBank.Get(script);
+            this.arsenal = null;
         }
 
         public virtual void Process(ActionBase cmd)
@@ -126,10 +150,9 @@ namespace Exeggcute.src.entities
 
         public virtual void Process(SpawnAction spawn)
         {
-            Shot toSpawn = spawnList[spawn.ShotID];
             float angle = spawn.AngleOffset + Angle;
             Vector3 pos = Util.Displace(Position, angle, spawn.Distance);
-            Shot cloned = toSpawn.Clone(pos, angle);
+            Shot cloned = arsenal.Clone(spawn.ShotID, pos, angle);
             ShotList.Add(cloned);
             cmdPtr += 1;
         }

@@ -23,13 +23,15 @@ namespace Exeggcute.src
         private static ContentManager content;
         private static GraphicsDevice graphics;
 
+        public static HashList<Shot> PlayerShots = new HashList<Shot>();
+        public static HashList<Shot> EnemyShots = new HashList<Shot>();
+
         public static void Initialize(ContentManager content, GraphicsDevice graphics)
         {
             World.content = content;
             World.graphics = graphics;
             isInitialized = true;
         }
-
 
         public static void Update(ControlManager controls)
         {
@@ -67,7 +69,19 @@ namespace Exeggcute.src
         {
             ((Menu)(stack.Peek())).Move(dir);
         }
-        
+
+        public static void Pop(IContext self)
+        {
+            if (self == stack.Peek())
+            {
+                stack.Pop();
+            }
+            else
+            {
+                throw new InvalidOperationException("Can only pop yourself");
+            }
+        }
+
         public static void SendAccept()
         {
             

@@ -137,9 +137,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Arsenal.cs" />
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
     <Compile Include="src\assets\ScriptBank.cs" />
+    <Compile Include="src\assets\ArsenalBank.cs" />
     <Compile Include="src\assets\SpriteBank.cs" />
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\CollisionManager.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="src\contexts\LoadLevelEvent.cs" />
     <Compile Include="src\contexts\QuitEvent.cs" />
     <Compile Include="src\contexts\scripting\MessageTask.cs" />
+    <Compile Include="src\contexts\scripting\SpawnTask.cs" />
     <Compile Include="src\contexts\scripting\Task.cs" />
     <Compile Include="src\contexts\scripting\TaskListLoader.cs" />
     <Compile Include="src\contexts\scripting\TaskType.cs" />
@@ -156,12 +159,14 @@
     <Compile Include="src\entities\BombItem.cs" />
     <Compile Include="src\entities\Collectable.cs" />
     <Compile Include="src\entities\Enemy.cs" />
+    <Compile Include="src\entities\EntityInfo.cs" />
     <Compile Include="src\entities\Entity.cs" />
-    <Compile Include="src\entities\HashList.cs" />
+    <Compile Include="src\HashList.cs" />
     <Compile Include="src\entities\LifeItem.cs" />
     <Compile Include="src\entities\Spawner.cs" />
     <Compile Include="src\gui\DifficultyMenu.cs" />
     <Compile Include="src\gui\PauseMenu.cs" />
+    <Compile Include="src\Pair.cs" />
     <Compile Include="src\scripting\ActionBase.cs" />
     <Compile Include="src\scripting\ActionList.cs" />
     <Compile Include="src\scripting\AimAction.cs" />
@@ -199,6 +204,7 @@
     <Compile Include="src\entities\Projectile.cs" />
     <Compile Include="src\ScriptParser.cs" />
     <Compile Include="src\Shot.cs" />
+    <Compile Include="src\scripting\ArsenalLoader.cs" />
     <Compile Include="src\text\Conversation.cs" />
     <Compile Include="src\text\TextBox.cs" />
     <Compile Include="src\text\TextBoxList.cs" />
@@ -271,6 +277,9 @@
     <Content Include="data\msg_boxes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="data\arsenals\test.arsenal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Exeggcute.ico" />
     <Content Include="GameThumbnail.png" />
     <None Include="settings.cfg">

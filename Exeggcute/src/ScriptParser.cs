@@ -32,7 +32,7 @@ namespace Exeggcute.src
                 }
                 catch (Exception error)
                 {
-                    throw new ParseError("{0}\nFailed to parse line {1}", error.StackTrace, line);
+                    throw new ParseError("{0}\nFailed to parse line {1}", error.Message, line);
                 }
             }
             return result;
