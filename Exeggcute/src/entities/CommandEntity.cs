@@ -156,7 +156,6 @@ namespace Exeggcute.src.entities
         {
             IsShooting = !IsShooting;
             cmdPtr += 1;
-
         }
 
         public virtual void Process(MoveToAction moveTo)
