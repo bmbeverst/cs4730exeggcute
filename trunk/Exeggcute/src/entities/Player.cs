@@ -93,6 +93,8 @@ namespace Exeggcute.src.entities
             {
                 speed = MoveSpeed;
             }
+            if (IsBombing) speed /= 2;
+
             int dx = 0;
             int dy = 0;
             if (controls[Ctrl.Up].IsPressed)
@@ -112,6 +114,8 @@ namespace Exeggcute.src.entities
             {
                 dx = 1;
             }
+
+            //This makes it so we dont overwrite the angle if our speed is 0
             if ((dx | dy) == 0)
             {
                 Speed = 0;
