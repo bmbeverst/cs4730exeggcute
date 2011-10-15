@@ -27,6 +27,19 @@ namespace Exeggcute.src
             return false;
         }
 
+        public bool Collide(HashList<Shot> enemyShots, Player player)
+        {
+            if (player.IsInvulnerable) return false;
+            foreach (Shot shot in enemyShots.GetKeys())
+            {
+                if (shot.Hitbox.Intersects(player.Hitbox))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void Collide(HashList<Shot> playerShots, HashList<Enemy> enemies)
         {
             List<Shot> shotsRemoved = new List<Shot>();

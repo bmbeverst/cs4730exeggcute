@@ -28,17 +28,27 @@ namespace Exeggcute.src.entities
             get { return actionList == null; }
         }
 
+        public bool IsInvulnerable
+        {
+            get { return !InvulnTimer.IsDone; }
+        }
+
+        public bool IsBombing { get; protected set; }
+
         public MassSpawner bomb;
+        public Timer InvulnTimer;
 
         public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList)
             : base(model, ScriptName.playerspawn, arsenalName, ScriptName.playerspawner0, shotList)
         {
-            //shotSpawner = new Spawner(ScriptName.playerspawner0, ArsenalName.test, shotList);
             lives = 3;
             bombs = 3;
             score = 1234;
             MoveSpeed = 1;
             FocusSpeed = 0.5f;
+            InvulnTimer = new Timer(120);
+            bomb = new MassSpawner(null, 120, shotList);
+
         }
 
         public override void Process(VanishAction vanish)
@@ -126,6 +136,13 @@ namespace Exeggcute.src.entities
 
             IsShooting = controls[Ctrl.Action].IsPressed;
 
+            if (controls[Ctrl.Cancel].JustPressed && !IsBombing && bombs > 0)
+            {
+                IsBombing = true;
+                bombs -= 1;
+                Console.WriteLine("Begin bombing");
+            }
+
             if (controls[Ctrl.Start].DoEatPress())
             {
                 World.Pause();
@@ -138,13 +155,26 @@ namespace Exeggcute.src.entities
         {
             //shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
+
+            if (IsBombing)
+            {
+                bomb.Update(this);
+                if (bomb.IsDone)
+                {
+                    IsBombing = false;
+                    bomb.Reset();
+                    Console.WriteLine("End bombing");
+                }
+            }
             score += 123;
-            
+            InvulnTimer.Increment();
             base.Update();
         }
-
+        int frame = 0;
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            frame += 1;
+            if (!(IsInvulnerable && !(frame % 2 == 0)))
             base.Draw(graphics, view, projection);
         }
 
@@ -171,6 +201,7 @@ namespace Exeggcute.src.entities
             actionList = ScriptBank.Get(ScriptName.playerspawn);
             cmdPtr = 0;
             lives -= 1;
+            InvulnTimer.Reset();
             //spawn the death animation
         }
     }
