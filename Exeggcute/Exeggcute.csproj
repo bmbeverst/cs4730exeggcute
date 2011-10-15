@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectGuid>{BB169488-9707-4FFE-A603-924161CE3B66}</ProjectGuid>
@@ -21,7 +21,7 @@
     <ManifestCertificateThumbprint>4C9FAC26CC0B84A0461E79AD7404A34976A25072</ManifestCertificateThumbprint>
     <ManifestKeyFile>Attack_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <XnaUpgrade>
     </XnaUpgrade>
     <XnaOutputType>Game</XnaOutputType>
