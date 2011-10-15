@@ -1,0 +1,15 @@
+#The games controls.
+
+= Game Controls =
+A list of the games controls.
+
+= Details =
+
+  * W, A, S, D Movement
+  * Esc quit
+  * N turn on particle trail
+  *
+  *
+  *
+  *
+  *
