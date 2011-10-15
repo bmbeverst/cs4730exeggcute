@@ -1,5 +1,3 @@
-#Controls
-
 = Game Controls =
 A list of the games controls.
 
