@@ -5,11 +5,14 @@ A list of the games controls.
 
 = Details =
 
+Keyboard
+
   * W, A, S, D Movement
   * Esc quit
-  * N turn on particle trail
-  *
-  *
-  *
-  *
-  *
+  * N to shoot
+  * Shift to 'focus'
+  * Enter to pause/unpause
+
+Gamepad
+
+  * Varies by manufacturer (customizer in the works)
