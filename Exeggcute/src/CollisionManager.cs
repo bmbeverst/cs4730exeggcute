@@ -60,7 +60,7 @@ namespace Exeggcute.src
                         {
                             shotsRemoved.Add(shot);
                         }
-                        if (enemy.IsDestroyed || enemy.IsDone)
+                        if (enemy.IsDying || enemy.IsDone)
                         {
                             enemiesRemoved.Add(enemy);
                         }

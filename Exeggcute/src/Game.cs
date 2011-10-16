@@ -14,15 +14,9 @@ namespace Exeggcute.src
         private GraphicsDeviceManager graphicsManager;
         private SpriteBatch batch;
         private Engine engine;
-        // If we, for some insane reason, wanted more than one game instance alive,
-        // this would most likely break.
-        public static IServiceProvider ServiceProvider;
-        public static bool StaticInitialized = false;
         public Point ScreenSize;
         public Game()
         {
-            ServiceProvider = Content.ServiceProvider;
-            StaticInitialized = true;
 
             graphicsManager = new GraphicsDeviceManager(this);
             graphicsManager.PreferredBackBufferHeight = Engine.YRes;
@@ -51,10 +45,10 @@ namespace Exeggcute.src
         {
 
         }
+
         protected override void Update(GameTime gameTime)
         {
             engine.Update();
-            
             base.Update(gameTime);
         }
 
@@ -65,7 +59,7 @@ namespace Exeggcute.src
         }
 
         /// <summary>
-        /// Note from MS:
+        /// Note:
         /// Initialize is called before Draw, so the length of time spent 
         /// executing code in this method will be experienced by the user 
         /// as a delay before he or she sees the initial game screen. 

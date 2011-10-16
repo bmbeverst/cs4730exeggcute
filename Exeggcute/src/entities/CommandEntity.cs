@@ -21,7 +21,6 @@ namespace Exeggcute.src.entities
         /// If the entity is done, it should be removed from the world.
         /// </summary>
         public bool IsDone { get; protected set; }
-        public CommandEntity Parent { get; protected set; }
         protected ActionList actionList;
 
         protected HashList<Shot> ShotList;
