@@ -11,6 +11,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.text;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.scripting.roster;
+using Exeggcute.src.graphics;
 
 namespace Exeggcute.src
 {
@@ -26,7 +27,7 @@ namespace Exeggcute.src
         private Camera camera;
         private Player player;
         private CollisionManager collider;
-
+        private TerrainMesh background;
         private Roster roster;
 
         private HashList<Enemy> enemies = new HashList<Enemy>();
@@ -57,11 +58,11 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
+            this.background = new TerrainMesh(graphics, EffectName.terrain, 10, 6, 6);
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.roster = RosterBank.Get(rosterName);
             this.taskList = loader.Load(0);
-
             loadMsgBoxes(content);
 
             collider = new CollisionManager();
@@ -156,6 +157,7 @@ namespace Exeggcute.src
         {
             ProcessTasks();
             particles.Update();
+            background.Update(controls);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
@@ -192,7 +194,7 @@ namespace Exeggcute.src
         {
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
-
+            background.Draw(graphics, view, projection);
             player.Draw(graphics, view, projection);
 
             drawShots(playerShots, graphics, view, projection);
@@ -206,6 +208,7 @@ namespace Exeggcute.src
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
             hud.Draw(batch, player);
+            
         }
 
 

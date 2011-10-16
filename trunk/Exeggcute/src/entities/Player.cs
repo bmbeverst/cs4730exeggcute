@@ -38,6 +38,9 @@ namespace Exeggcute.src.entities
         public MassSpawner bomb;
         public Timer InvulnTimer;
 
+        protected int frames;
+        protected bool flashDraw;
+
         public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList)
             : base(model, ScriptName.playerspawn, arsenalName, ScriptName.playerspawner0, shotList)
         {
@@ -171,14 +174,14 @@ namespace Exeggcute.src.entities
             }
             score += 123;
             InvulnTimer.Increment();
+            frames += 1;
+            flashDraw = (IsInvulnerable && frames % 2 == 0);
             base.Update();
         }
-        int frame = 0;
+
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            frame += 1;
-            if (!(IsInvulnerable && !(frame % 2 == 0)))
-            base.Draw(graphics, view, projection);
+            if (!flashDraw) base.Draw(graphics, view, projection);
         }
 
         public void DrawHUD(SpriteBatch batch, SpriteFont scoreFont)

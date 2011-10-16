@@ -23,7 +23,8 @@ namespace Exeggcute.src.assets
     enum EffectName
     {
         particle,
-        light0
+        light0,
+        terrain
     }
     enum FontName
     {
@@ -35,7 +36,9 @@ namespace Exeggcute.src.assets
         cursor,
         dot,
         shot,
-        collectables
+        collectables,
+        bg,
+        wang8
     }
 
     enum SpriteName

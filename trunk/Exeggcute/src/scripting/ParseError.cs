@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exeggcute.src.scripting
 {
-    class ParseError : Exception
+    class ParseError : ExeggcuteError
     {
         
         public ParseError(Exception error, string line, string filepath)
