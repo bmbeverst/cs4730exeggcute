@@ -161,9 +161,6 @@ namespace Exeggcute.src.graphics
                     effect.Parameters["xTexture"].SetValue(texture);
                     foreach (EffectPass pass in effect.CurrentTechnique.Passes)
                     {
-                        Console.WriteLine("{0}, {1} count:({2}) : {3}", vertices.Length, indices.Length/3, count,
-                            wangGrid.Rows*wangGrid.Cols);
-                        Console.WriteLine("--->{0}, {1}", count * 6, count * 3);
                         pass.Apply();
                         graphics.DrawUserIndexedPrimitives(
                             PrimitiveType.TriangleList,

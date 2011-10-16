@@ -34,15 +34,13 @@ namespace Exeggcute.src
                 Console.WriteLine("Unable to connect to server.");
                 return;
             }
-            Console.WriteLine("37");
+            Console.WriteLine("Requesting data from server");
             server.Send(Encoding.ASCII.GetBytes("GetLogCount\r\n"));
-            Console.WriteLine("39");
             byte[] data = new byte[1024];
             int receivedDataLength = server.Receive(data);
-            Console.WriteLine("42");
             string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
             Console.WriteLine(stringData);
-
+            Console.WriteLine("Data successful");
             server.Shutdown(SocketShutdown.Both);
             server.Close();
             Console.WriteLine("The server shut down correctly");
