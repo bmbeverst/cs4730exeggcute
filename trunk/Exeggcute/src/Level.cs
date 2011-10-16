@@ -28,9 +28,8 @@ namespace Exeggcute.src
         private Camera camera;
         private Player player;
         private CollisionManager collider;
-        private TerrainMesh background;
         private Roster roster;
-        WangMesh terrain;
+        private WangMesh terrain;
 
         private HashList<Enemy> enemies = new HashList<Enemy>();
 
@@ -61,11 +60,8 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
-
-            float size = 8;
-            this.terrain = new WangMesh(graphics, TextureName.wang8, 8, 8, 16);
+            this.terrain = new WangMesh(graphics, TextureName.wang8, 12, 100, 8, 64, 0.01f);
             
-            this.background = new TerrainMesh(graphics, EffectName.terrain, 10, 6, 6);
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.roster = RosterBank.Get(rosterName);
@@ -82,7 +78,7 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots);
-            //enemies.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
+            ;
         }
 
         private int scrollSpeed = 10;
@@ -165,7 +161,6 @@ namespace Exeggcute.src
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
-            background.Update(controls);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;

@@ -76,7 +76,6 @@ namespace Exeggcute.src.graphics
             }
         }
 
-        int[][] starting;
         private void SetUpIndices()
         {
             indices = new int[(vertexCols - 1) * (vertexRows - 1) * 6];

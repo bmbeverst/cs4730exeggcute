@@ -192,13 +192,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wang8orig.png">
-      <Name>wang8orig</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="wang8.png">
       <Name>wang8</Name>
       <Importer>TextureImporter</Importer>

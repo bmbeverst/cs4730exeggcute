@@ -107,30 +107,30 @@ namespace Exeggcute.src.graphics
             if (left == null && above == null) 
             {
                 //this is actually the bottom left
-                Console.WriteLine("upper left");
+                //Console.WriteLine("upper left");
 
-                Console.WriteLine(message + "\n");
+                //Console.WriteLine(message + "\n");
             
                 return;
             }
             else if (left == null)
             {
                 //return;
-                Console.WriteLine("bottom left");
+                //Console.WriteLine("bottom left");
                 lowerleft = above.UpperLeft;//do not touch
                 lowerright = above.UpperRight;//do not touch
 
             }
             else if (above == null)
             {
-                Console.WriteLine("upper right");
+                //Console.WriteLine("upper right");
                 upperleft = left.UpperRight;
                 lowerleft = left.LowerRight;
             }
             else
             {
                 //this is actually the top right
-                Console.WriteLine("bottom right");
+                //Console.WriteLine("bottom right");
                 lowerleft = above.UpperLeft;//do not touch
                 lowerright = above.UpperRight;//do not touch
 
@@ -139,7 +139,7 @@ namespace Exeggcute.src.graphics
                 //left.UpdateVertices(left.UpperLeft, left.UpperRight, left.LowerLeft, left.LowerRight);
         
             }
-            Console.WriteLine(message + "\n");
+            //Console.WriteLine(message + "\n");
             UpdateVertices(upperleft, upperright, lowerleft, lowerright);
             //left.UpdateVertices(left.UpperLeft, above.LowerLeft, left.LowerLeft, left.LowerRight);
         }
