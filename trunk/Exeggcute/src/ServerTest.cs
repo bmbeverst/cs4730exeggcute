@@ -43,7 +43,7 @@ namespace Exeggcute.src
             Console.WriteLine("Data successful");
             server.Shutdown(SocketShutdown.Both);
             server.Close();
-            Console.WriteLine("The server shut down correctly");
+            Console.WriteLine("The client connection was shut down correctly");
         }
     }
 }
