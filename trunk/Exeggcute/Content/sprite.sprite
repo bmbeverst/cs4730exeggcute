@@ -1,0 +1,20 @@
+#Test sprite
+
+#flashing
+sprite
+16x16
+(0,0) (0,16)
+L0 1
+10
+
+#flashing differently
+sprite
+16x16
+(0,0) (16,0)
+L0 1
+10
+
+
+
+
+
