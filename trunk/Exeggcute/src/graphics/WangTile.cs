@@ -11,16 +11,35 @@ namespace Exeggcute.src.graphics
     }
     class WangArray
     {
+        /// <summary>
+        /// Specifies the number of distinct wang tiles we use (8, 13, etc)
+        /// </summary>
         public int WangCount { get; protected set; }
         int cols;
         int rows;
         byte[,] grid;
+        int[] counts;
+
+        /// <summary>
+        /// Gets the number of tiles with a particular wang index
+        /// </summary>
+        public int GetCount(int index)
+        {
+            return counts[index];
+        }
+
+        public int this[int i, int j]
+        {
+            get { return grid[i, j]; }
+        }
+
         public WangArray(int cols, int rows)
         {
             WangCount = 8;
+            this.counts = new int[WangCount];
             this.cols = (byte)cols;
             this.rows = (byte)rows;
-            grid = new byte[cols, rows];
+            this.grid = new byte[cols, rows];
             for (int i = 0; i < cols; i += 1)
             {
                 for (int j = 0; j < rows; j += 1)
@@ -35,6 +54,7 @@ namespace Exeggcute.src.graphics
 
 
                     grid[i, j] = WangTile.GetTile(left, above);
+                    counts[grid[i, j]] += 1;
                     
 
                 }
