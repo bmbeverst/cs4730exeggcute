@@ -139,6 +139,9 @@
   <ItemGroup>
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\entities\MassSpawner.cs" />
+    <Compile Include="src\ExeggcuteError.cs" />
+    <Compile Include="src\graphics\TerrainMesh.cs" />
+    <Compile Include="src\graphics\WangTile.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
     <Compile Include="src\ScoreSet.cs" />
