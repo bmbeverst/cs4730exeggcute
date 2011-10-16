@@ -17,16 +17,22 @@ namespace Exeggcute.src
         private Quad[,] Quads;
         private QuadBatch quadBatch;
         Random random = new Random();
+        public float Width { get; protected set; }
+        public float Height { get; protected set; }
         public WangMesh(GraphicsDevice graphics, TextureName texName, int rows, int cols, float size)
         {
+
             Texture2D texture = TextureBank.Get(texName);
             int texWidth = texture.Width;
             int texHeight = texture.Height;
             this.quadBatch = new QuadBatch(graphics, texName);
             this.cols = cols;
             this.rows = rows;
+            Width = (cols - 1) * size;
+            Height = rows * size;
             wangGrid = new WangArray(cols, rows);
             Quads = new Quad[cols, rows];
+            int heightOffset = 50;
             Texture2D wang = TextureBank.Get(TextureName.wang8);
             for (int i = 0; i < cols; i += 1)
             {
@@ -35,7 +41,8 @@ namespace Exeggcute.src
                     int index = wangGrid[i, j];
                     //HARDCODE
                     int tilesize = 32;
-                    Quads[i, j] = new Quad(index, new Vector3(i * size, j * size, random.Next()*8), new Vector3(0, 0, 1), size, size, tilesize, tilesize, texWidth, texHeight);
+                    float height = random.Next() * 16 - 8.0f;
+                    Quads[i, j] = new Quad(index, new Vector3(i * size - Width / 2, j * size - heightOffset, height), new Vector3(0, 0, 1), size, size, tilesize, tilesize, texWidth, texHeight);
                 }
             }
 
@@ -62,9 +69,11 @@ namespace Exeggcute.src
                 }
             }
         }
-
+        float yProgress;
         public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            yProgress -= 0.01f;
+            view *= Matrix.CreateTranslation(0, yProgress, 0);
             quadBatch.SetCamera(view, projection);
             for (int j = 0; j < rows; j += 1)
             {

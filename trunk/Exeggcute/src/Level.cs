@@ -29,9 +29,6 @@ namespace Exeggcute.src
         private CollisionManager collider;
         private TerrainMesh background;
         private Roster roster;
-        Quad test;
-        Quad test2;
-        QuadBatch qBatch;
         WangMesh terrain;
 
         private HashList<Enemy> enemies = new HashList<Enemy>();
@@ -62,11 +59,9 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
-            qBatch = new QuadBatch(graphics, TextureName.wang8);
+
             float size = 8;
-            this.test = new Quad(0, new Vector3(0, 0, 0), new Vector3(0, 0, 1), size, size, 32, 32, 256, 32);
-            this.test2 = new Quad(0, new Vector3(size, 0, 0), new Vector3(0, 0, 1), size, size, 32, 32, 256, 32);
-            this.terrain = new WangMesh(graphics, TextureName.wang8, 8, 8, 8);
+            this.terrain = new WangMesh(graphics, TextureName.wang8, 8, 8, 16);
             
             this.background = new TerrainMesh(graphics, EffectName.terrain, 10, 6, 6);
             this.playerShots = World.PlayerShots;
@@ -165,7 +160,7 @@ namespace Exeggcute.src
 
         public void Update(ControlManager controls)
         {
-            camera.Update(controls);
+            //camera.Update(controls);
             ProcessTasks();
             particles.Update();
             background.Update(controls);
@@ -218,10 +213,8 @@ namespace Exeggcute.src
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
-            //hud.Draw(batch, player);
-            /*qBatch.SetCamera(view, projection);
-            qBatch.Draw(graphics, test);
-            qBatch.Draw(graphics, test2);*/
+            hud.Draw(batch, player);
+
             
         }
 
