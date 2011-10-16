@@ -67,8 +67,16 @@ namespace Exeggcute.src
         /// </summary>
         protected override void Initialize()
         {
-            ServerTest test = new ServerTest();
-            test.Test();
+            try
+            {
+
+                ServerTest test = new ServerTest();
+                test.Test();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine("{0}\nFailed to connect to server", error.Message); 
+            }
             base.Initialize();
         }
         
