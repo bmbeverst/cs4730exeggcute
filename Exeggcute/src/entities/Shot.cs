@@ -8,7 +8,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.arsenal;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.entities
 {
     class Shot : CommandEntity
     {

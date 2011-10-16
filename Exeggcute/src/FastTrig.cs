@@ -12,6 +12,7 @@ namespace Exeggcute.src
     class FastTrig
     {
         public const float PI = 3.1415927f;
+        public const float TWOPI = PI * 2;
 
 	    private const int SIN_BITS = 13; // Adjust for accuracy.
 	    private const int SIN_MASK = ~(-1 << SIN_BITS);

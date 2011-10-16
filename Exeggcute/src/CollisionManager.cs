@@ -6,6 +6,10 @@ using Exeggcute.src.entities;
 
 namespace Exeggcute.src
 {
+    /// <summary>
+    /// Checks whether dynamic entities are in contact with each other.
+    /// This is not the class to process physics, only for 
+    /// </summary>
     class CollisionManager
     {
         public void Update()

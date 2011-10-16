@@ -87,7 +87,13 @@ namespace Exeggcute.src.graphics
             Normal.Normalize();
             FillVertices();
         }
-
+        //***************************************************************
+        //
+        //
+        // magic DO NOT TOUCH UNDER ANY CIRCUMSTANCE
+        //
+        //
+        //***************************************************************
         public void Lock(Quad left, Quad above)
         {
             Vector3 upperleft = UpperLeft;

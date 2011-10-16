@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 using Exeggcute.src.entities;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.gui
 {
     class HUD
     {

@@ -12,6 +12,7 @@ using Exeggcute.src.text;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.scripting.roster;
 using Exeggcute.src.graphics;
+using Exeggcute.src.gui;
 
 namespace Exeggcute.src
 {
@@ -35,6 +36,7 @@ namespace Exeggcute.src
 
         private HashList<Shot> playerShots = new HashList<Shot>();
         private HashList<Shot> enemyShots = new HashList<Shot>();
+        private HashList<Shot> gibList = new HashList<Shot>();
 
         private List<Task> taskList;
         private int taskPtr;
@@ -79,7 +81,7 @@ namespace Exeggcute.src
 
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
-            player = new Player(ModelName.testcube, ArsenalName.test, World.PlayerShots);
+            player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots);
             //enemies.Add(new Enemy(ModelName.testcube, ScriptName.test, ArsenalName.test, World.EnemyShots));
         }
 

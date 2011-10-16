@@ -45,7 +45,6 @@ namespace Exeggcute.src.entities
 
         public Enemy Clone(EntityArgs args)
         {
-            
             Enemy cloned = new Enemy(modelName, scriptName, arsenalName, spawnerName, ShotList);
             cloned.Position = args.SpawnPosition;
             cloned.Angle = args.AngleHeading;

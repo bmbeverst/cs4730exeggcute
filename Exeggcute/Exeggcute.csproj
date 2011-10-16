@@ -138,12 +138,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\assets\RosterBank.cs" />
+    <Compile Include="src\entities\Gib.cs" />
     <Compile Include="src\entities\MassSpawner.cs" />
     <Compile Include="src\ExeggcuteError.cs" />
+    <Compile Include="src\physics\Force.cs" />
     <Compile Include="src\graphics\Quad.cs" />
     <Compile Include="src\graphics\QuadBatch.cs" />
     <Compile Include="src\graphics\TerrainMesh.cs" />
     <Compile Include="src\graphics\WangTile.cs" />
+    <Compile Include="src\physics\PhysicsManager.cs" />
+    <Compile Include="src\physics\Attractor.cs" />
+    <Compile Include="src\scripting\action\SpawnGibAction.cs" />
     <Compile Include="src\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
@@ -209,7 +214,7 @@
     <Compile Include="src\assets\EffectBank.cs" />
     <Compile Include="src\graphics\IAnimation.cs" />
     <Compile Include="src\graphics\Sprite.cs" />
-    <Compile Include="src\HUD.cs" />
+    <Compile Include="src\gui\HUD.cs" />
     <Compile Include="src\Level.cs" />
     <Compile Include="src\graphics\StaticAnimation.cs" />
     <Compile Include="src\FastTrig.cs" />
@@ -223,7 +228,7 @@
     <Compile Include="src\entities\Projectile.cs" />
     <Compile Include="src\scripting\ScriptParser.cs" />
     <Compile Include="src\scripting\task\WaitTask.cs" />
-    <Compile Include="src\Shot.cs" />
+    <Compile Include="src\entities\Shot.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalLoader.cs" />
     <Compile Include="src\text\Conversation.cs" />
     <Compile Include="src\text\TextBox.cs" />

@@ -44,11 +44,27 @@ namespace Exeggcute.src
         }
 
         /// <summary>
+        /// Returns a float between 0 and 2*Pi.
+        /// </summary>
+        public float NextRadian()
+        {
+            return Next() * FastTrig.TWOPI;
+        }
+
+        /// <summary>
         /// Returns an int between 0 and max - 1 inclusive
         /// </summary>
         public int NextInt(int max)
         {
             return (int)(Next() * max);
+        }
+
+        /// <summary>
+        /// Returns 1 or -1 with equal probability.
+        /// </summary>
+        public int NextSign()
+        {
+            return Next() > 0.5f ? -1 : 1;
         }
 
         public Color NextColor()

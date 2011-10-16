@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.input;
 using Exeggcute.src.contexts;
 using Exeggcute.src.assets;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src
 {
@@ -27,6 +28,7 @@ namespace Exeggcute.src
 
         public static HashList<Shot> PlayerShots = new HashList<Shot>();
         public static HashList<Shot> EnemyShots = new HashList<Shot>();
+        public static HashList<Gib> GibList = new HashList<Gib>();
 
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
