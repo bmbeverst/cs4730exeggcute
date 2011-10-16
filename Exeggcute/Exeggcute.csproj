@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectGuid>{BB169488-9707-4FFE-A603-924161CE3B66}</ProjectGuid>
@@ -140,8 +140,11 @@
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\entities\MassSpawner.cs" />
     <Compile Include="src\ExeggcuteError.cs" />
+    <Compile Include="src\graphics\Quad.cs" />
+    <Compile Include="src\graphics\QuadBatch.cs" />
     <Compile Include="src\graphics\TerrainMesh.cs" />
     <Compile Include="src\graphics\WangTile.cs" />
+    <Compile Include="src\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
     <Compile Include="src\ScoreSet.cs" />
