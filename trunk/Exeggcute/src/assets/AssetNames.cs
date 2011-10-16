@@ -18,6 +18,8 @@ namespace Exeggcute.src.assets
     enum ModelName
     {
         testcube,
+        XNAface,
+        playerScene
         
     }
     enum EffectName
@@ -38,7 +40,7 @@ namespace Exeggcute.src.assets
         shot,
         collectables,
         bg,
-        wang8
+        wang8,
     }
 
     enum SpriteName

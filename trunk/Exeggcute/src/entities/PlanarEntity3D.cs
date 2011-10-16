@@ -11,6 +11,7 @@ namespace Exeggcute.src.entities
     abstract class PlanarEntity3D : Entity3D
     {
         public Vector3 PrevPosition { get; protected set; }
+        public float Mass { get; protected set; }
         public float Angle { get; protected set; }
         public float Speed { get; protected set; }
         public float AngularVelocity { get; protected set; }
@@ -48,7 +49,10 @@ namespace Exeggcute.src.entities
         {
 
         }
+        public virtual void Influence(Vector3 accel)
+        {
 
+        }
         public override void Update()
         {
             base.Update();
