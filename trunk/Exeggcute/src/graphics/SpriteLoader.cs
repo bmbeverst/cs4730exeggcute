@@ -44,15 +44,15 @@ namespace Exeggcute.src.graphics
             while (lineStack.Count != 0)
             {
                 string textureString = lineStack.Pop();
-                Console.WriteLine(textureString);
+                //Console.WriteLine(textureString);
                 TextureName textureName = Util.ParseEnum<TextureName>(textureString);
                 string sizeString = lineStack.Pop();
-                Console.WriteLine(sizeString);
+                //Console.WriteLine(sizeString);
                 string[] size = sizeString.Split(DIM_SEP);
                 int width = int.Parse(size[0]);
                 int height = int.Parse(size[1]);
                 string framesString = lineStack.Pop();
-                Console.WriteLine(framesString);
+                //Console.WriteLine(framesString);
                 Point[] frames = parseFrames(framesString);
                 if (frames.Length == 1)
                 {

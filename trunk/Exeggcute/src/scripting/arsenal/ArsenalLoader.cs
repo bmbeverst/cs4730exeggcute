@@ -22,7 +22,6 @@ namespace Exeggcute.src.scripting.arsenal
         {
             string modelString = tokens.Pop();
             string scriptString = tokens.Pop();
-            Console.WriteLine("MODEL({0})   SCRIPT({1})", modelString, scriptString);
             ModelName model = Util.ParseEnum<ModelName>(modelString);//tokens.Pop());
             ScriptName script = Util.ParseEnum<ScriptName>(scriptString);//tokens.Pop());
             return new ArsenalEntry(model, script);

@@ -49,12 +49,6 @@ namespace Exeggcute.src
 
         protected override void Update(GameTime gameTime)
         {
-            /*if (true)
-            {
-                ServerTest test = new ServerTest();
-                test.Test();
-                Util.Die("end");
-            }*/
             engine.Update();
             base.Update(gameTime);
         }
@@ -73,6 +67,8 @@ namespace Exeggcute.src
         /// </summary>
         protected override void Initialize()
         {
+            ServerTest test = new ServerTest();
+            test.Test();
             base.Initialize();
         }
         
