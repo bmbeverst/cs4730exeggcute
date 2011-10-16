@@ -79,7 +79,7 @@ namespace Exeggcute.src
 
 
         float yProgress;
-        TODO
+        //TODO
         /// <summary>
         /// TODO: Make wrap into a cylinder for automagic infinite scrolling!
         /// </summary>

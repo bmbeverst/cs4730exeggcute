@@ -23,9 +23,16 @@ bool xEnableLighting;
 
 //------- Texture Samplers --------
 Texture xTexture;
-sampler TextureSampler = sampler_state { texture = <xTexture>; magfilter =
-LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = mirror; AddressV
-= mirror;};
+sampler TextureSampler = sampler_state 
+{ 
+	texture = <xTexture>; 
+	magfilter = LINEAR; 
+	minfilter = LINEAR; 
+	mipfilter = LINEAR; 
+	AddressU = mirror; 
+	AddressV = mirror;
+	
+};
 
 //------- Technique: Textured --------
 struct TexVertexToPixel

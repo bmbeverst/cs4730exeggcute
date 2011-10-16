@@ -79,6 +79,13 @@ namespace Exeggcute.src
                 ;
         }
 
+        public Matrix GetPlayerView()
+        {
+            return Matrix.CreateRotationY(MathHelper.Pi)
+                * Matrix.CreateRotationZ(MathHelper.PiOver2)
+                * Matrix.CreateLookAt(Position, Target, Up);
+        }
+
         public Matrix GetProjection()
         {
             return Matrix.CreatePerspectiveFieldOfView(FieldOfView, Engine.AspectRatio, Near, Far);

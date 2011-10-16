@@ -164,7 +164,7 @@ namespace Exeggcute.src
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
-                particles.AddParticle(player.Position, -5*player.Velocity);
+                particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
             bool hit = collider.Collide(player, enemies);
@@ -197,6 +197,9 @@ namespace Exeggcute.src
         {
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
+            RasterizerState rs = new RasterizerState();
+            rs.FillMode = FillMode.WireFrame;
+            //if (player.IsBombing) graphics.RasterizerState = rs;
             terrain.Draw(graphics, view, projection);
             player.Draw(graphics, view, projection);
 

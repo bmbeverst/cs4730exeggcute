@@ -42,7 +42,7 @@ namespace Exeggcute.src
         static Engine()
         {
             XRes = 1200;
-            YRes = 600;
+            YRes = 900;
         }
 
         public ControlManager controls;

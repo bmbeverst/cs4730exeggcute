@@ -210,5 +210,7 @@ namespace Exeggcute.src.entities
             InvulnTimer.Reset();
             //spawn the death animation
         }
+
+
     }
 }

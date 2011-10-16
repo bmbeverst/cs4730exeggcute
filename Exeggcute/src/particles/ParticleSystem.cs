@@ -360,10 +360,10 @@ namespace Exeggcute.src.particles
 
             float horizontalAngle = random.Next() * MathHelper.TwoPi;
 
-            float scaleFactor = 3;
+            float scaleFactor = 20;
             velocity.X += scaleFactor * FastTrig.Cos(horizontalAngle);
-            velocity.Z += scaleFactor * FastTrig.Sin(horizontalAngle);
-            velocity.Y += scaleFactor* random.Next();
+            velocity.Y += scaleFactor * FastTrig.Sin(horizontalAngle);
+            velocity.Z += scaleFactor * random.Next();
 
             // Fill in the particle vertex structure.
             Color randColor = random.NextColor();

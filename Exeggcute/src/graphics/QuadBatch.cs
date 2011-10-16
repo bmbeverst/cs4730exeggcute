@@ -13,14 +13,18 @@ namespace Exeggcute.src.graphics
         public BasicEffect Shader { get; protected set; }
         public QuadBatch(GraphicsDevice graphics, TextureName texName)
         {
+            //Shader = EffectBank.Get(EffectName.terrain);
             Shader = new BasicEffect(graphics);
             //Shader.EnableDefaultLighting();
             Shader.World = Matrix.Identity;
+            Shader.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.9f);
+
             Shader.TextureEnabled = true;
             Shader.Texture = TextureBank.Get(texName);
         }
         public void SetCamera(Matrix view, Matrix projection)
         {
+            
             Shader.View = view;
             Shader.Projection = projection;
         }
@@ -31,9 +35,9 @@ namespace Exeggcute.src.graphics
                 pass.Apply();
                 graphics.DrawUserIndexedPrimitives
                 <VertexPositionNormalTexture>(
-                PrimitiveType.TriangleList,
-                quad.Vertices, 0, 4,
-                quad.Indexes, 0, 2);
+                    PrimitiveType.TriangleList,
+                    quad.Vertices, 0, 4,
+                    quad.Indexes, 0, 2);
             }
         }
     }

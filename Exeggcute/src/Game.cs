@@ -21,6 +21,7 @@ namespace Exeggcute.src
             graphicsManager = new GraphicsDeviceManager(this);
             graphicsManager.PreferredBackBufferHeight = Engine.YRes;
             graphicsManager.PreferredBackBufferWidth = Engine.XRes;
+            //graphicsManager.PreferMultiSampling = true;
             /*graphicsManager.SynchronizeWithVerticalRetrace = false;
             this.IsFixedTimeStep = false;
             this.InactiveSleepTime = TimeSpan.Zero;*/
@@ -48,6 +49,12 @@ namespace Exeggcute.src
 
         protected override void Update(GameTime gameTime)
         {
+            /*if (true)
+            {
+                ServerTest test = new ServerTest();
+                test.Test();
+                Util.Die("end");
+            }*/
             engine.Update();
             base.Update(gameTime);
         }
