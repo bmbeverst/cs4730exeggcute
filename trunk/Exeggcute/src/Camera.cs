@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Exeggcute.src.input;
 
 namespace Exeggcute.src
 {
@@ -34,14 +35,48 @@ namespace Exeggcute.src
             
         }
 
-        public void Update()
+        float t1;
+        float t2;
+        float t3;
+        public void Update(ControlManager controls)
         {
+            //return;
+            if (controls[Ctrl.LShoulder].IsPressed)
+            {
+                t1 += 0.1f;
+            }
+            else if (controls[Ctrl.RShoulder].IsPressed)
+            {
+                t1 -= 0.1f;
+            }
 
+            if (controls[Ctrl.Left].IsPressed)
+            {
+                t2 += 0.1f;
+            }
+            else if (controls[Ctrl.Right].IsPressed)
+            {
+                t2 -= 0.1f;
+            }
+
+            if (controls[Ctrl.Up].IsPressed)
+            {
+                t3 += 0.1f;
+            }
+            else if (controls[Ctrl.Down].IsPressed)
+            {
+                t3 -= 0.1f;
+            }
         }
 
         public Matrix GetView()
         {
-            return Matrix.CreateLookAt(Position, Target, Up);
+            return 
+                Matrix.CreateRotationZ(t1)
+                * Matrix.CreateRotationY(t2)
+                * Matrix.CreateRotationX(t3)
+                * Matrix.CreateLookAt(Position, Target, Up)
+                ;
         }
 
         public Matrix GetProjection()

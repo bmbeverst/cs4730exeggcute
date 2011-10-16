@@ -9,6 +9,7 @@ using Exeggcute.src.input;
 
 namespace Exeggcute.src.graphics
 {
+
     /// <summary>
     /// Class for procedurally generating background meshes
     /// </summary>
@@ -75,12 +76,11 @@ namespace Exeggcute.src.graphics
             }
         }
 
-        
+        int[][] starting;
         private void SetUpIndices()
         {
             indices = new int[(vertexCols - 1) * (vertexRows - 1) * 6];
             int counter = 0;
-            int index = 0;
             for (int j = 0; j < vertexRows - 1; j += 1)
             {
                 for (int i = 0; i < vertexCols - 1; i += 1)
@@ -109,7 +109,6 @@ namespace Exeggcute.src.graphics
         float t3;
         public void Update(ControlManager controls)
         {
-            //return;
             if (controls[Ctrl.LShoulder].IsPressed)
             {
                 t1 += 0.1f;
@@ -151,28 +150,32 @@ namespace Exeggcute.src.graphics
             Matrix worldMatrix = Matrix.CreateRotationZ(t3) *
                 Matrix.CreateRotationX(t1) *
                 Matrix.CreateRotationY(t2) *
-                        Matrix.CreateTranslation(new Vector3(0, 0, 0));
+                Matrix.CreateTranslation(new Vector3(0, 0, 0));
             
             effect.Parameters["xWorld"].SetValue(worldMatrix);
-            effect.Parameters["xTexture"].SetValue(texture);
-            
-            /*effect.World = 
-                Matrix.CreateRotationZ(t3) *
-                Matrix.CreateRotationX(t1) *
-                Matrix.CreateRotationY(t2) *
-                        Matrix.CreateTranslation(new Vector3(0,0,0));
-            
-            effect.View = view;
-            effect.Projection = projection;*/
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            int count = 0;
+            for (int i = 0; i < wangGrid.Cols; i += 1)
             {
-                pass.Apply();
-                graphics.DrawUserIndexedPrimitives(
-                    PrimitiveType.TriangleList, 
-                    vertices, 0, vertices.Length, 
-                    indices, 0, indices.Length / 3);
-        
+                for (int j = 0; j < wangGrid.Rows; j += 1)
+                {
+                    
+                    effect.Parameters["xTexture"].SetValue(texture);
+                    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                    {
+                        Console.WriteLine("{0}, {1} count:({2}) : {3}", vertices.Length, indices.Length/3, count,
+                            wangGrid.Rows*wangGrid.Cols);
+                        Console.WriteLine("--->{0}, {1}", count * 6, count * 3);
+                        pass.Apply();
+                        graphics.DrawUserIndexedPrimitives(
+                            PrimitiveType.TriangleList,
+                            vertices, count, 6,//vertices.Length,
+                            indices, count*6, 2);//indices.Length / 3);
+
+                    }
+                    count += 1;
+                }
             }
+
             
         }
     }

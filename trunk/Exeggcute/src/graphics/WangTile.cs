@@ -15,8 +15,8 @@ namespace Exeggcute.src.graphics
         /// Specifies the number of distinct wang tiles we use (8, 13, etc)
         /// </summary>
         public int WangCount { get; protected set; }
-        int cols;
-        int rows;
+        public int Cols { get; protected set; }
+        public int Rows { get; protected set; }
         byte[,] grid;
         int[] counts;
 
@@ -30,15 +30,15 @@ namespace Exeggcute.src.graphics
 
         public int this[int i, int j]
         {
-            get { return grid[i, j]; }
+            get { return grid[i, Rows - 1 - j]; }
         }
 
         public WangArray(int cols, int rows)
         {
             WangCount = 8;
             this.counts = new int[WangCount];
-            this.cols = (byte)cols;
-            this.rows = (byte)rows;
+            this.Cols = (byte)cols;
+            this.Rows = (byte)rows;
             this.grid = new byte[cols, rows];
             for (int i = 0; i < cols; i += 1)
             {

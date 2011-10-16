@@ -145,7 +145,7 @@ namespace Exeggcute.src
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            graphics.Clear(Color.CornflowerBlue);
+            graphics.Clear(Color.Brown);
             batch.Begin();
             World.Draw(graphics, batch);
             batch.End();
