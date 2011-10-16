@@ -76,7 +76,13 @@ namespace Exeggcute.src
                 }
             }
         }
+
+
         float yProgress;
+        TODO
+        /// <summary>
+        /// TODO: Make wrap into a cylinder for automagic infinite scrolling!
+        /// </summary>
         public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             yProgress -= Speed;
