@@ -182,50 +182,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wang8.png">
-      <Name>wang8</Name>
+    <Compile Include="wang8orig.png">
+      <Name>wang8orig</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wang\wang0.png">
-      <Name>wang0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang1.png">
-      <Name>wang1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang2.png">
-      <Name>wang2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang3.png">
-      <Name>wang3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang4.png">
-      <Name>wang4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang5.png">
-      <Name>wang5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang6.png">
-      <Name>wang6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="wang\wang7.png">
-      <Name>wang7</Name>
+    <Compile Include="wang8.png">
+      <Name>wang8</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

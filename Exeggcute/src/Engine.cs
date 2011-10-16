@@ -145,7 +145,7 @@ namespace Exeggcute.src
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            graphics.Clear(Color.Brown);
+            graphics.Clear(Color.HotPink);//easy to notice bleeding!
             batch.Begin();
             World.Draw(graphics, batch);
             batch.End();
