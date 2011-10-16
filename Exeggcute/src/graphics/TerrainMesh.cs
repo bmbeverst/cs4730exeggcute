@@ -28,7 +28,9 @@ namespace Exeggcute.src.graphics
         private float meshWidth;
         private float meshHeight;
 
+
         private WangArray wangGrid;
+
         // based off http://www.toymaker.info/Games/XNA/html/xna_terrain.html#create
         public TerrainMesh(GraphicsDevice graphics, EffectName effectName, float cellSize, int cols, int rows)
         {
@@ -57,19 +59,18 @@ namespace Exeggcute.src.graphics
             {
                 vertices[i] = new VertexPositionNormalTexture[vertexCols * vertexRows];
             }*/
-            
+            int count = 0;
             for (int i = 0; i < vertexCols; i++)
             {
                 for (int j = 0; j < vertexRows; j++)
                 {
-                    vertices[i + j * vertexCols].Position = new Vector3(i*cellSize - meshWidth/2, -j*cellSize, 0);
-                    //vertices[i + j * vertexCols].Color = Color.White;
-                    vertices[i + j * vertexCols].Normal = Vector3.Backward;
-                    vertices[i + j * vertexCols].TextureCoordinate = new Vector2(
-                        (float)(i*2) / (vertexCols - 1),
-                        (float)(j*2) / (vertexRows - 1));
+                    vertices[count].Position = new Vector3(i * cellSize - meshWidth / 2, -j * cellSize, 0);
+                    vertices[count].Normal = Vector3.Backward;
+                    vertices[count].TextureCoordinate = new Vector2(
+                        (float)(i*32) / (vertexCols - 1),
+                        (float)(j*32) / (vertexRows - 1));
                     
-                    //vertices[i + j * vertexCols].Color = Color.White;
+                    count += 1;
                 }
             }
         }
@@ -79,6 +80,7 @@ namespace Exeggcute.src.graphics
         {
             indices = new int[(vertexCols - 1) * (vertexRows - 1) * 6];
             int counter = 0;
+            int index = 0;
             for (int j = 0; j < vertexRows - 1; j += 1)
             {
                 for (int i = 0; i < vertexCols - 1; i += 1)
@@ -88,16 +90,20 @@ namespace Exeggcute.src.graphics
                     int topLeft = i + (j + 1) * vertexCols;
                     int topRight = (i + 1) + (j + 1) * vertexCols;
 
-                    indices[counter++] = topLeft;
-                    indices[counter++] = lowerRight;
-                    indices[counter++] = lowerLeft;
+                    indices[counter] = topLeft;
+                    indices[counter+1] = lowerRight;
+                    indices[counter+2] = lowerLeft;
+                    counter += 3;
 
-                    indices[counter++] = topLeft;
-                    indices[counter++] = topRight;
-                    indices[counter++] = lowerRight;
+                    indices[counter] = topLeft;
+                    indices[counter+1] = topRight;
+                    indices[counter+2] = lowerRight;
+                    counter += 3;
+
                 }
             }
         }
+
         float t1;
         float t2;
         float t3;
