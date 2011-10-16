@@ -35,6 +35,38 @@ namespace Exeggcute.src.entities
         public Entity3D(ModelName modelName, Vector3 pos)
         {
             Surface = ModelBank.Get(modelName);
+            foreach (ModelMesh mesh in Surface.Meshes)
+            {
+                break;
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    Effect currentEffect = EffectBank.Get(EffectName.light0);
+                    Texture2D texture = TextureBank.Get(TextureName.fractal);
+                    currentEffect.Parameters["xEnableLighting"].SetValue(true);
+                    currentEffect.Parameters["xAmbient"].SetValue(0.3f);
+                    currentEffect.Parameters["xLightDirection"].SetValue(new Vector3(-1.0f, -0.5f, 1.0f));
+                    currentEffect.Parameters["xDirLightIntensity"].SetValue(1.0f);
+
+                    //begin area light
+                    currentEffect.Parameters["xPointLight1"].SetValue(new Vector3(0f, 0f, 0f));
+                    currentEffect.Parameters["xPointIntensity1"].SetValue(10.0f);
+                    currentEffect.Parameters["xPointLight2"].SetValue(new Vector3(94.0f, 10.0f, -87.0f));
+                    currentEffect.Parameters["xPointIntensity2"].SetValue(10.0f);
+                    currentEffect.Parameters["xPointLight3"].SetValue(new Vector3(90.0f, 10.0f, -87.0f));
+                    currentEffect.Parameters["xPointIntensity3"].SetValue(10.0f);
+                    //end area light
+
+                    currentEffect.Parameters["xPointLight4"].SetValue(new Vector3(19.0f, 0.5f, -93.0f));
+                    currentEffect.Parameters["xPointIntensity4"].SetValue(20.0f);
+                    currentEffect.Parameters["xSpotPos"].SetValue(new Vector3(10.0f, 5.0f, -46.0f));
+                    currentEffect.Parameters["xSpotDir"].SetValue(new Vector3(50.0f, -1.0f, 0.0f));
+                    currentEffect.Parameters["xSpotInnerCone"].SetValue(0.3490f);
+                    currentEffect.Parameters["xSpotOuterCone"].SetValue(0.6981f);
+                    currentEffect.Parameters["xSpotRange"].SetValue(13.0f);
+                    currentEffect.Parameters["xTexture"].SetValue(texture);
+                    //part.Effect = EffectBank.Get(EffectName.light0);
+                }
+            }
             Position = pos;
             Hitbox = Util.MergeSpheres(Surface.Meshes);
             Hitbox = new BoundingSphere(Position, Hitbox.Radius);
@@ -76,36 +108,25 @@ namespace Exeggcute.src.entities
                 {
                     //FIXME: absolutely no reason to do this every frame
                     currentEffect.World = transforms[mesh.ParentBone.Index] *
-                        //Matrix.CreateRotationX(-MathHelper.PiOver2) *
+                        Matrix.CreateRotationY(MathHelper.Pi) *
+                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
+                        Matrix.CreateRotationX(MathHelper.PiOver2) *
                         Matrix.CreateTranslation(Position);
                     currentEffect.View = view;
                     currentEffect.Projection = projection;
-                    /*currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+
+                    /*Matrix world = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateRotationY(MathHelper.Pi) *
+                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
+                        Matrix.CreateRotationX(MathHelper.PiOver2) *
+                        Matrix.CreateTranslation(Position);
+                    Texture2D texture = TextureBank.Get(TextureName.fractal);
+                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                     currentEffect.Parameters["xWorld"].SetValue(world);
                     currentEffect.Parameters["xView"].SetValue(view);
                     currentEffect.Parameters["xProjection"].SetValue(projection);
-                    currentEffect.Parameters["xTexture"].SetValue(texture);
-                    currentEffect.Parameters["xEnableLighting"].SetValue(true);
-                    currentEffect.Parameters["xAmbient"].SetValue(0.3f);
-                    currentEffect.Parameters["xLightDirection"].SetValue(new Vector3(-1.0f, -0.5f, 1.0f));
-                    currentEffect.Parameters["xDirLightIntensity"].SetValue(1.0f);
-
-                    //begin area light
-                    currentEffect.Parameters["xPointLight1"].SetValue(new Vector3(0f, 0f, 0f));
-                    currentEffect.Parameters["xPointIntensity1"].SetValue(10.0f);
-                    currentEffect.Parameters["xPointLight2"].SetValue(new Vector3(94.0f, 10.0f, -87.0f));
-                    currentEffect.Parameters["xPointIntensity2"].SetValue(10.0f);
-                    currentEffect.Parameters["xPointLight3"].SetValue(new Vector3(90.0f, 10.0f, -87.0f));
-                    currentEffect.Parameters["xPointIntensity3"].SetValue(10.0f);
-                    //end area light
-
-                    currentEffect.Parameters["xPointLight4"].SetValue(new Vector3(19.0f, 0.5f, -93.0f));
-                    currentEffect.Parameters["xPointIntensity4"].SetValue(20.0f);
-                    currentEffect.Parameters["xSpotPos"].SetValue(new Vector3(10.0f, 5.0f, -46.0f));
-                    currentEffect.Parameters["xSpotDir"].SetValue(new Vector3(50.0f, -1.0f, 0.0f));
-                    currentEffect.Parameters["xSpotInnerCone"].SetValue(0.3490f);
-                    currentEffect.Parameters["xSpotOuterCone"].SetValue(0.6981f);
-                    currentEffect.Parameters["xSpotRange"].SetValue(13.0f);*/
+                    currentEffect.Parameters["xTexture"].SetValue(texture);*/
+                  
 
                 }
                 mesh.Draw();

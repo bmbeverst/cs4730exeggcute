@@ -41,6 +41,8 @@ namespace Exeggcute.src.assets
         collectables,
         bg,
         wang8,
+        fractal,
+        face
     }
 
     enum SpriteName

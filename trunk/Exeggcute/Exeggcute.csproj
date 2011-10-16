@@ -149,6 +149,7 @@
     <Compile Include="src\physics\PhysicsManager.cs" />
     <Compile Include="src\physics\Attractor.cs" />
     <Compile Include="src\scripting\action\SpawnGibAction.cs" />
+    <Compile Include="src\ServerTest.cs" />
     <Compile Include="src\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />

@@ -51,10 +51,11 @@ namespace Exeggcute.src
         private KeyboardState kbState, kbStatePrev;
         private GamePadState gpState, gpStatePrev;
 
+        public bool ControllerUnplugged { get; protected set; }
+
         /// <summary>
         /// Creates a new control manager wrapper around an InputManager object.
         /// </summary>
-        /// <param name="input">The InputManager to be wrapped.</param>
         public ControlManager(InputManager input)
         {
             Input = input;
@@ -70,8 +71,6 @@ namespace Exeggcute.src
         /// <summary>
         /// Sets the given ctrl to a new keyboard key.
         /// </summary>
-        /// <param name="ctrl">the ctrl to be changed</param>
-        /// <param name="key">the new keyboard value</param>
         public void SetKey(Ctrl ctrl, Keys key)
         {
             controls[ctrl].SetKey(key);
@@ -156,7 +155,7 @@ namespace Exeggcute.src
         /// </summary>
         public void Update()
         {
-            Input.Update();
+            UpdateInput();
             var kbState = Input.GetKeyboard(PlayerIndex.One).GetState();
             var gpState = Input.GetGamePad(ExtendedPlayerIndex.Five).GetState();
             foreach (var pair in controls)
@@ -166,6 +165,21 @@ namespace Exeggcute.src
                 keyFlags[ctrl].Update(witnessed);
             }
             if (IsCustomizing) Customize(); 
+        }
+
+        public void UpdateInput()
+        {
+            try
+            {
+                Input.Update();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine("{0}\nController (un)plugged", error.Message);
+
+                ControllerUnplugged = true;
+                throw new ExeggcuteError("controller unplugged");
+            }
         }
 
         /// <summary>

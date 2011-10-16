@@ -36,16 +36,20 @@ struct VertexShaderOutput
 
 VertexShaderOutput ParticleVertexShader(VertexShaderInput input)
 {
+	float rx = input.Random.x;
+	float ry = input.Random.y;
+
     VertexShaderOutput output;
     float age = CurrentTime - input.Time;
     float normalizedAge = saturate(age / Duration);
-	
+	normalizedAge -= rx/255;
 	input.Position += input.Velocity*normalizedAge;
     output.Position = mul(mul(float4(input.Position, 1), View), Projection);
 	
 	float scale = 1;
+
     output.Position.xy += input.Corner * ViewportScale*scale;
-    output.Color = (0, 0, 0, 1);
+    output.Color = output.Position;
 
     output.TextureCoordinate = (input.Corner + 1) / 2;
     
