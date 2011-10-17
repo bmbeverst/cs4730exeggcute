@@ -28,7 +28,7 @@ namespace Exeggcute.src.assets
         public static void Load(ContentManager content, ScriptName name)
         {
             List<ActionBase> actions = loader.Load(name);
-            ActionList list = new ActionList(actions);
+            ActionList list = new ActionList(actions, name);
             bank.Put(list, name);
         }
     }

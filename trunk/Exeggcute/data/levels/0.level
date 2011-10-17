@@ -1,4 +1,13 @@
 ﻿#msg 1
 spawn 0 (20,40,0) 0
-wait 60
+wait 180
 spawn 0 (-20,40,0) 0
+wait 180
+spawn 0 (0,40,0) 0
+wait 180
+spawn 0 (20,50,0) 0
+wait 180
+spawn 0 (-20,50,0) 0
+wait 180
+spawn 0 (0,50,0) 0
+wait 180

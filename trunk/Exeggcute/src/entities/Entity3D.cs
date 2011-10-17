@@ -35,9 +35,9 @@ namespace Exeggcute.src.entities
         public Entity3D(ModelName modelName, Vector3 pos)
         {
             Surface = ModelBank.Get(modelName);
-            foreach (ModelMesh mesh in Surface.Meshes)
+            /*foreach (ModelMesh mesh in Surface.Meshes)
             {
-                break;
+                
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
                     Effect currentEffect = EffectBank.Get(EffectName.light0);
@@ -66,7 +66,7 @@ namespace Exeggcute.src.entities
                     currentEffect.Parameters["xTexture"].SetValue(texture);
                     //part.Effect = EffectBank.Get(EffectName.light0);
                 }
-            }
+            }*/
             Position = pos;
             Hitbox = Util.MergeSpheres(Surface.Meshes);
             Hitbox = new BoundingSphere(Position, Hitbox.Radius);
@@ -99,6 +99,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            //FIXME subclass!
             if (Surface == null) return;
             Matrix[] transforms = new Matrix[Surface.Bones.Count];
             Surface.CopyAbsoluteBoneTransformsTo(transforms);

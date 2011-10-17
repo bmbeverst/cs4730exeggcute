@@ -31,11 +31,11 @@ namespace Exeggcute.src
         private Roster roster;
         private WangMesh terrain;
 
-        private HashList<Enemy> enemies = new HashList<Enemy>();
+        private HashList<Enemy> enemyList;
 
-        private HashList<Shot> playerShots = new HashList<Shot>();
-        private HashList<Shot> enemyShots = new HashList<Shot>();
-        private HashList<Shot> gibList = new HashList<Shot>();
+        private HashList<Shot> playerShots;
+        private HashList<Shot> enemyShots;
+        private HashList<Gib> gibList;
 
         private List<Task> taskList;
         private int taskPtr;
@@ -64,6 +64,8 @@ namespace Exeggcute.src
             
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
+            this.enemyList = World.EnemyList;
+            this.gibList = World.GibList;
             this.roster = RosterBank.Get(rosterName);
             this.taskList = loader.Load(0);
             loadMsgBoxes(content);
@@ -78,7 +80,7 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots);
-            ;
+            
         }
 
         private int scrollSpeed = 10;
@@ -91,7 +93,6 @@ namespace Exeggcute.src
                 string line = allLines[i].TrimEnd(' ');
                 line = line + ' ';
                 total += line;
-
             }
 
             string[] messages = total.Split('@');
@@ -102,21 +103,21 @@ namespace Exeggcute.src
             }
         }
 
-        private void updateShots(HashList<Shot> list)
+        private void updateShots(params HashList<Shot>[] lists)
         {
-            List<Shot> toRemove = new List<Shot>();
-            foreach (var pair in list)
+            foreach (HashList<Shot> shots in lists)
             {
-                Shot current = pair.Key;
-                current.Update();
-                if (!current.ContainedIn(LiveArea))
+                List<Shot> toRemove = new List<Shot>();
+                foreach (var pair in shots)
                 {
-                    toRemove.Add(current);
+                    Shot current = pair.Key;
+                    current.Update();
+                    if (!current.ContainedIn(LiveArea))
+                    {
+                        toRemove.Add(current);
+                    }
                 }
-            }
-            foreach (Shot shot in toRemove)
-            {
-                list.Remove(shot);
+                toRemove.ForEach(shot => shots.Remove(shot));
             }
         }
 
@@ -134,7 +135,7 @@ namespace Exeggcute.src
         public void Process(SpawnTask task)
         {
             Enemy toSpawn = roster.Clone(task.ID, task.Args);
-            enemies.Add(toSpawn);
+            enemyList.Add(toSpawn);
             taskPtr += 1;
         }
 
@@ -167,29 +168,43 @@ namespace Exeggcute.src
                 particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
-            bool hit = collider.Collide(player, enemies);
+            bool hit = collider.Collide(player, enemyList);
             if (hit)
             {
                 player.Kill();
             }
+            collider.Collide(playerShots, enemyList);
+            
+            // =[
+            collider.FilterDead(playerShots);
+            collider.FilterDead<Shot>(enemyShots);
+            collider.FilterDead<Gib>(gibList);
+            collider.FilterDead<Enemy>(enemyList);
 
-            collider.Collide(playerShots, enemies);
-            updateShots(playerShots);
-            updateShots(enemyShots);
+            updateShots(playerShots, enemyShots);
+
             player.Update(controls);
             player.LockPosition(camera, GameArea);
 
-            foreach (Enemy enemy in enemies.GetKeys())
+            foreach (Enemy enemy in enemyList.GetKeys())
             {
                 enemy.Update();
             }
+
+            foreach (Gib gib in gibList.GetKeys())
+            {
+                gib.Update();
+            }
         }
 
-        private void drawShots(HashList<Shot> shots, GraphicsDevice graphics, Matrix view, Matrix projection)
+        private void drawShots(GraphicsDevice graphics, Matrix view, Matrix projection, params HashList<Shot>[] shotLists )
         {
-            foreach (Shot shot in shots.GetKeys())
+            foreach (HashList<Shot> shots in shotLists)
             {
-                shot.Draw(graphics, view, projection);
+                foreach (Shot shot in shots.GetKeys())
+                {
+                    shot.Draw(graphics, view, projection);
+                }
             }
         }
 
@@ -203,19 +218,21 @@ namespace Exeggcute.src
             terrain.Draw(graphics, view, projection);
             player.Draw(graphics, view, projection);
 
-            drawShots(playerShots, graphics, view, projection);
-            drawShots(enemyShots, graphics, view, projection);
+            drawShots(graphics, view, projection,playerShots, enemyShots);
 
-            foreach (Enemy enemy in enemies.GetKeys())
+            foreach (Enemy enemy in enemyList.GetKeys())
             {
                 enemy.Draw(graphics, view, projection);
+            }
+
+            foreach (Gib gib in gibList.GetKeys())
+            {
+                gib.Draw(graphics, view, projection);
             }
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
             hud.Draw(batch, player);
-
-            
         }
 
 

@@ -69,7 +69,6 @@ namespace Exeggcute.src
         {
             try
             {
-
                 ServerTest test = new ServerTest();
                 test.Test();
             }

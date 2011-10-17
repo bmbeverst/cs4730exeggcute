@@ -15,8 +15,6 @@ namespace Exeggcute.src.entities
         protected ScriptName scriptName;
         protected ModelName modelName;
 
-        public bool IsDestroyed { get; protected set; }
-
         public int Damage { get; protected set; }
 
         public Shot(ModelName modelName, ScriptName scriptName)
@@ -45,7 +43,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Collide(CommandEntity entity)
         {
-            IsDestroyed = true;
+            IsTrash = true;
         }
 
     }
