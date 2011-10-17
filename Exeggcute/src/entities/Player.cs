@@ -51,6 +51,7 @@ namespace Exeggcute.src.entities
             FocusSpeed = 0.5f;
             InvulnTimer = new Timer(120);
             bomb = new MassSpawner(null, 120, shotList);
+            Hitbox = new BoundingSphere(Position, 0.2f);
         }
 
         public override void Process(VanishAction vanish)

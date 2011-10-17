@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.scripting.action
 {
@@ -12,13 +13,15 @@ namespace Exeggcute.src.scripting.action
     class ActionList
     {
         public List<ActionBase> actions;
+        public ScriptName Name { get; protected set; }
         public int Count
         {
             get { return actions.Count; }
         }
-        public ActionList(List<ActionBase> actions)
+        public ActionList(List<ActionBase> actions, ScriptName name)
         {
             this.actions = actions;
+            this.Name = name;
         }
 
         public ActionBase this[int ptr]

@@ -10,6 +10,9 @@ namespace Exeggcute.src.entities
         private static int totalInstances = 0;
         private int id;
         public int ID { get { return id; } }
+
+        public virtual bool IsTrash { get; protected set; }
+
         public Entity()
         {
             id = totalInstances++;

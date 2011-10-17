@@ -46,8 +46,7 @@ namespace Exeggcute.src
 
         public void Collide(HashList<Shot> playerShots, HashList<Enemy> enemies)
         {
-            List<Shot> shotsRemoved = new List<Shot>();
-            List<Enemy> enemiesRemoved = new List<Enemy>();
+            
             foreach (Shot shot in playerShots.GetKeys())
             {
                 foreach (Enemy enemy in enemies.GetKeys())
@@ -56,19 +55,22 @@ namespace Exeggcute.src
                     {
                         enemy.Collide(shot);
                         shot.Collide(enemy);
-                        if (shot.IsDestroyed)
-                        {
-                            shotsRemoved.Add(shot);
-                        }
-                        if (enemy.IsDying || enemy.IsDone)
-                        {
-                            enemiesRemoved.Add(enemy);
-                        }
                     }
                 }
             }
-            shotsRemoved.ForEach(shot => playerShots.Remove(shot));
-            enemiesRemoved.ForEach(enemy => enemies.Remove(enemy));
+        }
+
+        public void FilterDead<TEntity>(HashList<TEntity> entities) where TEntity : Entity
+        {
+            List<TEntity> removed = new List<TEntity>();
+            foreach (TEntity entity in entities.GetKeys())
+            {
+                if (entity.IsTrash)
+                {
+                    removed.Add(entity);
+                }
+            }
+            removed.ForEach(entity => entities.Remove(entity));
         }
 
         public void Collide(List<Entity3D> entities)

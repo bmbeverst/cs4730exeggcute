@@ -20,7 +20,8 @@ namespace Exeggcute.src.scripting.action
         End,
         Spawn,
         Aim,
-        Shoot
+        Shoot,
+        Loop
     }
 
 

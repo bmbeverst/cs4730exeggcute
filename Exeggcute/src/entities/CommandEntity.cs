@@ -23,18 +23,17 @@ namespace Exeggcute.src.entities
         public bool IsDone { get; protected set; }
         protected ActionList actionList;
 
-        protected HashList<Shot> ShotList;
+        protected HashList<Shot> shotListHandle;
         protected Arsenal arsenal;
         protected Spawner spawner;
 
         public int Health { get; protected set; }
 
-        private int p;
-        protected int cmdPtr
-        {
+        protected int cmdPtr { get; set; }
+        /*{
             get { return p; }
             set { p = value % actionList.Count; }
-        }
+        }*/
 
         public bool IsShooting { get; protected set; }
 
@@ -59,8 +58,8 @@ namespace Exeggcute.src.entities
             : base(modelName, Engine.Jail)
         {
             Health = 100;
-            ShotList = shotList;
-            actionList = ScriptBank.Get(scriptName);
+            this.shotListHandle = shotList;
+            this.actionList = ScriptBank.Get(scriptName);
             this.arsenal = ArsenalBank.Get(arsenalName);
             this.spawner = new Spawner(spawnerName, arsenalName, shotList);
         }
@@ -74,8 +73,8 @@ namespace Exeggcute.src.entities
         public CommandEntity(ScriptName script, ArsenalName arsenalName, HashList<Shot> shotList)
             : base(Engine.Jail)
         {
-            ShotList = shotList;
-            actionList = ScriptBank.Get(script);
+            this.shotListHandle = shotList;
+            this.actionList = ScriptBank.Get(script);
             this.arsenal = ArsenalBank.Get(arsenalName);
         }
 
@@ -88,7 +87,7 @@ namespace Exeggcute.src.entities
         public CommandEntity(ModelName model, ScriptName script)
             : base(model, Engine.Jail)
         {
-            ShotList = null;
+            shotListHandle = null;
             actionList = ScriptBank.Get(script);
             this.arsenal = null;
         }
@@ -196,13 +195,13 @@ namespace Exeggcute.src.entities
             float angle = args.AngleHeading + Angle;
             Vector3 pos = Position + args.SpawnPosition;
             Shot cloned = arsenal.Clone(spawn.ID, pos, angle);
-            ShotList.Add(cloned);
+            shotListHandle.Add(cloned);
             cmdPtr += 1;
         }
 
         public virtual void Process(EndAction end)
         {
-            //do nothing!
+            cmdPtr = actionList.Count;
         }
 
         public virtual void Process(SetAction set)
@@ -226,6 +225,7 @@ namespace Exeggcute.src.entities
             }
             else
             {
+                
                 counter += 1;
             }
         }
@@ -241,6 +241,11 @@ namespace Exeggcute.src.entities
             cmdPtr += 1;
         }
 
+        public virtual void Process(LoopAction loop)
+        {
+            cmdPtr = loop.Pointer;
+        }
+
         public void Collide(Shot shot)
         {
             Health -= shot.Damage;
@@ -254,6 +259,11 @@ namespace Exeggcute.src.entities
                 spawner.SetPosition(Position);
                 spawner.Update();
             }
+            base.Update();
+        }
+
+        public void BaseUpdate()
+        {
             base.Update();
         }
 

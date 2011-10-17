@@ -9,7 +9,7 @@ namespace Exeggcute.src.scripting
     {
         
         public ParseError(Exception error, string line, string filepath)
-            : base(String.Format("{0}\nFailed to parse line {1} in {2}", error.Message, line, filepath))
+            : base(String.Format("{0}\nFailed to parse line \"{1}\" in {2}", error.Message, line, filepath))
         {
 
         }

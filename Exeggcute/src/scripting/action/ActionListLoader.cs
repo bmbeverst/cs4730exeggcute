@@ -85,6 +85,23 @@ namespace Exeggcute.src.scripting.action
             {
                 return new List<ActionBase> { new ShootAction() };
             }
+            else if (type == CommandType.Loop)
+            {
+                int ptr;
+                if (tokens.Length != 2)
+                {
+                    ptr = 0;
+                }
+                else
+                {
+                    ptr = int.Parse(tokens[1]);
+                }
+
+                return new List<ActionBase> { 
+                    new LoopAction(ptr)
+                };
+
+            }
             else if (type == CommandType.Spawn)
             {
                 int id = int.Parse(tokens[1]);
