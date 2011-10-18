@@ -19,6 +19,8 @@ namespace Exeggcute.src.entities
         public float AngularAccel { get; protected set; }
         public float VelocityZ { get; protected set; }
 
+        
+
         private float vx
         {
             get { return Speed * FastTrig.Cos(Angle); }

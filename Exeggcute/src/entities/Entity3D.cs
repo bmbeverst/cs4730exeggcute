@@ -14,6 +14,8 @@ namespace Exeggcute.src.entities
         public virtual Model Surface { get; protected set; }
         public virtual BoundingSphere Hitbox { get; protected set; }
 
+        public float ModelRotX { get; protected set; }
+
         public virtual float X
         {
             get { return Position.X; }
@@ -110,7 +112,7 @@ namespace Exeggcute.src.entities
                     //FIXME: absolutely no reason to do this every frame
                     currentEffect.World = transforms[mesh.ParentBone.Index] *
                         Matrix.CreateRotationY(MathHelper.Pi) *
-                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
+                        Matrix.CreateRotationZ(MathHelper.PiOver2 + ModelRotX) *
                         Matrix.CreateRotationX(MathHelper.PiOver2) *
                         Matrix.CreateTranslation(Position);
                     currentEffect.View = view;

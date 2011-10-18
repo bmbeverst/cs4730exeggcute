@@ -95,11 +95,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>cursor</Name>
     </None>
-    <Compile Include="torus.fbx">
-      <Name>torus</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="light0.fx">
       <Name>light0</Name>
       <Importer>EffectImporter</Importer>
@@ -212,6 +207,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="shot0.wav">
+      <Name>shot0</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
