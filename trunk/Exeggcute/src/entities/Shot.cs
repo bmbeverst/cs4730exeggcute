@@ -35,6 +35,7 @@ namespace Exeggcute.src.entities
 
         public Shot Clone(Vector3 pos, float angle)
         {
+            
             Shot clone = new Shot(modelName, scriptName);
             clone.Angle = angle;
             clone.Position = pos;

@@ -38,9 +38,12 @@ namespace Exeggcute.src
         float t1;
         float t2;
         float t3;
+
+        /// <summary>
+        /// Function purely for debugging purposes to move the camera around.
+        /// </summary>
         public void Update(ControlManager controls)
         {
-            //return;
             if (controls[Ctrl.LShoulder].IsPressed)
             {
                 t1 += 0.1f;
@@ -74,7 +77,7 @@ namespace Exeggcute.src
             return 
                 Matrix.CreateRotationZ(t1)
                 * Matrix.CreateRotationY(t2)
-                * Matrix.CreateRotationX(t3 - MathHelper.PiOver4)
+                * Matrix.CreateRotationX(t3)
                 * Matrix.CreateLookAt(Position, Target, Up)
                 ;
         }

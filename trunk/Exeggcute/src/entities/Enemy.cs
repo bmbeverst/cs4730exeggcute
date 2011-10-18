@@ -89,7 +89,7 @@ namespace Exeggcute.src.entities
                 IsDying = true;
                 actionList = deathActions;
                 //Console.WriteLine(deathActions.Name.ToString());
-                cmdPtr = 0;
+                actionPtr = 0;
                 IsShooting = false;
                 //use giblist
                 //TODO make enemies transparent when dying
@@ -98,16 +98,16 @@ namespace Exeggcute.src.entities
             else if (IsDying)
             {
                 //Console.WriteLine(cmdPtr);
-                if (cmdPtr == actionList.Count)
+                if (actionPtr == actionList.Count)
                 {
                     IsTrash = true;
                 }
             }
         }
+
         int numGibs = 4;
         public void Die()
         {
-            
             IsTrash = true;
             for (int i = 0; i < numGibs; i += 1)
             {

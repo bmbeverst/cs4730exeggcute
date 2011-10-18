@@ -6,6 +6,7 @@ using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting;
 using Exeggcute.src.entities;
+using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.scripting.action
 {
@@ -117,9 +118,61 @@ namespace Exeggcute.src.scripting.action
                 Vector3 pos = Util.ParseVector3(tokens[1]);
                 return new List<ActionBase> { new SetAction(pos) };
             }
+            else if (type == CommandType.SpawnerLock)
+            {
+                bool lockPosition;
+                bool lockAngle;
+
+                string posString = tokens[1];
+                string angleString = tokens[2];
+                string positionValue = posString.Split(':')[1];
+                string angleValue = angleString.Split(':')[1];
+
+
+
+                if (Regex.IsMatch(positionValue, "[oO]ff"))
+                {
+                    lockPosition = false;
+                }
+                else if (Regex.IsMatch(positionValue, "[oO]n"))
+                {
+                    lockPosition = true;
+                }
+                else
+                {
+                    throw new ParseError("Valid values for \"{0}\" parameters are off and on", posString);
+                }
+
+                if (Regex.IsMatch(angleValue, "[oO]ff"))
+                {
+                    lockAngle = false;
+                }
+                else if (Regex.IsMatch(angleValue, "[oO]n"))
+                {
+                    lockAngle = true;
+                }
+                else
+                {
+                    throw new ParseError("Valid values for \"{0}\" parameters are off and on", angleString);
+                
+                }
+
+                return new List<ActionBase> {
+                    new SpawnerLockAction(lockPosition, lockAngle)
+                };
+            }
+            else if (type == CommandType.SpawnerSet)
+            {
+                float posAngle = float.Parse(tokens[1]) * FastTrig.degreesToRadians;
+                float distance = float.Parse(tokens[2]);
+                float angle = float.Parse(tokens[3]) * FastTrig.degreesToRadians;
+                return new List<ActionBase> {
+                    new SpawnerSetAction(posAngle, distance, angle)
+                };
+            }
             else
             {
-                throw new ParseError("Unable to parse type {0}", tokens[0]);
+                throw new ParseError("Unhandled token type {0}", tokens[0]);
             }
         }
     }

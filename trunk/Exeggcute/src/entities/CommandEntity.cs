@@ -21,20 +21,21 @@ namespace Exeggcute.src.entities
         /// If the entity is done, it should be removed from the world.
         /// </summary>
         public bool IsDone { get; protected set; }
+
+
         protected ActionList actionList;
+        protected int actionPtr;
+
 
         protected HashList<Shot> shotListHandle;
         protected Arsenal arsenal;
         protected Spawner spawner;
-        
+        protected bool lockSpawnerAngle;
+        protected bool lockSpawnerPos;
 
         public int Health { get; protected set; }
 
-        protected int cmdPtr { get; set; }
-        /*{
-            get { return p; }
-            set { p = value % actionList.Count; }
-        }*/
+        
 
         public bool IsShooting { get; protected set; }
 
@@ -45,8 +46,10 @@ namespace Exeggcute.src.entities
         protected int counter = 0;
 
         /// <summary>
-        /// <para>Initializes the command entity for use as an enemy/player/boss 
-        /// with:</para>
+        /// <para>
+        /// Initializes the command entity for use as an enemy/player/boss 
+        /// with:
+        /// </para>
         /// <para> - An action script</para>
         /// <para> - A model</para>
         /// <para> - An arsenal</para>
@@ -63,6 +66,7 @@ namespace Exeggcute.src.entities
             this.actionList = ScriptBank.Get(scriptName);
             this.arsenal = ArsenalBank.Get(arsenalName);
             this.spawner = new Spawner(spawnerName, arsenalName, shotList);
+            init();
         }
 
         /// <summary>
@@ -77,6 +81,7 @@ namespace Exeggcute.src.entities
             this.shotListHandle = shotList;
             this.actionList = ScriptBank.Get(script);
             this.arsenal = ArsenalBank.Get(arsenalName);
+            init();
         }
 
         /// <summary>
@@ -91,17 +96,25 @@ namespace Exeggcute.src.entities
             shotListHandle = null;
             actionList = ScriptBank.Get(script);
             this.arsenal = null;
+            init();
+        }
+
+        private void init()
+        {
+            lockSpawnerAngle = true;
+            lockSpawnerPos = true;
         }
 
         public void Reset()
         {
             this.counter = 0;
-            this.cmdPtr = 0;
+            this.actionPtr = 0;
         }
 
         public virtual void Process(ActionBase cmd)
         {
             string error = @"
+            Fatal Error:
             This is the default ActionBase handler. This was called
             because there was no handler in CommandEntity for the
             type {0}";
@@ -126,7 +139,7 @@ namespace Exeggcute.src.entities
             // for thousands of objects?
             if (actionList == null || actionList.Count == 0) return;
             ///////////yuck//////////////////
-            for (int i = cmdPtr; i < actionList.Count; i += 1)
+            for (int i = actionPtr; i < actionList.Count; i += 1)
             {
                 ActionBase current = actionList[i];
                 current.Process(this);
@@ -141,6 +154,11 @@ namespace Exeggcute.src.entities
             
         }
 
+        public virtual void Process(SpawnerLockAction spawnerlock)
+        {
+            lockSpawnerAngle = spawnerlock.LockAngle;
+            lockSpawnerPos = spawnerlock.LockPosition;
+        }
 
         public virtual void Process(MoveAction move)
         {
@@ -148,13 +166,13 @@ namespace Exeggcute.src.entities
             LinearAccel = move.LinearAccel;
             AngularVelocity = move.AngularVelocity;
             AngularAccel = move.AngularAccel;
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(ShootAction shoot)
         {
             IsShooting = !IsShooting;
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(MoveToAction moveTo)
@@ -162,7 +180,7 @@ namespace Exeggcute.src.entities
             Vector3 start = Position;
             Vector3 target = moveTo.Destination;
             doSmoothTransition(start, target, moveTo.Duration);
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(MoveRelativeAction moveRel)
@@ -170,7 +188,7 @@ namespace Exeggcute.src.entities
             Vector3 start = Position;
             Vector3 target = start + moveRel.Displacement;
             doSmoothTransition(start, target, moveRel.Duration);
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)
@@ -187,7 +205,6 @@ namespace Exeggcute.src.entities
         public virtual void Process(VanishAction vanish)
         {
             IsDone = true;
-            cmdPtr += 1;
         }
 
         public virtual void Process(SpawnAction spawn)
@@ -197,31 +214,31 @@ namespace Exeggcute.src.entities
             Vector3 pos = Position + args.SpawnPosition;
             Shot cloned = arsenal.Clone(spawn.ID, pos, angle);
             shotListHandle.Add(cloned);
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(EndAction end)
         {
-            cmdPtr = actionList.Count;
+            actionPtr = actionList.Count;
         }
 
         public virtual void Process(SetAction set)
         {
             Position = set.Position;
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(AimAction aim)
         {
             Angle = aim.Angle;
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(WaitAction wait)
         {
             if (counter >= wait.Duration)
             {
-                cmdPtr += 1;
+                actionPtr += 1;
                 counter = 0;
             }
             else
@@ -239,12 +256,18 @@ namespace Exeggcute.src.entities
             AngularAccel = 0;
             AngularVelocity = 0;
             VelocityZ = 0;
-            cmdPtr += 1;
+            actionPtr += 1;
         }
 
         public virtual void Process(LoopAction loop)
         {
-            cmdPtr = loop.Pointer;
+            actionPtr = loop.Pointer;
+        }
+
+        public virtual void Process(SpawnerSetAction set)
+        {
+            Console.WriteLine("{0}, {1}", set.RelPosition, set.Angle);
+            spawner.SetParams(set.RelPosition, set.Angle);
         }
 
         public void Collide(Shot shot)
@@ -257,7 +280,8 @@ namespace Exeggcute.src.entities
             ProcessActions();
             if (spawner != null && IsShooting)
             {
-                spawner.SetPosition(Position);
+                if (lockSpawnerPos) spawner.SetPosition(Position);
+                if (lockSpawnerAngle) spawner.SetAngle(Angle);
                 spawner.Update();
             }
             base.Update();

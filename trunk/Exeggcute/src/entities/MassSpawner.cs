@@ -11,12 +11,14 @@ namespace Exeggcute.src.entities
     {
         public ScriptName ScriptName { get; protected set; }
         public ArsenalName ArsenalName { get; protected set; }
-        public EntityArgs Args { get; protected set; }
+        public Vector3 RelPosition { get; protected set; }
+        public float Angle { get; protected set; }
         public SpawnerEntry(ScriptName scriptName, ArsenalName arsenalName, Vector3 pos, float angle)
         {
             ScriptName = scriptName;
             ArsenalName = arsenalName;
-            Args = new EntityArgs(pos, angle);
+            RelPosition = pos;
+            Angle = angle;
         }
     }
     class MassSpawner
@@ -42,7 +44,7 @@ namespace Exeggcute.src.entities
             };
             foreach (SpawnerEntry entry in entries)
             {
-                spawners.Add(new Spawner(entry.ScriptName, entry.ArsenalName, entry.Args, shotList));
+                spawners.Add(new Spawner(entry.ScriptName, entry.ArsenalName, entry.RelPosition, entry.Angle, shotList));
             }
 
             spawners[0].SetPosition(new Vector3(0, 0, 0));
@@ -55,7 +57,7 @@ namespace Exeggcute.src.entities
             {
                 foreach (Spawner spawner in spawners)
                 {
-                    spawner.Follow(parent, false);
+                    spawner.Follow(parent, true, false);
                 }
             }
             foreach (Spawner spawner in spawners)
