@@ -25,15 +25,26 @@ namespace Exeggcute.src.graphics
         public short[] Indexes;
         public float Width { get; protected set; }
         public float Height { get; protected set; }
+        public int Index { get; protected set; }
 
-
-        public Quad(int index, Vector3 origin, Vector3 back, float width, float height, int tileWidth, int tileHeight, int texWidth, int texHeight)
+        public Quad(int textureIndex, 
+                    int quadIndex, 
+                    Vector3 origin, 
+                    Vector3 back, 
+                    float width, 
+                    float height, 
+                    int tileWidth, 
+                    int tileHeight, 
+                    int texWidth, 
+                    int texHeight/*,
+                    VertexPositionNormalTexture[] verticesHandle*/)
         {
             Width = width;
             Height = height;
+            Index = quadIndex;
 
-            int i = (index * tileWidth) % texWidth;
-            int j = (index * tileWidth) / texWidth;
+            int i = (textureIndex * tileWidth) % texWidth;
+            int j = (textureIndex * tileWidth) / texWidth;
             float texelWidth = 1.0f / (float)texWidth;
             float texelHeight = 1.0f / (float)texHeight;
             Vector2 texUpLeft = new Vector2(i*texelWidth + 0.01f, j*texelHeight);
@@ -62,17 +73,6 @@ namespace Exeggcute.src.graphics
 
         }
 
-        /*public void updateTexture(Vector2 texturePos)
-        {
-            int x = (int)(texturePos.X / size);
-            int y = (int)(texturePos.Y / size);
-            Util.Die("Death");
-            textureUpperLeft = new Vector2(x / divisor, y / divisor);
-            textureUpperRight = new Vector2((x + 1) / divisor, y / divisor);
-            textureLowerLeft = new Vector2(x / divisor, (y + 1) / divisor);
-            textureLowerRight = new Vector2((x + 1) / divisor, (y + 1) / divisor);
-            FillVertices();
-        }*/
         public void UpdateVertices(Vector3 upperleft, Vector3 upperright, Vector3 lowerleft, Vector3 lowerright)
         {
             
@@ -87,6 +87,7 @@ namespace Exeggcute.src.graphics
             Normal.Normalize();
             FillVertices();
         }
+
         //***************************************************************
         //
         //

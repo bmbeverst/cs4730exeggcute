@@ -85,6 +85,7 @@ namespace Exeggcute.src.entities
             Position = newpos;
         }
 
+
         /// <summary>
         /// Tells whether the entity is in a rectangle, usually used to 
         /// tell if the entity is offscreen or not

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src
 {
@@ -83,6 +84,34 @@ namespace Exeggcute.src
                     {
 
                     }
+                }
+            }
+        }
+
+        public void CollideTerrain<TEntity>(WangMesh terrain, TEntity entity) where TEntity : PlanarEntity3D
+        {
+            if (Math.Abs(entity.Position.Z - terrain.Depth) < 2)
+            {
+                float x = entity.X;
+                float y = entity.Y;
+                float z = terrain.Depth;
+                terrain.Impact(x, y, 0, 0);
+                entity.QueueDelete();
+            }
+        }
+
+        public void CollideDying(WangMesh terrain)
+        {
+            HashList<Enemy> enemies = World.DyingList;
+            foreach (Enemy enemy in enemies.GetKeys())
+            {
+                if (Math.Abs(enemy.Position.Z - terrain.Depth) < 2)
+                {
+                    float x = enemy.X;
+                    float y = enemy.Y;
+                    float z = terrain.Depth;
+                    terrain.Impact(x, y, 0, 0);
+                    enemy.Die();
                 }
             }
         }

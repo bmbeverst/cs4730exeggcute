@@ -36,7 +36,7 @@ namespace Exeggcute.src.graphics
         /// <param name="name">the filename minus extension</param>
         public static Sprite Load(SpriteName name)
         {
-            string filepath = String.Format("Content/{0}.{1}", name, EXT);
+            string filepath = String.Format("ExeggcuteContent/{0}.{1}", name, EXT);
             List<string> lines = Util.StripComments(filepath, '#', true);
             lines.Reverse(); //???
             Stack<string> lineStack = new Stack<string>(lines);

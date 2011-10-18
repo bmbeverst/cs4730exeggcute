@@ -53,6 +53,8 @@ namespace Exeggcute.src
 
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
+            
+
             World.Initialize(this, content, graphics);
             loadScripts(content);
             loadTextures(content);
@@ -151,10 +153,15 @@ namespace Exeggcute.src
 
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            graphics.Clear(Color.HotPink);//easy to notice bleeding!
-            batch.Begin();
+            graphics.Clear(ClearOptions.DepthBuffer, Color.HotPink, 1.0f, 0);//easy to notice bleeding!
             World.Draw(graphics, batch);
-            batch.End();
+            resetRenderState(graphics);
+        }
+
+        protected void resetRenderState(GraphicsDevice graphics)
+        {
+            graphics.BlendState = BlendState.AlphaBlend;
+            graphics.DepthStencilState = DepthStencilState.Default;
         }
 
         public void Exit()

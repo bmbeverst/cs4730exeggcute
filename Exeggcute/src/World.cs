@@ -30,6 +30,7 @@ namespace Exeggcute.src
         public static HashList<Shot> EnemyShots = new HashList<Shot>();
         public static HashList<Gib> GibList = new HashList<Gib>();
         public static HashList<Enemy> EnemyList = new HashList<Enemy>();
+        public static HashList<Enemy> DyingList = new HashList<Enemy>();
 
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
