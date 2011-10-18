@@ -9,43 +9,22 @@ namespace Exeggcute.src.graphics
 {
     class Quad
     {
-        public Vector3 Origin;
-        public Vector3 UpperLeft;
-        public Vector3 LowerLeft;
-        public Vector3 UpperRight;
-        public Vector3 LowerRight;
+        public Vector3 Center;
+        public Vector3 TopLeft;
+        public Vector3 BottomLeft;
+        public Vector3 TopRight;
+        public Vector3 BottomRight;
         public Vector3 Normal;
         public Vector3 Up;
         public Vector3 Left;
-        Vector2 textureUpperLeft;
-        Vector2 textureUpperRight;
-        Vector2 textureLowerLeft;
-        Vector2 textureLowerRight;
+        Vector2 textureTopLeft;
+        Vector2 textureTopRight;
+        Vector2 textureBottomLeft;
+        Vector2 textureBottomRight;
         public VertexPositionNormalTexture[] Vertices;
         public short[] Indexes;
         public float Width { get; protected set; }
         public float Height { get; protected set; }
-
-        public Quad(int textureIndex,
-                    Vector3 origin,
-                    Vector3 back,
-                    float width,
-                    float height,
-                    int tileTexelWidth,
-                    int tileTexelHeight,
-                    int textureWidth,
-                    int textureHeight)
-        {
-            Width = width;
-            Height = height;
-            int i = (textureIndex * tileTexelWidth) % textureWidth;
-            int j = (textureIndex * tileTexelWidth) / textureWidth;
-            float texelWidth = 1.0f / (float)textureWidth;
-            float texelHeight = 1.0f / (float)textureHeight;
-            Vector2 texUpLeft = new Vector2(i * texelWidth + 0.01f, j * texelHeight);
-            Vector2 texLowRight = new Vector2(texUpLeft.X + tileTexelWidth * texelWidth - 0.02f, texUpLeft.Y + tileTexelHeight * texelHeight);
-            initQuad(texUpLeft, texLowRight, origin, back);
-        }
 
         public Quad(Vector2 topleft,
             Vector2 bottomRight,
@@ -58,46 +37,43 @@ namespace Exeggcute.src.graphics
             Height = height;
             initQuad(topleft, bottomRight, position, back);
         }
-        public void initQuad(Vector2 texUpLeft, Vector2 texLowRight, Vector3 origin, Vector3 back)
+
+        public void initQuad(Vector2 texTopLeft, Vector2 texBottomRight, Vector3 center, Vector3 back)
         {
             Vertices = new VertexPositionNormalTexture[4];
             Indexes = new short[6]; ;
-            Origin = origin;
+            Center = center;
             Normal = back;
             Up = Vector3.Up;
-            textureUpperLeft = texUpLeft;
-            textureUpperRight = new Vector2(texLowRight.X, texUpLeft.Y);
-            textureLowerLeft = new Vector2(texUpLeft.X, texLowRight.Y);
-            textureLowerRight = texLowRight;
+            textureTopLeft = texTopLeft;
+            textureTopRight = new Vector2(texBottomRight.X, texTopLeft.Y);
+            textureBottomLeft = new Vector2(texTopLeft.X, texBottomRight.Y);
+            textureBottomRight = texBottomRight;
             // Calculate the quad corners
             Left = Vector3.Cross(Normal, Up);
-            Vector3 uppercenter = (Up * Height / 2) + Origin;
-            UpperLeft = uppercenter + (Left * Width / 2);
-            UpperRight = uppercenter - (Left * Width / 2);
-            LowerLeft = UpperLeft - (Up * Height);
-            LowerRight = UpperRight - (Up * Height);
+            Vector3 topcenter = (Up * Height / 2) + Center;
+            TopLeft = topcenter + (Left * Width / 2);
+            TopRight = topcenter - (Left * Width / 2);
+            BottomLeft = TopLeft - (Up * Height);
+            BottomRight = TopRight - (Up * Height);
             FillVertices();
 
         }
 
-        public void UpdateVertices(Vector3 upperleft, Vector3 upperright, Vector3 lowerleft, Vector3 lowerright)
+        public void UpdateVertices(Vector3 topleft, Vector3 topright, Vector3 bottomleft, Vector3 bottomright)
         {
             
-            UpperLeft = upperleft;
-            UpperRight = upperright;
-            LowerLeft = lowerleft;
-            LowerRight = lowerright;
-            Vector3 right = UpperLeft - UpperRight;
-            Vector3 down = UpperRight - LowerRight;
-            Normal = Vector3.Cross(down, right);
-
-            Normal.Normalize();
-            FillVertices();
+            TopLeft = topleft;
+            TopRight = topright;
+            BottomLeft = bottomleft;
+            BottomRight = bottomright;
+            UpdateVertices();
         }
+
         public void UpdateVertices()
         {
-            Vector3 right = UpperLeft - UpperRight;
-            Vector3 down = UpperRight - LowerRight;
+            Vector3 right = TopLeft - TopRight;
+            Vector3 down = TopRight - BottomRight;
             Normal = Vector3.Cross(down, right);
             Normal.Normalize();
             FillVertices();
@@ -111,14 +87,14 @@ namespace Exeggcute.src.graphics
 
             if (lockLeft)
             {
-                UpperLeft = left.UpperRight;
-                LowerLeft = left.LowerRight;
+                TopLeft = left.TopRight;
+                BottomLeft = left.BottomRight;
                 
             }
             if (lockBelow)
             {
-                LowerLeft = below.UpperLeft;
-                LowerRight = below.UpperRight;
+                BottomLeft = below.TopLeft;
+                BottomRight = below.TopRight;
             }
             
             UpdateVertices();
@@ -134,17 +110,17 @@ namespace Exeggcute.src.graphics
 
             // Set the position and texture coordinate for each
             // vertex
-            Vertices[0].Position = LowerLeft;
-            Vertices[0].TextureCoordinate = textureLowerLeft;
+            Vertices[0].Position = BottomLeft;
+            Vertices[0].TextureCoordinate = textureBottomLeft;
 
-            Vertices[1].Position = UpperLeft;
-            Vertices[1].TextureCoordinate = textureUpperLeft;
+            Vertices[1].Position = TopLeft;
+            Vertices[1].TextureCoordinate = textureTopLeft;
 
-            Vertices[2].Position = LowerRight;
-            Vertices[2].TextureCoordinate = textureLowerRight;
+            Vertices[2].Position = BottomRight;
+            Vertices[2].TextureCoordinate = textureBottomRight;
 
-            Vertices[3].Position = UpperRight;
-            Vertices[3].TextureCoordinate = textureUpperRight;
+            Vertices[3].Position = TopRight;
+            Vertices[3].TextureCoordinate = textureTopRight;
             // Set the index buffer for each vertex, using
             // clockwise winding
             Indexes[0] = 0;

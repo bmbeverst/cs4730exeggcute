@@ -124,12 +124,12 @@ namespace Exeggcute.src
                     {
                         Util.Die("d");
                         Quad current = Quads[i, j];
-                        float curZ = current.UpperRight.Z;
+                        float curZ = current.TopRight.Z;
                         float newZ = Depth + rng.Next() * 8 - 4;
                         //Console.WriteLine("{0},{1}", i, j);
-                        float x = current.UpperRight.X;
-                        float y = current.UpperRight.Y;
-                        Quads[i, j].UpdateVertices(current.UpperLeft, new Vector3(x, y, newZ), current.LowerLeft, current.LowerRight);
+                        float x = current.TopRight.X;
+                        float y = current.TopRight.Y;
+                        Quads[i, j].UpdateVertices(current.TopLeft, new Vector3(x, y, newZ), current.BottomLeft, current.BottomRight);
                         
                     }
                 }
@@ -145,12 +145,12 @@ namespace Exeggcute.src
             int j = Math.Abs((int)((y - ProgressY) / TileSize));
             if (i < 0 || i > cols - 1 || j < 0 || j > rows - 1) return;
             Quad current = Quads[i, j];
-            float curZ = current.UpperRight.Z;
+            float curZ = current.TopRight.Z;
             float newZ = curZ - rng.Next() * 8;
             //Console.WriteLine("{0},{1}", i, j);
-            float xQuad = current.UpperRight.X;
-            float yQuad = current.UpperRight.Y;
-            Quads[i, j].UpdateVertices(current.UpperLeft, new Vector3(xQuad, yQuad, newZ), current.LowerLeft, current.LowerRight);
+            float xQuad = current.TopRight.X;
+            float yQuad = current.TopRight.Y;
+            Quads[i, j].UpdateVertices(current.TopLeft, new Vector3(xQuad, yQuad, newZ), current.BottomLeft, current.BottomRight);
             lockLocal(i, j);
         }
 
