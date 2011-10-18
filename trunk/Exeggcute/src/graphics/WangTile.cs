@@ -17,9 +17,9 @@ namespace Exeggcute.src.graphics
         public int WangCount { get; protected set; }
         public int Cols { get; protected set; }
         public int Rows { get; protected set; }
-        byte[,] grid;
+        public byte[,] grid;
         int[] counts;
-
+        
         /// <summary>
         /// Gets the number of tiles with a particular wang index
         /// </summary>

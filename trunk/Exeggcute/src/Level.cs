@@ -63,7 +63,6 @@ namespace Exeggcute.src
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
             this.terrain = new WangMesh(graphics, TextureName.wang8, 12*2, 100*2, 4, 64, 0.01f);
-            
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.enemyList = World.EnemyList;
@@ -159,13 +158,14 @@ namespace Exeggcute.src
             Task current = taskList[taskPtr];
             current.Process(this);
         }
-        bool done = false;
+
         public void Update(ControlManager controls)
         {
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
             //terrain.Update();
+            //terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
@@ -225,6 +225,7 @@ namespace Exeggcute.src
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
             terrain.Draw(graphics, view, projection);
+
             player.Draw(graphics, view, projection);
 
             drawShots(graphics, view, projection,playerShots, enemyShots);
