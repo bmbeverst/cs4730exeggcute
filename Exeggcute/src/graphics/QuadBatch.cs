@@ -10,7 +10,7 @@ namespace Exeggcute.src.graphics
 {
     class QuadBatch
     {
-        public BasicEffect Shader { get; protected set; }
+        public BasicEffect Shader { get; set; }
         public QuadBatch(GraphicsDevice graphics, TextureName texName)
         {
             //Shader = EffectBank.Get(EffectName.terrain);

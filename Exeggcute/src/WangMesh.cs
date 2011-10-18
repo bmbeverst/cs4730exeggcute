@@ -21,6 +21,7 @@ namespace Exeggcute.src
         private int rows;
         private Quad[,] Quads;
         private QuadBatch quadBatch;
+        TileMap tilemap; 
         Random rng = new Random();
         public float Width { get; protected set; }
         public float Height { get; protected set; }
@@ -32,7 +33,7 @@ namespace Exeggcute.src
         public WangMesh(GraphicsDevice graphics, TextureName texName, int cols, int rows, float size, float heightVariance, float scrollSpeed)
         {
 
-            Texture2D wangTexture = TextureBank.Get(TextureName.wang8);
+            Texture2D wangTexture = TextureBank.Get(texName);
             int texWidth = wangTexture.Width;
             int texHeight = wangTexture.Height;
             this.quadBatch = new QuadBatch(graphics, texName);
@@ -46,6 +47,7 @@ namespace Exeggcute.src
             wangGrid = new WangArray(cols, rows);
             Quads = new Quad[cols, rows];
             ProgressY = -100;
+            tilemap = new TileMap(texName, 32, 32);
             
             for (int i = 0; i < cols; i += 1)
             {
@@ -53,9 +55,10 @@ namespace Exeggcute.src
                 {
                     int index = wangGrid[i, j];
                     //HARDCODE
-                    int tilesize = 32;
-                    float height = Depth;// random.Next() * heightVariance - heightVariance / 2;
-                    Quads[i, j] = new Quad(index, 0, new Vector3(i * size - Width / 2, j * size, height), new Vector3(0, 0, 1), size, size, tilesize, tilesize, texWidth, texHeight);
+                    heightVariance = 1;
+                    float height =   rng.Next() * heightVariance - heightVariance / 2;
+                    Vector3 position = new Vector3(i * size - Width / 2, j * size, height);
+                    Quads[i, j] = tilemap.CreateQuad(index, position, new Vector3(0, 0, 1), size, size);
                 }
             }
 
@@ -70,15 +73,15 @@ namespace Exeggcute.src
                 for (int j = 0; j < rows; j += 1)
                 {
                     Quad left;
-                    Quad above;
+                    Quad below;
 
                     if (i <= 0) left = null;
                     else left  = Quads[i - 1, j];
 
-                    if (j <= 0) above = null;
-                    else above = Quads[i, j - 1];
+                    if (j <= 0) below = null;
+                    else below = Quads[i, j - 1];
 
-                    Quads[i, j].Lock(left, above);
+                    Quads[i, j].Lock(left, below);
                 }
             }
         }
