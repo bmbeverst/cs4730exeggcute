@@ -376,10 +376,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExeggcuteParser\ExeggcuteParser.fsproj">
-      <Project>{409FD006-55E4-4E37-B5CC-3C1EED258F8E}</Project>
-      <Name>ExeggcuteParser</Name>
-    </ProjectReference>
     <ProjectReference Include="Content\ExeggcuteContent.contentproj">
       <Project>{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}</Project>
       <Name>ExeggcuteContent %28Content%29</Name>
