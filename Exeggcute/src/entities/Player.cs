@@ -213,7 +213,7 @@ namespace Exeggcute.src.entities
         {
             Console.WriteLine("KILLED!");
             actionList = ScriptBank.Get(ScriptName.playerspawn);
-            cmdPtr = 0;
+            actionPtr = 0;
             lives -= 1;
             InvulnTimer.Reset();
             //spawn the death animation

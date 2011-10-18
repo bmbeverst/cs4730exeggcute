@@ -10,10 +10,13 @@ namespace Exeggcute.src.entities
     class Spawner : CommandEntity
     {
         public EntityArgs Args { get; protected set; }
-        public Spawner(ScriptName script, ArsenalName arsenalName, EntityArgs args, HashList<Shot> shotList)
+        public Vector3 PosOffset { get; protected set; }
+        public float AngleOffset { get; protected set; }
+        public Spawner(ScriptName script, ArsenalName arsenalName, Vector3 posOffset, float angleOffset, HashList<Shot> shotList)
             : base(script, arsenalName, shotList)
         {
-            Args = args;
+            PosOffset = posOffset;
+            AngleOffset = angleOffset;
         }
 
         public Spawner(ScriptName script, ArsenalName arsenalName, HashList<Shot> shotList)
@@ -21,17 +24,21 @@ namespace Exeggcute.src.entities
         {
 
         }
-        public void Follow(CommandEntity entity, bool relAngle)
+
+        public void SetParams(Vector3 pos, float angle)
         {
-            Position = entity.Position + Args.SpawnPosition;
-            if (relAngle)
-            {
-                Angle = entity.Angle + Args.AngleHeading;
-            }
-            else
-            {
-                Angle = Args.AngleHeading;
-            }
+            PosOffset = pos;
+            AngleOffset = angle;
+        }
+
+        public void Follow(CommandEntity parent, bool lockPos, bool lockAngle)
+        {
+            if (lockPos)
+                Position = parent.Position + PosOffset;
+
+            if (lockAngle)
+                Angle = parent.Angle + AngleOffset;
+
         }
     }
 }

@@ -1,0 +1,57 @@
+﻿%{
+
+open Ast
+open Exeggcute.src
+open Exeggcute.src.scripting.action
+
+
+%}
+
+// The start token becomes a parser function in the compiled code:
+%start start
+
+// These are the terminal tokens of the grammar along with the types of
+// the data carried by each token:
+%token <System.String> STRING
+%token <System.Single> FLOAT
+%token ALSO SPACE 
+%token COMMA
+%token LPAREN RPAREN
+%token EOF
+
+// This is the type of the data produced by a successful reduction of the 'start'
+// symbol:
+%type < Ast.Script > start
+
+%%
+
+// These are the rules of the grammar along with the F# code of the 
+// actions executed as rules are reduced.  In this case the actions 
+// produce data using F# data construction terms.
+start: Prog { Script($1) }
+
+Prog:
+    | List EOF				  { $1 }
+
+List: 
+    | ANode ALSO List		  { Pair($1, $3)  }
+    | ANode		              { Nil($1) }
+
+ANode:
+	| Type SPACE ArgList      { Node($1,$3) }
+
+ArgList:
+    | Arg SPACE ArgList       { ArgList($1,$3) }
+	| Arg					  { LastArg($1) }
+
+Arg:
+    | STRING				  { 
+                                let please = MyString($1) in  Name(please) }
+	| LPAREN ParenArg RPAREN  { ParenArg($2) }
+
+ParenArg:
+    | FLOAT COMMA FLOAT COMMA FLOAT       { Vector3($1,$3,$5) }
+
+Type:
+    | STRING                  { let value = Util.ParseEnum<CommandType>($1) in TypeName(value) }
+

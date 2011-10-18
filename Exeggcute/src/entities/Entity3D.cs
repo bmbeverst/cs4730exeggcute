@@ -86,6 +86,8 @@ namespace Exeggcute.src.entities
         }
 
 
+
+
         /// <summary>
         /// Tells whether the entity is in a rectangle, usually used to 
         /// tell if the entity is offscreen or not

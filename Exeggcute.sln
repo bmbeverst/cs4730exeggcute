@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exeggcute", "Exeggcute\Exeg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExeggcuteContent", "Exeggcute\Content\ExeggcuteContent.contentproj", "{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExeggcuteParser", "ExeggcuteParser\ExeggcuteParser.fsproj", "{409FD006-55E4-4E37-B5CC-3C1EED258F8E}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -35,6 +37,16 @@ Global
 		{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}.Release|Any CPU.ActiveCfg = Release|x86
 		{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}.Release|x86.ActiveCfg = Release|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Debug|x86.ActiveCfg = Debug|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Debug|x86.Build.0 = Debug|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Release|Any CPU.ActiveCfg = Release|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Release|x86.ActiveCfg = Release|x86
+		{409FD006-55E4-4E37-B5CC-3C1EED258F8E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

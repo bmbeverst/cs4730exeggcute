@@ -14,7 +14,7 @@
     <XnaPlatform>Windows</XnaPlatform>
     <XnaCrossPlatformGroupID>fe948a5d-5026-446a-95af-d58959a94d0f</XnaCrossPlatformGroupID>
     <ApplicationIcon>Exeggcute.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <Thumbnail>Thumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <StartupObject>
     </StartupObject>
@@ -142,6 +142,7 @@
     <Compile Include="src\entities\Gib.cs" />
     <Compile Include="src\entities\MassSpawner.cs" />
     <Compile Include="src\ExeggcuteError.cs" />
+    <Compile Include="src\MyString.cs" />
     <Compile Include="src\physics\Force.cs" />
     <Compile Include="src\graphics\Quad.cs" />
     <Compile Include="src\graphics\QuadBatch.cs" />
@@ -150,6 +151,8 @@
     <Compile Include="src\physics\PhysicsManager.cs" />
     <Compile Include="src\physics\Attractor.cs" />
     <Compile Include="src\scripting\action\LoopAction.cs" />
+    <Compile Include="src\scripting\action\SpawnerLockAction.cs" />
+    <Compile Include="src\scripting\action\SpawnerSetAction.cs" />
     <Compile Include="src\scripting\action\SpawnGibAction.cs" />
     <Compile Include="src\ServerTest.cs" />
     <Compile Include="src\WangMesh.cs" />
@@ -319,7 +322,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Exeggcute.ico" />
-    <Content Include="GameThumbnail.png" />
+    <Content Include="Thumbnail.png" />
     <None Include="settings.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -373,6 +376,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExeggcuteParser\ExeggcuteParser.fsproj">
+      <Project>{409FD006-55E4-4E37-B5CC-3C1EED258F8E}</Project>
+      <Name>ExeggcuteParser</Name>
+    </ProjectReference>
     <ProjectReference Include="Content\ExeggcuteContent.contentproj">
       <Project>{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}</Project>
       <Name>ExeggcuteContent %28Content%29</Name>

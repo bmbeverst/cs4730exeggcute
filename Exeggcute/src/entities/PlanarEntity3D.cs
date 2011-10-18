@@ -62,6 +62,11 @@ namespace Exeggcute.src.entities
             VelocityZ = value;
         }
 
+        public void SetAngle(float angle)
+        {
+            Angle = angle;
+        }
+
         public virtual void Influence(Vector3 accel, float terminal)
         {
             VelocityZ += accel.Z;

@@ -15,7 +15,7 @@ namespace Exeggcute.src
     /// <summary>
     /// Miscellaneous utility functions
     /// </summary>
-    static class Util
+    public static class Util
     {
         /// <summary>
         /// Contains the characters considered to be whitespace.
