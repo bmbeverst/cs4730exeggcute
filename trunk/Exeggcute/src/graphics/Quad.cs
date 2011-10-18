@@ -9,18 +9,71 @@ namespace Exeggcute.src.graphics
 {
     class Quad
     {
+        /*
+         * Vertices[0].Position = BottomLeft;
+            Vertices[0].TextureCoordinate = textureBottomLeft;
+
+            Vertices[1].Position = TopLeft;
+            Vertices[1].TextureCoordinate = textureTopLeft;
+
+            Vertices[2].Position = BottomRight;
+            Vertices[2].TextureCoordinate = textureBottomRight;
+
+            Vertices[3].Position = TopRight;
+            Vertices[3].TextureCoordinate = textureTopRight;
+         */
         public Vector3 Center;
-        public Vector3 TopLeft;
-        public Vector3 BottomLeft;
-        public Vector3 TopRight;
-        public Vector3 BottomRight;
+        public Vector3 BottomLeft
+        {
+            get { return Vertices[0].Position; }
+            set { Vertices[0].Position = value; }
+        }
+        public Vector3 TopLeft
+        {
+            get { return Vertices[1].Position; }
+            set { Vertices[1].Position = value; }
+        }
+        public Vector3 BottomRight
+        {
+            get { return Vertices[2].Position; }
+            set { Vertices[2].Position = value; }
+        }
+        public Vector3 TopRight
+        {
+            get { return Vertices[3].Position; }
+            set { Vertices[3].Position = value; }
+        }
+        
         public Vector3 Normal;
         public Vector3 Up;
         public Vector3 Left;
-        Vector2 textureTopLeft;
-        Vector2 textureTopRight;
-        Vector2 textureBottomLeft;
-        Vector2 textureBottomRight;
+
+        public Vector2 UVBottomLeft
+        {
+            get { return Vertices[0].TextureCoordinate;  }
+            set { Vertices[0].TextureCoordinate = value; }
+        }
+
+        public Vector2 UVTopLeft
+        {
+            get { return Vertices[1].TextureCoordinate; }
+            set { Vertices[1].TextureCoordinate = value; }
+        }
+
+        public Vector2 UVBottomRight
+        {
+            get { return Vertices[2].TextureCoordinate; }
+            set { Vertices[2].TextureCoordinate = value; }
+        }
+
+        public Vector2 UVTopRight
+        { 
+            get { return Vertices[3].TextureCoordinate;  }
+            set { Vertices[3].TextureCoordinate = value; }
+        }
+        
+       
+
         public VertexPositionNormalTexture[] Vertices;
         public short[] Indexes;
         public float Width { get; protected set; }
@@ -45,10 +98,10 @@ namespace Exeggcute.src.graphics
             Center = center;
             Normal = back;
             Up = Vector3.Up;
-            textureTopLeft = texTopLeft;
-            textureTopRight = new Vector2(texBottomRight.X, texTopLeft.Y);
-            textureBottomLeft = new Vector2(texTopLeft.X, texBottomRight.Y);
-            textureBottomRight = texBottomRight;
+            UVTopLeft = texTopLeft;
+            UVTopRight = new Vector2(texBottomRight.X, texTopLeft.Y);
+            UVBottomLeft = new Vector2(texTopLeft.X, texBottomRight.Y);
+            UVBottomRight = texBottomRight;
             // Calculate the quad corners
             Left = Vector3.Cross(Normal, Up);
             Vector3 topcenter = (Up * Height / 2) + Center;
@@ -56,7 +109,14 @@ namespace Exeggcute.src.graphics
             TopRight = topcenter - (Left * Width / 2);
             BottomLeft = TopLeft - (Up * Height);
             BottomRight = TopRight - (Up * Height);
-            FillVertices();
+            recalculateNormals();
+
+            Indexes[0] = 0;
+            Indexes[1] = 1;
+            Indexes[2] = 2;
+            Indexes[3] = 2;
+            Indexes[4] = 1;
+            Indexes[5] = 3;
 
         }
 
@@ -67,16 +127,19 @@ namespace Exeggcute.src.graphics
             TopRight = topright;
             BottomLeft = bottomleft;
             BottomRight = bottomright;
-            UpdateVertices();
+            recalculateNormals();
         }
 
-        public void UpdateVertices()
+        protected void recalculateNormals()
         {
             Vector3 right = TopLeft - TopRight;
             Vector3 down = TopRight - BottomRight;
             Normal = Vector3.Cross(down, right);
             Normal.Normalize();
-            FillVertices();
+            for (int i = 0; i < Vertices.Length; i++)
+            {
+                Vertices[i].Normal = Normal;
+            }
         }
 
         public void Lock(Quad left, Quad below)
@@ -97,39 +160,8 @@ namespace Exeggcute.src.graphics
                 BottomRight = below.TopRight;
             }
             
-            UpdateVertices();
+            recalculateNormals();
             
-        }
-        private void FillVertices()
-        {
-            // Provide a normal for each vertex
-            for (int i = 0; i < Vertices.Length; i++)
-            {
-                Vertices[i].Normal = Normal;
-            }
-
-            // Set the position and texture coordinate for each
-            // vertex
-            Vertices[0].Position = BottomLeft;
-            Vertices[0].TextureCoordinate = textureBottomLeft;
-
-            Vertices[1].Position = TopLeft;
-            Vertices[1].TextureCoordinate = textureTopLeft;
-
-            Vertices[2].Position = BottomRight;
-            Vertices[2].TextureCoordinate = textureBottomRight;
-
-            Vertices[3].Position = TopRight;
-            Vertices[3].TextureCoordinate = textureTopRight;
-            // Set the index buffer for each vertex, using
-            // clockwise winding
-            Indexes[0] = 0;
-            Indexes[1] = 1;
-            Indexes[2] = 2;
-            Indexes[3] = 2;
-            Indexes[4] = 1;
-            Indexes[5] = 3;
-
         }
 
 

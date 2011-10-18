@@ -165,7 +165,7 @@ namespace Exeggcute.src
             ProcessTasks();
             particles.Update();
             //terrain.Update();
-            //terrain.Impact(player.X, player.Y, 0, 0);
+            terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
