@@ -59,6 +59,7 @@ namespace Exeggcute.src
             loadFonts(content);
             loadEffects(content);
             loadModels(content);
+            loadSounds(content);
             loadSprites(content);
             loadArsenals(content);
             loadRosters(content);
@@ -122,6 +123,11 @@ namespace Exeggcute.src
             //HACK
             LifeItem.HUDSprite = SpriteBank.Get(SpriteName.life);
             BombItem.HUDSprite = SpriteBank.Get(SpriteName.bomb);
+        }
+
+        private void loadSounds(ContentManager content)
+        {
+            SoundBank.LoadAll(content);
         }
 
         private void loadMenus()

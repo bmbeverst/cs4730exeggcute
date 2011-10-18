@@ -73,7 +73,11 @@ namespace Exeggcute.src.assets
         gibtest
     }
 
-    //TODO deathscripts
+    enum SoundName
+    {
+        shot0
+    }
+
     class AssetNames
     {
 

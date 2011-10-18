@@ -26,6 +26,7 @@ namespace Exeggcute.src.entities
         protected HashList<Shot> shotListHandle;
         protected Arsenal arsenal;
         protected Spawner spawner;
+        
 
         public int Health { get; protected set; }
 

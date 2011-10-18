@@ -113,10 +113,16 @@ namespace Exeggcute.src.entities
             if (controls[Ctrl.Left].IsPressed)
             {
                 dx = -1;
+                ModelRotX = 1;
             }
             else if (controls[Ctrl.Right].IsPressed)
             {
                 dx = 1;
+                ModelRotX = -1;
+            }
+            else
+            {
+                ModelRotX = 0;
             }
 
             //This makes it so we dont overwrite the angle if our speed is 0
@@ -157,12 +163,13 @@ namespace Exeggcute.src.entities
 
             
         }
-
+        int frame = 0;
         public void Update(ControlManager controls)
         {
             //shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
-
+            frame += 1;
+            if (IsShooting && frames % 10 == 0) SoundBank.Get(SoundName.shot0).Play();
             if (IsBombing)
             {
                 bomb.Update(this);
