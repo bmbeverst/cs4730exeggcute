@@ -25,7 +25,7 @@ namespace Exeggcute.src
             /*graphicsManager.SynchronizeWithVerticalRetrace = false;
             this.IsFixedTimeStep = false;
             this.InactiveSleepTime = TimeSpan.Zero;*/
-            Content.RootDirectory = "Content"; 
+            Content.RootDirectory = "ExeggcuteContent"; 
             Window.Title = "Exeggcute";
         }
 
@@ -69,8 +69,8 @@ namespace Exeggcute.src
         {
             try
             {
-                ServerTest test = new ServerTest();
-                test.Test();
+                //ServerTest test = new ServerTest();
+                //test.Test();
             }
             catch (Exception error)
             {

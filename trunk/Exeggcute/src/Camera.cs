@@ -74,7 +74,7 @@ namespace Exeggcute.src
             return 
                 Matrix.CreateRotationZ(t1)
                 * Matrix.CreateRotationY(t2)
-                * Matrix.CreateRotationX(t3)
+                * Matrix.CreateRotationX(t3/* - MathHelper.PiOver4*/)
                 * Matrix.CreateLookAt(Position, Target, Up)
                 ;
         }

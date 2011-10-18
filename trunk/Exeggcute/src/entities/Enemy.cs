@@ -73,10 +73,19 @@ namespace Exeggcute.src.entities
 
         public override void Update()
         {
-            base.Update();
+            if (!IsDying)
+            {
+                base.Update();
+            }
+            else
+            {
+                BaseUpdate();
+            }
+
             //Console.WriteLine("{0} {1} {2}", IsDying, cmdPtr, IsShooting);
             if (Health <= 0 && !IsDying)
             {
+                World.DyingList.Add(this);
                 IsDying = true;
                 actionList = deathActions;
                 //Console.WriteLine(deathActions.Name.ToString());
@@ -84,7 +93,6 @@ namespace Exeggcute.src.entities
                 IsShooting = false;
                 //use giblist
                 //TODO make enemies transparent when dying
-                gibListHandle.Add(new Gib(ModelName.playerScene, Position2D, Speed, Angle));
                 
             }
             else if (IsDying)
@@ -93,8 +101,17 @@ namespace Exeggcute.src.entities
                 if (cmdPtr == actionList.Count)
                 {
                     IsTrash = true;
-                    Console.WriteLine("DEADED {0}", IsTrash);
                 }
+            }
+        }
+        int numGibs = 4;
+        public void Die()
+        {
+            
+            IsTrash = true;
+            for (int i = 0; i < numGibs; i += 1)
+            {
+                gibListHandle.Add(new Gib(ModelName.XNAface, Position2D, Speed, Angle));
             }
         }
 

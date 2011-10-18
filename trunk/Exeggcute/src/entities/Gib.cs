@@ -26,13 +26,14 @@ namespace Exeggcute.src.entities
 
             Angle = FastTrig.Atan2(sumVelocity.Y, sumVelocity.X);
             Speed = sumVelocity.Length();
-            VelocityZ = rng.NextInt(2);
+            VelocityZ = GIBSPEED/2 +  rng.Next() * GIBSPEED;
+            Mass = 10;
             
         }
 
         private static Vector3 getOffset(Vector2 parentPos)
         {
-            float xOffset =OFFSET * rng.NextSign() * rng.Next();
+            float xOffset = OFFSET * rng.NextSign() * rng.Next();
             float yOffset = OFFSET * rng.NextSign() * rng.Next();
             return new Vector3(parentPos.X + xOffset, parentPos.Y + yOffset, 0);
         }

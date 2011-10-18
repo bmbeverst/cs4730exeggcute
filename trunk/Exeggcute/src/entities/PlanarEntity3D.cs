@@ -51,10 +51,23 @@ namespace Exeggcute.src.entities
         {
 
         }
-        public virtual void Influence(Vector3 accel)
-        {
 
+        public void QueueDelete()
+        {
+            IsTrash = true;
         }
+
+        public void SetVelocityZ(float value)
+        {
+            VelocityZ = value;
+        }
+
+        public virtual void Influence(Vector3 accel, float terminal)
+        {
+            VelocityZ += accel.Z;
+            VelocityZ = Math.Min(VelocityZ, terminal);
+        }
+
         public override void Update()
         {
             base.Update();

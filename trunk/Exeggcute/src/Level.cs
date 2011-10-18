@@ -13,6 +13,7 @@ using Exeggcute.src.scripting.task;
 using Exeggcute.src.scripting.roster;
 using Exeggcute.src.graphics;
 using Exeggcute.src.gui;
+using Exeggcute.src.physics;
 
 namespace Exeggcute.src
 {
@@ -28,6 +29,7 @@ namespace Exeggcute.src
         private Camera camera;
         private Player player;
         private CollisionManager collider;
+        private PhysicsManager physics;
         private Roster roster;
         private WangMesh terrain;
 
@@ -60,7 +62,7 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
-            this.terrain = new WangMesh(graphics, TextureName.wang8, 12, 100, 8, 64, 0.01f);
+            this.terrain = new WangMesh(graphics, TextureName.wang8, 12*2, 100*2, 4, 64, 0.01f);
             
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
@@ -70,16 +72,17 @@ namespace Exeggcute.src
             this.taskList = loader.Load(0);
             loadMsgBoxes(content);
 
-            collider = new CollisionManager();
-            camera = new Camera(100, MathHelper.PiOver2, 1);
-            hud = new HUD();
+            this.collider = new CollisionManager();
+            this.physics = new PhysicsManager();
+            this.camera = new Camera(100, MathHelper.PiOver2, 1);
+            this.hud = new HUD();
 
             //HARDCODED FIXME
             GameArea = new Rectangle(-HalfWidth, -HalfHeight, HalfWidth * 2, HalfHeight * 2);
 
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
-            player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots);
+            player = new Player(ModelName.testcube, ArsenalName.test, World.PlayerShots);
             
         }
 
@@ -156,18 +159,27 @@ namespace Exeggcute.src
             Task current = taskList[taskPtr];
             current.Process(this);
         }
-
+        bool done = false;
         public void Update(ControlManager controls)
         {
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
+            //terrain.Update();
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
                 particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
+            physics.Affect(gibList);
+            foreach (Gib gib in gibList.GetKeys())
+            {
+                collider.CollideTerrain(terrain, gib);
+            }
+
+            physics.Affect(World.DyingList);
+            collider.CollideDying(terrain);
             bool hit = collider.Collide(player, enemyList);
             if (hit)
             {
@@ -180,7 +192,7 @@ namespace Exeggcute.src
             collider.FilterDead<Shot>(enemyShots);
             collider.FilterDead<Gib>(gibList);
             collider.FilterDead<Enemy>(enemyList);
-
+            collider.FilterDead<Enemy>(World.DyingList);
             updateShots(playerShots, enemyShots);
 
             player.Update(controls);
@@ -212,9 +224,6 @@ namespace Exeggcute.src
         {
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
-            RasterizerState rs = new RasterizerState();
-            rs.FillMode = FillMode.WireFrame;
-            //if (player.IsBombing) graphics.RasterizerState = rs;
             terrain.Draw(graphics, view, projection);
             player.Draw(graphics, view, projection);
 
@@ -232,7 +241,12 @@ namespace Exeggcute.src
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
+
+
+            batch.Begin();
             hud.Draw(batch, player);
+            batch.End();
+            
         }
 
 

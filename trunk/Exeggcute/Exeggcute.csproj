@@ -152,6 +152,7 @@
     <Compile Include="src\scripting\action\LoopAction.cs" />
     <Compile Include="src\scripting\action\SpawnGibAction.cs" />
     <Compile Include="src\ServerTest.cs" />
+    <Compile Include="src\TiledQuadMesh.cs" />
     <Compile Include="src\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
@@ -324,7 +325,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <NestedContentProject Include="Content\Content.contentproj">
+    <NestedContentProject Include="ExeggcuteContent\Content.contentproj">
       <Project>13366c8d-1a2c-4d0d-bcfe-5a7f4cdb0914</Project>
       <Visible>False</Visible>
     </NestedContentProject>
@@ -372,9 +373,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Content\Content.contentproj">
+    <ProjectReference Include="Content\ExeggcuteContent.contentproj">
       <Project>{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}</Project>
-      <Name>Content</Name>
+      <Name>ExeggcuteContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
