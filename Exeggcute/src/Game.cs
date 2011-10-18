@@ -17,7 +17,6 @@ namespace Exeggcute.src
         public Point ScreenSize;
         public Game()
         {
-            Exeggcute.Parser.parseMyScript("test.script");
             graphicsManager = new GraphicsDeviceManager(this);
             graphicsManager.PreferredBackBufferHeight = Engine.YRes;
             graphicsManager.PreferredBackBufferWidth = Engine.XRes;
