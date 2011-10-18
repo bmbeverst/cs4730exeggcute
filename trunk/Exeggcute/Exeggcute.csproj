@@ -152,7 +152,6 @@
     <Compile Include="src\scripting\action\LoopAction.cs" />
     <Compile Include="src\scripting\action\SpawnGibAction.cs" />
     <Compile Include="src\ServerTest.cs" />
-    <Compile Include="src\TiledQuadMesh.cs" />
     <Compile Include="src\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
