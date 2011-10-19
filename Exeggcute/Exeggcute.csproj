@@ -165,7 +165,6 @@
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
     <Compile Include="src\ScoreSet.cs" />
-    <Compile Include="src\scripting\arsenal\Arsenal.cs" />
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
     <Compile Include="src\assets\ScriptBank.cs" />
@@ -280,6 +279,9 @@
     <Compile Include="TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\arsenals\testenemy.arsenal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\spawner0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

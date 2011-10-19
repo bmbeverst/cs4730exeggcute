@@ -13,7 +13,6 @@ namespace Exeggcute.src.physics
     /// </summary>
     class Attractor : Force
     {
-
         public Vector3 Position { get; protected set; }
 
         public int Exponent { get; protected set; }
@@ -42,8 +41,9 @@ namespace Exeggcute.src.physics
             double d = r.Length();
             if (d < DeadZone) return Vector3.Zero;
             float d_pow = (float)Math.Pow((double)r.Length(), (double)(Exponent + 1.0));
-            return ((Mass * otherMass) / d_pow) * r;
-
+            Vector3 result  = ((Mass * otherMass * PhysicsManager.BigG) / d_pow) * r;
+            Console.WriteLine(result);
+            return -result;
         }
 
         public virtual bool IsDestroyed()

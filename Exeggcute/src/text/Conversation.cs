@@ -25,7 +25,7 @@ namespace Exeggcute.src.text
             Parent.Update(controls);
             if (Box.IsDone)
             {
-                World.Pop(this);
+                World.Pop(/*this*/);
             }
         }
 

@@ -344,5 +344,10 @@ namespace Exeggcute.src
         {
             return Util.Stackify<string>(line.Split(delim));
         }
+
+        public static Vector2 Vec2FromSpeed(float speed, float angle)
+        {
+            return new Vector2(speed * FastTrig.Cos(angle), speed * FastTrig.Sin(angle));
+        }
     }
 }

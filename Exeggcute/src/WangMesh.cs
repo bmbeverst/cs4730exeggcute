@@ -120,7 +120,6 @@ namespace Exeggcute.src
                 {
                     for (int j = 0; j < rows; j += 1)
                     {
-                        Util.Die("d");
                         Quad current = Quads[i, j];
                         float curZ = current.TopRight.Z;
                         float newZ = Depth + rng.Next() * 8 - 4;
@@ -128,13 +127,10 @@ namespace Exeggcute.src
                         float x = current.TopRight.X;
                         float y = current.TopRight.Y;
                         Quads[i, j].UpdateVertices(current.TopLeft, new Vector3(x, y, newZ), current.BottomLeft, current.BottomRight);
-                        
                     }
                 }
-                //Util.Die("");
-                  
-                
             }
+            lockEdges();
         }
 
         public void Impact(float x, float y, float mass, float speed)
@@ -144,7 +140,7 @@ namespace Exeggcute.src
             if (i < 0 || i > cols - 1 || j < 0 || j > rows - 1) return;
             Quad current = Quads[i, j];
             float curZ = current.TopRight.Z;
-            float newZ = curZ - rng.Next() * 8;
+            float newZ = curZ - (rng.Next() * 8)/**mass*/;
             //Console.WriteLine("{0},{1}", i, j);
             float xQuad = current.TopRight.X;
             float yQuad = current.TopRight.Y;

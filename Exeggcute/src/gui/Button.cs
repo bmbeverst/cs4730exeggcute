@@ -23,12 +23,12 @@ namespace Exeggcute.src.gui
                       ContextEvent activate,
                       ContextEvent deactivate)
         {
-            onSelect = select;
-            onDeselect = deselect;
-            onActivate = activate;
-            onDeactivate = deactivate;
-            IsActive = false;
-            IsSelected = false;
+            this.onSelect = select;
+            this.onDeselect = deselect;
+            this.onActivate = activate;
+            this.onDeactivate = deactivate;
+            this.IsActive = false;
+            this.IsSelected = false;
         }
         
 

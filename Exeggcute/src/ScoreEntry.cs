@@ -26,7 +26,7 @@ namespace Exeggcute.src
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", Score, Name, Time.ToString());
+            return string.Format("{0},{1},{2}", Score, Name, Time.ToUniversalTime());
         }
 
     }

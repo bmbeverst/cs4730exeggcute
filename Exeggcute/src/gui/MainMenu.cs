@@ -41,18 +41,22 @@ namespace Exeggcute.src.gui
 
         public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
+            batch.Begin();
             for (int i = 0; i < buttons.Count; i += 1)
             {
                 buttons[i].Draw(batch, drawPositions[i]);
             }
             cursorSprite.Draw(batch, new Vector2(ButtonBox.Left - cursorSprite.Width, ButtonBox.Top + vertButtonSpacing * cursor));
             buttonBoxOutline.Draw(batch);
+            batch.End();
         }
 
         public override void Move(Direction dir)
         {
+            
             if (dir == Direction.Up)
             {
+
                 cursor -= 1;
             }
             else if (dir == Direction.Down)
