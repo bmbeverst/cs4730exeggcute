@@ -10,11 +10,11 @@ namespace Exeggcute.src.assets
 {
     class ArsenalBank
     {
-        protected static Bank<ArsenalName, Arsenal> bank = new Bank<ArsenalName, Arsenal>();
+        protected static Bank<ArsenalName, List<ArsenalEntry>> bank = new Bank<ArsenalName, List<ArsenalEntry>>();
         public static List<ArsenalName> AllNames = bank.AllNames;
 
         protected static ArsenalLoader loader = new ArsenalLoader();
-        public static Arsenal Get(ArsenalName name)
+        public static List<ArsenalEntry> Get(ArsenalName name)
         {
             return bank[name];
         }
@@ -29,7 +29,7 @@ namespace Exeggcute.src.assets
 
         public static void Load(ContentManager content, ArsenalName name)
         {
-            bank.Put(new Arsenal(loader.Load(name)), name);
+            bank.Put(loader.Load(name), name);
         }
     }
 }

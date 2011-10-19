@@ -65,7 +65,8 @@ namespace Exeggcute.src.assets
         playerspawn,
         item,
         playershot0,
-        death0
+        death0,
+        spawner0
     }
 
     enum GibsName

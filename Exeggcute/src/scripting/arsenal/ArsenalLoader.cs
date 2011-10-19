@@ -20,11 +20,12 @@ namespace Exeggcute.src.scripting.arsenal
 
         protected override ArsenalEntry parseEntry(Stack<string> tokens)
         {
-            string modelString = tokens.Pop();
-            string scriptString = tokens.Pop();
-            ModelName model = Util.ParseEnum<ModelName>(modelString);//tokens.Pop());
-            ScriptName script = Util.ParseEnum<ScriptName>(scriptString);//tokens.Pop());
-            return new ArsenalEntry(model, script);
+
+            ModelName model = Util.ParseEnum<ModelName>(tokens.Pop());
+            ScriptName spawnerMoveScript = Util.ParseEnum<ScriptName>(tokens.Pop());
+            ScriptName spawnScript = Util.ParseEnum<ScriptName>(tokens.Pop());
+            ScriptName shotMoveScript = Util.ParseEnum<ScriptName>(tokens.Pop());
+            return new ArsenalEntry(model, spawnerMoveScript, spawnScript, shotMoveScript);
         }
     }
 }

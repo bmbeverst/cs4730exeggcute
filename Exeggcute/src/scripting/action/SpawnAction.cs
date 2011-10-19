@@ -9,13 +9,13 @@ namespace Exeggcute.src.scripting.action
 {
     class SpawnAction : ActionBase
     {
-        public int ID { get; protected set; }
-        public EntityArgs Args { get; protected set; }
+        public float Distance { get; protected set; }
+        public float Angle { get; protected set; }
         
-        public SpawnAction(int id, EntityArgs args)
+        public SpawnAction(float distance, float angle)
         {
-            ID = id;
-            Args = args;
+            this.Distance = distance;
+            this.Angle = angle;
         }
 
         public override void Process(CommandEntity entity)
@@ -25,7 +25,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new SpawnAction(ID, Args);
+            return new SpawnAction(Distance, Angle);
         }
     }
 }

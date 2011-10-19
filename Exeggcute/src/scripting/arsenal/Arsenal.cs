@@ -16,12 +16,13 @@ namespace Exeggcute.src.scripting.arsenal
     /// </summary>
     class Arsenal
     {
-        /// <summary>
+        /*/// <summary>
         /// Used to hold cached shots since many will exist in more than one 
         /// arsenal.
         /// </summary>
         protected static Dictionary<ArsenalEntry, Shot> cache =
             new Dictionary<ArsenalEntry, Shot>();
+
         protected List<Shot> shots = new List<Shot>();
 
         public int Count
@@ -48,6 +49,6 @@ namespace Exeggcute.src.scripting.arsenal
         public Shot Clone(int id, Vector3 pos, float angle)
         {
             return shots[id].Clone(pos, angle);
-        }
+        }*/
     }
 }

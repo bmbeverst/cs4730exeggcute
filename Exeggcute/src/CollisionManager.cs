@@ -47,7 +47,6 @@ namespace Exeggcute.src
 
         public void Collide(HashList<Shot> playerShots, HashList<Enemy> enemies)
         {
-            
             foreach (Shot shot in playerShots.GetKeys())
             {
                 foreach (Enemy enemy in enemies.GetKeys())

@@ -1,7 +1,7 @@
-﻿spawn 0 (0,2,0) 270
+﻿spawn 0 1 270
 wait 2
-spawn 0 (0,2,0) 275
+spawn 0 1 275
 wait 2
-spawn 0 (0,2,0) 265
+spawn 0 1 265
 wait 2
 loop

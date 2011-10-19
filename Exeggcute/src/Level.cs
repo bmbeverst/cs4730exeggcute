@@ -81,7 +81,7 @@ namespace Exeggcute.src
 
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
-            player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots);
+            player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots, World.GibList);
             
         }
 

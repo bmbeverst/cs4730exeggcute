@@ -17,28 +17,12 @@ namespace Exeggcute.src.entities
     /// </summary>
     abstract class CommandEntity : PlanarEntity3D
     {
-        /// <summary>
-        /// If the entity is done, it should be removed from the world.
-        /// </summary>
-        public bool IsDone { get; protected set; }
 
 
         protected ActionList actionList;
         protected int actionPtr;
 
-
-        protected HashList<Shot> shotListHandle;
-        //TODO merge arsenal and spawner
-        //protected Arsenal arsenal;
-        protected Spawner spawner;
-        protected bool lockSpawnerAngle;
-        protected bool lockSpawnerPos;
-
         public int Health { get; protected set; }
-
-        
-
-        public bool IsShooting { get; protected set; }
 
         /// <summary>
         /// keeps track of how long a command has been processed before
@@ -46,28 +30,22 @@ namespace Exeggcute.src.entities
         /// </summary>
         protected int counter = 0;
 
+        public ScriptName BehaviorScript { get; protected set; }
+
         /// <summary>
         /// <para>
         /// Initializes the command entity for use as an enemy/player/boss 
         /// with:
         /// </para>
-        /// <para> - An action script</para>
-        /// <para> - A model</para>
-        /// <para> - An arsenal</para>
         /// </summary>
         public CommandEntity(ModelName modelName, 
                              ScriptName scriptName, 
-                             ArsenalName arsenalName, 
-                             ScriptName spawnerName, 
-                             HashList<Shot> shotList)
+                             ArsenalName arsenalName)
             : base(modelName, Engine.Jail)
         {
             Health = 100;
-            this.shotListHandle = shotList;
+            this.BehaviorScript = scriptName;
             this.actionList = ScriptBank.Get(scriptName);
-            //this.arsenal = ArsenalBank.Get(arsenalName);
-            this.spawner = new Spawner(spawnerName, arsenalName, shotList);
-            init();
         }
 
         /// <summary>
@@ -76,13 +54,11 @@ namespace Exeggcute.src.entities
         /// <para> - An arsenal</para>
         /// <para> - No model</para>
         /// </summary>
-        public CommandEntity(ScriptName script, ArsenalName arsenalName, HashList<Shot> shotList)
+        public CommandEntity(ScriptName script)
             : base(Engine.Jail)
         {
-            this.shotListHandle = shotList;
+            this.BehaviorScript = script;
             this.actionList = ScriptBank.Get(script);
-            //this.arsenal = ArsenalBank.Get(arsenalName);
-            init();
         }
 
         /// <summary>
@@ -94,17 +70,10 @@ namespace Exeggcute.src.entities
         public CommandEntity(ModelName model, ScriptName script)
             : base(model, Engine.Jail)
         {
-            shotListHandle = null;
-            actionList = ScriptBank.Get(script);
-            //this.arsenal = null;
-            init();
+            this.BehaviorScript = script;
+            this.actionList = ScriptBank.Get(script);
         }
 
-        private void init()
-        {
-            lockSpawnerAngle = true;
-            lockSpawnerPos = true;
-        }
 
         public void Reset()
         {
@@ -118,8 +87,8 @@ namespace Exeggcute.src.entities
             Fatal Error:
             This is the default ActionBase handler. This was called
             because there was no handler in CommandEntity for the
-            type {0}";
-            Util.Warn(error, cmd.GetType());
+            type {0} in script {1}";
+            Util.Warn(error, cmd.GetType(), BehaviorScript);
             throw new NotImplementedException();
         }
 
@@ -157,13 +126,7 @@ namespace Exeggcute.src.entities
         public virtual void Process(DeleteAction delete)
         {
             QueueDelete();
-            actionPtr = -1;
-        }
-
-        public virtual void Process(SpawnerLockAction spawnerlock)
-        {
-            lockSpawnerAngle = spawnerlock.LockAngle;
-            lockSpawnerPos = spawnerlock.LockPosition;
+            //actionPtr = -1;
         }
 
         public virtual void Process(MoveAction move)
@@ -177,8 +140,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Process(ShootAction shoot)
         {
-            IsShooting = !IsShooting;
-            actionPtr += 1;
+            throw new SubclassShouldImplementError();
         }
 
         public virtual void Process(MoveToAction moveTo)
@@ -258,13 +220,6 @@ namespace Exeggcute.src.entities
             actionPtr = loop.Pointer;
         }
 
-        public virtual void Process(SpawnerSetAction set)
-        {
-            Console.WriteLine("{0}, {1}", set.RelPosition, set.Angle);
-            spawner.SetParams(set.RelPosition, set.Angle);
-            actionPtr += 1;
-        }
-
         public void Collide(Shot shot)
         {
             Health -= shot.Damage;
@@ -273,17 +228,6 @@ namespace Exeggcute.src.entities
         public override void Update()
         {
             ProcessActions();
-            if (spawner != null && IsShooting)
-            {
-                if (lockSpawnerPos) spawner.SetPosition(Position);
-                if (lockSpawnerAngle) spawner.SetAngle(Angle);
-                spawner.Update();
-            }
-            base.Update();
-        }
-
-        public void BaseUpdate()
-        {
             base.Update();
         }
 

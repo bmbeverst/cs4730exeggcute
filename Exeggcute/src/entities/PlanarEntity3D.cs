@@ -77,6 +77,11 @@ namespace Exeggcute.src.entities
         {
             base.Update();
             PrevPosition = Position;
+            ProcessPhysics();
+        }
+
+        protected virtual void ProcessPhysics()
+        {
 
             // Process accelerations
             Speed += LinearAccel;

@@ -16,7 +16,78 @@ namespace Exeggcute.src.entities
     /// </summary>
     class Spawner : CommandEntity
     {
-        public EntityArgs Args { get; protected set; }
+        int timer = 0;
+        bool active;
+        int shotActionPtr = 0;
+        Shot shot;
+        HashList<Shot> shotListHandle;
+        Mover mover;
+        public Spawner(ArsenalEntry arsenalEntry, HashList<Shot> shotListHandle)
+            : base(arsenalEntry.SpawnScriptName)
+        {
+            Console.WriteLine(arsenalEntry.ShotBehaviorScriptName);
+            this.shot = new Shot(arsenalEntry);
+            this.shotListHandle = shotListHandle;
+            this.active = true;
+            this.mover = new Mover(arsenalEntry.SpawnerMoveScriptName);
+        }
+
+        /*
+         * TODO/FIXME: make spawners Move and MoveRel and MoveTo commands relative to parent!!!
+         * 
+         */
+        public void Update(Vector3 parentPos, float parentAngle)
+        {
+            mover.Update(parentPos, parentAngle);
+            Position = mover.Position;
+            
+            if (active)
+            {
+                
+                if (timer > 0)
+                {
+                    timer -= 1;
+                }
+                else if (timer == 0)
+                {
+                    active = false;
+                }
+            }
+            base.Update();
+        }
+
+        public void SpawnFor(int duration)
+        {
+            active = true;
+            timer = duration;
+        }
+
+        public void Stop()
+        {
+            timer = 0;
+            active = false;
+        }
+
+        public override void Process(SpawnAction spawn)
+        {
+            float angle = spawn.Angle + Angle;
+            float distance = spawn.Distance;
+            float x = distance * FastTrig.Cos(angle);
+            float y = distance * FastTrig.Sin(angle);
+            Z = 0;
+            Vector3 pos = Position + new Vector3(x, y, 0);
+            //Util.Die("{0}", pos);
+            Shot cloned = shot.Clone(pos, angle);
+            shotListHandle.Add(cloned);
+            actionPtr += 1;
+        }
+
+
+
+
+
+
+        /*public EntityArgs Args { get; protected set; }
         public Vector3 PosOffset { get; protected set; }
         public float AngleOffset { get; protected set; }
 
@@ -59,6 +130,17 @@ namespace Exeggcute.src.entities
             if (lockAngle)
                 Angle = parent.Angle + AngleOffset;
 
+        }*/
+
+        public Spawner Copy()
+        {
+            //lol FIXME
+            return this;
+        }
+
+        public void AttachShotHandle(HashList<Shot> shotListHandle)
+        {
+            this.shotListHandle = shotListHandle;
         }
     }
 }

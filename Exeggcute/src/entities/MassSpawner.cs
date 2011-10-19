@@ -21,6 +21,7 @@ namespace Exeggcute.src.entities
             Angle = angle;
         }
     }
+
     class MassSpawner
     {
         public List<Spawner> spawners = new List<Spawner>();
@@ -44,7 +45,7 @@ namespace Exeggcute.src.entities
             };
             foreach (SpawnerEntry entry in entries)
             {
-                spawners.Add(new Spawner(entry.ScriptName, entry.ArsenalName, entry.RelPosition, entry.Angle, shotList));
+                //spawners.Add(new Spawner(entry.ScriptName, entry.ArsenalName, entry.RelPosition, entry.Angle, shotList));
             }
 
             spawners[0].SetPosition(new Vector3(0, 0, 0));
@@ -57,7 +58,7 @@ namespace Exeggcute.src.entities
             {
                 foreach (Spawner spawner in spawners)
                 {
-                    spawner.Follow(parent, true, false);
+                    //spawner.Follow(parent, true, false);
                 }
             }
             foreach (Spawner spawner in spawners)

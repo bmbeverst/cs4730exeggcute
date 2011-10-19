@@ -12,31 +12,27 @@ namespace Exeggcute.src.entities
 {
     class Shot : CommandEntity
     {
-        protected ScriptName scriptName;
-        protected ModelName modelName;
 
         public int Damage { get; protected set; }
 
-        public Shot(ModelName modelName, ScriptName scriptName)
+        /*public Shot(ModelName modelName, ScriptName scriptName)
             : base(modelName, scriptName)
         {
             Damage = 10;
             this.modelName = modelName;
             this.scriptName = scriptName;
-        }
-
+        }*/
+        protected ArsenalEntry arsenalParams;
         public Shot(ArsenalEntry entry)
-            : base(entry.ModelName, entry.ScriptName)
+            : base(entry.ModelName, entry.ShotBehaviorScriptName)
         {
             Damage = 10;
-            this.modelName = entry.ModelName;
-            this.scriptName = entry.ScriptName;
+            this.arsenalParams = entry;
         }
 
         public Shot Clone(Vector3 pos, float angle)
         {
-            
-            Shot clone = new Shot(modelName, scriptName);
+            Shot clone = new Shot(arsenalParams);
             clone.Angle = angle;
             clone.Position = pos;
             return clone;

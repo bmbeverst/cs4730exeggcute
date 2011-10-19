@@ -11,7 +11,7 @@ using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.entities
 {
-    class Player : CommandEntity
+    class Player : ParentEntity
     {
 
         public float MoveSpeed { get; protected set; }
@@ -33,6 +33,7 @@ namespace Exeggcute.src.entities
             get { return !InvulnTimer.IsDone; }
         }
 
+        public bool IsShooting { get; protected set; }
         public bool IsBombing { get; protected set; }
 
         public MassSpawner bomb;
@@ -41,8 +42,8 @@ namespace Exeggcute.src.entities
         protected int frames;
         protected bool flashDraw;
 
-        public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList)
-            : base(model, ScriptName.playerspawn, arsenalName, ScriptName.playerspawner0, shotList)
+        public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList, HashList<Gib> gibList)
+            : base(model, ScriptName.playerspawn, arsenalName, shotList, gibList)
         {
             lives = 3;
             bombs = 3;
@@ -50,7 +51,7 @@ namespace Exeggcute.src.entities
             MoveSpeed = 1;
             FocusSpeed = 0.5f;
             InvulnTimer = new Timer(120);
-            bomb = new MassSpawner(null, 120, shotList);
+            //bomb = new MassSpawner(null, 120, shotList);
             Hitbox = new BoundingSphere(Position, 0.2f);
         }
 
@@ -83,6 +84,7 @@ namespace Exeggcute.src.entities
         }
         protected void processControls(ControlManager controls)
         {
+            //if (shotList.Count > 0) Util.Die("works");// Console.WriteLine("{0}", shotList.Count);
             float speed;
             if (controls[Ctrl.Focus].IsPressed)
             {
@@ -179,6 +181,10 @@ namespace Exeggcute.src.entities
             InvulnTimer.Increment();
             frames += 1;
             flashDraw = (IsInvulnerable && frames % 2 == 0);
+            if (!CanControl && actionPtr == actionList.Count)
+            {
+                actionList = null;
+            }
             base.Update();
         }
 

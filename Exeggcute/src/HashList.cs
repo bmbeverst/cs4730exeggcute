@@ -9,16 +9,24 @@ namespace Exeggcute.src
     class HashList<T> : IEnumerable<KeyValuePair<T, bool>>
     {
         private Dictionary<T, bool> container;
+        public int Count
+        {
+            get { return container.Count; } 
+        }
+        public string Name;
 
-        public HashList()
+        public HashList(string name)
         {
             container = new Dictionary<T, bool>();
+            Name = name;
         }
 
         public HashList(int capacity)
         {
             container = new Dictionary<T, bool>(capacity);
         }
+
+
 
 
         public HashList(IEnumerable<T> collection)
@@ -28,6 +36,8 @@ namespace Exeggcute.src
                 container[thing] = true;
             }
         }
+
+        
 
         public void Add(T entity)
         {

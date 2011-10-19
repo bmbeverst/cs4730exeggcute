@@ -26,11 +26,11 @@ namespace Exeggcute.src
         private static GraphicsDevice graphics;
         private static Engine engine;
 
-        public static HashList<Shot> PlayerShots = new HashList<Shot>();
-        public static HashList<Shot> EnemyShots = new HashList<Shot>();
-        public static HashList<Gib> GibList = new HashList<Gib>();
-        public static HashList<Enemy> EnemyList = new HashList<Enemy>();
-        public static HashList<Enemy> DyingList = new HashList<Enemy>();
+        public static HashList<Shot> PlayerShots = new HashList<Shot>("playershots");
+        public static HashList<Shot> EnemyShots = new HashList<Shot>("enemyshots");
+        public static HashList<Gib> GibList = new HashList<Gib>("giblist");
+        public static HashList<Enemy> EnemyList = new HashList<Enemy>("enemylist");
+        public static HashList<Enemy> DyingList = new HashList<Enemy>("dyinglist");
 
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
