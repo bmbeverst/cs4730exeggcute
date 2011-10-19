@@ -185,7 +185,14 @@ namespace Exeggcute.src.entities
             {
                 actionList = null;
             }
-            base.Update();
+            if (IsShooting)
+            {
+                base.Update();
+            }
+            else
+            {
+                base.ParentEntityBaseUpdate();
+            }
         }
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
