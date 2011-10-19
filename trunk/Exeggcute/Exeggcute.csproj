@@ -141,8 +141,11 @@
     <Compile Include="src\assets\SoundBank.cs" />
     <Compile Include="src\entities\Gib.cs" />
     <Compile Include="src\entities\MassSpawner.cs" />
+    <Compile Include="src\entities\ParentEntity.cs" />
+    <Compile Include="src\entities\Mover.cs" />
     <Compile Include="src\ExeggcuteError.cs" />
     <Compile Include="src\MyString.cs" />
+    <Compile Include="src\NewArsenal.cs" />
     <Compile Include="src\physics\Force.cs" />
     <Compile Include="src\graphics\Quad.cs" />
     <Compile Include="src\graphics\QuadBatch.cs" />
@@ -232,7 +235,6 @@
     <Compile Include="src\particles\ParticleVertex.cs" />
     <Compile Include="src\particles\ParticleSystem.cs" />
     <Compile Include="src\entities\Player.cs" />
-    <Compile Include="src\entities\Projectile.cs" />
     <Compile Include="src\scripting\ScriptParser.cs" />
     <Compile Include="src\scripting\task\WaitTask.cs" />
     <Compile Include="src\entities\Shot.cs" />
@@ -278,6 +280,9 @@
     <Compile Include="TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\spawner0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\enemyspawner0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -68,8 +68,8 @@ namespace Exeggcute.src
         {
             try
             {
-                ServerTest test = new ServerTest();
-                test.Test();
+                //ServerTest test = new ServerTest();
+                //test.Test();
             }
             catch (Exception error)
             {

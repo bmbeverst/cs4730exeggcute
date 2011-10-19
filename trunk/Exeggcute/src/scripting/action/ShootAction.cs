@@ -8,8 +8,15 @@ namespace Exeggcute.src.scripting.action
 {
     class ShootAction : ActionBase
     {
-        public ShootAction()
+        public int ID { get; protected set; }
+        public int Duration { get; protected set; }
+        public bool Switch { get; protected set; }
+
+        public ShootAction(int id, int dur, bool on)
         {
+            this.ID = id;
+            this.Duration = dur;
+            this.Switch = on;
         }
 
         public override void Process(CommandEntity entity)
@@ -19,7 +26,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new ShootAction();
+            return new ShootAction(ID, Duration, Switch);
         }
 
     }

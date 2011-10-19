@@ -8,7 +8,7 @@ using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.entities
 {
-    class Enemy : CommandEntity
+    class Enemy : ParentEntity
     {
 
         /// <summary>
@@ -20,51 +20,34 @@ namespace Exeggcute.src.entities
         protected ModelName modelName;
         protected ScriptName scriptName;
         protected ArsenalName arsenalName;
-        protected ScriptName spawnerName;
-        protected ScriptName deathScriptName;
 
+        protected HashList<Shot> shotListHandle;
         protected HashList<Gib> gibListHandle;
         protected ActionList deathActions;
+        protected static ScriptName deathScriptName = ScriptName.death0;
 
+        protected RosterEntry rosterParams;
         /// <summary>
         /// TODO FIXME (8:10:51 AM) ZRP: i can just have 
         ///setParam health 100
         ///setParam defence 10
         /// </summary>
-        public Enemy(ModelName modelName, 
-                     ScriptName scriptName, 
-                     ArsenalName arsenalName,
-                     ScriptName spawnerName,
-                     ScriptName deathScriptName,
-                     HashList<Shot> enemyShots,
-                     HashList<Gib> gibList)
-            : base(modelName, scriptName, arsenalName, spawnerName, enemyShots)
-        {
-            this.modelName = modelName;
-            this.scriptName = scriptName;
-            this.arsenalName = arsenalName;
-            this.spawnerName = spawnerName;
-            this.deathScriptName = deathScriptName;
-            this.deathActions = ScriptBank.Get(deathScriptName);
-            this.gibListHandle = gibList;
-            
-        }
-
         public Enemy(RosterEntry entry, HashList<Shot> enemyShots, HashList<Gib> gibList)
-            : base(entry.ModelName, entry.ScriptName, entry.ArsenalName, entry.SpawnerName, enemyShots)
+            : base(entry.ModelName, entry.ScriptName, entry.ArsenalName, enemyShots, gibList)
         {
+            Health = 100;
+            this.rosterParams = entry;
             this.modelName = entry.ModelName;
             this.scriptName = entry.ScriptName;
             this.arsenalName = entry.ArsenalName;
-            this.spawnerName = entry.SpawnerName;
-            this.deathScriptName = entry.DeathScriptName;
-            this.deathActions = ScriptBank.Get(deathScriptName);
+            this.shotListHandle = shotList;
             this.gibListHandle = gibList;
+            this.deathActions = ScriptBank.Get(deathScriptName);
         }
 
         public Enemy Clone(EntityArgs args)
         {
-            Enemy cloned = new Enemy(modelName, scriptName, arsenalName, spawnerName, deathScriptName, shotListHandle, gibListHandle);
+            Enemy cloned = new Enemy(rosterParams, shotListHandle, gibListHandle);
             cloned.Position = args.SpawnPosition;
             cloned.Angle = args.AngleHeading;
             return cloned;
@@ -78,7 +61,7 @@ namespace Exeggcute.src.entities
             }
             else
             {
-                BaseUpdate();
+                ProcessPhysics();
             }
 
             //Console.WriteLine("{0} {1} {2}", IsDying, cmdPtr, IsShooting);
@@ -89,7 +72,7 @@ namespace Exeggcute.src.entities
                 actionList = deathActions;
                 //Console.WriteLine(deathActions.Name.ToString());
                 actionPtr = 0;
-                IsShooting = false;
+                arsenal.StopAll();
                 //use giblist
                 //TODO make enemies transparent when dying
                 
@@ -102,6 +85,7 @@ namespace Exeggcute.src.entities
                     IsTrash = true;
                 }
             }
+
         }
 
         int numGibs = 4;

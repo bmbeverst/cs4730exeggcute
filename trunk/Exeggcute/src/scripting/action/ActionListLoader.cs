@@ -80,7 +80,14 @@ namespace Exeggcute.src.scripting.action
             }
             else if (type == CommandType.Shoot)
             {
-                return new List<ActionBase> { new ShootAction() };
+                int id = int.Parse(tokens[1]);
+                int duration;
+                bool found = int.TryParse(tokens[2], out duration);
+                if (!found)
+                {
+                    duration = -1;
+                }
+                return new List<ActionBase> { new ShootAction(id, duration, true) };
             }
             else if (type == CommandType.Loop)
             {
@@ -101,12 +108,10 @@ namespace Exeggcute.src.scripting.action
             }
             else if (type == CommandType.Spawn)
             {
-                int id = int.Parse(tokens[1]);
-                Vector3 displace = Util.ParseVector3(tokens[2]);
-                float angle = float.Parse(tokens[3]) * FastTrig.degreesToRadians;
-                EntityArgs args = new EntityArgs(displace, angle);
+                float distance = float.Parse(tokens[1]);
+                float angle = float.Parse(tokens[2]) * FastTrig.degreesToRadians;
                 return new List<ActionBase> {
-                    new SpawnAction(id, args)
+                    new SpawnAction(distance, angle)
                 };
             }
             else if (type == CommandType.Set)

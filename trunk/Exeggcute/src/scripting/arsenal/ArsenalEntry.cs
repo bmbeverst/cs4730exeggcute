@@ -9,11 +9,15 @@ namespace Exeggcute.src.scripting.arsenal
     class ArsenalEntry
     {
         public ModelName ModelName { get; protected set; }
-        public ScriptName ScriptName { get; protected set; }
-        public ArsenalEntry(ModelName modelName, ScriptName scriptName)
+        public ScriptName SpawnerMoveScriptName { get; protected set; }
+        public ScriptName ShotBehaviorScriptName { get; protected set; }
+        public ScriptName SpawnScriptName { get; protected set; }
+        public ArsenalEntry(ModelName modelName, ScriptName spawnerMoveScript, ScriptName spawnScript, ScriptName shotScript)
         {
             ModelName = modelName;
-            ScriptName = scriptName;
+            SpawnerMoveScriptName = spawnerMoveScript;
+            SpawnScriptName = spawnScript;
+            ShotBehaviorScriptName = shotScript;
         }
     }
 }
