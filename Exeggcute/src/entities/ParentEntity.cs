@@ -43,5 +43,10 @@ namespace Exeggcute.src.entities
 
             arsenal.Update(Position, Angle);
         }
+
+        public void ParentEntityBaseUpdate()
+        {
+            base.Update();
+        }
     }
 }
