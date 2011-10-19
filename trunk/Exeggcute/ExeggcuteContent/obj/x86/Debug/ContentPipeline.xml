@@ -11,6 +11,62 @@
       <Time>2011-10-13T12:44:11.4003906-04:00</Time>
     </Item>
     <Item>
+      <Source>junk0.fbx</Source>
+      <Name>junk0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\junk0.xnb</Output>
+      <Time>2011-10-19T16:10:55.7578125-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\junk0_0.xml</Key>
+        <Value>2011-10-19T16:20:24.6230468-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\junk_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>playerScene.fbx</Source>
+      <Name>playerScene</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\playerScene.xnb</Output>
+      <Time>2011-10-15T20:15:29.9726562-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\playerScene_0.xml</Key>
+        <Value>2011-10-19T16:20:25.7714843-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\fractal_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>testcube.fbx</Source>
+      <Name>testcube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\testcube.xnb</Output>
+      <Time>2011-10-13T12:44:11.4765625-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\testcube_0.xml</Key>
+        <Value>2011-10-19T16:20:26.4316406-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\Bad_Hair_DayFin_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>XNAface.fbx</Source>
+      <Name>XNAface</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\XNAface.xnb</Output>
+      <Time>2011-10-15T20:49:29.7880859-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\XNAface_0.xml</Key>
+        <Value>2011-10-19T16:20:26.7001953-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\face_0.xnb</Request>
+    </Item>
+    <Item>
       <Source>light0.fx</Source>
       <Name>light0</Name>
       <Importer>EffectImporter</Importer>
@@ -36,48 +92,6 @@
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\terrain.xnb</Output>
       <Time>2011-10-16T12:47:29.9228515-04:00</Time>
-    </Item>
-    <Item>
-      <Source>playerScene.fbx</Source>
-      <Name>playerScene</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\playerScene.xnb</Output>
-      <Time>2011-10-15T20:15:29.9726562-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\playerScene_0.xml</Key>
-        <Value>2011-10-18T08:18:40.7949218-04:00</Value>
-      </Dependency>
-      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\fractal_0.xnb</Request>
-    </Item>
-    <Item>
-      <Source>testcube.fbx</Source>
-      <Name>testcube</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\testcube.xnb</Output>
-      <Time>2011-10-13T12:44:11.4765625-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\testcube_0.xml</Key>
-        <Value>2011-10-18T08:18:41.7148437-04:00</Value>
-      </Dependency>
-      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\Bad_Hair_DayFin_0.xnb</Request>
-    </Item>
-    <Item>
-      <Source>XNAface.fbx</Source>
-      <Name>XNAface</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\XNAface.xnb</Output>
-      <Time>2011-10-15T20:49:29.7880859-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\XNAface_0.xml</Key>
-        <Value>2011-10-18T08:18:41.9902343-04:00</Value>
-      </Dependency>
-      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\face_0.xnb</Request>
     </Item>
     <Item>
       <Source>sprite.png</Source>
@@ -170,6 +184,15 @@
       <Time>2011-10-15T20:15:29.9824218-04:00</Time>
     </Item>
     <Item>
+      <Source>junk.jpg</Source>
+      <Name>junk</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\junk.xnb</Output>
+      <Time>2011-10-19T16:10:55.7509765-04:00</Time>
+    </Item>
+    <Item>
       <Source>shot0.wav</Source>
       <Name>shot0</Name>
       <Importer>WavImporter</Importer>
@@ -177,6 +200,29 @@
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\shot0.xnb</Output>
       <Time>2011-10-17T20:08:43.1416015-04:00</Time>
+    </Item>
+    <Item>
+      <Source>junk0.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\junk0_0.xml</Output>
+      <Time>2011-10-19T16:10:55.7578125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>junk.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\junk_0.xnb</Output>
+      <Time>2011-10-19T16:10:55.7509765-04:00</Time>
     </Item>
     <Item>
       <Source>playerScene.fbx</Source>
@@ -253,9 +299,9 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\Content\</RootDirectory>
+      <RootDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\ExeggcuteContent\</RootDirectory>
       <LoggerRootDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\Content\obj\x86\Debug\</IntermediateDirectory>
+      <IntermediateDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\ExeggcuteContent\obj\x86\Debug\</IntermediateDirectory>
       <OutputDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\</OutputDirectory>
     </Settings>
     <Assemblies>

@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>Player</Name>
     <Identity>
-      <SourceFilename>C:\Users\M\Desktop\Exeggcute\Exeggcute\Content\playerScene.fbx</SourceFilename>
+      <SourceFilename>C:\Users\M\Desktop\Exeggcute\Exeggcute\ExeggcuteContent\playerScene.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</Transform>
@@ -26,7 +26,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>PlayerMat__fractal_png</Name>
       <Identity>
-        <SourceFilename>C:\Users\M\Desktop\Exeggcute\Exeggcute\Content\playerScene.fbx</SourceFilename>
+        <SourceFilename>C:\Users\M\Desktop\Exeggcute\Exeggcute\ExeggcuteContent\playerScene.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
