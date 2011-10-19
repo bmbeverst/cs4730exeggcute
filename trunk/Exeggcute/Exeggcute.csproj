@@ -382,7 +382,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Content\ExeggcuteContent.contentproj">
+    <ProjectReference Include="ExeggcuteContent\ExeggcuteContent.contentproj">
       <Project>{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}</Project>
       <Name>ExeggcuteContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exeggcute", "Exeggcute\Exeggcute.csproj", "{BB169488-9707-4FFE-A603-924161CE3B66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExeggcuteContent", "Exeggcute\Content\ExeggcuteContent.contentproj", "{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExeggcuteContent", "Exeggcute\ExeggcuteContent\ExeggcuteContent.contentproj", "{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution

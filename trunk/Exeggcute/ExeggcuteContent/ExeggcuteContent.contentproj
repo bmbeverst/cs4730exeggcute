@@ -83,10 +83,24 @@
       <Processor>FontDescriptionProcessor</Processor>
       <SubType>Designer</SubType>
     </Compile>
+    <None Include="blend\junk0.blend">
+      <Name>junk0</Name>
+    </None>
+    <None Include="blend\player.blend">
+      <Name>player</Name>
+    </None>
+    <None Include="blend\XNAtest.blend">
+      <Name>XNAtest</Name>
+    </None>
     <None Include="bomb.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>bomb</Name>
     </None>
+    <Compile Include="junk0.fbx">
+      <Name>junk0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="life.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>life</Name>
@@ -214,6 +228,13 @@
       <Name>shot0</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="junk.jpg">
+      <Name>junk</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
