@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Framework="Microsoft.Xna.Framework" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>font0.spritefont</Source>
+      <Name>font0</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\font0.xnb</Output>
+      <Time>2011-10-13T12:44:11.4003906-04:00</Time>
+    </Item>
+    <Item>
+      <Source>light0.fx</Source>
+      <Name>light0</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\light0.xnb</Output>
+      <Time>2011-10-16T11:30:15.7734375-04:00</Time>
+    </Item>
+    <Item>
+      <Source>particle.fx</Source>
+      <Name>particle</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\particle.xnb</Output>
+      <Time>2011-10-16T13:38:00.765625-04:00</Time>
+    </Item>
+    <Item>
+      <Source>terrain.fx</Source>
+      <Name>terrain</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\terrain.xnb</Output>
+      <Time>2011-10-16T12:47:29.9228515-04:00</Time>
+    </Item>
+    <Item>
+      <Source>playerScene.fbx</Source>
+      <Name>playerScene</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\playerScene.xnb</Output>
+      <Time>2011-10-15T20:15:29.9726562-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\playerScene_0.xml</Key>
+        <Value>2011-10-18T08:18:40.7949218-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\fractal_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>testcube.fbx</Source>
+      <Name>testcube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\testcube.xnb</Output>
+      <Time>2011-10-13T12:44:11.4765625-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\testcube_0.xml</Key>
+        <Value>2011-10-18T08:18:41.7148437-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\Bad_Hair_DayFin_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>XNAface.fbx</Source>
+      <Name>XNAface</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\XNAface.xnb</Output>
+      <Time>2011-10-15T20:49:29.7880859-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\XNAface_0.xml</Key>
+        <Value>2011-10-18T08:18:41.9902343-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\face_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>sprite.png</Source>
+      <Name>sprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprite.xnb</Output>
+      <Time>2011-10-13T12:44:11.46875-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cursor.png</Source>
+      <Name>cursor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\cursor.xnb</Output>
+      <Time>2011-10-13T12:44:11.4814453-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dot.png</Source>
+      <Name>dot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\dot.xnb</Output>
+      <Time>2011-10-13T12:44:11.5224609-04:00</Time>
+    </Item>
+    <Item>
+      <Source>test.png</Source>
+      <Name>test</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\test.xnb</Output>
+      <Time>2011-10-13T12:44:11.5058593-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot.png</Source>
+      <Name>shot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\shot.xnb</Output>
+      <Time>2011-10-13T12:44:11.5009765-04:00</Time>
+    </Item>
+    <Item>
+      <Source>collectables.png</Source>
+      <Name>collectables</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\collectables.xnb</Output>
+      <Time>2011-10-13T12:44:11.383789-04:00</Time>
+    </Item>
+    <Item>
+      <Source>bg.png</Source>
+      <Name>bg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\bg.xnb</Output>
+      <Time>2011-10-15T17:42:51.3818359-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wang8.png</Source>
+      <Name>wang8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\wang8.xnb</Output>
+      <Time>2011-10-16T01:55:44.9895157-04:00</Time>
+    </Item>
+    <Item>
+      <Source>face.png</Source>
+      <Name>face</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\face.xnb</Output>
+      <Time>2011-10-16T11:12:25.2880859-04:00</Time>
+    </Item>
+    <Item>
+      <Source>fractal.png</Source>
+      <Name>fractal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\fractal.xnb</Output>
+      <Time>2011-10-15T20:15:29.9824218-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot0.wav</Source>
+      <Name>shot0</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\shot0.xnb</Output>
+      <Time>2011-10-17T20:08:43.1416015-04:00</Time>
+    </Item>
+    <Item>
+      <Source>playerScene.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\playerScene_0.xml</Output>
+      <Time>2011-10-15T20:15:29.9726562-04:00</Time>
+    </Item>
+    <Item>
+      <Source>fractal.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\fractal_0.xnb</Output>
+      <Time>2011-10-15T20:15:29.9824218-04:00</Time>
+    </Item>
+    <Item>
+      <Source>testcube.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\testcube_0.xml</Output>
+      <Time>2011-10-13T12:44:11.4765625-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Bad_Hair_DayFin.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\Bad_Hair_DayFin_0.xnb</Output>
+      <Time>2011-10-13T12:44:11.5107421-04:00</Time>
+    </Item>
+    <Item>
+      <Source>XNAface.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\XNAface_0.xml</Output>
+      <Time>2011-10-15T20:49:29.7880859-04:00</Time>
+    </Item>
+    <Item>
+      <Source>face.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\face_0.xnb</Output>
+      <Time>2011-10-16T11:12:25.2880859-04:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T13:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T13:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2010-12-17T00:10:26.024414-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
