@@ -12,11 +12,12 @@ namespace Exeggcute.src.physics
         public Vector3 GlobalGravity { get; protected set; }
         protected List<Force> forces = new List<Force>();
         public float TerminalSpeed { get; protected set; }
-
+        public const float BigG = 0.0001f;
         public PhysicsManager()
         {
             TerminalSpeed = 1;
             GlobalGravity = new Vector3(0, 0, -0.1633333f);
+            forces.Add(new Attractor(new Vector3(0, 0, 0), 2, 0.1f, 1));
         }
 
         public void RegisterForce(Force force)
@@ -24,12 +25,17 @@ namespace Exeggcute.src.physics
             forces.Add(force);
         }
 
-        public void Affect<TEntity>(HashList<TEntity> entities) where TEntity : PlanarEntity3D
+        public void Affect<TEntity>(HashList<TEntity> entities, bool addGravity) where TEntity : PlanarEntity3D
         {
             foreach (TEntity entity in entities.GetKeys())
             {
                 Vector3 totalForce = GetForceSum(entity.Position, entity.Mass);
-                entity.Influence(totalForce + GlobalGravity, TerminalSpeed);
+                if (addGravity)
+                {
+                    totalForce += GlobalGravity;
+                }
+                //Console.WriteLine("{0}", totalForce);
+                entity.Influence(totalForce, TerminalSpeed);
             }
         }
 
@@ -48,7 +54,7 @@ namespace Exeggcute.src.physics
                     forces.RemoveAt(i);
                 }
             }
-            return totalForce + GlobalGravity;
+            return totalForce;
         }
     }
 }

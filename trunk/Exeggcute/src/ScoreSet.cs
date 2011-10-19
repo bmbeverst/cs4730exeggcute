@@ -60,7 +60,7 @@ namespace Exeggcute.src
 
         public void LoadNetwork()
         {
-            // If we overwrote a score, then set networkUpdated to true
+            // TODO load high scores from the network
         }
 
         public void WriteLocal()

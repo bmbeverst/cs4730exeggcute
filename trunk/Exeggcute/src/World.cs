@@ -76,9 +76,9 @@ namespace Exeggcute.src
             ((Menu)(stack.Peek())).Move(dir);
         }
 
-        public static void Pop(IContext self)
+        public static void Pop(/*IContext self*/)
         {
-            if (self == stack.Peek())
+            if (true /*|| self == stack.Peek()*/)
             {
                 stack.Pop();
             }

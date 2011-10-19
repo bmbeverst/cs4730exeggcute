@@ -17,7 +17,8 @@ namespace Exeggcute.src.assets
 
     enum ArsenalName
     {
-        test = 1
+        test = 1,
+        testenemy
     }
 
     enum ModelName

@@ -165,20 +165,21 @@ namespace Exeggcute.src
             ProcessTasks();
             particles.Update();
             //terrain.Update();
-            //terrain.Impact(player.X, player.Y, 0, 0);
+            terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
                 particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
-            physics.Affect(gibList);
+            physics.Affect(gibList, true);
+            physics.Affect(playerShots, false);
             foreach (Gib gib in gibList.GetKeys())
             {
                 collider.CollideTerrain(terrain, gib);
             }
 
-            physics.Affect(World.DyingList);
+            physics.Affect(World.DyingList, true);
             collider.CollideDying(terrain);
             bool hit = collider.Collide(player, enemyList);
             if (hit)
@@ -242,7 +243,6 @@ namespace Exeggcute.src
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
-
 
             batch.Begin();
             hud.Draw(batch, player);
