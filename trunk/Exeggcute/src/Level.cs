@@ -62,7 +62,7 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
         {
-            this.terrain = new WangMesh(graphics, TextureName.wang8, 12*2, 100*2, 4, 64, 0.01f);
+            this.terrain = new WangMesh(graphics, TextureName.wang8, 12*2, 100*2, 4, 16, 0.01f);
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.enemyList = World.EnemyList;
@@ -81,7 +81,7 @@ namespace Exeggcute.src
 
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
-            player = new Player(ModelName.testcube, ArsenalName.test, World.PlayerShots);
+            player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots);
             
         }
 
@@ -165,7 +165,7 @@ namespace Exeggcute.src
             ProcessTasks();
             particles.Update();
             //terrain.Update();
-            terrain.Impact(player.X, player.Y, 0, 0);
+            //terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;

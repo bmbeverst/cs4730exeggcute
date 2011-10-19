@@ -54,11 +54,6 @@ namespace Exeggcute.src.entities
             Hitbox = new BoundingSphere(Position, 0.2f);
         }
 
-        public override void Process(VanishAction vanish)
-        {
-            actionList = null;
-        }
-
         public void LockPosition(Camera camera, Rectangle gameArea)
         {
             // HACK

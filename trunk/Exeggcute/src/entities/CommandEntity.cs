@@ -28,7 +28,8 @@ namespace Exeggcute.src.entities
 
 
         protected HashList<Shot> shotListHandle;
-        protected Arsenal arsenal;
+        //TODO merge arsenal and spawner
+        //protected Arsenal arsenal;
         protected Spawner spawner;
         protected bool lockSpawnerAngle;
         protected bool lockSpawnerPos;
@@ -64,7 +65,7 @@ namespace Exeggcute.src.entities
             Health = 100;
             this.shotListHandle = shotList;
             this.actionList = ScriptBank.Get(scriptName);
-            this.arsenal = ArsenalBank.Get(arsenalName);
+            //this.arsenal = ArsenalBank.Get(arsenalName);
             this.spawner = new Spawner(spawnerName, arsenalName, shotList);
             init();
         }
@@ -80,7 +81,7 @@ namespace Exeggcute.src.entities
         {
             this.shotListHandle = shotList;
             this.actionList = ScriptBank.Get(script);
-            this.arsenal = ArsenalBank.Get(arsenalName);
+            //this.arsenal = ArsenalBank.Get(arsenalName);
             init();
         }
 
@@ -95,7 +96,7 @@ namespace Exeggcute.src.entities
         {
             shotListHandle = null;
             actionList = ScriptBank.Get(script);
-            this.arsenal = null;
+            //this.arsenal = null;
             init();
         }
 
@@ -153,6 +154,11 @@ namespace Exeggcute.src.entities
             //current.Process(this);
             
         }
+        public virtual void Process(DeleteAction delete)
+        {
+            QueueDelete();
+            actionPtr = -1;
+        }
 
         public virtual void Process(SpawnerLockAction spawnerlock)
         {
@@ -202,24 +208,12 @@ namespace Exeggcute.src.entities
             LinearAccel = linearAccel;
         }
 
-        public virtual void Process(VanishAction vanish)
-        {
-            IsDone = true;
-        }
-
         public virtual void Process(SpawnAction spawn)
         {
-            EntityArgs args = spawn.Args;
-            float angle = args.AngleHeading + Angle;
-            Vector3 pos = Position + args.SpawnPosition;
-            Shot cloned = arsenal.Clone(spawn.ID, pos, angle);
-            shotListHandle.Add(cloned);
-            actionPtr += 1;
-        }
-
-        public virtual void Process(EndAction end)
-        {
-            actionPtr = actionList.Count;
+            // This is nicer than forcing all subclasses to implement this
+            // by making it abstract.
+            // Only the spawner class should be using this action type.
+            throw new SubclassShouldImplementError();
         }
 
         public virtual void Process(SetAction set)
@@ -268,6 +262,7 @@ namespace Exeggcute.src.entities
         {
             Console.WriteLine("{0}, {1}", set.RelPosition, set.Angle);
             spawner.SetParams(set.RelPosition, set.Angle);
+            actionPtr += 1;
         }
 
         public void Collide(Shot shot)

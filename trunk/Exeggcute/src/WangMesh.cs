@@ -21,8 +21,8 @@ namespace Exeggcute.src
         private int rows;
         private Quad[,] Quads;
         private QuadBatch quadBatch;
-        TileMap tilemap; 
-        Random rng = new Random();
+        private TileMap tilemap;
+        private Random rng = new Random();
         public float Width { get; protected set; }
         public float Height { get; protected set; }
         public float Speed { get; protected set; }
@@ -32,7 +32,6 @@ namespace Exeggcute.src
 
         public WangMesh(GraphicsDevice graphics, TextureName texName, int cols, int rows, float size, float heightVariance, float scrollSpeed)
         {
-
             Texture2D wangTexture = TextureBank.Get(texName);
             int texWidth = wangTexture.Width;
             int texHeight = wangTexture.Height;
@@ -42,7 +41,7 @@ namespace Exeggcute.src
             Speed = scrollSpeed;
             Width = (cols - 1) * size;
             Height = rows * size;
-            Depth = 0;
+            Depth = -20;
             TileSize = size;
             wangGrid = new WangArray(cols, rows);
             Quads = new Quad[cols, rows];
@@ -54,9 +53,8 @@ namespace Exeggcute.src
                 for (int j = 0; j < rows; j += 1)
                 {
                     int index = wangGrid[i, j];
-                    //HARDCODE
-                    heightVariance = 1;
-                    float height =   rng.Next() * heightVariance - heightVariance / 2;
+                    // HARDCODE
+                    float height = rng.Next() * heightVariance - heightVariance / 2 + Depth;
                     Vector3 position = new Vector3(i * size - Width / 2, j * size, height);
                     Quads[i, j] = tilemap.CreateQuad(index, position, new Vector3(0, 0, 1), size, size);
                 }

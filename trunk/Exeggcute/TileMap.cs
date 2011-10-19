@@ -9,6 +9,9 @@ using Exeggcute.src.graphics;
 
 namespace Exeggcute
 {
+    /// <summary>
+    /// Helper class for specifying portions of a texture as individual images.
+    /// </summary>
     class TileMap
     {
         public Texture2D Texture { get; protected set; }

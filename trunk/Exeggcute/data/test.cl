@@ -6,4 +6,4 @@ spawnerset 0 2 0
 #shoot
 #spawnerlock position:off angle:off
 moverelative (0,-30,0) 100
-vanish
+delete

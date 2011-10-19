@@ -6,10 +6,10 @@ using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
 {
-    class VanishAction : ActionBase
+    class DeleteAction : ActionBase
     {
-        public VanishAction()
-            : base()
+
+        public DeleteAction()
         {
 
         }
@@ -21,9 +21,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new VanishAction();
+ 	        return new DeleteAction();
         }
-
-
     }
 }

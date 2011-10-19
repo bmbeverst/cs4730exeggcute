@@ -6,12 +6,15 @@ using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
 {
-    class EndAction : ActionBase
+    class SetParamAction : ActionBase
     {
-        public EndAction()
-            : base()
-        {
+        public string ParamName { get; protected set; }
+        public object Value { get; protected set; }
 
+        public SetParamAction(string name, object value)
+        {
+            ParamName = name;
+            Value = value;
         }
 
         public override void Process(CommandEntity entity)
@@ -21,7 +24,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new EndAction();
+            return new SetParamAction(ParamName, Value);
         }
     }
 }

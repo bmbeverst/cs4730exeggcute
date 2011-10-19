@@ -37,11 +37,6 @@ namespace Exeggcute.src.scripting.action
         Wait,
 
         /// <summary>
-        /// Tells the world to trash the entity.
-        /// </summary>
-        Vanish,
-
-        /// <summary>
         /// undocumented
         /// </summary>
         Set,
@@ -50,11 +45,6 @@ namespace Exeggcute.src.scripting.action
         /// Stops all velocities and speeds on the entity.
         /// </summary>
         Stop,
-
-        /// <summary>
-        /// Jumps the command pointer to the end of the action list.
-        /// </summary>
-        End,
 
         /// <summary>
         /// Tells the entity to spawn an entity from its arsenal into
@@ -87,10 +77,16 @@ namespace Exeggcute.src.scripting.action
         SpawnerLock,
 
         /// <summary>
-        /// Moves the entity's spawner by the vector specified and/or sets the 
+        /// Moves the entity's spawner by the vector specified and/or sets the
         /// angle at which the spawner is facing.
         /// </summary>
-        SpawnerSet
+        SpawnerSet,
+
+        /// <summary>
+        /// Tells the level to remove this entity from the world before 
+        /// calling its update method again.
+        /// </summary>
+        Delete
     }
 
 

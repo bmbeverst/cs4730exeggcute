@@ -24,11 +24,10 @@ namespace Exeggcute.src.entities
         protected ScriptName deathScriptName;
 
         protected HashList<Gib> gibListHandle;
-        protected List<Gib> gibs;
         protected ActionList deathActions;
 
         /// <summary>
-        /// (8:10:51 AM) ZRP: i can just have 
+        /// TODO FIXME (8:10:51 AM) ZRP: i can just have 
         ///setParam health 100
         ///setParam defence 10
         /// </summary>

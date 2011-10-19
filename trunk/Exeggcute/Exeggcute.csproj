@@ -150,11 +150,14 @@
     <Compile Include="src\graphics\WangTile.cs" />
     <Compile Include="src\physics\PhysicsManager.cs" />
     <Compile Include="src\physics\Attractor.cs" />
+    <Compile Include="src\scripting\action\DeleteAction.cs" />
     <Compile Include="src\scripting\action\LoopAction.cs" />
+    <Compile Include="src\scripting\action\SetParamAction.cs" />
     <Compile Include="src\scripting\action\SpawnerLockAction.cs" />
     <Compile Include="src\scripting\action\SpawnerSetAction.cs" />
     <Compile Include="src\scripting\action\SpawnGibAction.cs" />
     <Compile Include="src\ServerTest.cs" />
+    <Compile Include="src\SubclassShouldImplementError.cs" />
     <Compile Include="src\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
     <Compile Include="src\scripting\ListParser.cs" />
@@ -196,7 +199,6 @@
     <Compile Include="src\scripting\action\ActionBase.cs" />
     <Compile Include="src\scripting\action\ActionList.cs" />
     <Compile Include="src\scripting\action\AimAction.cs" />
-    <Compile Include="src\scripting\action\EndAction.cs" />
     <Compile Include="src\scripting\action\MoveAction.cs" />
     <Compile Include="src\scripting\action\MoveRelativeAction.cs" />
     <Compile Include="src\scripting\action\MoveToAction.cs" />
@@ -206,7 +208,6 @@
     <Compile Include="src\scripting\action\StopAction.cs" />
     <Compile Include="src\scripting\action\SetAction.cs" />
     <Compile Include="src\scripting\action\ShootAction.cs" />
-    <Compile Include="src\scripting\action\VanishAction.cs" />
     <Compile Include="src\scripting\action\WaitAction.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
     <Compile Include="src\Direction.cs" />
