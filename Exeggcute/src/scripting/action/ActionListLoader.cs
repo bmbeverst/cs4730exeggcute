@@ -74,13 +74,9 @@ namespace Exeggcute.src.scripting.action
             {
                 return new List<ActionBase> { new StopAction() };
             }
-            else if (type == CommandType.Vanish)
+            else if (type == CommandType.Delete)
             {
-                return new List<ActionBase> { new VanishAction() };
-            }
-            else if (type == CommandType.End)
-            {
-                return new List<ActionBase> { new EndAction() };
+                return new List<ActionBase> { new DeleteAction() };
             }
             else if (type == CommandType.Shoot)
             {
@@ -154,7 +150,7 @@ namespace Exeggcute.src.scripting.action
                 else
                 {
                     throw new ParseError("Valid values for \"{0}\" parameters are off and on", angleString);
-                
+
                 }
 
                 return new List<ActionBase> {
