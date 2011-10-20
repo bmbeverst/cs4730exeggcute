@@ -67,7 +67,6 @@ namespace Exeggcute.src
             loadRosters(content);
             loadMenus();
 
-            scoreSet = new ScoreSet();
             
 
             controls = new ControlManager(input);
@@ -137,7 +136,7 @@ namespace Exeggcute.src
             MainMenu main = new MainMenu();
             World.PushContext(main);
             //for now lets ignore the level
-            World.LoadLevel();
+            //World.LoadLevel();
         }
 
         public void Update()

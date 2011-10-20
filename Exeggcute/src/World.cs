@@ -32,6 +32,10 @@ namespace Exeggcute.src
         public static HashList<Enemy> EnemyList = new HashList<Enemy>("enemylist");
         public static HashList<Enemy> DyingList = new HashList<Enemy>("dyinglist");
 
+        public static ScoreMenu scoreMenu;
+
+        public static IContext Top { get { return stack.Peek(); } }
+
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
             World.content = content;
@@ -58,6 +62,40 @@ namespace Exeggcute.src
         public static void Process(ContextEvent ent)
         {
 
+        }
+
+        public static void Process(BackEvent ent)
+        {
+            Top.Unload();
+            stack.Pop();
+        }
+
+        public static void Process(ScoreEvent ent)
+        {
+            if (!(Top is ScoreMenu)) throw new ExeggcuteError("can only be called form the score menu");
+            ScoreMenu scoreMenu = (ScoreMenu)Top;
+            ScoreEventType type = ent.Type;
+            if (type == ScoreEventType.SeeLocal)
+            {
+                scoreMenu.ShowLocal();
+            }
+            else if (type == ScoreEventType.SeeNetwork)
+            {
+                scoreMenu.ShowNetwork();
+            }
+            else if (type == ScoreEventType.Submit)
+            {
+                scoreMenu.SyncNetwork();
+            }
+        }
+
+        public static void Process(ToScoresEvent ent)
+        {
+            if (scoreMenu == null)
+            {
+                scoreMenu = new ScoreMenu(FontName.font0);
+            }
+            stack.Push(scoreMenu);
         }
 
         public static void Process(LoadLevelEvent ent)

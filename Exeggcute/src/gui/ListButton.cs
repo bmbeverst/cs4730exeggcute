@@ -24,6 +24,7 @@ namespace Exeggcute.src.gui
             Image = image;
         }
         
+
         public override void Update(ControlManager controls)
         {
             IsActive = true;

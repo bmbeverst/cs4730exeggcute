@@ -69,15 +69,16 @@ namespace Exeggcute.src.entities
 
         public virtual void Influence(Vector3 accel, float terminal)
         {
+            /*if (accel.Equals(Vector3.Zero)) return;
             //Console.WriteLine("accel:{0}", accel);
             float x = accel.X + vx;
             float y = accel.Y + vy;
             Vector2 newVelocity = new Vector2(x, y);
             Speed = newVelocity.Length();
             //Console.WriteLine("{0} ({1},{2})",Speed, x, y);
-            Console.Write("OLD ({0}, ");
+            //Console.Write("OLD ({0}, ");
             Angle = FastTrig.Atan2(newVelocity.Y, newVelocity.X);
-            Console.WriteLine("{0}) NEW", Angle);
+            //Console.WriteLine("{0}) NEW", Angle);*/
             VelocityZ += accel.Z;
             VelocityZ = Math.Min(VelocityZ, terminal);
             

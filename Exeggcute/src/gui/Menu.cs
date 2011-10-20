@@ -39,17 +39,17 @@ namespace Exeggcute.src.gui
         }
 
 
-        public void Load(ContentManager content)
+        public virtual void Load(ContentManager content)
         {
 
         }
 
-        public void Unload()
+        public virtual void Unload()
         {
 
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
 
         }

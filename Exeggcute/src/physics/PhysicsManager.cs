@@ -17,7 +17,7 @@ namespace Exeggcute.src.physics
         {
             TerminalSpeed = 1;
             GlobalGravity = new Vector3(0, 0, -0.1633333f);
-            forces.Add(new Attractor(new Vector3(0, 0, 0), 2, 0.1f, 1));
+            //forces.Add(new Attractor(new Vector3(0, 0, 0), 2, 0.1f, 1));
         }
 
         public void RegisterForce(Force force)

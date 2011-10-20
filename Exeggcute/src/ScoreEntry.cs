@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src
 {
@@ -26,7 +28,12 @@ namespace Exeggcute.src
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", Score, Name, Time.ToUniversalTime());
+            return string.Format("{0},{1},{2}", Score, Name, Time);
+        }
+
+        public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
+        {
+            batch.DrawString(font, ToString(), pos, color);
         }
 
     }

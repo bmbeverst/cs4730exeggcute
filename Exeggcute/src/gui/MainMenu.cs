@@ -73,10 +73,14 @@ namespace Exeggcute.src.gui
             ListButton start =
                 new ListButton(new LoadLevelEvent(),
                                new SpriteText(font, "Start", Color.Black));
+            ListButton scores =
+                new ListButton(new ToScoresEvent(),
+                               new SpriteText(font, "High Scores", Color.Black));
             ListButton quit =
                 new ListButton(new QuitEvent(),
                                new SpriteText(font, "End", Color.Black));
             buttons.Add(start);
+            buttons.Add(scores);
             buttons.Add(quit);
             return buttons;
 
