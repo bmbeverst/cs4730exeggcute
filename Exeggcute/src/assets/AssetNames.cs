@@ -25,7 +25,8 @@ namespace Exeggcute.src.assets
     {
         testcube = 1,
         XNAface,
-        playerScene
+        playerScene,
+        junk0
         
     }
     enum EffectName
@@ -36,16 +37,13 @@ namespace Exeggcute.src.assets
     }
     enum FontName
     {
-        font0 = 1
+        consolas = 1
     }
     enum TextureName
     {
-        sprite = 1,
-        cursor,
+        cursor = 1,
         dot,
-        shot,
         collectables,
-        bg,
         wang8,
         fractal,
         face

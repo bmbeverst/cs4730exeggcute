@@ -9,7 +9,8 @@ namespace Exeggcute.src.assets
 {
     static class ModelBank
     {
-        static private Bank<ModelName, Model> bank = new Bank<ModelName, Model>();
+        static private Bank<ModelName, Model> bank = 
+            new Bank<ModelName, Model>("models");
         public static List<ModelName> AllNames = bank.AllNames;
         public static Model Get(ModelName name)
         {

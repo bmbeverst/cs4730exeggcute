@@ -10,7 +10,8 @@ namespace Exeggcute.src.assets
 {
     class ScriptBank
     {
-        private static Bank<ScriptName, ActionList> bank = new Bank<ScriptName, ActionList>();
+        private static Bank<ScriptName, ActionList> bank = 
+            new Bank<ScriptName, ActionList>("data");
         public static List<ScriptName> AllNames = bank.AllNames;
 
         public static ActionListLoader loader = new ActionListLoader();

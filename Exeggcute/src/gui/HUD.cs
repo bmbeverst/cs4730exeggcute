@@ -28,7 +28,7 @@ namespace Exeggcute.src.gui
         public HUD()
         {
             GameRect = Resize(Engine.XRes, Engine.YRes);
-            scoreFont = FontBank.Get(FontName.font0);
+            scoreFont = FontBank.Get(FontName.consolas);
         }
 
         public Rectangle Resize(int xres, int yres)

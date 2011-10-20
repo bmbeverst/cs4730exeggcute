@@ -9,7 +9,8 @@ namespace Exeggcute.src.assets
 {
     class SpriteBank
     {
-        private static Bank<SpriteName, Sprite> bank = new Bank<SpriteName, Sprite>();
+        private static Bank<SpriteName, Sprite> bank = 
+            new Bank<SpriteName, Sprite>("ExeggcuteContent/sprites");
         public static List<SpriteName> AllNames = bank.AllNames;
         public static Sprite Get(SpriteName name)
         {

@@ -9,7 +9,8 @@ namespace Exeggcute.src.assets
 {
     class RosterBank
     {
-        protected static Bank<RosterName, Roster> bank = new Bank<RosterName, Roster>();
+        protected static Bank<RosterName, Roster> bank = 
+            new Bank<RosterName, Roster>("data/rosters");
         public static List<RosterName> AllNames = bank.AllNames;
 
         protected static RosterLoader loader = new RosterLoader();
