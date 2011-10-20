@@ -9,8 +9,15 @@ namespace Exeggcute.src.assets
 {
     class SoundBank
     {
-        private static Bank<SoundName, SoundEffect> bank = new Bank<SoundName, SoundEffect>();
+        private static Bank<SoundName, SoundEffect> bank = 
+            new Bank<SoundName, SoundEffect>("sfx");
         public static List<SoundName> AllNames = bank.AllNames;
+
+        public static void Play(SoundName name)
+        {
+            bank[name].Play();
+        }
+
         public static SoundEffect Get(SoundName name)
         {
             return bank[name];

@@ -21,7 +21,12 @@ namespace Exeggcute.src.assets
         protected Dictionary<TName, TAsset> bank = new Dictionary<TName, TAsset>();
         protected Dictionary<TName, int> seen = new Dictionary<TName, int>();
         public List<TName> AllNames = new List<TName>((TName[])Enum.GetValues(typeof(TName)));
+        public readonly string rootDir;
 
+        public Bank(string root)
+        {
+            rootDir = root;
+        }
         public virtual TAsset this[TName name]
         {
             get
@@ -41,6 +46,10 @@ namespace Exeggcute.src.assets
                 Load(content, name);
             }
         }
+        protected string getFilepath(TName name)
+        {
+            return string.Format("{0}/{1}", rootDir, name);
+        }
 
         /// <summary>
         /// Allows the ContentManager to handle the loading of an asset which
@@ -48,8 +57,9 @@ namespace Exeggcute.src.assets
         /// </summary>
         public virtual void Load(ContentManager content, TName name)
         {
+            string filepath = getFilepath(name);
             seen[name] = 1;
-            bank[name] = content.Load<TAsset>(name.ToString());
+            bank[name] = content.Load<TAsset>(filepath);
         }
 
         /// <summary>

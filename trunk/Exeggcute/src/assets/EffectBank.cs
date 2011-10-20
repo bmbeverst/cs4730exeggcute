@@ -9,7 +9,8 @@ namespace Exeggcute.src.assets
 {
     static class EffectBank
     {
-        private static Bank<EffectName, Effect> bank = new Bank<EffectName, Effect>();
+        private static Bank<EffectName, Effect> bank = 
+            new Bank<EffectName, Effect>("shaders");
         public static List<EffectName> AllNames = bank.AllNames;
         public static Effect Get(EffectName name)
         {

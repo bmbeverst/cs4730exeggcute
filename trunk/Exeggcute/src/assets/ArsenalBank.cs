@@ -10,7 +10,8 @@ namespace Exeggcute.src.assets
 {
     class ArsenalBank
     {
-        protected static Bank<ArsenalName, List<ArsenalEntry>> bank = new Bank<ArsenalName, List<ArsenalEntry>>();
+        protected static Bank<ArsenalName, List<ArsenalEntry>> bank = 
+            new Bank<ArsenalName, List<ArsenalEntry>>("data/arsenals");
         public static List<ArsenalName> AllNames = bank.AllNames;
 
         protected static ArsenalLoader loader = new ArsenalLoader();

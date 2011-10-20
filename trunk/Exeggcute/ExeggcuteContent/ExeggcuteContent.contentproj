@@ -77,8 +77,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="font0.spritefont">
-      <Name>font0</Name>
+    <Compile Include="fonts\consolas.spritefont">
+      <Name>consolas</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <SubType>Designer</SubType>
@@ -92,123 +92,91 @@
     <None Include="blend\XNAtest.blend">
       <Name>XNAtest</Name>
     </None>
-    <None Include="bomb.sprite">
+    <None Include="sprites\bomb.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>bomb</Name>
     </None>
-    <Compile Include="junk0.fbx">
+    <Compile Include="models\junk0.fbx">
       <Name>junk0</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="life.sprite">
+    <None Include="sprites\life.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>life</Name>
     </None>
-    <None Include="cursor.sprite">
+    <None Include="sprites\cursor.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>cursor</Name>
     </None>
-    <Compile Include="light0.fx">
+    <Compile Include="shaders\light0.fx">
       <Name>light0</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="particle.fx">
+    <Compile Include="shaders\particle.fx">
       <Name>particle</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="playerScene.fbx">
+    <Compile Include="models\playerScene.fbx">
       <Name>playerScene</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="sprite.sprite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>sprite</Name>
-    </None>
-    <Compile Include="testcube.fbx">
+    <Compile Include="models\testcube.fbx">
       <Name>testcube</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="XNAface.fbx">
+    <Compile Include="models\XNAface.fbx">
       <Name>XNAface</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="terrain.fx">
+    <Compile Include="shaders\terrain.fx">
       <Name>terrain</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprite.png">
-      <Name>sprite</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="cursor.png">
+    <Compile Include="sprites\cursor.png">
       <Name>cursor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dot.png">
+    <Compile Include="sprites\dot.png">
       <Name>dot</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="test.png">
-      <Name>test</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="shot.png">
-      <Name>shot</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Bad_Hair_DayFin.jpg">
+    <None Include="models\Bad_Hair_DayFin.jpg">
       <Name>Bad_Hair_DayFin</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="collectables.png">
+    <Compile Include="sprites\collectables.png">
       <Name>collectables</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bg.png">
-      <Name>bg</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="wang8.png">
+    <Compile Include="sprites\wang8.png">
       <Name>wang8</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="face.png">
+    <Compile Include="models\face.png">
       <Name>face</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -216,7 +184,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="fractal.png">
+    <Compile Include="models\fractal.png">
       <Name>fractal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -224,15 +192,31 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="shot0.wav">
+    <Compile Include="sfx\shot0.wav">
       <Name>shot0</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="junk.jpg">
+    <Compile Include="models\junk.jpg">
       <Name>junk</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\fractal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>fractal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\face.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Name>face</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

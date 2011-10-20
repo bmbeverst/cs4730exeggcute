@@ -93,7 +93,7 @@ namespace Exeggcute.src
         {
             if (scoreMenu == null)
             {
-                scoreMenu = new ScoreMenu(FontName.font0);
+                scoreMenu = new ScoreMenu(FontName.consolas);
             }
             stack.Push(scoreMenu);
         }

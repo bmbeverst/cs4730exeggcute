@@ -151,7 +151,6 @@
     <Compile Include="src\physics\Force.cs" />
     <Compile Include="src\graphics\Quad.cs" />
     <Compile Include="src\graphics\QuadBatch.cs" />
-    <Compile Include="src\graphics\TerrainMesh.cs" />
     <Compile Include="src\graphics\WangTile.cs" />
     <Compile Include="src\physics\PhysicsManager.cs" />
     <Compile Include="src\physics\Attractor.cs" />

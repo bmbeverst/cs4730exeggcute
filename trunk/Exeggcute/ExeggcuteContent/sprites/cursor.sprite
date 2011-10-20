@@ -1,14 +1,14 @@
-#Test sprite
+#MySprite
 
-#flashing
-sprite
+#Standing
+cursor
 16x16
 (0,0) (0,16)
 L0 1
 10
 
-#flashing differently
-sprite
+#Sitting
+cursor
 16x16
 (0,0) (16,0)
 L0 1

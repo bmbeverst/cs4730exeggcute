@@ -67,7 +67,7 @@ namespace Exeggcute.src
             loadRosters(content);
             loadMenus();
 
-            
+            scoreSet = new ScoreSet();
 
             controls = new ControlManager(input);
 

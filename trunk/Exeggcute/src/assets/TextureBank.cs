@@ -11,7 +11,8 @@ namespace Exeggcute.src.assets
 
     static class TextureBank
     {
-        static private Bank<TextureName, Texture2D> bank = new Bank<TextureName, Texture2D>();
+        static private Bank<TextureName, Texture2D> bank = 
+            new Bank<TextureName, Texture2D>("sprites");
         public static List<TextureName> AllNames = bank.AllNames;
         public static Texture2D Get(TextureName name)
         {

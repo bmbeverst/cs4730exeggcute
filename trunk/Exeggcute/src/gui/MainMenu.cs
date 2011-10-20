@@ -69,7 +69,7 @@ namespace Exeggcute.src.gui
         private static List<Button> getButtons()
         {
             List<Button> buttons = new List<Button>();
-            SpriteFont font = FontBank.Get(FontName.font0);
+            SpriteFont font = FontBank.Get(FontName.consolas);
             ListButton start =
                 new ListButton(new LoadLevelEvent(),
                                new SpriteText(font, "Start", Color.Black));

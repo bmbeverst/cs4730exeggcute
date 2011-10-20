@@ -98,7 +98,7 @@ namespace Exeggcute.src
             }
 
             string[] messages = total.Split('@');
-            SpriteFont font = FontBank.Get(FontName.font0);
+            SpriteFont font = FontBank.Get(FontName.consolas);
             for (int i = 1; i < messages.Length; i += 1)
             {
                 boxes.Add(new TextBoxList(font, messages[i], scrollSpeed));
