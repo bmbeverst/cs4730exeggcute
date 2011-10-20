@@ -125,7 +125,7 @@ namespace Exeggcute.src
 
 
 
-        public static int nextPowerOfTwo(int value) 
+        public static int NextPowerOfTwo(int value) 
         {
 		    if (value == 0) return 1;
 		    value--;
@@ -137,7 +137,7 @@ namespace Exeggcute.src
 		    return value + 1;
 	    }
 
-        public static bool isPowerOfTwo(int value)
+        public static bool IsPowerOfTwo(int value)
         {
 		    return value != 0 && (value & value - 1) == 0;
 	    }

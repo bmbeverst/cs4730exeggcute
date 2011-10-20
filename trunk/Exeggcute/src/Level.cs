@@ -173,7 +173,7 @@ namespace Exeggcute.src
             }
 
             physics.Affect(gibList, true);
-            physics.Affect(playerShots, false);
+            //physics.Affect(playerShots, false);
             foreach (Gib gib in gibList.GetKeys())
             {
                 collider.CollideTerrain(terrain, gib);

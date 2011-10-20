@@ -139,6 +139,8 @@
   <ItemGroup>
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\assets\SoundBank.cs" />
+    <Compile Include="src\contexts\ScoreEvent.cs" />
+    <Compile Include="src\contexts\ToScoresEvent.cs" />
     <Compile Include="src\entities\Gib.cs" />
     <Compile Include="src\entities\MassSpawner.cs" />
     <Compile Include="src\entities\ParentEntity.cs" />

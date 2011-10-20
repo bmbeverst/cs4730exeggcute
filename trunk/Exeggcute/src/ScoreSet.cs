@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src
 {
@@ -13,8 +15,11 @@ namespace Exeggcute.src
         protected ScoreEntry[] networkScores = new ScoreEntry[LENGTH];
         private const string FILE = "data/score.dat";
         private const char DELIM = ',';
+
         private bool networkUpdated = false;
 
+        private bool networkAlreadyLoaded = false;
+        public bool ViewingNetwork = false;
         public ScoreSet()
         {
             LoadLocal();
@@ -60,7 +65,14 @@ namespace Exeggcute.src
 
         public void LoadNetwork()
         {
-            // TODO load high scores from the network
+            if (!networkAlreadyLoaded)
+            {
+                // TODO load high scores from the network
+                throw new NotImplementedException("fixme");
+            }
+
+            ViewingNetwork = true;
+            
         }
 
         public void WriteLocal()
@@ -75,7 +87,10 @@ namespace Exeggcute.src
 
         public void WriteNetwork()
         {
-
+            // TODO use me to write data to the network
+            // remember to only attempt to write to the 
+            // network if we have actually beaten
+            // a network high score!
         }
 
         protected ScoreEntry parseElement(string[] tokens)
@@ -84,6 +99,18 @@ namespace Exeggcute.src
             string name = tokens[1];
             DateTime time = DateTime.Parse(tokens[2]);
             return new ScoreEntry(score, name, time);
+        }
+
+        public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
+        {
+            int yspacing = 1;
+            
+            float height = font.MeasureString("A").Y;
+            ScoreEntry[] toDraw = ViewingNetwork ? networkScores : localScores;
+            for (int i = 0; i < LENGTH; i += 1)
+            {
+                toDraw[i].Draw(batch, font, pos + new Vector2(0, height * i), color);
+            }
         }
     }
 }
