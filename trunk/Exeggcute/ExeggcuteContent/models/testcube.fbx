@@ -235,7 +235,7 @@ Objects:  {
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "Bad_Hair_DayFin.jpg"
+			Property: "Path", "charptr", "", "../textures/Bad_Hair_DayFin.jpg"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -247,7 +247,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "Bad_Hair_DayFin.jpg"
-		RelativeFilename: "Bad_Hair_DayFin.jpg"
+		RelativeFilename: "../textures/Bad_Hair_DayFin.jpg"
 	}
 	Texture: "Texture::Bad_Hair_DayFin_jpg", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -272,7 +272,7 @@ Objects:  {
 		}
 		Media: "Video::Bad_Hair_DayFin_jpg"
 		FileName: "Bad_Hair_DayFin.jpg"
-		RelativeFilename: "Bad_Hair_DayFin.jpg"
+		RelativeFilename: "../textures/Bad_Hair_DayFin.jpg"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

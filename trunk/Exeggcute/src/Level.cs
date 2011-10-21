@@ -60,15 +60,16 @@ namespace Exeggcute.src
         private TaskListLoader loader = new TaskListLoader();
 
         //FIXME put a lot of this stuff in Load!
-        public Level(GraphicsDevice graphics, ContentManager content, RosterName rosterName)
+        public Level(GraphicsDevice graphics, ContentManager content, Roster roster)
         {
-            this.terrain = new WangMesh(graphics, TextureName.wang8, 12*2, 100*2, 4, 16, 0.01f);
+            Texture2D wangTexture = TextureBank.Get("wang8");
+            this.terrain = new WangMesh(graphics, wangTexture, 12*2, 100*2, 4, 16, 0.01f);
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.enemyList = World.EnemyList;
             this.gibList = World.GibList;
-            this.roster = RosterBank.Get(rosterName);
-            this.taskList = loader.Load(0);
+            this.roster = roster;
+            this.taskList = loader.Load("0");
             loadMsgBoxes(content);
 
             this.collider = new CollisionManager();
@@ -81,7 +82,11 @@ namespace Exeggcute.src
 
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
-            player = new Player(ModelName.playerScene, ArsenalName.test, World.PlayerShots, World.GibList);
+            //TODO parse the player file here
+            Model playerModel = ModelBank.Get("playerScene");
+            BehaviorScript deathScript = ScriptBank.GetBehavior("playerspawn");
+            NewArsenal arsenal = new NewArsenal(ArsenalBank.Get("test"), World.PlayerShots);
+            player = new Player(playerModel, deathScript, arsenal, World.PlayerShots, World.GibList);
             
         }
 
@@ -98,7 +103,7 @@ namespace Exeggcute.src
             }
 
             string[] messages = total.Split('@');
-            SpriteFont font = FontBank.Get(FontName.consolas);
+            SpriteFont font = FontBank.Get("consolas");
             for (int i = 1; i < messages.Length; i += 1)
             {
                 boxes.Add(new TextBoxList(font, messages[i], scrollSpeed));
@@ -110,13 +115,12 @@ namespace Exeggcute.src
             foreach (HashList<Shot> shots in lists)
             {
                 List<Shot> toRemove = new List<Shot>();
-                foreach (var pair in shots)
+                foreach (Shot shot in shots.GetKeys())
                 {
-                    Shot current = pair.Key;
-                    current.Update();
-                    if (!current.ContainedIn(LiveArea))
+                    shot.Update();
+                    if (!shot.ContainedIn(LiveArea))
                     {
-                        toRemove.Add(current);
+                        toRemove.Add(shot);
                     }
                 }
                 toRemove.ForEach(shot => shots.Remove(shot));
@@ -195,7 +199,7 @@ namespace Exeggcute.src
             collider.FilterDead<Enemy>(enemyList);
             collider.FilterDead<Enemy>(World.DyingList);
             updateShots(playerShots, enemyShots);
-
+            //collider.MagicFilter(playerShots, enemyShots);
             player.Update(controls);
             player.LockPosition(camera, GameArea);
 

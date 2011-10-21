@@ -96,7 +96,7 @@ namespace Exeggcute.src.scripting.action
         /// Uses double dispatch to call the correct processing method in
         /// CommandEntity
         /// </summary>
-        public virtual void Process(CommandEntity entity)
+        public virtual void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

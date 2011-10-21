@@ -19,14 +19,14 @@ namespace Exeggcute.src.gui
         protected List<Vector2> drawPositions = new List<Vector2>();
         protected int vertButtonSpacing;
         protected Sprite cursorSprite;
-        public ScoreMenu(FontName fontName)
+        public ScoreMenu(SpriteFont font)
             : base(null, false)
         {
-            
-            this.font = FontBank.Get(fontName);
+            Texture2D cursorTexture = TextureBank.Get("cursor");
+            this.font = font;
             this.buttons = makeButtons();
             this.scores = new ScoreSet();
-            this.cursorSprite = new StaticSprite(TextureName.cursor, new Point(0, 0), 16, 16);
+            this.cursorSprite = new StaticSprite(cursorTexture, new Point(0, 0), 16, 16);
             
             loadScores();
 

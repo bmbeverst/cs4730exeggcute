@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.entities
 {
-    class Mover : CommandEntity
+    class Mover : ScriptedEntity
     {
-        public Mover(ScriptName moveScript)
-            : base(moveScript)
+        public Mover(BehaviorScript moveBehavior)
+            : base(moveBehavior)
         {
 
         }

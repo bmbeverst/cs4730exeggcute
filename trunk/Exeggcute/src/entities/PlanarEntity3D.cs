@@ -40,8 +40,8 @@ namespace Exeggcute.src.entities
             get { return new Vector2(Position.X, Position.Y); }
         }
 
-        public PlanarEntity3D(ModelName modelName, Vector3 pos)
-            : base(modelName, pos)
+        public PlanarEntity3D(Model model, Vector3 pos)
+            : base(model, pos)
         {
             Mass = 1000.0f;
         }

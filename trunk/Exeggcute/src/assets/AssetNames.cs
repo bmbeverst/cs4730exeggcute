@@ -10,7 +10,7 @@ namespace Exeggcute.src.assets
     // enums to 0. This lets us catch any uninitizlized enums (this
     // caused an annoying bug!)
 
-    enum RosterName
+    /*enum RosterName
     {
         test = 1
     }
@@ -29,12 +29,7 @@ namespace Exeggcute.src.assets
         junk0
         
     }
-    enum EffectName
-    {
-        particle = 1,
-        light0,
-        terrain
-    }
+
     enum FontName
     {
         consolas = 1
@@ -56,26 +51,41 @@ namespace Exeggcute.src.assets
         cursor
     }
 
-    enum ScriptName
-    {
-        playerspawner0 = 1,
-        enemyspawner0,
-        test,
-        playerspawn,
-        item,
-        playershot0,
-        death0,
-        spawner0
-    }
+
 
     enum GibsName
     {
-        gibtest
+        gibtest = 1
     }
 
     enum SoundName
     {
-        shot0
+        shot0 = 1
+    }*/
+
+    /*enum BehaviorName
+    {
+        testenemy,
+        playerspawn,
+        item,
+        death0
+    }
+    enum SpawnerName
+    {
+        enemy0 = 1,
+        player0
+    }
+
+    enum ShotName
+    {
+        player0
+    }*/
+
+    enum EffectName
+    {
+        particle = 1,
+        light0,
+        terrain
     }
 
     class AssetNames

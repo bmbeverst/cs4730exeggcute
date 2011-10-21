@@ -11,10 +11,10 @@ namespace Exeggcute.src.assets
 
     static class TextureBank
     {
-        static private Bank<TextureName, Texture2D> bank = 
-            new Bank<TextureName, Texture2D>("sprites");
-        public static List<TextureName> AllNames = bank.AllNames;
-        public static Texture2D Get(TextureName name)
+        static private Bank<Texture2D> bank =
+            new Bank<Texture2D>("ExeggcuteContent/sprites", "xnb");
+
+        public static Texture2D Get(string name)
         {
             return bank[name];
         }
@@ -24,7 +24,7 @@ namespace Exeggcute.src.assets
             bank.LoadAll(content);
         }
 
-        public static void Load(ContentManager content, TextureName name)
+        public static void Load(ContentManager content, string name)
         {
             bank.Load(content, name);
         }

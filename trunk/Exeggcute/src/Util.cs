@@ -349,5 +349,21 @@ namespace Exeggcute.src
         {
             return new Vector2(speed * FastTrig.Cos(angle), speed * FastTrig.Sin(angle));
         }
+
+        public static string[] GetFiles(string reldir)
+        {
+            string[] result;
+            try
+            {
+                result = Directory.GetFiles(reldir);
+            }
+            catch
+            {
+                string curdir = Directory.GetCurrentDirectory();
+                Util.Warn("Unable to find directory {0} in {1}", reldir, curdir); 
+                throw new ExeggcuteError();
+            }
+            return result;
+        }
     }
 }

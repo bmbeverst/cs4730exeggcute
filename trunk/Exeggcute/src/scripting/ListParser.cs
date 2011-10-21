@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Exeggcute.src.scripting
 {
-    abstract class ListParser<TName, TEntry>
+    abstract class ListParser<TEntry>
     {
         public char Delim { get; protected set; }
 
-        public List<TEntry> Load(TName name)
+        public List<TEntry> Load(string name)
         {
             string filepath = getFilepath(name);
             List<string> lines = Util.StripComments(filepath, '#');
@@ -36,6 +36,6 @@ namespace Exeggcute.src.scripting
         }
 
         protected abstract TEntry parseEntry(Stack<string> tokens);
-        protected abstract string getFilepath(TName name);
+        protected abstract string getFilepath(string name);
     }
 }

@@ -251,7 +251,7 @@ Objects:  {
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "fractal.png"
+			Property: "Path", "charptr", "", "../textures/fractal.png"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -263,7 +263,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "fractal.png"
-		RelativeFilename: "fractal.png"
+		RelativeFilename: "../textures/fractal.png"
 	}
 	Texture: "Texture::fractal_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -288,7 +288,7 @@ Objects:  {
 		}
 		Media: "Video::fractal_png"
 		FileName: "fractal.png"
-		RelativeFilename: "fractal.png"
+		RelativeFilename: "../textures/fractal.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

@@ -30,12 +30,12 @@ namespace Exeggcute.src
         public float TileSize { get; protected set; }
         public float ProgressY { get; protected set; }
 
-        public WangMesh(GraphicsDevice graphics, TextureName texName, int cols, int rows, float size, float heightVariance, float scrollSpeed)
+        public WangMesh(GraphicsDevice graphics, Texture2D texture, int cols, int rows, float size, float heightVariance, float scrollSpeed)
         {
-            Texture2D wangTexture = TextureBank.Get(texName);
+            Texture2D wangTexture = texture;
             int texWidth = wangTexture.Width;
             int texHeight = wangTexture.Height;
-            this.quadBatch = new QuadBatch(graphics, texName);
+            this.quadBatch = new QuadBatch(graphics, texture);
             this.cols = cols;
             this.rows = rows;
             Speed = scrollSpeed;
@@ -46,7 +46,7 @@ namespace Exeggcute.src
             wangGrid = new WangArray(cols, rows);
             Quads = new Quad[cols, rows];
             ProgressY = -100;
-            tilemap = new TileMap(texName, 32, 32);
+            tilemap = new TileMap(texture, 32, 32);
             
             for (int i = 0; i < cols; i += 1)
             {

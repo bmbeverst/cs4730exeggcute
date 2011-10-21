@@ -9,7 +9,7 @@ namespace Exeggcute.src.particles
 {
     class ParticleSettings
     {
-        public TextureName TextureName = TextureName.dot;
+        public Texture2D Texture = TextureBank.Get("dot");
         public int MaxParticles = 1000;
         public float Duration = 1;
         public BlendState BlendState = BlendState.NonPremultiplied;

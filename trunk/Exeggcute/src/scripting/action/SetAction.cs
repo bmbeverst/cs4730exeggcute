@@ -23,7 +23,7 @@ namespace Exeggcute.src.scripting.action
             Position = new Vector3(pos.X, pos.Y, 0);
         }
 
-        public override void Process(CommandEntity entity)
+        public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

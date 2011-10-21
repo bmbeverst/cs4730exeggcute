@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
+using System.Collections.ObjectModel;
 
 namespace Exeggcute.src
 {
@@ -15,7 +16,7 @@ namespace Exeggcute.src
     {
         public void Update()
         {
-
+            List<string> mylsit = new List<string>();
         }
 
         public bool Collide(Player player, HashList<Enemy> enemies)
@@ -59,7 +60,20 @@ namespace Exeggcute.src
                 }
             }
         }
-
+        /*public void MagicFilter<TEntity>(params IEnumerable<TEntity>[] args) where TEntity : Entity
+        {
+            List<TEntity> removed = new List<TEntity>();
+            foreach (var list in args)
+            {
+                foreach (TEntity entity in args)
+                {
+                    if (entity.IsTrash)
+                    {
+                        removed.Add(entity);
+                    }
+                }
+            }
+        }*/
         public void FilterDead<TEntity>(HashList<TEntity> entities) where TEntity : Entity
         {
             List<TEntity> removed = new List<TEntity>();

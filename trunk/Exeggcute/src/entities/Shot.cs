@@ -10,21 +10,14 @@ using Exeggcute.src.scripting.arsenal;
 
 namespace Exeggcute.src.entities
 {
-    class Shot : CommandEntity
+    class Shot : ScriptedEntity
     {
 
         public int Damage { get; protected set; }
-
-        /*public Shot(ModelName modelName, ScriptName scriptName)
-            : base(modelName, scriptName)
-        {
-            Damage = 10;
-            this.modelName = modelName;
-            this.scriptName = scriptName;
-        }*/
         protected ArsenalEntry arsenalParams;
+
         public Shot(ArsenalEntry entry)
-            : base(entry.ModelName, entry.ShotBehaviorScriptName)
+            : base(entry.Surface, entry.Behavior)
         {
             Damage = 10;
             this.arsenalParams = entry;
@@ -38,7 +31,10 @@ namespace Exeggcute.src.entities
             return clone;
         }
 
-        public virtual void Collide(CommandEntity entity)
+        /// <summary>
+        /// Called when the shot collides with a hostile entity.
+        /// </summary>
+        public virtual void Collide(ScriptedEntity entity)
         {
             IsTrash = true;
         }

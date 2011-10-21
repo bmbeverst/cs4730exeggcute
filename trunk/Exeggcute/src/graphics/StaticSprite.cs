@@ -15,9 +15,9 @@ namespace Exeggcute.src.graphics
     class StaticSprite : Sprite
     {
         
-        public StaticSprite(TextureName textureName, Point texelPos, int width, int height)
+        public StaticSprite(Texture2D texture, Point texelPos, int width, int height)
         {
-            Texture = TextureBank.Get(textureName);
+            Texture = texture;
             Width = width;
             Height = height;
             FrameRect = new Rectangle(texelPos.X, texelPos.Y, width, height);

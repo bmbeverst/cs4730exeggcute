@@ -56,15 +56,19 @@ namespace Exeggcute.src
             
 
             World.Initialize(this, content, graphics);
-            loadScripts(content);
+            
             loadTextures(content);
+            
             loadFonts(content);
             loadEffects(content);
             loadModels(content);
             loadSounds(content);
             loadSprites(content);
+
+            loadScripts(content);
             loadArsenals(content);
             loadRosters(content);
+            
             loadMenus();
 
             scoreSet = new ScoreSet();
@@ -95,7 +99,7 @@ namespace Exeggcute.src
 
         private void loadScripts(ContentManager content)
         {
-            ScriptBank.LoadAll(content);
+            ScriptBank.LoadAll();
         }
 
         private void loadTextures(ContentManager content)
@@ -122,8 +126,8 @@ namespace Exeggcute.src
         {
             SpriteBank.LoadAll(content);
             //HACK
-            LifeItem.HUDSprite = SpriteBank.Get(SpriteName.life);
-            BombItem.HUDSprite = SpriteBank.Get(SpriteName.bomb);
+            LifeItem.HUDSprite = SpriteBank.Get("life");
+            BombItem.HUDSprite = SpriteBank.Get("bomb");
         }
 
         private void loadSounds(ContentManager content)

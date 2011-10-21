@@ -21,7 +21,8 @@ namespace Exeggcute.src.gui
         public MainMenu()
             : base(getButtons(), false)
         {
-            cursorSprite = new StaticSprite(TextureName.cursor, new Point(0, 0), 16, 16);
+            Texture2D cursorTexture = TextureBank.Get("cursor");
+            cursorSprite = new StaticSprite(cursorTexture, new Point(0, 0), 16, 16);
             int width = 100;
             int height = 100;
             int bottomOffset = Engine.YRes/4 + height;
@@ -69,7 +70,7 @@ namespace Exeggcute.src.gui
         private static List<Button> getButtons()
         {
             List<Button> buttons = new List<Button>();
-            SpriteFont font = FontBank.Get(FontName.consolas);
+            SpriteFont font = FontBank.Get("consolas");
             ListButton start =
                 new ListButton(new LoadLevelEvent(),
                                new SpriteText(font, "Start", Color.Black));

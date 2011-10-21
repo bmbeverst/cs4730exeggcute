@@ -155,7 +155,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="models\Bad_Hair_DayFin.jpg">
+    <None Include="textures\Bad_Hair_DayFin.jpg">
       <Name>Bad_Hair_DayFin</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -176,19 +176,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\face.png">
+    <Compile Include="textures\face.png">
       <Name>face</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\fractal.png">
+    <Compile Include="textures\fractal.png">
       <Name>fractal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +197,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\junk.jpg">
+    <Compile Include="textures\junk.jpg">
       <Name>junk</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -207,7 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sprites\fractal.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>fractal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -215,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sprites\face.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>face</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

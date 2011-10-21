@@ -32,7 +32,8 @@ namespace Exeggcute.src.graphics
 
         private void init(Point size, Color color, bool filled)
         {
-            DotTexture = TextureBank.Get(TextureName.dot);
+            //FIXME generate dot at initialization
+            DotTexture = TextureBank.Get("dot");
             Size = size;
             FillColor = color;
             

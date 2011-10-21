@@ -17,7 +17,7 @@ namespace Exeggcute.src.scripting.action
             LockAngle = lockAngle;
         }
 
-        public override void Process(CommandEntity entity)
+        public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

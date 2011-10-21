@@ -43,7 +43,7 @@ namespace Exeggcute.src.text
             //FIXME
             Size = new Point(500, 300);
             // =C
-            arrow = SpriteBank.Get(SpriteName.cursor);
+            arrow = SpriteBank.Get("cursor");
             this.font = font;
             boxes = new List<TextBox>();
             timer = new FloatTimer(rate);

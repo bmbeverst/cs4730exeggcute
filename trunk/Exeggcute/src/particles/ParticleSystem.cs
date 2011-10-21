@@ -136,7 +136,7 @@ namespace Exeggcute.src.particles
             }
 
 
-            particleEffect = EffectBank.Get(EffectName.particle);
+            particleEffect = EffectBank.Get("particle");
 
             EffectParameterCollection parameters = particleEffect.Parameters;
 
@@ -148,9 +148,8 @@ namespace Exeggcute.src.particles
             parameters["Duration"].SetValue(settings.Duration);
 
             // Load the particle texture, and set it onto the effect.
-            Texture2D texture = TextureBank.Get(settings.TextureName);
 
-            parameters["Texture"].SetValue(texture);
+            parameters["Texture"].SetValue(settings.Texture);
 
             // Create a dynamic vertex buffer.
             vertexBuffer = new DynamicVertexBuffer(device, ParticleVertex.VertexDeclaration,

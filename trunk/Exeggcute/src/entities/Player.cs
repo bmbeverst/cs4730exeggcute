@@ -25,7 +25,7 @@ namespace Exeggcute.src.entities
 
         public bool CanControl
         {
-            get { return actionList == null; }
+            get { return script == null; }
         }
 
         public bool IsInvulnerable
@@ -41,18 +41,21 @@ namespace Exeggcute.src.entities
 
         protected int frames;
         protected bool flashDraw;
+        protected BehaviorScript deathScript;
 
-        public Player(ModelName model, ArsenalName arsenalName, HashList<Shot> shotList, HashList<Gib> gibList)
-            : base(model, ScriptName.playerspawn, arsenalName, shotList, gibList)
+        //TODO read player spawn script from a player file!
+        public Player(Model model, BehaviorScript deathScript, NewArsenal arsenal, HashList<Shot> shotList, HashList<Gib> gibList)
+            : base(model, deathScript, arsenal, shotList, gibList)
         {
-            lives = 3;
-            bombs = 3;
-            score = 1234;
-            MoveSpeed = 1;
-            FocusSpeed = 0.5f;
-            InvulnTimer = new Timer(120);
-            //bomb = new MassSpawner(null, 120, shotList);
-            Hitbox = new BoundingSphere(Position, 0.2f);
+            this.lives = 3;
+            this.bombs = 3;
+            this.score = 1234;
+            this.MoveSpeed = 1;
+            this.FocusSpeed = 0.5f;
+            this.InvulnTimer = new Timer(120);
+            //this.bomb = new MassSpawner(null, 120, shotList);
+            this.Hitbox = new BoundingSphere(Position, 0.2f);
+            this.deathScript = deathScript;
         }
 
         public void LockPosition(Camera camera, Rectangle gameArea)
@@ -166,24 +169,25 @@ namespace Exeggcute.src.entities
             //shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
             frame += 1;
-            if (IsShooting && frames % 10 == 0) SoundBank.Get(SoundName.shot0).Play();
+            if (IsShooting && frames % 10 == 0) SoundBank.Get("shot0").Play();
             if (IsBombing)
             {
-                bomb.Update(this);
+                throw new NotImplementedException();
+                /*bomb.Update(this);
                 if (bomb.IsDone)
                 {
                     IsBombing = false;
                     bomb.Reset();
                     Console.WriteLine("End bombing");
-                }
+                }*/
             }
             score += 123;
             InvulnTimer.Increment();
             frames += 1;
             flashDraw = (IsInvulnerable && frames % 2 == 0);
-            if (!CanControl && actionPtr == actionList.Count)
+            if (!CanControl && actionPtr == script.Count)
             {
-                actionList = null;
+                script = null;
             }
             if (IsShooting)
             {
@@ -220,7 +224,7 @@ namespace Exeggcute.src.entities
         public void Kill()
         {
             Console.WriteLine("KILLED!");
-            actionList = ScriptBank.Get(ScriptName.playerspawn);
+            script = deathScript;
             actionPtr = 0;
             lives -= 1;
             InvulnTimer.Reset();

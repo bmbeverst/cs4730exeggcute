@@ -11,7 +11,7 @@ namespace Exeggcute.src.graphics
     class QuadBatch
     {
         public BasicEffect Shader { get; set; }
-        public QuadBatch(GraphicsDevice graphics, TextureName texName)
+        public QuadBatch(GraphicsDevice graphics, Texture2D texture)
         {
             //Shader = EffectBank.Get(EffectName.terrain);
             Shader = new BasicEffect(graphics);
@@ -20,7 +20,7 @@ namespace Exeggcute.src.graphics
             Shader.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.9f);
 
             Shader.TextureEnabled = true;
-            Shader.Texture = TextureBank.Get(texName);
+            Shader.Texture = texture;
         }
         public void SetCamera(Matrix view, Matrix projection)
         {

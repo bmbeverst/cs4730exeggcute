@@ -8,7 +8,7 @@ using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.task
 {
-    class TaskListLoader : ScriptParser<Task, int>
+    class TaskListLoader : ScriptParser<Task>
     {
         public static readonly string EXT = "level";
         public static readonly string ROOT = "data/levels";

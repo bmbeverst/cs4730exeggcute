@@ -5,7 +5,7 @@ namespace Exeggcute.src.graphics
 {
     class StaticAnimation : IAnimation
     {
-        public StaticAnimation(TextureName texName, Point frame, int width, int height)
+        public StaticAnimation(string texName, Point frame, int width, int height)
         {
             Texture = TextureBank.Get(texName);
             CurrentFrame = frame;

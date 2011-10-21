@@ -4,32 +4,33 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting.roster;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace Exeggcute.src.assets
 {
     class RosterBank
     {
-        protected static Bank<RosterName, Roster> bank = 
-            new Bank<RosterName, Roster>("data/rosters");
-        public static List<RosterName> AllNames = bank.AllNames;
+        protected static Bank<Roster> bank =
+            new Bank<Roster>("data/rosters", "roster");
 
         protected static RosterLoader loader = new RosterLoader();
-        public static Roster Get(RosterName name)
+        public static Roster Get(string name)
         {
             return bank[name];
         }
 
         public static void LoadAll(ContentManager content)
         {
-            foreach (RosterName name in AllNames)
+            foreach (string file in bank.AllFiles)
             {
-                Load(content, name);
+                Load(content, file);
             }
         }
 
-        public static void Load(ContentManager content, RosterName name)
+        public static void Load(ContentManager content, string name)
         {
-            bank.Put(new Roster(loader.Load(name)), name);
+            string cutname = Path.GetFileNameWithoutExtension(name);
+            bank.Put(new Roster(loader.Load(name)), cutname);
         }
     }
 }

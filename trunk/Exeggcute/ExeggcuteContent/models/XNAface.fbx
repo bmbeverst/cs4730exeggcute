@@ -235,7 +235,7 @@ Objects:  {
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "face.png"
+			Property: "Path", "charptr", "", "../textures/face.png"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -247,7 +247,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "face.png"
-		RelativeFilename: "face.png"
+		RelativeFilename: "../textures/face.png"
 	}
 	Texture: "Texture::face_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -272,7 +272,7 @@ Objects:  {
 		}
 		Media: "Video::face_png"
 		FileName: "face.png"
-		RelativeFilename: "face.png"
+		RelativeFilename: "../textures/face.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

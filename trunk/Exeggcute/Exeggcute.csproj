@@ -137,8 +137,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Alignment.cs" />
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\assets\SoundBank.cs" />
+    <Compile Include="src\BehaviorScript.cs" />
+    <Compile Include="src\entities\Arsenal.cs" />
+    <Compile Include="src\TrajectoryScript.cs" />
+    <Compile Include="src\SpawnScript.cs" />
     <Compile Include="src\contexts\ScoreEvent.cs" />
     <Compile Include="src\contexts\ToScoresEvent.cs" />
     <Compile Include="src\entities\Gib.cs" />
@@ -154,6 +159,7 @@
     <Compile Include="src\graphics\WangTile.cs" />
     <Compile Include="src\physics\PhysicsManager.cs" />
     <Compile Include="src\physics\Attractor.cs" />
+    <Compile Include="src\Script.cs" />
     <Compile Include="src\scripting\action\DeleteAction.cs" />
     <Compile Include="src\scripting\action\LoopAction.cs" />
     <Compile Include="src\scripting\action\SetParamAction.cs" />
@@ -200,7 +206,6 @@
     <Compile Include="src\Pair.cs" />
     <Compile Include="src\ScoreEntry.cs" />
     <Compile Include="src\scripting\action\ActionBase.cs" />
-    <Compile Include="src\scripting\action\ActionList.cs" />
     <Compile Include="src\scripting\action\AimAction.cs" />
     <Compile Include="src\scripting\action\MoveAction.cs" />
     <Compile Include="src\scripting\action\MoveRelativeAction.cs" />
@@ -214,10 +219,9 @@
     <Compile Include="src\scripting\action\WaitAction.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
     <Compile Include="src\Direction.cs" />
-    <Compile Include="src\entities\CommandEntity.cs" />
+    <Compile Include="src\entities\ScriptedEntity.cs" />
     <Compile Include="src\scripting\action\ActionListLoader.cs" />
     <Compile Include="src\entities\Entity3D.cs" />
-    <Compile Include="src\entities\MobileEntity3D.cs" />
     <Compile Include="src\entities\PlanarEntity3D.cs" />
     <Compile Include="src\FloatTimer.cs" />
     <Compile Include="src\graphics\Doodad.cs" />
@@ -228,7 +232,6 @@
     <Compile Include="src\Level.cs" />
     <Compile Include="src\graphics\StaticAnimation.cs" />
     <Compile Include="src\FastTrig.cs" />
-    <Compile Include="src\entities\MobileEntity2D.cs" />
     <Compile Include="src\assets\TextureBank.cs" />
     <Compile Include="src\particles\TestParticleSystem.cs" />
     <Compile Include="src\particles\ParticleSettings.cs" />
@@ -283,25 +286,22 @@
     <None Include="data\arsenals\testenemy.arsenal">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\spawner0.cl">
+    <None Include="data\scripts\spawns\enemy0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\enemyspawner0.cl">
+    <None Include="data\scripts\trajectories\player0.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\playershot0.cl">
+    <None Include="data\scripts\behaviors\item.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\item.cl">
+    <None Include="data\scripts\behaviors\playerspawn.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\playerspawn.cl">
+    <None Include="data\scripts\spawns\player0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\playerspawner0.cl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\test.cl">
+    <None Include="data\scripts\behaviors\testenemy.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="controls.cfg">
@@ -327,7 +327,7 @@
     <None Include="data\rosters\test.roster">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\death0.cl">
+    <None Include="data\scripts\behaviors\death0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Exeggcute.ico" />

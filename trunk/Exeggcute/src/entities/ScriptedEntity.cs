@@ -15,11 +15,11 @@ namespace Exeggcute.src.entities
     /// <summary>
     /// TODO: process commands until a wait command is found
     /// </summary>
-    abstract class CommandEntity : PlanarEntity3D
+    abstract class ScriptedEntity : PlanarEntity3D
     {
 
 
-        protected ActionList actionList;
+        protected Script script;
         protected int actionPtr;
 
         public int Health { get; protected set; }
@@ -30,7 +30,6 @@ namespace Exeggcute.src.entities
         /// </summary>
         protected int counter = 0;
 
-        public ScriptName BehaviorScript { get; protected set; }
 
         /// <summary>
         /// <para>
@@ -38,27 +37,26 @@ namespace Exeggcute.src.entities
         /// with:
         /// </para>
         /// </summary>
-        public CommandEntity(ModelName modelName, 
-                             ScriptName scriptName, 
-                             ArsenalName arsenalName)
-            : base(modelName, Engine.Jail)
+        public ScriptedEntity(Model model, BehaviorScript behavior)
+            : base(model, Engine.Jail)
         {
             Health = 100;
-            this.BehaviorScript = scriptName;
-            this.actionList = ScriptBank.Get(scriptName);
+            this.script = behavior;
         }
 
         /// <summary>
-        /// <para>Initializes the command entity for use as a spawner with:</para>
-        /// <para> - An action script</para>
-        /// <para> - An arsenal</para>
-        /// <para> - No model</para>
+        /// For use with a spawner.
         /// </summary>
-        public CommandEntity(ScriptName script)
+        public ScriptedEntity(SpawnScript spawn)
             : base(Engine.Jail)
         {
-            this.BehaviorScript = script;
-            this.actionList = ScriptBank.Get(script);
+            this.script = spawn;
+        }
+
+        public ScriptedEntity(BehaviorScript behavior)
+            : base(Engine.Jail)
+        {
+            this.script = behavior;
         }
 
         /// <summary>
@@ -67,11 +65,10 @@ namespace Exeggcute.src.entities
         /// <para> - A model</para>
         /// <para> - No arsenal</para>
         /// </summary>
-        public CommandEntity(ModelName model, ScriptName script)
+        public ScriptedEntity(Model model, TrajectoryScript trajectory)
             : base(model, Engine.Jail)
         {
-            this.BehaviorScript = script;
-            this.actionList = ScriptBank.Get(script);
+            this.script = trajectory;
         }
 
 
@@ -88,8 +85,8 @@ namespace Exeggcute.src.entities
             This is the default ActionBase handler. This was called
             because there was no handler in CommandEntity for the
             type {0} in script {1}";
-            Util.Warn(error, cmd.GetType(), BehaviorScript);
-            throw new NotImplementedException();
+            string message = string.Format(error, cmd.GetType(), script);
+            throw new NotImplementedException(message);
         }
 
         /// <summary>
@@ -107,13 +104,13 @@ namespace Exeggcute.src.entities
             // FIXME: 
             // seems excessively defensive. Also might be expensive
             // for thousands of objects?
-            if (actionList == null || actionList.Count == 0) return;
+            if (script == null || script.Count == 0) return;
             ///////////yuck//////////////////
-            for (int i = actionPtr; i < actionList.Count; i += 1)
+            for (int i = actionPtr; i < script.Count; i += 1)
             {
-                ActionBase current = actionList[i];
+                ActionBase current = script[i];
                 current.Process(this);
-                if (current is WaitAction || actionList == null)
+                if (current is WaitAction || script == null)
                 {
                     break;
                 }
