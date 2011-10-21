@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.graphics;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
@@ -11,12 +12,12 @@ namespace Exeggcute.src.entities
     {
         public static Sprite HUDSprite;
 
-        public BombItem(ModelName name)
-            : base(name)
+        public BombItem(Model model, BehaviorScript behavior)
+            : base(model, behavior)
         {
             if (HUDSprite == null)
             {
-                HUDSprite = SpriteBank.Get(SpriteName.bomb);
+                HUDSprite = SpriteBank.Get("bomb");
             }
         }
     }

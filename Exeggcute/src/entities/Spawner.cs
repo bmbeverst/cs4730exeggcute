@@ -14,7 +14,7 @@ namespace Exeggcute.src.entities
     /// entity which is shooting because it may have its own movement/behavior
     /// script.
     /// </summary>
-    class Spawner : CommandEntity
+    class Spawner : ScriptedEntity
     {
         int timer = 0;
         bool active;
@@ -23,13 +23,12 @@ namespace Exeggcute.src.entities
         HashList<Shot> shotListHandle;
         Mover mover;
         public Spawner(ArsenalEntry arsenalEntry, HashList<Shot> shotListHandle)
-            : base(arsenalEntry.SpawnScriptName)
+            : base(arsenalEntry.Spawn)
         {
-            Console.WriteLine(arsenalEntry.ShotBehaviorScriptName);
             this.shot = new Shot(arsenalEntry);
             this.shotListHandle = shotListHandle;
             this.active = true;
-            this.mover = new Mover(arsenalEntry.SpawnerMoveScriptName);
+            this.mover = new Mover(arsenalEntry.Behavior);
         }
 
         /*

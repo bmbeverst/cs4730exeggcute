@@ -5,6 +5,7 @@ using System.Text;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting.roster;
 using Exeggcute.src.scripting.action;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
@@ -17,14 +18,9 @@ namespace Exeggcute.src.entities
         /// </summary>
         public bool IsDying { get; protected set; }
 
-        protected ModelName modelName;
-        protected ScriptName scriptName;
-        protected ArsenalName arsenalName;
-
         protected HashList<Shot> shotListHandle;
         protected HashList<Gib> gibListHandle;
-        protected ActionList deathActions;
-        protected static ScriptName deathScriptName = ScriptName.death0;
+        protected Script deathScript;
 
         protected RosterEntry rosterParams;
         /// <summary>
@@ -32,25 +28,28 @@ namespace Exeggcute.src.entities
         ///setParam health 100
         ///setParam defence 10
         /// </summary>
-        public Enemy(RosterEntry entry, HashList<Shot> enemyShots, HashList<Gib> gibList)
-            : base(entry.ModelName, entry.ScriptName, entry.ArsenalName, enemyShots, gibList)
+        public Enemy(RosterEntry entry, Script deathScript, HashList<Shot> enemyShots, HashList<Gib> gibList)
+            : base(entry.Surface, entry.Behavior, entry.Arsenal, enemyShots, gibList)
         {
             Health = 100;
             this.rosterParams = entry;
-            this.modelName = entry.ModelName;
-            this.scriptName = entry.ScriptName;
-            this.arsenalName = entry.ArsenalName;
             this.shotListHandle = shotList;
             this.gibListHandle = gibList;
-            this.deathActions = ScriptBank.Get(deathScriptName);
+            //FIXME
+            this.deathScript = GetDeathScript();
         }
 
         public Enemy Clone(EntityArgs args)
         {
-            Enemy cloned = new Enemy(rosterParams, shotListHandle, gibListHandle);
+            Enemy cloned = new Enemy(rosterParams, deathScript, shotListHandle, gibListHandle);
             cloned.Position = args.SpawnPosition;
             cloned.Angle = args.AngleHeading;
             return cloned;
+        }
+
+        public static Script GetDeathScript()
+        {
+            return ScriptBank.GetBehavior("death0"); 
         }
 
         public override void Update()
@@ -69,7 +68,7 @@ namespace Exeggcute.src.entities
             {
                 World.DyingList.Add(this);
                 IsDying = true;
-                actionList = deathActions;
+                script = deathScript;
                 //Console.WriteLine(deathActions.Name.ToString());
                 actionPtr = 0;
                 arsenal.StopAll();
@@ -80,7 +79,7 @@ namespace Exeggcute.src.entities
             else if (IsDying)
             {
                 //Console.WriteLine(cmdPtr);
-                if (actionPtr == actionList.Count)
+                if (actionPtr == script.Count)
                 {
                     IsTrash = true;
                 }
@@ -94,7 +93,8 @@ namespace Exeggcute.src.entities
             IsTrash = true;
             for (int i = 0; i < numGibs; i += 1)
             {
-                gibListHandle.Add(new Gib(ModelName.XNAface, Position2D, Speed, Angle));
+                Model gibModel = ModelBank.Get("XNAface");
+                gibListHandle.Add(new Gib(gibModel, Position2D, Speed, Angle));
             }
         }
 

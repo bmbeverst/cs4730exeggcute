@@ -27,7 +27,7 @@ namespace Exeggcute.src.scripting.action
             VelocityZ = velocityZ;
         }
 
-        public override void Process(CommandEntity entity)
+        public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

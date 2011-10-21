@@ -9,10 +9,10 @@ namespace Exeggcute.src.assets
 {
     static class EffectBank
     {
-        private static Bank<EffectName, Effect> bank = 
-            new Bank<EffectName, Effect>("shaders");
-        public static List<EffectName> AllNames = bank.AllNames;
-        public static Effect Get(EffectName name)
+        private static Bank<Effect> bank = 
+            new Bank<Effect>("ExeggcuteContent/shaders", "xnb");
+
+        public static Effect Get(string name)
         {
             return bank[name].Clone();
         }
@@ -22,7 +22,7 @@ namespace Exeggcute.src.assets
             bank.LoadAll(content);
         }
 
-        public static void Load(ContentManager content, EffectName name)
+        public static void Load(ContentManager content, string name)
         {
             bank.Load(content, name);
         }

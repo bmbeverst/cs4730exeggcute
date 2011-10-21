@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
@@ -12,8 +13,8 @@ namespace Exeggcute.src.entities
         protected const float GIBSPEED = 2;
         protected const float OFFSET = 2;
         static Random rng = new Random();
-        public Gib(ModelName modelName, Vector2 parentPos, float parentSpeed, float parentAngle)
-            : base(modelName, getOffset(parentPos))
+        public Gib(Model model, Vector2 parentPos, float parentSpeed, float parentAngle)
+            : base(model, getOffset(parentPos))
         {
             float angle = rng.NextRadian();
             float speed = GIBSPEED;

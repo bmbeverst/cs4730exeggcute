@@ -6,17 +6,17 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src.entities
 {
-    class EntityInfo
+    /*class EntityInfo
     {
         public ModelName Model { get; protected set; }
-        public ScriptName Script { get; protected set; }
+        public BehaviorScript Behavior { get; protected set; }
         public List<EntityInfo> Children { get; protected set; }
 
-        public EntityInfo(ModelName model, ScriptName script, List<EntityInfo> children)
+        public EntityInfo(ModelName model, BehaviorScript script, List<EntityInfo> children)
         {
-            Model = model;
-            Script = script;
+            this.Model = model;
+            this.Behavior = script;
             Children = children;
         }
-    }
+    }*/
 }

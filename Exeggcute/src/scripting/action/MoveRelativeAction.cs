@@ -19,7 +19,7 @@ namespace Exeggcute.src.scripting.action
             Duration = duration;
         }
 
-        public override void Process(CommandEntity entity)
+        public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

@@ -9,10 +9,11 @@ namespace Exeggcute.src.assets
 {
     static class FontBank
     {
-        private static Bank<FontName, SpriteFont> bank = 
-            new Bank<FontName, SpriteFont>("fonts");
-        public static List<FontName> AllNames = bank.AllNames;
-        public static SpriteFont Get(FontName name)
+        private static Bank<SpriteFont> bank =
+            new Bank<SpriteFont>("ExeggcuteContent/fonts", "xnb");
+
+
+        public static SpriteFont Get(string name)
         {
             return bank[name];
         }
@@ -22,7 +23,7 @@ namespace Exeggcute.src.assets
             bank.LoadAll(content);
         }
 
-        public static void Load(ContentManager content, FontName name)
+        public static void Load(ContentManager content, string name)
         {
             bank.Load(content, name);
         }

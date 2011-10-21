@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.graphics
 {
@@ -34,18 +35,17 @@ namespace Exeggcute.src.graphics
         /// </summary>
         /// <typeparam name="TSprite">the type of sprite expected</typeparam>
         /// <param name="name">the filename minus extension</param>
-        public static Sprite Load(SpriteName name)
+        public static Sprite Load(string name)
         {
-            string filepath = String.Format("ExeggcuteContent/sprites/{0}.{1}", name, EXT);
+            string filepath = String.Format("{0}.{1}", name, EXT);
             List<string> lines = Util.StripComments(filepath, '#', true);
             lines.Reverse(); //???
             Stack<string> lineStack = new Stack<string>(lines);
             List<IAnimation> anims = new List<IAnimation>();
             while (lineStack.Count != 0)
             {
-                string textureString = lineStack.Pop();
+                string textureName = lineStack.Pop();
                 //Console.WriteLine(textureString);
-                TextureName textureName = Util.ParseEnum<TextureName>(textureString);
                 string sizeString = lineStack.Pop();
                 //Console.WriteLine(sizeString);
                 string[] size = sizeString.Split(DIM_SEP);
@@ -56,7 +56,6 @@ namespace Exeggcute.src.graphics
                 Point[] frames = parseFrames(framesString);
                 if (frames.Length == 1)
                 {
-                    // I need a cast? really??
                     anims.Add(new StaticAnimation(textureName, frames[0], width, height));
                     continue;
                 }
@@ -69,7 +68,8 @@ namespace Exeggcute.src.graphics
 
                 string speedString = lineStack.Pop();
                 int speed = int.Parse(speedString);
-                anims.Add(new Animation(textureName, width, height, frames, order, speed, loop, loopAt));
+                Texture2D texture = TextureBank.Get(textureName);
+                anims.Add(new Animation(texture, width, height, frames, order, speed, loop, loopAt));
 
             }
             if (anims.Count == 0) throw new ParseError("No animations found");

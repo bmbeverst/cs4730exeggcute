@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Exeggcute.src.scripting
 {
-    abstract class ScriptParser<TElement, TName>
+    abstract class ScriptParser<TElement>
     {
-        
         public char Delim { get; protected set; }
-        public List<TElement> Load(TName name)
+
+        public List<TElement> Load(string name)
         {
-            string filepath = getFilepath(name.ToString());
+            string filepath = getFilepath(name);
             List<string> lines = Util.StripComments(filepath, '#', true);
             lines.Reverse();
             Stack<string> lineStack = new Stack<string>(lines);

@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.scripting.arsenal
 {
     class ArsenalEntry
     {
-        public ModelName ModelName { get; protected set; }
-        public ScriptName SpawnerMoveScriptName { get; protected set; }
-        public ScriptName ShotBehaviorScriptName { get; protected set; }
-        public ScriptName SpawnScriptName { get; protected set; }
-        public ArsenalEntry(ModelName modelName, ScriptName spawnerMoveScript, ScriptName spawnScript, ScriptName shotScript)
+        public Model Surface { get; protected set; }
+        public BehaviorScript Behavior { get; protected set; }
+        public TrajectoryScript Trajectory { get; protected set; }
+        public SpawnScript Spawn { get; protected set; }
+
+        public ArsenalEntry(Model model, BehaviorScript behavior, SpawnScript spawn, TrajectoryScript trajectory)
         {
-            ModelName = modelName;
-            SpawnerMoveScriptName = spawnerMoveScript;
-            SpawnScriptName = spawnScript;
-            ShotBehaviorScriptName = shotScript;
+            this.Surface = model;
+            this.Behavior = behavior;
+            this.Spawn = spawn;
+            this.Trajectory = trajectory;
         }
     }
 }

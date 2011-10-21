@@ -9,10 +9,10 @@ namespace Exeggcute.src.assets
 {
     static class ModelBank
     {
-        static private Bank<ModelName, Model> bank = 
-            new Bank<ModelName, Model>("models");
-        public static List<ModelName> AllNames = bank.AllNames;
-        public static Model Get(ModelName name)
+        static private Bank<Model> bank =
+            new Bank<Model>("ExeggcuteContent/models", "xnb");
+
+        public static Model Get(string name)
         {
             return bank[name];
         }
@@ -22,7 +22,7 @@ namespace Exeggcute.src.assets
             bank.LoadAll(content);
         }
 
-        public static void Load(ContentManager content, ModelName name)
+        public static void Load(ContentManager content, string name)
         {
             bank.Load(content, name);
         }

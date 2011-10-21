@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.graphics
 {
@@ -24,9 +25,9 @@ namespace Exeggcute.src.graphics
             get { return frames[order[orderPtr]]; }
             protected set { throw new Exception("dont touch me"); }
         }
-        public Animation(TextureName texName, int width, int height, Point[] frames, int[] order, int speed, bool loop, int loopAt)
+        public Animation(Texture2D texture, int width, int height, Point[] frames, int[] order, int speed, bool loop, int loopAt)
         {
-            this.Texture = TextureBank.Get(texName);
+            this.Texture = texture;
             this.Width = width;
             this.Height = height;
             this.frames = frames;

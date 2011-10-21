@@ -9,6 +9,7 @@ using Exeggcute.src.input;
 using Exeggcute.src.contexts;
 using Exeggcute.src.assets;
 using Exeggcute.src.entities;
+using Exeggcute.src.scripting.roster;
 
 namespace Exeggcute.src
 {
@@ -54,10 +55,10 @@ namespace Exeggcute.src
             stack.Peek().Draw(graphics, batch);
         }
 
-        public static void LoadLevel()
+        /*public static void LoadLevel()
         {
             stack.Push(new Level(graphics, content, RosterName.test));
-        }
+        }*/
 
         public static void Process(ContextEvent ent)
         {
@@ -93,14 +94,16 @@ namespace Exeggcute.src
         {
             if (scoreMenu == null)
             {
-                scoreMenu = new ScoreMenu(FontName.consolas);
+                SpriteFont font = FontBank.Get("consolas");
+                scoreMenu = new ScoreMenu(font);
             }
             stack.Push(scoreMenu);
         }
 
         public static void Process(LoadLevelEvent ent)
         {
-            stack.Push(new Level(graphics, content, RosterName.test));
+            Roster levelRoster = RosterBank.Get("test");
+            stack.Push(new Level(graphics, content, levelRoster));
         }
 
         public static void Process(QuitEvent ent)

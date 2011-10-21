@@ -19,7 +19,7 @@ namespace Exeggcute.src.scripting.action
             this.Switch = on;
         }
 
-        public override void Process(CommandEntity entity)
+        public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

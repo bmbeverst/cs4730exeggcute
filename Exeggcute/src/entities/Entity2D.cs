@@ -26,9 +26,9 @@ namespace Exeggcute.src.entities
             set { Position = new Vector2(Position.X, value); }
         }
 
-        public Entity2D(TextureName textureName, Vector2 pos)
+        public Entity2D(Texture2D texture, Vector2 pos)
         {
-            Sprite = new StaticSprite(textureName, new Point(0, 0), 16, 16);
+            Sprite = new StaticSprite(texture, new Point(0, 0), 16, 16);
             Position = pos;
         }
 

@@ -34,9 +34,9 @@ namespace Exeggcute
             get { return 1.0f / TextureHeight; }
         }
 
-        public TileMap(TextureName textureName, int tileHeight, int tileWidth)
+        public TileMap(Texture2D texture, int tileHeight, int tileWidth)
         {
-            Texture = TextureBank.Get(textureName);
+            Texture = texture;
             TileWidth = tileWidth;
             TileHeight = tileHeight;
         }

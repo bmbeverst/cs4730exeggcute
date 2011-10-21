@@ -3,29 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.scripting.arsenal
 {
-    class ArsenalLoader : ListParser<ArsenalName, ArsenalEntry>
+    class ArsenalLoader : ListParser<ArsenalEntry>
     {
         public ArsenalLoader()
         {
             Delim = ' ';
         }
 
-        protected override string getFilepath(ArsenalName name)
+        //fixme, doesnt get path, just appends the file extension
+        protected override string getFilepath(string name)
         {
-            return string.Format("data/arsenals/{0}.arsenal", name);
+            return string.Format("{0}.arsenal", name);
         }
 
         protected override ArsenalEntry parseEntry(Stack<string> tokens)
         {
+            string modelName = tokens.Pop();
+            string spawnerBehaviorName = tokens.Pop();
+            string spawnName = tokens.Pop();
+            string shotTrajectoryName = tokens.Pop();
+            Model model = ModelBank.Get(modelName);
+            BehaviorScript behavior = ScriptBank.GetBehavior(spawnerBehaviorName);
+            SpawnScript spawn = ScriptBank.GetSpawn(spawnName);
+            TrajectoryScript trajectory = ScriptBank.GetTrajectory(shotTrajectoryName);
 
-            ModelName model = Util.ParseEnum<ModelName>(tokens.Pop());
-            ScriptName spawnerMoveScript = Util.ParseEnum<ScriptName>(tokens.Pop());
-            ScriptName spawnScript = Util.ParseEnum<ScriptName>(tokens.Pop());
-            ScriptName shotMoveScript = Util.ParseEnum<ScriptName>(tokens.Pop());
-            return new ArsenalEntry(model, spawnerMoveScript, spawnScript, shotMoveScript);
+            return new ArsenalEntry(model, behavior, spawn, trajectory);
         }
     }
 }

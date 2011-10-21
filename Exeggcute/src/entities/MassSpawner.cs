@@ -9,22 +9,22 @@ namespace Exeggcute.src.entities
 {
     class SpawnerEntry
     {
-        public ScriptName ScriptName { get; protected set; }
-        public ArsenalName ArsenalName { get; protected set; }
+        public SpawnScript Spawn { get; protected set; }
+        public NewArsenal Arsenal { get; protected set; }
         public Vector3 RelPosition { get; protected set; }
         public float Angle { get; protected set; }
-        public SpawnerEntry(ScriptName scriptName, ArsenalName arsenalName, Vector3 pos, float angle)
+        public SpawnerEntry(SpawnScript spawn, NewArsenal arsenal, Vector3 pos, float angle)
         {
-            ScriptName = scriptName;
-            ArsenalName = arsenalName;
-            RelPosition = pos;
-            Angle = angle;
+            this.Spawn = spawn;
+            this.Arsenal = arsenal;
+            this.RelPosition = pos;
+            this.Angle = angle;
         }
     }
 
     class MassSpawner
     {
-        public List<Spawner> spawners = new List<Spawner>();
+        /*public List<Spawner> spawners = new List<Spawner>();
 
         public bool IsDone
         {
@@ -38,9 +38,9 @@ namespace Exeggcute.src.entities
         public MassSpawner(List<SpawnerEntry> entries, int duration, HashList<Shot> shotList)
         {
             entries = new List<SpawnerEntry> {
-                new SpawnerEntry(ScriptName.playerspawner0, ArsenalName.test, new Vector3(0, 5, 0), 0),
-                new SpawnerEntry(ScriptName.playerspawner0, ArsenalName.test, new Vector3(-10, 5, 0), 0),
-                new SpawnerEntry(ScriptName.playerspawner0, ArsenalName.test, new Vector3(10, 5, 0), 0),
+                new SpawnerEntry(SpawnerName.player0, ArsenalName.test, new Vector3(0, 5, 0), 0),
+                new SpawnerEntry(SpawnerName.player0, ArsenalName.test, new Vector3(-10, 5, 0), 0),
+                new SpawnerEntry(SpawnerName.player0, ArsenalName.test, new Vector3(10, 5, 0), 0),
 
             };
             foreach (SpawnerEntry entry in entries)
@@ -76,6 +76,6 @@ namespace Exeggcute.src.entities
                 spawner.Reset();
             }
             doneTimer.Reset();
-        }
+        }*/
     }
 }

@@ -17,7 +17,7 @@ namespace Exeggcute.src.scripting.action
         {
             Pointer = 0;
         }
-        public override void Process(CommandEntity entity)
+        public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);
         }

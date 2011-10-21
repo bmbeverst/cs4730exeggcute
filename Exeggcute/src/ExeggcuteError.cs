@@ -15,5 +15,11 @@ namespace Exeggcute.src
         {
 
         }
+
+        public ExeggcuteError()
+            : base("Unhandled programmer error")
+        {
+
+        }
     }
 }

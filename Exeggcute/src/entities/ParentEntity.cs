@@ -5,30 +5,30 @@ using System.Text;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting.action;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
     /// <summary>
     /// A parent entity contains an arsenal.
     /// </summary>
-    class ParentEntity : CommandEntity
+    class ParentEntity : ScriptedEntity
     {
         protected NewArsenal arsenal;
         protected HashList<Gib> gibList;
         protected HashList<Shot> shotList;
 
-        public ParentEntity(ModelName modelName,
-            ScriptName scriptName,
-            ArsenalName arsenalName,
-            HashList<Shot> shotListHandle,
-            HashList<Gib> gibListHandle)
-            : base(modelName, scriptName)
+        public ParentEntity(Model model,
+                            BehaviorScript behavior,
+                            NewArsenal arsenal,
+                            HashList<Shot> shotListHandle,
+                            HashList<Gib> gibListHandle)
+            : base(model, behavior)
         {
-            List<ArsenalEntry> entries = ArsenalBank.Get(arsenalName);
             this.gibList = gibListHandle;
             this.shotList = shotListHandle;
             Console.WriteLine(shotListHandle.Name);
-            this.arsenal = new NewArsenal(entries, shotListHandle);
+            this.arsenal = arsenal;
         }
 
         public override void Process(ShootAction shoot)

@@ -7,22 +7,51 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting;
 using Exeggcute.src.entities;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Exeggcute.src.scripting.action
 {
-    class ActionListLoader : ScriptParser<ActionBase, ScriptName>
+    class ScriptLoader : ScriptParser<ActionBase>
     {
         public static readonly string EXT = "cl";
-        public static readonly string ROOT = "data";
+        public static readonly string ROOT = "data/scripts";
+        public static string[] allFiles;
         protected override string getFilepath(string name)
         {
-            return string.Format("{0}/{1}.{2}", ROOT, name, EXT);
+            return name;
         }
-
-        public ActionListLoader()
+        protected string[] getAllFiles()
+        {
+            return Directory.GetFiles(ROOT);
+        }
+        public ScriptLoader()
         {
             Delim = ' ';
         }
+        public string Join(object name, string ext)
+        {
+            return string.Format("{0}.{1}", name.ToString(), ext);
+        }
+
+        public List<ActionBase> LoadBehavior(string behavior)
+        {
+            string name = Join(behavior, "cl");
+            Console.WriteLine("name withext = {0}", name);
+            return Load(name);
+        }
+
+        public List<ActionBase> LoadSpawn(string spawn)
+        {
+            string name = Join(spawn, "spawn");
+            return Load(name);
+        }
+
+        public List<ActionBase> LoadShot(string shot)
+        {
+            string name = Join(shot, "traj");
+            return Load(name);
+        }
+
 
         protected override List<ActionBase> parseElement(string[] tokens)
         {

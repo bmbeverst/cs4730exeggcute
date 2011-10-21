@@ -34,9 +34,9 @@ namespace Exeggcute.src.entities
             protected set { Position = new Vector3(Position.X, Position.Y, value); }
         }
 
-        public Entity3D(ModelName modelName, Vector3 pos)
+        public Entity3D(Model model, Vector3 pos)
         {
-            Surface = ModelBank.Get(modelName);
+            Surface = model;
             /*foreach (ModelMesh mesh in Surface.Meshes)
             {
                 
