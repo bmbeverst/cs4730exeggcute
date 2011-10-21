@@ -83,15 +83,21 @@
       <Processor>FontDescriptionProcessor</Processor>
       <SubType>Designer</SubType>
     </Compile>
-    <None Include="blend\junk0.blend">
-      <Name>junk0</Name>
-    </None>
-    <None Include="blend\player.blend">
-      <Name>player</Name>
-    </None>
-    <None Include="blend\XNAtest.blend">
-      <Name>XNAtest</Name>
-    </None>
+    <Compile Include="models\arrow.fbx">
+      <Name>arrow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="models\bullet0.fbx">
+      <Name>bullet0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="models\junk1.fbx">
+      <Name>junk1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="sprites\bomb.sprite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>bomb</Name>
