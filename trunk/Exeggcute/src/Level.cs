@@ -65,7 +65,7 @@ namespace Exeggcute.src
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, Roster roster)
         {
-            Song song = content.Load<Song>("songs/pressure_cooker");
+            Song song = content.Load<Song>("songs/Mayhem_Some_Boss_Shit");
             MediaPlayer.Play(song);
             MediaPlayer.IsVisualizationEnabled = true;
             Texture2D wangTexture = TextureBank.Get("wang8");

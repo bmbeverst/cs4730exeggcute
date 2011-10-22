@@ -228,8 +228,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="songs\pressure_cooker.mp3">
-      <Name>pressure_cooker</Name>
+    <Compile Include="songs\Mayhem_Some_Boss_Shit.mp3">
+      <Name>Mayhem_Some_Boss_Shit</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
