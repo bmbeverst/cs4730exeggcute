@@ -27,7 +27,7 @@ namespace Exeggcute.src
 
         public void LoadLocal()
         {
-            List<string> lines = Util.StripComments(FILE, '#', true);
+            List<string> lines = Util.StripComments(FILE, true);
             if (lines.Count != 10)
             {
                 restore(lines);
@@ -103,8 +103,6 @@ namespace Exeggcute.src
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
         {
-            int yspacing = 1;
-            
             float height = font.MeasureString("A").Y;
             ScoreEntry[] toDraw = ViewingNetwork ? networkScores : localScores;
             for (int i = 0; i < LENGTH; i += 1)

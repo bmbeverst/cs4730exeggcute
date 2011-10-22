@@ -15,19 +15,19 @@ namespace Exeggcute.src
     /// <summary>
     /// Miscellaneous utility functions
     /// </summary>
-    public static class Util
+    internal static class Util
     {
         /// <summary>
         /// Contains the characters considered to be whitespace.
         /// </summary>
-        public static readonly char[] Whitespace = new char[] {
+        internal static readonly char[] Whitespace = new char[] {
             ' ', '\t', '\r', '\n'
         };
 
         /// <summary>
         /// Returns the lines from a file, taking failure to be non-recoverable.
         /// </summary>
-        public static List<string> ReadLines(string filepath)
+        internal static List<string> ReadLines(string filepath)
         {
             if (!File.Exists(filepath))
             {
@@ -39,7 +39,7 @@ namespace Exeggcute.src
         /// <summary>
         /// Used to issue warnings to the terminal.
         /// </summary>
-        public static void Warn(string message, params object[] args)
+        internal static void Warn(string message, params object[] args)
         {
             string formatted = String.Format(message, args);
             Console.Error.WriteLine("WARNING: {0}", formatted);
@@ -48,7 +48,7 @@ namespace Exeggcute.src
         /// <summary>
         /// Used to quit with an error message.
         /// </summary>
-        public static void Die(string message, params object[] args)
+        internal static void Die(string message, params object[] args)
         {
             string msg;
             if (args.Length == 0)
@@ -71,7 +71,7 @@ namespace Exeggcute.src
         /// </summary>
         /// <typeparam name="T">The type that the calling method is expecting to return</typeparam>
         /// <returns>never</returns>
-        public static T Die<T>(string message, params object[] args)
+        internal static T Die<T>(string message, params object[] args)
         {
             Die(message, args);
             return default(T);
@@ -82,7 +82,7 @@ namespace Exeggcute.src
         /// it will move that file to a temporary location before writing
         /// to ensure that data is never destroyed.
         /// </summary>
-        public static void WriteFile(string filepath, string data)
+        internal static void WriteFile(string filepath, string data)
         {
             string tempname = filepath + "-temp";
             try
@@ -104,7 +104,7 @@ namespace Exeggcute.src
         /// Splits a string based on newline characters and trims all 
         /// leading and trailing whitespace.
         /// </summary>
-        public static List<string> SplitLines(string allText)
+        internal static List<string> SplitLines(string allText)
         {
             string[] splitted = Regex.Split(allText, "(\n|\r\n)");
             for (int i = 0; i < splitted.Length; i += 1)
@@ -120,7 +120,7 @@ namespace Exeggcute.src
         /// Similar to keyboardState.GetPressedKeys, but the function does
         /// not exist for GamePadState for whatever reason.
         /// </summary>
-        public static Buttons[] GetPressedButtons(GamePadState gpState)
+        internal static Buttons[] GetPressedButtons(GamePadState gpState)
         {
             List<Buttons> pressed = new List<Buttons>();
             foreach (Buttons button in Enum.GetValues(typeof(Buttons)))
@@ -136,7 +136,7 @@ namespace Exeggcute.src
         /// <summary>
         /// Returns true if the input is a power of two.
         /// </summary>
-        public static bool PowerOfTwo(int n)
+        internal static bool PowerOfTwo(int n)
         {
             return (n & (n - 1)) == 0;
         }
@@ -149,7 +149,7 @@ namespace Exeggcute.src
         /// min if val -lt min
         /// max if val -gt max
         /// </returns>
-        public static int Clamp(int val, int min, int max)
+        internal static int Clamp(int val, int min, int max)
         {
             if (val < min) return min;
             else if (val > max) return max;
@@ -164,8 +164,9 @@ namespace Exeggcute.src
         /// <param name="filepath">the file to be read</param>
         /// <param name="delim">the comment delimiting character</param>
         /// <param name="stripEmpty">empty lines are removed</param>
-        public static List<string> StripComments(string filepath, char delim, bool stripEmpty = false)
+        internal static List<string> StripComments(string filepath, bool stripEmpty = false)
         {
+            char delim = '#';
             List<string> lines = ReadLines(filepath);
             for (int i = lines.Count - 1; i >= 0; i -= 1)
             {
@@ -190,9 +191,9 @@ namespace Exeggcute.src
         /// </summary>
         /// <param name="filepath">path to the file to be read</param>
         /// <param name="delim">character beginning a comment</param>
-        public static Stack<string> StackifyFile(string filepath, char delim)
+        internal static Stack<string> StackifyFile(string filepath)
         {
-            List<string> lines = Util.StripComments(filepath, delim, true);
+            List<string> lines = Util.StripComments(filepath, true);
             return Util.Stackify(lines);
         }
 
@@ -201,7 +202,7 @@ namespace Exeggcute.src
         /// </summary>
         /// <param name="input">the string to be trimmed</param>
         /// <returns>the input with leading and trailing whitespace removed</returns>
-        public static string Trim(string input)
+        internal static string Trim(string input)
         {
             return input.Trim(Whitespace);
         }
@@ -211,7 +212,7 @@ namespace Exeggcute.src
         /// </summary>
         /// <param name="input">the string to be stripped</param>
         /// <returns>input string with all whitespace removed</returns>
-        public static string RemoveSpace(string input)
+        internal static string RemoveSpace(string input)
         {
             foreach(char c in Whitespace)
             {
@@ -224,7 +225,7 @@ namespace Exeggcute.src
         /// Reduces all spans of tabs/spaces to a single space, and trims
         /// leading and trailing whitespace of all kinds.
         /// </summary>
-        public static string FlattenSpace(string input)
+        internal static string FlattenSpace(string input)
         {
             input = Trim(input);
             return Regex.Replace(input, "( |\t)+", " ");
@@ -236,7 +237,7 @@ namespace Exeggcute.src
         /// </summary>
         /// <typeparam name="TEnum">the type to be converted to</typeparam>
         /// <param name="name">the string to convert</param>
-        public static TEnum ParseEnum<TEnum>(string name) where TEnum : struct
+        internal static TEnum ParseEnum<TEnum>(string name) where TEnum : struct
         {
             TEnum result;
             bool success = Enum.TryParse<TEnum>(name, true, out result);
@@ -248,7 +249,7 @@ namespace Exeggcute.src
         /// Gets a sphere encompassing all of the model's bounding spheres.
         /// </summary>
         /// <param name="meshes">myModel.Meshes</param>
-        public static BoundingSphere MergeSpheres(ModelMeshCollection meshes)
+        internal static BoundingSphere MergeSpheres(ModelMeshCollection meshes)
         {
             //could use "defaultifempty" here, but we should probably die instead
             if (meshes.Count == 0)
@@ -266,7 +267,7 @@ namespace Exeggcute.src
         /// <summary>
         /// Converts the input string into a Vector2. Expected format is (X,Y)
         /// </summary>
-        public static Vector2 ParseVector2(string vec)
+        internal static Vector2 ParseVector2(string vec)
         {
             try
             {
@@ -286,7 +287,7 @@ namespace Exeggcute.src
         /// <summary>
         /// Converts the input string into a Vector3. Expected format is (X,Y,Z)
         /// </summary>
-        public static Vector3 ParseVector3(string vec)
+        internal static Vector3 ParseVector3(string vec)
         {
             try
             {
@@ -304,11 +305,23 @@ namespace Exeggcute.src
 
         }
 
+        internal static Float3 ParseFloat3(string vec)
+        {
+            vec = Util.RemoveSpace(vec);
+            vec = vec.Replace("(", "").Replace(")", "");
+            string[] ranges = vec.Split(',');
+            FloatValue x = ParseFloatValue(ranges[0]);
+            FloatValue y = ParseFloatValue(ranges[1]);
+            FloatValue z = ParseFloatValue(ranges[2]);
+            return new Float3(x, y, z);
+
+        }
+
         /// <summary>
         /// Displaces the X and Y coordinates of the given Vector3 by the 
         /// given angle and distance.
         /// </summary>
-        public static Vector3 Displace(Vector3 origin, float angle, float distance)
+        internal static Vector3 Displace(Vector3 origin, float angle, float distance)
         {
             float x = origin.X + distance * FastTrig.Sin(angle);
             float y = origin.Y + distance * FastTrig.Cos(angle);
@@ -319,7 +332,7 @@ namespace Exeggcute.src
         /// Returns the given rectangle grown by the given percentage on all sides.
         /// Assumes liveBuffer &gt; 0  
         /// </summary>
-        public static Rectangle GrowRect(Rectangle rect, float liveBuffer)
+        internal static Rectangle GrowRect(Rectangle rect, float liveBuffer)
         {
             int newWidth = (int)(rect.Width * (1 + 2 * liveBuffer));
             int newHeight = (int)(rect.Height * (1 + 2 * liveBuffer));
@@ -334,23 +347,31 @@ namespace Exeggcute.src
         /// Turns a list of strings into a stack of strings, with the 
         /// top of the file at the top of the stack.
         /// </summary>
-        public static Stack<T> Stackify<T>(IEnumerable<T> lines)
+        internal static Stack<T> Stackify<T>(IEnumerable<T> lines)
         {
             lines = lines.Reverse();
             return new Stack<T>(lines);
         }
 
-        public static Stack<string> Tokenize(string line, char delim)
+        /// <summary>
+        /// Splits a string by the given delim into a stack of
+        /// strings with the first split string on top.
+        /// </summary>
+        internal static Stack<string> Tokenize(string line, char delim)
         {
             return Util.Stackify<string>(line.Split(delim));
         }
 
-        public static Vector2 Vec2FromSpeed(float speed, float angle)
+        /// <summary>
+        /// Converts a speed,angle into a Vector2
+        /// </summary>
+        internal static Vector2 Vec2FromSpeed(float speed, float angle)
         {
             return new Vector2(speed * FastTrig.Cos(angle), speed * FastTrig.Sin(angle));
         }
 
-        public static string[] GetFiles(string reldir)
+
+        internal static string[] GetFiles(string reldir)
         {
             string[] result;
             try
@@ -364,6 +385,47 @@ namespace Exeggcute.src
                 throw new ExeggcuteError();
             }
             return result;
+        }
+        internal static Tuple<string, string> PreprocessRange(string s)
+        {
+            string flattened = Util.RemoveSpace(s);
+            string removed = Regex.Replace(flattened, "[|]", "");
+            string[] split = removed.Split(',');
+            return new Tuple<string,string>(split[0],split[1]);
+        }
+
+        internal static bool IsInt(string s)
+        {
+            int dummy = 0;
+            return int.TryParse(s, out dummy);
+            
+        }
+
+        internal static bool IsFloat(string s)
+        {
+            float dummy = 0;
+            return float.TryParse(s, out dummy);
+        }
+
+        internal static FloatValue ParseFloatValue(string s, float scale=1)
+        {
+            if (IsFloat(s))
+            {
+                float value = float.Parse(s);
+                return new FloatValue(value * scale);
+            }
+            else
+            {
+                Tuple<string, string> prep = PreprocessRange(s);
+                float min = float.Parse(prep.Item1) * scale;
+                float max = float.Parse(prep.Item2) * scale;
+                return new FloatRange(min, max);
+            }
+        }
+
+        internal static Vector3 AngleToVector3(float debugAngle)
+        {
+            return new Vector3(FastTrig.Cos(debugAngle), FastTrig.Sin(debugAngle), 0);
         }
     }
 }

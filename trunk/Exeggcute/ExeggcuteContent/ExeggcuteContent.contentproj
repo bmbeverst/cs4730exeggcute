@@ -165,6 +165,7 @@
       <Name>Bad_Hair_DayFin</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -182,18 +183,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="textures\face.png">
+    <None Include="textures\face.png">
       <Name>face</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="textures\fractal.png">
+    <None Include="textures\fractal.png">
       <Name>fractal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sfx\shot0.wav">
@@ -203,11 +206,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="textures\junk.jpg">
+    <None Include="textures\junk.jpg">
       <Name>junk</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sprites\fractal.png">

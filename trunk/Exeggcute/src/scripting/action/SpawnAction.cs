@@ -7,15 +7,20 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src.scripting.action
 {
+    enum AngleType
+    {
+        Abs,
+        Rel
+    }
     class SpawnAction : ActionBase
     {
-        public float Distance { get; protected set; }
-        public float Angle { get; protected set; }
-        
-        public SpawnAction(float distance, float angle)
+        public FloatValue Angle { get; protected set; }
+        public AngleType Type { get; protected set; }
+
+        public SpawnAction(FloatValue angle, AngleType type)
         {
-            this.Distance = distance;
             this.Angle = angle;
+            this.Type = type;
         }
 
         public override void Process(ScriptedEntity entity)
@@ -25,7 +30,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new SpawnAction(Distance, Angle);
+            return new SpawnAction(Angle, Type);
         }
     }
 }

@@ -55,11 +55,6 @@ namespace Exeggcute.src
             stack.Peek().Draw(graphics, batch);
         }
 
-        /*public static void LoadLevel()
-        {
-            stack.Push(new Level(graphics, content, RosterName.test));
-        }*/
-
         public static void Process(ContextEvent ent)
         {
 

@@ -17,7 +17,7 @@ namespace Exeggcute.src.entities
         protected ArsenalEntry arsenalParams;
 
         public Shot(ArsenalEntry entry)
-            : base(entry.Surface, entry.Behavior)
+            : base(entry.Surface, entry.Trajectory)
         {
             Damage = 10;
             this.arsenalParams = entry;
@@ -29,6 +29,10 @@ namespace Exeggcute.src.entities
             clone.Angle = angle;
             clone.Position = pos;
             return clone;
+        }
+        public override void Update()
+        {
+            base.Update();
         }
 
         /// <summary>

@@ -8,13 +8,26 @@ namespace Exeggcute.src.scripting.action
 {
     class SetParamAction : ActionBase
     {
-        public string ParamName { get; protected set; }
-        public object Value { get; protected set; }
-
-        public SetParamAction(string name, object value)
+        public int ParamIndex { get; protected set; }
+        public FloatValue Value { get; protected set; }
+        
+        public SetParamAction(string name, FloatValue value)
         {
-            ParamName = name;
-            Value = value;
+            try
+            {
+                this.ParamIndex = PlanarEntity3D.ParamMap[name];
+            }
+            catch (KeyNotFoundException knf)
+            {
+                throw new ParseError("{0}\n{1} is not a settable parameter", knf.Message, name);
+            }
+            this.Value = value;
+        }
+
+        public SetParamAction(int index, FloatValue value)
+        {
+            this.ParamIndex = index;
+            this.Value = value;
         }
 
         public override void Process(ScriptedEntity entity)
@@ -24,7 +37,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new SetParamAction(ParamName, Value);
+            return new SetParamAction(ParamIndex, Value);
         }
     }
 }

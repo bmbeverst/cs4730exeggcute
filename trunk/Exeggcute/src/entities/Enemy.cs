@@ -6,6 +6,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.scripting.roster;
 using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.entities
 {
@@ -29,7 +30,7 @@ namespace Exeggcute.src.entities
         ///setParam defence 10
         /// </summary>
         public Enemy(RosterEntry entry, Script deathScript, HashList<Shot> enemyShots, HashList<Gib> gibList)
-            : base(entry.Surface, entry.Behavior, entry.Arsenal, enemyShots, gibList)
+            : base(entry.Surface, entry.Behavior, entry.Arsenal.Copy(), enemyShots, gibList)
         {
             Health = 100;
             this.rosterParams = entry;
@@ -96,6 +97,12 @@ namespace Exeggcute.src.entities
                 Model gibModel = ModelBank.Get("XNAface");
                 gibListHandle.Add(new Gib(gibModel, Position2D, Speed, Angle));
             }
+        }
+
+        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            base.Draw(graphics, view, projection);
+            arsenal.Draw(graphics, view, projection, Position);
         }
 
     }

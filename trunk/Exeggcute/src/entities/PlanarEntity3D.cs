@@ -10,14 +10,132 @@ namespace Exeggcute.src.entities
 {
     abstract class PlanarEntity3D : Entity3D
     {
+        
         public Vector3 PrevPosition { get; protected set; }
-        public float Mass { get; protected set; }
-        public float Angle { get; protected set; }
-        public float Speed { get; protected set; }
-        public float AngularVelocity { get; protected set; }
-        public float LinearAccel { get; protected set; }
-        public float AngularAccel { get; protected set; }
-        public float VelocityZ { get; protected set; }
+        protected float[] param = new float[16];
+        public int ParamCount { get { return param.Length; } }
+        public static Dictionary<string, int> ParamMap = new Dictionary<string, int>
+        {
+            { "Position",          0 },
+            { "PositionX",         0 },
+            { "PositionY",         1 },
+            { "PositionZ",         2 },
+            { "Mass",              3 },
+            { "Angle",             4 },
+            { "Speed",             5 },
+            { "VelocityZ",         6 },
+            { "AngularVelocity",   7 },
+            { "LinearAccel",       8 },
+            { "AngularAccel",      9 },
+            { "Facing",           10 },
+            { "FacingX",          10 },
+            { "FacingY",          11 },
+            { "FacingZ",          12 },
+            { "AimAngle",         13 },
+            { "AimAngleVelocity", 14 },
+            { "AimAngleAccel",    15 }
+        };
+
+        public override Vector3 Position
+        {
+            get { return new Vector3(param[0], param[1], param[2]); }
+            protected set
+            {
+                param[0] = value.X;
+                param[1] = value.Y;
+                param[2] = value.Z;
+            }
+        }
+        public virtual float X
+        {
+            get { return param[0]; }
+            protected set { param[0] = value; }
+        }
+
+        public virtual float Y
+        {
+            get { return param[1]; }
+            protected set { param[1] = value; }
+        }
+
+        public virtual float Z
+        {
+            get { return param[2]; }
+            protected set { param[2] = value; }
+        }
+        
+        public float Mass 
+        {
+            get { return param[3]; }
+            protected set { param[3] = value; }
+        }
+
+        public float Angle 
+        {
+            get { return param[4]; }
+            protected set { param[4] = value; }
+        }
+
+        public float Speed 
+        {
+            get { return param[5]; }
+            protected set { param[5] = value; }
+        }
+        public float VelocityZ
+        {
+            get { return param[6]; }
+            protected set { param[6] = value; }
+        }
+        public float AngularVelocity 
+        {
+            get { return param[7]; }
+            protected set { param[7] = value; }
+        }
+
+        public float LinearAccel 
+        {
+            get { return param[8]; }
+            protected set { param[8] = value; }
+        }
+
+        public float AngularAccel 
+        {
+            get { return param[9]; }
+            protected set { param[9] = value; } 
+        }
+
+        public Vector3 Facing
+        {
+            get { return new Vector3(param[10], param[11], param[12]); }
+            protected set 
+            { 
+                param[10] = value.X; 
+                param[11] = value.Y; 
+                param[12] = value.Z; 
+            }
+        }
+
+        public float AimAngle
+        {
+            get { return param[13]; }
+            protected set { param[13] = value; }
+        }
+
+        public float AimAngleVelocity
+        {
+            get { return param[14]; }
+            protected set { param[14] = value; }
+        }
+
+        public float AimAngleAccel
+        {
+            get { return param[15]; }
+            protected set { param[15] = value; }
+        }
+
+
+
+        public float Scale { get; protected set; }
 
         
 
@@ -44,12 +162,23 @@ namespace Exeggcute.src.entities
             : base(model, pos)
         {
             Mass = 1000.0f;
+            Scale = 1;
         }
 
         public PlanarEntity3D(Vector3 pos)
             : base (pos)
         {
             Mass = 1;
+            Scale = 1;
+        }
+
+        /// <summary>
+        /// Tells whether the entity is in a rectangle, usually used to 
+        /// tell if the entity is offscreen or not
+        /// </summary>
+        public bool ContainedIn(Rectangle rect)
+        {
+            return rect.Contains((int)X, (int)Y);
         }
 
         public void QueueDelete()
@@ -103,6 +232,42 @@ namespace Exeggcute.src.entities
             X += vx;
             Y += vy;
             Z += VelocityZ;
+        }
+        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            //FIXME subclass!
+            if (Surface == null) return;
+            Matrix[] transforms = new Matrix[Surface.Bones.Count];
+            Surface.CopyAbsoluteBoneTransformsTo(transforms);
+            foreach (ModelMesh mesh in Surface.Meshes)
+            {
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                {
+                    //FIXME: absolutely no reason to do this every frame
+                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(Scale) *
+                        Matrix.CreateRotationZ(Angle) *
+                        Matrix.CreateTranslation(Position);
+                    currentEffect.View = view;
+                    currentEffect.Projection = projection;
+
+                    /*Matrix world = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateRotationY(MathHelper.Pi) *
+                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
+                        Matrix.CreateRotationX(MathHelper.PiOver2) *
+                        Matrix.CreateTranslation(Position);
+                    Texture2D texture = TextureBank.Get(TextureName.fractal);
+                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                    currentEffect.Parameters["xWorld"].SetValue(world);
+                    currentEffect.Parameters["xView"].SetValue(view);
+                    currentEffect.Parameters["xProjection"].SetValue(projection);
+                    currentEffect.Parameters["xTexture"].SetValue(texture);*/
+
+
+                }
+                mesh.Draw();
+            }
+
         }
         
     }

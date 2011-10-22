@@ -9,14 +9,14 @@ namespace Exeggcute.src.scripting.action
 {
     class MoveRelativeAction : ActionBase
     {
-        public Vector3 Displacement { get; protected set; }
+        public Float3 Displacement { get; protected set; }
         public int Duration { get; protected set; }
 
 
-        public MoveRelativeAction(Vector3 displacement, int duration)
+        public MoveRelativeAction(Float3 displacement, int duration)
         {
-            Displacement = displacement;
-            Duration = duration;
+            this.Displacement = displacement;
+            this.Duration = duration;
         }
 
         public override void Process(ScriptedEntity entity)

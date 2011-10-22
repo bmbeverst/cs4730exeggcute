@@ -6,6 +6,7 @@ using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting.action;
 using Exeggcute.src.scripting.arsenal;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
@@ -21,25 +22,51 @@ namespace Exeggcute.src.entities
         int shotActionPtr = 0;
         Shot shot;
         HashList<Shot> shotListHandle;
-        Mover mover;
+        Model arrow;
+        Model debugModel;
+        ArsenalEntry arsenalEntry;
+        public Mover mover { get; protected set; }
+        public Vector3 ParentPos { get; protected set; }
+        public float ParentAngle { get; protected set; }
         public Spawner(ArsenalEntry arsenalEntry, HashList<Shot> shotListHandle)
             : base(arsenalEntry.Spawn)
         {
+            this.arsenalEntry = arsenalEntry;
             this.shot = new Shot(arsenalEntry);
             this.shotListHandle = shotListHandle;
             this.active = true;
             this.mover = new Mover(arsenalEntry.Behavior);
+            this.Scale = 1.0f;
+            this.arrow = ModelBank.Get("arrow");
+            this.debugModel = ModelBank.Get("XNAface");
         }
 
+        float debugAngle;
+        Vector3 debugPosition;
+        Vector3 arrowPosition;
+
+        public void UpdateMover(Vector3 parentPos, float parentAngle)
+        {
+            ParentPos = parentPos;
+            ParentAngle = parentAngle;
+            mover.Update(parentPos, parentAngle);
+            Position = mover.Position;
+
+
+            Vector3 moverPos = mover.Position + mover.ParentPosition;
+            Vector3 difference = ParentPos - moverPos;
+            debugAngle = FastTrig.Atan2(difference.Y, difference.X);
+            debugPosition = moverPos;
+            arrowPosition = Util.AngleToVector3(debugAngle) + debugPosition;
+        }
         /*
          * TODO/FIXME: make spawners Move and MoveRel and MoveTo commands relative to parent!!!
          * 
          */
         public void Update(Vector3 parentPos, float parentAngle)
         {
-            mover.Update(parentPos, parentAngle);
-            Position = mover.Position;
-            
+
+            UpdateMover(parentPos, parentAngle);
             if (active)
             {
                 
@@ -69,77 +96,65 @@ namespace Exeggcute.src.entities
 
         public override void Process(SpawnAction spawn)
         {
-            float angle = spawn.Angle + Angle;
-            float distance = spawn.Distance;
-            float x = distance * FastTrig.Cos(angle);
-            float y = distance * FastTrig.Sin(angle);
             Z = 0;
-            Vector3 pos = Position + new Vector3(x, y, 0);
-            //Util.Die("{0}", pos);
+            Vector3 pos = mover.ParentPosition + mover.Position;// +new Vector3(x, y, 0);
+            float angle;
+            if (spawn.Type == AngleType.Abs)
+            {
+                angle = spawn.Angle.Value;
+            }
+            else //relative
+            {
+                angle = mover.Angle + spawn.Angle.Value;
+            }
             Shot cloned = shot.Clone(pos, angle);
             shotListHandle.Add(cloned);
             actionPtr += 1;
         }
 
-
-
-
-
-
-        /*public EntityArgs Args { get; protected set; }
-        public Vector3 PosOffset { get; protected set; }
-        public float AngleOffset { get; protected set; }
-
-        protected Arsenal arsenal;
-
-        public Spawner(ScriptName script, ArsenalName arsenalName, Vector3 posOffset, float angleOffset, HashList<Shot> shotList)
-            : base(script, arsenalName, shotList)
-        {
-            PosOffset = posOffset;
-            AngleOffset = angleOffset;
-            this.arsenal = ArsenalBank.Get(arsenalName);
-        }
-
-        public Spawner(ScriptName script, ArsenalName arsenalName, HashList<Shot> shotList)
-            : base(script, arsenalName, shotList)
-        {
-            this.arsenal = ArsenalBank.Get(arsenalName);
-        }
-
-        public override void Process(SpawnAction spawn)
-        {
-            EntityArgs args = spawn.Args;
-            float angle = args.AngleHeading + Angle;
-            Vector3 pos = Position + args.SpawnPosition;
-            Shot cloned = arsenal.Clone(spawn.ID, pos, angle);
-            shotListHandle.Add(cloned);
-            actionPtr += 1;
-        }
-        public void SetParams(Vector3 pos, float angle)
-        {
-            PosOffset = pos;
-            AngleOffset = angle;
-        }
-
-        public void Follow(CommandEntity parent, bool lockPos, bool lockAngle)
-        {
-            if (lockPos)
-                Position = parent.Position + PosOffset;
-
-            if (lockAngle)
-                Angle = parent.Angle + AngleOffset;
-
-        }*/
-
-        public Spawner Copy()
-        {
-            //lol FIXME
-            return this;
-        }
-
         public void AttachShotHandle(HashList<Shot> shotListHandle)
         {
             this.shotListHandle = shotListHandle;
+        }
+
+        /// <summary>
+        /// FOR DEBUG ONLY
+        /// </summary>
+        public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            base.Draw(graphics, view, projection);
+            
+            Matrix[] transforms = new Matrix[arrow.Bones.Count];
+            arrow.CopyAbsoluteBoneTransformsTo(transforms);
+            foreach (ModelMesh mesh in arrow.Meshes)
+            {
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                {
+                    //FIXME: absolutely no reason to do this every frame
+                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(0.5f, 0.1f, 0.1f) *
+                        Matrix.CreateRotationZ(debugAngle) *
+                        Matrix.CreateTranslation(arrowPosition);
+                    currentEffect.View = view;
+                    currentEffect.Projection = projection;
+                }
+                mesh.Draw();
+            }
+
+            foreach (ModelMesh mesh in debugModel.Meshes)
+            {
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                {
+                    //FIXME: absolutely no reason to do this every frame
+                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(0.5f, 0.5f, 0.5f) *
+                        Matrix.CreateRotationZ(debugAngle) *
+                        Matrix.CreateTranslation(debugPosition);
+                    currentEffect.View = view;
+                    currentEffect.Projection = projection;
+                }
+                mesh.Draw();
+            }
         }
     }
 }

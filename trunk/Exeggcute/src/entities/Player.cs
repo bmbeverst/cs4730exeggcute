@@ -36,15 +36,17 @@ namespace Exeggcute.src.entities
         public bool IsShooting { get; protected set; }
         public bool IsBombing { get; protected set; }
 
-        public MassSpawner bomb;
+        public NewArsenal bomb;
+        public Timer bombTimer = new Timer(180);
         public Timer InvulnTimer;
 
         protected int frames;
         protected bool flashDraw;
         protected BehaviorScript deathScript;
 
+
         //TODO read player spawn script from a player file!
-        public Player(Model model, BehaviorScript deathScript, NewArsenal arsenal, HashList<Shot> shotList, HashList<Gib> gibList)
+        public Player(Model model, BehaviorScript deathScript, NewArsenal arsenal, NewArsenal bomb, HashList<Shot> shotList, HashList<Gib> gibList)
             : base(model, deathScript, arsenal, shotList, gibList)
         {
             this.lives = 3;
@@ -53,9 +55,10 @@ namespace Exeggcute.src.entities
             this.MoveSpeed = 1;
             this.FocusSpeed = 0.5f;
             this.InvulnTimer = new Timer(120);
-            //this.bomb = new MassSpawner(null, 120, shotList);
+            this.bomb = bomb;
             this.Hitbox = new BoundingSphere(Position, 0.2f);
             this.deathScript = deathScript;
+            this.Scale = 0.6f;
         }
 
         public void LockPosition(Camera camera, Rectangle gameArea)
@@ -129,7 +132,7 @@ namespace Exeggcute.src.entities
             if ((dx | dy) == 0)
             {
                 Speed = 0;
-                Angle = 0;
+                //Angle = 0;
             }
             else
             {
@@ -172,14 +175,17 @@ namespace Exeggcute.src.entities
             if (IsShooting && frames % 10 == 0) SoundBank.Get("shot0").Play();
             if (IsBombing)
             {
-                throw new NotImplementedException();
-                /*bomb.Update(this);
-                if (bomb.IsDone)
+                bomb.Update(Position, Angle);
+                if (bombTimer.IsDone)
                 {
                     IsBombing = false;
-                    bomb.Reset();
+                    bombTimer.Reset();
                     Console.WriteLine("End bombing");
-                }*/
+                }
+                else
+                {
+                    bombTimer.Increment();
+                }
             }
             score += 123;
             InvulnTimer.Increment();
@@ -195,7 +201,8 @@ namespace Exeggcute.src.entities
             }
             else
             {
-                base.ParentEntityBaseUpdate();
+
+                base.UpdateMovers();
             }
         }
 

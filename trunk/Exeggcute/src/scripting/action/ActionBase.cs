@@ -24,11 +24,7 @@ namespace Exeggcute.src.scripting.action
         /// </summary>
         Move,
 
-        /// <summary>
-        /// ???
-        /// Instantly sets the entity's position to the given vector.
-        /// </summary>
-        SetPos,
+        SetParam,
 
         /// <summary>
         /// Tells the entity to not process further commands until the action 
@@ -37,20 +33,9 @@ namespace Exeggcute.src.scripting.action
         Wait,
 
         /// <summary>
-        /// undocumented
-        /// </summary>
-        Set,
-
-        /// <summary>
         /// Stops all velocities and speeds on the entity.
         /// </summary>
         Stop,
-
-        /// <summary>
-        /// Tells the entity to spawn an entity from its arsenal into
-        /// its shotListHandle.
-        /// </summary>
-        Spawn,
 
         /// <summary>
         /// undocumented
@@ -69,24 +54,15 @@ namespace Exeggcute.src.scripting.action
         Loop,
 
         /// <summary>
-        /// Changes the state of the entity's spawner's position.
-        /// When locked, which is the default, an entity's spawner
-        /// follows its position and angle exactly. If you want
-        /// to turn off this behavior, use this type.
-        /// </summary>
-        SpawnerLock,
-
-        /// <summary>
-        /// Moves the entity's spawner by the vector specified and/or sets the
-        /// angle at which the spawner is facing.
-        /// </summary>
-        SpawnerSet,
-
-        /// <summary>
         /// Tells the level to remove this entity from the world before 
         /// calling its update method again.
         /// </summary>
-        Delete
+        Delete,
+
+        /// <summary>
+        /// Spawns a shot.
+        /// </summary>
+        Spawn
     }
 
 

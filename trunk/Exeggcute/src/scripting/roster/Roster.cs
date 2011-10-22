@@ -27,7 +27,7 @@ namespace Exeggcute.src.scripting.roster
         {
             foreach (var entry in entries)
             {
-                if (cache.ContainsKey(entry))
+                if (false && cache.ContainsKey(entry))
                 {
                     enemies.Add(cache[entry]);
                 }

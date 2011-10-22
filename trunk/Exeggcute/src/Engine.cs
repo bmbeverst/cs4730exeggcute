@@ -10,6 +10,7 @@ using Nuclex.Input;
 using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 using Exeggcute.src.text;
+using Exeggcute.src.contexts;
 
 namespace Exeggcute.src
 {
@@ -140,7 +141,7 @@ namespace Exeggcute.src
             MainMenu main = new MainMenu();
             World.PushContext(main);
             //for now lets ignore the level
-            //World.LoadLevel();
+            World.Process(new LoadLevelEvent());
         }
 
         public void Update()

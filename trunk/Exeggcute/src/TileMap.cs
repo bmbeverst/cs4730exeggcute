@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 using Exeggcute.src.graphics;
 
-namespace Exeggcute
+namespace Exeggcute.src
 {
     /// <summary>
     /// Helper class for specifying portions of a texture as individual images.
