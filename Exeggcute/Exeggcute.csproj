@@ -42,7 +42,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -281,73 +281,73 @@
     <Compile Include="src\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\arsenals\bomb0.arsenal">
+    <Content Include="data\arsenals\bomb0.arsenal">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\arsenals\testenemy.arsenal">
+    </Content>
+    <Content Include="data\arsenals\testenemy.arsenal">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\players\0.player">
+    </Content>
+    <Content Include="data\players\0.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\behaviors\option1.cl">
+    </Content>
+    <Content Include="data\scripts\behaviors\option1.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\behaviors\option0.cl">
+    </Content>
+    <Content Include="data\scripts\behaviors\option0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\spawns\enemy1.spawn">
+    </Content>
+    <Content Include="data\scripts\spawns\enemy1.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\spawns\enemy0.spawn">
+    </Content>
+    <Content Include="data\scripts\spawns\enemy0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\trajectories\basic.traj">
+    </Content>
+    <Content Include="data\scripts\trajectories\basic.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\behaviors\item.cl">
+    </Content>
+    <Content Include="data\scripts\behaviors\item.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\behaviors\playerrespawn.cl">
+    </Content>
+    <Content Include="data\scripts\behaviors\playerrespawn.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\spawns\player0.spawn">
+    </Content>
+    <Content Include="data\scripts\spawns\player0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\behaviors\testenemy.cl">
+    </Content>
+    <Content Include="data\scripts\behaviors\testenemy.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="controls.cfg">
+    </Content>
+    <Content Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="lib\Nuclex.Input.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="lib\SlimDX.DirectInput.dll" />
-    <None Include="data\levels\0.level">
+    <Content Include="data\levels\0.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\gibs\gibtest.gib" />
+    </Content>
+    <Content Include="data\gibs\gibtest.gib" />
     <Content Include="data\msg_boxes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="data\arsenals\weapon0.arsenal">
+    <Content Include="data\arsenals\weapon0.arsenal">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\score.dat">
+    </Content>
+    <Content Include="data\score.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\rosters\test.roster">
+    </Content>
+    <Content Include="data\rosters\test.roster">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\scripts\behaviors\death0.cl">
+    </Content>
+    <Content Include="data\scripts\behaviors\death0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="Exeggcute.ico" />
     <Content Include="Thumbnail.png" />
-    <None Include="settings.cfg">
+    <Content Include="settings.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="ExeggcuteContent\Content.contentproj">

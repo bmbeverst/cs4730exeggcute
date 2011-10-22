@@ -138,7 +138,7 @@ namespace Exeggcute.src
                 for (int j = 0; j < rows; j += 1)
                 {
                     Quad current = Quads[i, j];
-                    float height = freqs[i * spacing] * 32;
+                    float height = (1 - freqs[i * spacing]) * 32;
                     float r = Radius + height;
                     float y = -r * FastTrig.Cos(InteriorAngle * j);
                     float z = Radius + Depth + r * FastTrig.Sin(InteriorAngle * j);
