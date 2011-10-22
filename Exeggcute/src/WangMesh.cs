@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.gui;
+using Microsoft.Xna.Framework.Media;
+using System.Collections.ObjectModel;
 
 namespace Exeggcute.src
 {
@@ -29,7 +31,8 @@ namespace Exeggcute.src
         public float Depth { get; protected set; }
         public float TileSize { get; protected set; }
         public float ProgressY { get; protected set; }
-
+        public float Radius { get; protected set; }
+        public float InteriorAngle { get; protected set; }
         public WangMesh(GraphicsDevice graphics, Texture2D texture, int cols, int rows, float size, float heightVariance, float scrollSpeed)
         {
             Texture2D wangTexture = texture;
@@ -47,19 +50,19 @@ namespace Exeggcute.src
             Quads = new Quad[cols, rows];
             //ProgressY = -100;
             tilemap = new TileMap(texture, 32, 32);
-            float radius = -100;
-            
+            this.Radius = -100;
+            this.InteriorAngle =  (MathHelper.TwoPi / rows);
             for (int i = 0; i < cols; i += 1)
             {
                 for (int j = 0; j < rows; j += 1)
                 {
                     int index = wangGrid[i, j];
                     // HARDCODE
-                    float theta = (MathHelper.TwoPi / rows);
+                    
                     float height = rng.Next() * heightVariance - heightVariance / 2 + Depth;
-                    float r = radius + height;
-                    float y = -r * FastTrig.Cos(theta*j); 
-                    float z = r + Depth + r * FastTrig.Sin(theta*j);
+                    float r = Radius + height;
+                    float y = -r * FastTrig.Cos(InteriorAngle * j);
+                    float z = r + Depth + r * FastTrig.Sin(InteriorAngle * j);
                     //Vector3 position = new Vector3(i * size - Width / 2, j * size, height);
                     Vector3 position = new Vector3(i * size - Width / 2, y, z);
                     Quads[i, j] = tilemap.CreateQuad(index, position, new Vector3(0, 0, 1), size, size);
@@ -90,20 +93,18 @@ namespace Exeggcute.src
             for (int i = 0; i < cols; i += 1)
             {
                 Quad left;
-                Quad below;
+                Quad below = Quads[i, rows - 1]; ;
 
-                if (i <= 0)
-                    left = null;
-                else 
-                left = Quads[i - 1, 0];
+                if (i <= 0) left = null;
+                else left = Quads[i - 1, 0];
 
-                below = Quads[i, rows - 1];
                 Quads[i, 0].Lock(left, below);
             }
         }
 
         private void lockLocal(int xIndex, int yIndex)
         {
+            
             int xMin = Math.Max(0, xIndex);
             int xMax = Math.Min(cols - 1, xIndex + 2);
 
@@ -129,23 +130,24 @@ namespace Exeggcute.src
         }
 
         int frame = 0;
-        public void Update()
+        public void Update(ReadOnlyCollection<float> freqs)
         {
-            frame += 1;
-            if (frame % 10 == 0 || true)
+            int spacing = 256 / cols;
+            for (int i = 0; i < cols; i += 1)
             {
-                for (int i = 0; i < cols; i += 1)
+                for (int j = 0; j < rows; j += 1)
                 {
-                    for (int j = 0; j < rows; j += 1)
-                    {
-                        Quad current = Quads[i, j];
-                        float curZ = current.TopRight.Z;
-                        float newZ = Depth + rng.Next() * 8 - 4;
-                        //Console.WriteLine("{0},{1}", i, j);
-                        float x = current.TopRight.X;
-                        float y = current.TopRight.Y;
-                        Quads[i, j].UpdateVertices(current.TopLeft, new Vector3(x, y, newZ), current.BottomLeft, current.BottomRight);
-                    }
+                    Quad current = Quads[i, j];
+                    float height = freqs[i * spacing] * 32;
+                    float r = Radius + height;
+                    float y = -r * FastTrig.Cos(InteriorAngle * j);
+                    float z = Radius + Depth + r * FastTrig.Sin(InteriorAngle * j);
+                    //float curZ = current.TopRight.Z;
+                    //float newZ = Depth + rng.Next() * 8 - 4;
+                    //Console.WriteLine("{0},{1}", i, j);
+                    float x = current.TopRight.X;
+                    //float y = current.TopRight.Y;
+                    Quads[i, j].UpdateVertices(current.TopLeft, new Vector3(x, y, z), current.BottomLeft, current.BottomRight);
                 }
             }
             lockEdges();

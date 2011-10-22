@@ -14,6 +14,7 @@ using Exeggcute.src.scripting.roster;
 using Exeggcute.src.graphics;
 using Exeggcute.src.gui;
 using Exeggcute.src.physics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src
 {
@@ -59,9 +60,14 @@ namespace Exeggcute.src
 
         private TaskListLoader loader = new TaskListLoader();
 
+        private VisualizationData soundData = new VisualizationData();
+
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, Roster roster)
         {
+            Song song = content.Load<Song>("songs/pressure_cooker");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsVisualizationEnabled = true;
             Texture2D wangTexture = TextureBank.Get("wang8");
             this.terrain = new WangMesh(graphics, wangTexture, 12*2, 100*2, 4, 16, 0.001f);
             this.playerShots = World.PlayerShots;
@@ -161,10 +167,12 @@ namespace Exeggcute.src
 
         public void Update(ControlManager controls)
         {
+            MediaPlayer.GetVisualizationData(soundData);
+            float sum = 0;
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
-            //terrain.Update();
+            terrain.Update(soundData.Frequencies);
             //terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
