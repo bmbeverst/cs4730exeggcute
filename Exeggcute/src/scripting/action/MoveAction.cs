@@ -8,23 +8,23 @@ namespace Exeggcute.src.scripting.action
 {
     class MoveAction : ActionBase
     {
-        public float Speed { get; protected set; }
-        public float AngularVelocity { get; protected set; }
-        public float LinearAccel { get; protected set; }
-        public float AngularAccel { get; protected set; }
-        public float VelocityZ { get; protected set; }
+        public FloatValue Speed { get; protected set; }
+        public FloatValue AngularVelocity { get; protected set; }
+        public FloatValue LinearAccel { get; protected set; }
+        public FloatValue AngularAccel { get; protected set; }
+        public FloatValue VelocityZ { get; protected set; }
 
-        public MoveAction(float speed = 0,
-                          float angularVelocity = 0,
-                          float linearAccel = 0,
-                          float angularAccel = 0,
-                          float velocityZ = 0)
+        public MoveAction(FloatValue speed,
+                          FloatValue angularVelocity,
+                          FloatValue linearAccel,
+                          FloatValue angularAccel,
+                          FloatValue velocityZ)
         {
-            Speed = speed;
-            AngularVelocity = angularVelocity;
-            LinearAccel = linearAccel;
-            AngularAccel = angularAccel;
-            VelocityZ = velocityZ;
+            this.Speed = speed;
+            this.AngularVelocity = angularVelocity;
+            this.LinearAccel = linearAccel;
+            this.AngularAccel = angularAccel;
+            this.VelocityZ = velocityZ;
         }
 
         public override void Process(ScriptedEntity entity)

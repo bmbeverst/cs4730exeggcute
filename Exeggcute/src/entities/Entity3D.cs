@@ -16,23 +16,7 @@ namespace Exeggcute.src.entities
 
         public float ModelRotX { get; protected set; }
 
-        public virtual float X
-        {
-            get { return Position.X; }
-            protected set { Position = new Vector3(value, Position.Y, Position.Z); }
-        }
-
-        public virtual float Y
-        {
-            get { return Position.Y; }
-            protected set { Position = new Vector3(Position.X, value, Position.Z); }
-        }
-
-        public virtual float Z
-        {
-            get { return Position.Z; }
-            protected set { Position = new Vector3(Position.X, Position.Y, value); }
-        }
+        
 
         public Entity3D(Model model, Vector3 pos)
         {
@@ -88,55 +72,14 @@ namespace Exeggcute.src.entities
 
 
 
-        /// <summary>
-        /// Tells whether the entity is in a rectangle, usually used to 
-        /// tell if the entity is offscreen or not
-        /// </summary>
-        public bool ContainedIn(Rectangle rect)
-        {
-            return rect.Contains((int)X, (int)Y);
-        }
+
 
         public virtual void Update()
         {
             Hitbox = new BoundingSphere(Position, Hitbox.Radius);
         }
 
-        public virtual void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
-        {
-            //FIXME subclass!
-            if (Surface == null) return;
-            Matrix[] transforms = new Matrix[Surface.Bones.Count];
-            Surface.CopyAbsoluteBoneTransformsTo(transforms);
-            foreach (ModelMesh mesh in Surface.Meshes)
-            {
-                foreach (BasicEffect currentEffect in mesh.Effects)
-                {
-                    //FIXME: absolutely no reason to do this every frame
-                    currentEffect.World = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateRotationY(MathHelper.Pi) *
-                        Matrix.CreateRotationZ(MathHelper.PiOver2 + ModelRotX) *
-                        Matrix.CreateRotationX(MathHelper.PiOver2) *
-                        Matrix.CreateTranslation(Position);
-                    currentEffect.View = view;
-                    currentEffect.Projection = projection;
+        public abstract void Draw(GraphicsDevice graphics, Matrix view, Matrix projection);
 
-                    /*Matrix world = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateRotationY(MathHelper.Pi) *
-                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
-                        Matrix.CreateRotationX(MathHelper.PiOver2) *
-                        Matrix.CreateTranslation(Position);
-                    Texture2D texture = TextureBank.Get(TextureName.fractal);
-                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
-                    currentEffect.Parameters["xWorld"].SetValue(world);
-                    currentEffect.Parameters["xView"].SetValue(view);
-                    currentEffect.Parameters["xProjection"].SetValue(projection);
-                    currentEffect.Parameters["xTexture"].SetValue(texture);*/
-                  
-
-                }
-                mesh.Draw();
-            }
-        }
     }
 }

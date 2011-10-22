@@ -9,13 +9,13 @@ namespace Exeggcute.src.scripting.action
 {
     class MoveToAction : ActionBase
     {
-        public Vector3 Destination { get; protected set; }
+        public Float3 Destination { get; protected set; }
         public int Duration { get; protected set; }
 
-        public MoveToAction(Vector3 destination, int duration)
+        public MoveToAction(Float3 destination, int duration)
         {
-            Destination = destination;
-            Duration = duration;
+            this.Destination = destination;
+            this.Duration = duration;
         }
 
         public override void Process(ScriptedEntity entity)

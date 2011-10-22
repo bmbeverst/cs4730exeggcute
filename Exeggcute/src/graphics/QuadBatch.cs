@@ -28,9 +28,12 @@ namespace Exeggcute.src.graphics
             Shader.View = view;
             Shader.Projection = projection;
         }
-        public void Draw(GraphicsDevice graphics, Quad quad, float yProgress)
+        public void Draw(GraphicsDevice graphics, Quad quad, float centerDepth, float rotation)
         {
-            Shader.World = Matrix.CreateTranslation(0, yProgress, 0);
+            Shader.World = 
+                  Matrix.CreateTranslation(0, 0, -centerDepth)
+                * Matrix.CreateRotationX(-rotation)
+                * Matrix.CreateTranslation(0, 0, centerDepth);
             foreach (EffectPass pass in Shader.CurrentTechnique.Passes)
             {
                 pass.Apply();

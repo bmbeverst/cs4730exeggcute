@@ -8,8 +8,8 @@ namespace Exeggcute.src.scripting.action
 {
     class AimAction : ActionBase
     {
-        public float Angle { get; protected set; }
-        public AimAction(float angle)
+        public FloatValue Angle { get; protected set; }
+        public AimAction(FloatValue angle)
         {
             Angle = angle;
         }

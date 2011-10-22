@@ -9,14 +9,17 @@ namespace Exeggcute.src.scripting.action
     class LoopAction : ActionBase
     {
         public int Pointer { get; protected set; }
+
         public LoopAction(int ptr)
         {
-            Pointer = ptr;
+            this.Pointer = ptr;
         }
+
         public LoopAction()
         {
-            Pointer = 0;
+            this.Pointer = 0;
         }
+
         public override void Process(ScriptedEntity entity)
         {
             entity.Process(this);

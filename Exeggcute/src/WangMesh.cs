@@ -41,12 +41,13 @@ namespace Exeggcute.src
             Speed = scrollSpeed;
             Width = (cols - 1) * size;
             Height = rows * size;
-            Depth = -20;
+            Depth = -10;
             TileSize = size;
             wangGrid = new WangArray(cols, rows);
             Quads = new Quad[cols, rows];
-            ProgressY = -100;
+            //ProgressY = -100;
             tilemap = new TileMap(texture, 32, 32);
+            float radius = -100;
             
             for (int i = 0; i < cols; i += 1)
             {
@@ -54,14 +55,18 @@ namespace Exeggcute.src
                 {
                     int index = wangGrid[i, j];
                     // HARDCODE
+                    float theta = (MathHelper.TwoPi / rows);
                     float height = rng.Next() * heightVariance - heightVariance / 2 + Depth;
-                    Vector3 position = new Vector3(i * size - Width / 2, j * size, height);
+                    float r = radius + height;
+                    float y = -r * FastTrig.Cos(theta*j); 
+                    float z = r + Depth + r * FastTrig.Sin(theta*j);
+                    //Vector3 position = new Vector3(i * size - Width / 2, j * size, height);
+                    Vector3 position = new Vector3(i * size - Width / 2, y, z);
                     Quads[i, j] = tilemap.CreateQuad(index, position, new Vector3(0, 0, 1), size, size);
                 }
             }
 
             lockEdges();
-            
         }
 
         private void lockEdges()
@@ -81,6 +86,19 @@ namespace Exeggcute.src
 
                     Quads[i, j].Lock(left, below);
                 }
+            }
+            for (int i = 0; i < cols; i += 1)
+            {
+                Quad left;
+                Quad below;
+
+                if (i <= 0)
+                    left = null;
+                else 
+                left = Quads[i - 1, 0];
+
+                below = Quads[i, rows - 1];
+                Quads[i, 0].Lock(left, below);
             }
         }
 
@@ -147,6 +165,7 @@ namespace Exeggcute.src
             Quads[i, j].UpdateVertices(current.TopLeft, new Vector3(xQuad, yQuad, newZ), current.BottomLeft, current.BottomRight);
             lockLocal(i, j);
         }
+        float rotation = 0;
 
         //TODO
         /// <summary>
@@ -154,7 +173,7 @@ namespace Exeggcute.src
         /// </summary>
         public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            ProgressY -= 10*Speed;
+            rotation -= Speed;
             quadBatch.SetCamera(view, projection);
             for (int j = 0; j < rows; j += 1)
             {
@@ -163,7 +182,7 @@ namespace Exeggcute.src
                 
                     Quad quad = Quads[i, j];
                     
-                    quadBatch.Draw(graphics, quad, ProgressY);
+                    quadBatch.Draw(graphics, quad, Depth - 100, rotation);
                     //return;
                 }
             }

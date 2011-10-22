@@ -15,7 +15,6 @@ namespace Exeggcute.src.scripting.action
     {
         public static readonly string EXT = "cl";
         public static readonly string ROOT = "data/scripts";
-        public static string[] allFiles;
         protected override string getFilepath(string name)
         {
             return name;
@@ -53,24 +52,26 @@ namespace Exeggcute.src.scripting.action
         }
 
 
-        protected override List<ActionBase> parseElement(string[] tokens)
+        protected override List<ActionBase> parseElement(Stack<string> tokens)
         {
-            CommandType type = Util.ParseEnum<CommandType>(tokens[0]);
+            CommandType type = Util.ParseEnum<CommandType>(tokens.Pop());
             if (type == CommandType.MoveTo)
             {
-                Vector3 destination = Util.ParseVector3(tokens[1]);
-                int duration = int.Parse(tokens[2]);
+                Float3 destination = Util.ParseFloat3(tokens.Pop());
+                int duration = int.Parse(tokens.Pop());
                 return new List<ActionBase> {
                     new MoveToAction(destination, duration),
                     new WaitAction(duration),
-                    new SetAction(destination),
+                    new SetParamAction("PositionX", destination.X),
+                    new SetParamAction("PositionY", destination.Y),
+                    new SetParamAction("PositionZ", destination.Z),
                     new StopAction()
                 };
             }
             else if (type == CommandType.MoveRelative)
             {
-                Vector3 displacement = Util.ParseVector3(tokens[1]);
-                int duration = int.Parse(tokens[2]);
+                Float3 displacement = Util.ParseFloat3(tokens.Pop());
+                int duration = int.Parse(tokens.Pop());
                 return new List<ActionBase> {
                     new MoveRelativeAction(displacement, duration),
                     new WaitAction(duration),
@@ -79,24 +80,25 @@ namespace Exeggcute.src.scripting.action
             }
             else if (type == CommandType.Move)
             {
-                float speed = float.Parse(tokens[1]);
-                float angularVelocity = float.Parse(tokens[2]);
-                float linearAccel = float.Parse(tokens[3]);
-                float velocityZ = float.Parse(tokens[4]);
+                FloatValue speed           = Util.ParseFloatValue(tokens.Pop());
+                FloatValue angularVelocity = Util.ParseFloatValue(tokens.Pop());
+                FloatValue linearAccel     = Util.ParseFloatValue(tokens.Pop());
+                FloatValue angularAccel    = Util.ParseFloatValue(tokens.Pop());
+                FloatValue velocityZ       = Util.ParseFloatValue(tokens.Pop());
                 return new List<ActionBase> {
-                    new MoveAction(speed, angularVelocity, linearAccel, velocityZ)
+                    new MoveAction(speed, angularVelocity, linearAccel, angularAccel, velocityZ)
                 };
             }
             else if (type == CommandType.Aim)
             {
-                float angle = float.Parse(tokens[1]) * FastTrig.degreesToRadians; ;
+                FloatValue angle = Util.ParseFloatValue(tokens.Pop(), FastTrig.degreesToRadians);
                 return new List<ActionBase> {
                     new AimAction(angle)
                 };
             }
             else if (type == CommandType.Wait)
             {
-                int duration = int.Parse(tokens[1]);
+                int duration = int.Parse(tokens.Pop());
                 return new List<ActionBase> { new WaitAction(duration) };
             }
             else if (type == CommandType.Stop)
@@ -107,11 +109,29 @@ namespace Exeggcute.src.scripting.action
             {
                 return new List<ActionBase> { new DeleteAction() };
             }
+            else if (type == CommandType.SetParam)
+            {
+                string paramName = tokens.Pop();
+                FloatValue value = Util.ParseFloatValue(tokens.Pop());
+                int index;
+                try
+                {
+                    index = PlanarEntity3D.ParamMap[paramName];
+                }
+                catch (KeyNotFoundException knf)
+                {
+                    throw new ParseError("{0}\n{1} is not a settable parameter", knf.Message, paramName);
+                }
+                return new List<ActionBase> {
+                    new SetParamAction(index, value)
+                };
+            }
+
             else if (type == CommandType.Shoot)
             {
-                int id = int.Parse(tokens[1]);
+                FloatValue id = Util.ParseFloatValue(tokens.Pop());
                 int duration;
-                bool found = int.TryParse(tokens[2], out duration);
+                bool found = int.TryParse(tokens.Pop(), out duration);
                 if (!found)
                 {
                     duration = -1;
@@ -121,13 +141,13 @@ namespace Exeggcute.src.scripting.action
             else if (type == CommandType.Loop)
             {
                 int ptr;
-                if (tokens.Length != 2)
+                if (tokens.Count != 2)
                 {
                     ptr = 0;
                 }
                 else
                 {
-                    ptr = int.Parse(tokens[1]);
+                    ptr = int.Parse(tokens.Pop());
                 }
 
                 return new List<ActionBase> { 
@@ -137,72 +157,16 @@ namespace Exeggcute.src.scripting.action
             }
             else if (type == CommandType.Spawn)
             {
-                float distance = float.Parse(tokens[1]);
-                float angle = float.Parse(tokens[2]) * FastTrig.degreesToRadians;
+                AngleType atype = Util.ParseEnum<AngleType>(tokens.Pop());
+                FloatValue angle = Util.ParseFloatValue(tokens.Pop()).Mult( FastTrig.degreesToRadians);
+                
                 return new List<ActionBase> {
-                    new SpawnAction(distance, angle)
-                };
-            }
-            else if (type == CommandType.Set)
-            {
-                Vector3 pos = Util.ParseVector3(tokens[1]);
-                return new List<ActionBase> { new SetAction(pos) };
-            }
-            else if (type == CommandType.SpawnerLock)
-            {
-                bool lockPosition;
-                bool lockAngle;
-
-                string posString = tokens[1];
-                string angleString = tokens[2];
-                string positionValue = posString.Split(':')[1];
-                string angleValue = angleString.Split(':')[1];
-
-
-
-                if (Regex.IsMatch(positionValue, "[oO]ff"))
-                {
-                    lockPosition = false;
-                }
-                else if (Regex.IsMatch(positionValue, "[oO]n"))
-                {
-                    lockPosition = true;
-                }
-                else
-                {
-                    throw new ParseError("Valid values for \"{0}\" parameters are off and on", posString);
-                }
-
-                if (Regex.IsMatch(angleValue, "[oO]ff"))
-                {
-                    lockAngle = false;
-                }
-                else if (Regex.IsMatch(angleValue, "[oO]n"))
-                {
-                    lockAngle = true;
-                }
-                else
-                {
-                    throw new ParseError("Valid values for \"{0}\" parameters are off and on", angleString);
-
-                }
-
-                return new List<ActionBase> {
-                    new SpawnerLockAction(lockPosition, lockAngle)
-                };
-            }
-            else if (type == CommandType.SpawnerSet)
-            {
-                float posAngle = float.Parse(tokens[1]) * FastTrig.degreesToRadians;
-                float distance = float.Parse(tokens[2]);
-                float angle = float.Parse(tokens[3]) * FastTrig.degreesToRadians;
-                return new List<ActionBase> {
-                    new SpawnerSetAction(posAngle, distance, angle)
+                    new SpawnAction(angle, atype)
                 };
             }
             else
             {
-                throw new ParseError("Unhandled token type {0}", tokens[0]);
+                throw new ParseError("Unhandled token type {0}", type);
             }
         }
     }

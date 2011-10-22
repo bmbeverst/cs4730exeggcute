@@ -142,6 +142,8 @@
     <Compile Include="src\assets\SoundBank.cs" />
     <Compile Include="src\BehaviorScript.cs" />
     <Compile Include="src\entities\Arsenal.cs" />
+    <Compile Include="src\FloatValue.cs" />
+    <Compile Include="src\PlayerLoader.cs" />
     <Compile Include="src\TrajectoryScript.cs" />
     <Compile Include="src\SpawnScript.cs" />
     <Compile Include="src\contexts\ScoreEvent.cs" />
@@ -163,9 +165,6 @@
     <Compile Include="src\scripting\action\DeleteAction.cs" />
     <Compile Include="src\scripting\action\LoopAction.cs" />
     <Compile Include="src\scripting\action\SetParamAction.cs" />
-    <Compile Include="src\scripting\action\SpawnerLockAction.cs" />
-    <Compile Include="src\scripting\action\SpawnerSetAction.cs" />
-    <Compile Include="src\scripting\action\SpawnGibAction.cs" />
     <Compile Include="src\ServerTest.cs" />
     <Compile Include="src\SubclassShouldImplementError.cs" />
     <Compile Include="src\WangMesh.cs" />
@@ -214,7 +213,6 @@
     <Compile Include="src\scripting\roster\RosterLoader.cs" />
     <Compile Include="src\scripting\action\SpawnAction.cs" />
     <Compile Include="src\scripting\action\StopAction.cs" />
-    <Compile Include="src\scripting\action\SetAction.cs" />
     <Compile Include="src\scripting\action\ShootAction.cs" />
     <Compile Include="src\scripting\action\WaitAction.cs" />
     <Compile Include="src\DeletedResourceError.cs" />
@@ -280,22 +278,37 @@
     <Compile Include="src\Random.cs" />
     <Compile Include="src\Timer.cs" />
     <Compile Include="src\Util.cs" />
-    <Compile Include="TileMap.cs" />
+    <Compile Include="src\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\arsenals\bomb0.arsenal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\arsenals\testenemy.arsenal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\players\0.player">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\scripts\behaviors\option1.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\scripts\behaviors\option0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\scripts\spawns\enemy1.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\scripts\spawns\enemy0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\scripts\trajectories\player0.traj">
+    <None Include="data\scripts\trajectories\basic.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\scripts\behaviors\item.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\scripts\behaviors\playerspawn.cl">
+    <None Include="data\scripts\behaviors\playerrespawn.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\scripts\spawns\player0.spawn">
@@ -318,7 +331,7 @@
     <Content Include="data\msg_boxes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="data\arsenals\test.arsenal">
+    <None Include="data\arsenals\weapon0.arsenal">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\score.dat">

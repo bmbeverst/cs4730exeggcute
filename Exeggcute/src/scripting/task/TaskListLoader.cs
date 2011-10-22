@@ -21,21 +21,21 @@ namespace Exeggcute.src.scripting.task
             Delim = ' ';
         }
 
-        protected override List<Task> parseElement(string[] tokens)
+        protected override List<Task> parseElement(Stack<string> tokens)
         {
-            TaskType type = Util.ParseEnum<TaskType>(tokens[0]);
+            TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());
             if (type == TaskType.Msg)
             {
-                int id = int.Parse(tokens[1]);
+                int id = int.Parse(tokens.Pop());
                 return new List<Task> {
                     new MessageTask(id)
                 };
             }
             else if (type == TaskType.Spawn)
             {
-                int id = int.Parse(tokens[1]);
-                Vector3 pos = Util.ParseVector3(tokens[2]);
-                float angle = float.Parse(tokens[3]) * FastTrig.degreesToRadians;
+                int id = int.Parse(tokens.Pop());
+                Vector3 pos = Util.ParseVector3(tokens.Pop());
+                float angle = float.Parse(tokens.Pop()) * FastTrig.degreesToRadians;
                 EntityArgs args = new EntityArgs(pos, angle);
                 return new List<Task> {
                     new SpawnTask(id, args)
@@ -43,7 +43,7 @@ namespace Exeggcute.src.scripting.task
             }
             else if (type == TaskType.Wait)
             {
-                int duration = int.Parse(tokens[1]);
+                int duration = int.Parse(tokens.Pop());
                 return new List<Task> { 
                     new WaitTask(duration)
                 };

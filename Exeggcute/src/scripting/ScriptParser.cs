@@ -12,7 +12,7 @@ namespace Exeggcute.src.scripting
         public List<TElement> Load(string name)
         {
             string filepath = getFilepath(name);
-            List<string> lines = Util.StripComments(filepath, '#', true);
+            List<string> lines = Util.StripComments(filepath, true);
             lines.Reverse();
             Stack<string> lineStack = new Stack<string>(lines);
             int size = lineStack.Count;
@@ -21,10 +21,11 @@ namespace Exeggcute.src.scripting
             {
                 string line = lineStack.Pop();
                 string[] tokens = line.Split(Delim);
+                Stack<string> tokenStack = Util.Stackify<string>(tokens);
                 List<TElement> parsed;
                 try
                 {
-                    parsed = parseElement(tokens);
+                    parsed = parseElement(tokenStack);
                 }
                 catch (Exception error)
                 {
@@ -36,7 +37,7 @@ namespace Exeggcute.src.scripting
             return result;
         }
 
-        protected abstract List<TElement> parseElement(string[] tokens);
+        protected abstract List<TElement> parseElement(Stack<string> tokens);
         protected abstract string getFilepath(string name);
     }
 }

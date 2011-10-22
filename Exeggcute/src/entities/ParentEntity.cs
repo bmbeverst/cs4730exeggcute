@@ -6,6 +6,7 @@ using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.entities
 {
@@ -33,7 +34,7 @@ namespace Exeggcute.src.entities
 
         public override void Process(ShootAction shoot)
         {
-            arsenal.Process(shoot);
+            arsenal.Fire(shoot);
             actionPtr += 1;
         }
 
@@ -44,9 +45,17 @@ namespace Exeggcute.src.entities
             arsenal.Update(Position, Angle);
         }
 
-        public void ParentEntityBaseUpdate()
+        public void UpdateMovers()
         {
+            arsenal.UpdateMovers(Position, Angle);
             base.Update();
+        }
+
+
+        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            base.Draw(graphics, view, projection);
+            arsenal.Draw(graphics, view, projection, Position);
         }
     }
 }

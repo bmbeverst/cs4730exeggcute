@@ -84,10 +84,6 @@ namespace Exeggcute.src.assets
         /// </summary>
         public virtual void Load(ContentManager content, string filepath)
         {
-            if (Regex.IsMatch(filepath, "model"))
-            {
-                string x;
-            }
             string name = getName(filepath);
             // i am a terrible person
             string relpath = Regex.Replace(filepath, "ExeggcuteContent/", "");

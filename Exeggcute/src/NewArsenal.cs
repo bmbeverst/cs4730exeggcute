@@ -7,34 +7,29 @@ using Exeggcute.src.assets;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src
 {
     class NewArsenal
     {
-
-        protected static Dictionary<ArsenalEntry, Spawner> cache =
-               new Dictionary<ArsenalEntry, Spawner>();
-
         List<Spawner> spawners = new List<Spawner>();
-
+        public List<ArsenalEntry> entries;
+        public HashList<Shot> shotListHandle;
         public NewArsenal(List<ArsenalEntry> entries, HashList<Shot> shotListHandle)
         {
+            this.entries = entries;
+            this.shotListHandle = shotListHandle;
             foreach (ArsenalEntry entry in entries)
             {
-                if (cache.ContainsKey(entry) && false)
-                {
-                    Spawner next = cache[entry];
-                    next.AttachShotHandle(shotListHandle);
-                    spawners.Add(cache[entry]);
-                }
-                else
-                {
-                    Spawner next = new Spawner(entry, shotListHandle);
-                    cache[entry] = next;
-                    spawners.Add(next);
-                }
+                Spawner next = new Spawner(entry, shotListHandle);
+                spawners.Add(next);
             }
+        }
+
+        public NewArsenal Copy()
+        {
+            return new NewArsenal(entries, shotListHandle);
         }
 
         public void Update(Vector3 parentPos, float parentAngle)
@@ -45,21 +40,39 @@ namespace Exeggcute.src
             }
         }
 
-        public void Process(ShootAction shoot)
+        public void UpdateMovers(Vector3 parentPos, float parentAngle)
         {
-            if (shoot.Switch)
+            foreach (Spawner spawner in spawners)
             {
-                spawners[shoot.ID].SpawnFor(shoot.Duration);
+                spawner.UpdateMover(parentPos, parentAngle);
+            }
+        }
+
+        public void Fire(ShootAction shoot)
+        {
+            int id = (int)shoot.ID.Value;
+            if (shoot.TurnOn)
+            {
+                spawners[id].SpawnFor(shoot.Duration);
             }
             else
             {
-                spawners[shoot.ID].Stop();
+                spawners[id].Stop();
             }
         }
 
         public void StopAll()
         {
             spawners.ForEach(sp => sp.Stop());
+        }
+
+        public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection, Vector3 parentPos)
+        {
+            foreach (Spawner sp in spawners)
+            {
+                sp.Draw(graphics, view, projection);
+            }
+
         }
     }
 }

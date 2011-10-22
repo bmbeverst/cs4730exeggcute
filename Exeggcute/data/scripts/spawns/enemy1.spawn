@@ -1,0 +1,7 @@
+﻿spawn 1 95
+wait 2
+spawn 1 90
+wait 2
+spawn 1 85
+wait 2
+loop

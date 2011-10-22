@@ -5,6 +5,7 @@ using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.entities;
+using Exeggcute.src.scripting.arsenal;
 
 namespace Exeggcute.src.scripting.roster
 {
@@ -42,7 +43,8 @@ namespace Exeggcute.src.scripting.roster
 
             Model model = ModelBank.Get(modelname);
             BehaviorScript behavior = ScriptBank.GetBehavior(behaviorname);
-            NewArsenal arsenal = new NewArsenal(ArsenalBank.Get(arsenalname), shotHandle);
+            List<ArsenalEntry> entries = ArsenalBank.Get(arsenalname);
+            NewArsenal arsenal = new NewArsenal(entries, shotHandle);
             return new RosterEntry(model, behavior, arsenal);
         }
     }

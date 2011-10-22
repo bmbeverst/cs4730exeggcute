@@ -44,8 +44,17 @@ namespace Exeggcute.src.entities
             this.script = behavior;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// For use with a spawner.
+        /// </summary>
+        public ScriptedEntity(SpawnScript spawn)
+            : base(Engine.Jail)
+        {
+            this.script = spawn;
+        }*/
+
+        /// <summary>
+        /// For use with a spawner 
         /// </summary>
         public ScriptedEntity(SpawnScript spawn)
             : base(Engine.Jail)
@@ -128,10 +137,10 @@ namespace Exeggcute.src.entities
 
         public virtual void Process(MoveAction move)
         {
-            Speed = move.Speed;
-            LinearAccel = move.LinearAccel;
-            AngularVelocity = move.AngularVelocity;
-            AngularAccel = move.AngularAccel;
+            Speed = move.Speed.Value;
+            LinearAccel = move.LinearAccel.Value;
+            AngularVelocity = move.AngularVelocity.Value;
+            AngularAccel = move.AngularAccel.Value;
             actionPtr += 1;
         }
 
@@ -143,7 +152,7 @@ namespace Exeggcute.src.entities
         public virtual void Process(MoveToAction moveTo)
         {
             Vector3 start = Position;
-            Vector3 target = moveTo.Destination;
+            Vector3 target = moveTo.Destination.Vector;
             doSmoothTransition(start, target, moveTo.Duration);
             actionPtr += 1;
         }
@@ -151,7 +160,7 @@ namespace Exeggcute.src.entities
         public virtual void Process(MoveRelativeAction moveRel)
         {
             Vector3 start = Position;
-            Vector3 target = start + moveRel.Displacement;
+            Vector3 target = start + moveRel.Displacement.Vector;
             doSmoothTransition(start, target, moveRel.Duration);
             actionPtr += 1;
         }
@@ -175,15 +184,9 @@ namespace Exeggcute.src.entities
             throw new SubclassShouldImplementError();
         }
 
-        public virtual void Process(SetAction set)
-        {
-            Position = set.Position;
-            actionPtr += 1;
-        }
-
         public virtual void Process(AimAction aim)
         {
-            Angle = aim.Angle;
+            Angle = aim.Angle.Value;
             actionPtr += 1;
         }
 
@@ -201,10 +204,14 @@ namespace Exeggcute.src.entities
             }
         }
 
+        public virtual void Process(SetParamAction setparam)
+        {
+            param[setparam.ParamIndex] = setparam.Value.Value;
+        }
+
         public virtual void Process(StopAction stop)
         {
             Speed = 0;
-            Angle = 0;
             LinearAccel = 0;
             AngularAccel = 0;
             AngularVelocity = 0;
@@ -226,11 +233,6 @@ namespace Exeggcute.src.entities
         {
             ProcessActions();
             base.Update();
-        }
-
-        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
-        {
-            base.Draw(graphics, view, projection);
         }
 
 

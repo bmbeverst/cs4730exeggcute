@@ -11,7 +11,7 @@ namespace Exeggcute.src.scripting.action
         public int Duration { get; protected set; }
         public WaitAction(int duration)
         {
-            Duration = duration;
+            this.Duration = duration;
         }
 
         public override void Process(ScriptedEntity entity)
@@ -21,9 +21,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            WaitAction result = new WaitAction(Duration);
-
-            return result;
+            return new WaitAction(Duration);
         }
     }
 }

@@ -1,0 +1,6 @@
+﻿#SAMPLE PLAYER
+model:        playerScene
+deathScript:  playerrespawn
+weapon:       weapon0
+bomb:         bomb0
+

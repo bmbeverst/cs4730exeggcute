@@ -63,7 +63,7 @@ namespace Exeggcute.src
         public Level(GraphicsDevice graphics, ContentManager content, Roster roster)
         {
             Texture2D wangTexture = TextureBank.Get("wang8");
-            this.terrain = new WangMesh(graphics, wangTexture, 12*2, 100*2, 4, 16, 0.01f);
+            this.terrain = new WangMesh(graphics, wangTexture, 12*2, 100*2, 4, 16, 0.001f);
             this.playerShots = World.PlayerShots;
             this.enemyShots = World.EnemyShots;
             this.enemyList = World.EnemyList;
@@ -83,11 +83,7 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
-            Model playerModel = ModelBank.Get("playerScene");
-            BehaviorScript deathScript = ScriptBank.GetBehavior("playerspawn");
-            NewArsenal arsenal = new NewArsenal(ArsenalBank.Get("test"), World.PlayerShots);
-            player = new Player(playerModel, deathScript, arsenal, World.PlayerShots, World.GibList);
-            
+            player = PlayerLoader.Load("0");
         }
 
         private int scrollSpeed = 10;
@@ -169,7 +165,7 @@ namespace Exeggcute.src
             ProcessTasks();
             particles.Update();
             //terrain.Update();
-            terrain.Impact(player.X, player.Y, 0, 0);
+            //terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
