@@ -31,10 +31,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\playerScene.xnb</Output>
-      <Time>2011-10-21T07:50:09.805664-04:00</Time>
+      <Time>2011-10-21T16:15:00.5107421-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\playerScene_0.xml</Key>
-        <Value>2011-10-21T07:50:13.2705078-04:00</Value>
+        <Value>2011-10-21T16:15:01.7910156-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Request>
     </Item>
@@ -121,15 +121,6 @@
       <Time>2011-10-19T21:17:03.4423828-04:00</Time>
     </Item>
     <Item>
-      <Source>sprites\wang8.png</Source>
-      <Name>sprites\wang8</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8.xnb</Output>
-      <Time>2011-10-19T21:17:12.1455078-04:00</Time>
-    </Item>
-    <Item>
       <Source>sprites\fractal.png</Source>
       <Name>sprites\fractal</Name>
       <Importer>TextureImporter</Importer>
@@ -168,7 +159,7 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\models\playerScene_0.xml</Output>
-      <Time>2011-10-21T07:50:09.805664-04:00</Time>
+      <Time>2011-10-21T16:15:00.5107421-04:00</Time>
     </Item>
     <Item>
       <Source>models\testcube.fbx</Source>
@@ -183,33 +174,6 @@
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\models\XNAface_0.xml</Output>
       <Time>2011-10-21T07:49:18.828125-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\face.png</Source>
-      <Name>textures\face</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face.xnb</Output>
-      <Time>2011-10-21T07:47:57.3203125-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\fractal.png</Source>
-      <Name>textures\fractal</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal.xnb</Output>
-      <Time>2011-10-21T07:47:57.0566406-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\junk.jpg</Source>
-      <Name>textures\junk</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk.xnb</Output>
-      <Time>2011-10-21T07:47:57.8886718-04:00</Time>
     </Item>
     <Item>
       <Source>textures\junk.jpg</Source>
@@ -274,6 +238,76 @@
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Output>
       <Time>2011-10-21T07:47:57.3203125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\arrow.fbx</Source>
+      <Name>models\arrow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\arrow.xnb</Output>
+      <Time>2011-10-21T08:20:25.7382812-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\arrow_0.xml</Key>
+        <Value>2011-10-21T08:29:41.2568359-04:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\bullet0.fbx</Source>
+      <Name>models\bullet0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\bullet0.xnb</Output>
+      <Time>2011-10-21T08:20:25.7294921-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\bullet0_0.xml</Key>
+        <Value>2011-10-21T08:29:41.4677734-04:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\junk1.fbx</Source>
+      <Name>models\junk1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\junk1.xnb</Output>
+      <Time>2011-10-21T08:28:42.9394531-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\junk1_0.xml</Key>
+        <Value>2011-10-21T08:29:41.5673828-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\arrow.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\arrow_0.xml</Output>
+      <Time>2011-10-21T08:20:25.7382812-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\bullet0.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\bullet0_0.xml</Output>
+      <Time>2011-10-21T08:20:25.7294921-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\junk1.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\junk1_0.xml</Output>
+      <Time>2011-10-21T08:28:42.9394531-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\wang8.png</Source>
+      <Name>sprites\wang8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8.xnb</Output>
+      <Time>2011-10-21T17:46:09.1015625-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
