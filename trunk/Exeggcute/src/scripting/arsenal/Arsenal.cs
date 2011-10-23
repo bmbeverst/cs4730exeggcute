@@ -9,14 +9,14 @@ using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.scripting.arsenal
 {
-    class NewArsenal
+    class Arsenal
     {
         List<Spawner> spawners = new List<Spawner>();
         public List<ArsenalEntry> entries;
         public HashList<Shot> shotListHandle;
-        public NewArsenal(List<ArsenalEntry> entries, HashList<Shot> shotListHandle)
+        public Arsenal(List<ArsenalEntry> entries, HashList<Shot> shotListHandle)
         {
             this.entries = entries;
             this.shotListHandle = shotListHandle;
@@ -27,9 +27,11 @@ namespace Exeggcute.src
             }
         }
 
-        public NewArsenal Copy()
+
+
+        public Arsenal Copy(HashList<Shot> newHandle)
         {
-            return new NewArsenal(entries, shotListHandle);
+            return new Arsenal(entries, newHandle);
         }
 
         public void Update(Vector3 parentPos, float parentAngle)
@@ -73,6 +75,11 @@ namespace Exeggcute.src
                 sp.Draw(graphics, view, projection);
             }
 
+        }
+
+        public void AttachShotHandle(HashList<Shot> shotListHandle)
+        {
+            this.shotListHandle = shotListHandle;
         }
     }
 }

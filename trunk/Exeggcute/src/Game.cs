@@ -34,11 +34,12 @@ namespace Exeggcute.src
         {
             ScreenSize = new Point(GraphicsDevice.DisplayMode.Width, GraphicsDevice.DisplayMode.Height);
             batch = new SpriteBatch(GraphicsDevice);
+            
             // WARNING: if you're hacking around in Game, be warned
             // that the Banks are loaded in engine, so this must
             // be called before pretty much anything else
             engine = new Engine(GraphicsDevice, Content, new InputManager());
-
+            
             base.LoadContent();
         }
 

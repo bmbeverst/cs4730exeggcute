@@ -1,7 +1,6 @@
-﻿spawn rel 270
-wait 2
-spawn rel 275
-wait 2
-spawn rel 265
-wait 2
+﻿#spawn rel 0
+wait 6
+#spawn rel 0
+wait 6
+
 loop

@@ -12,7 +12,7 @@ namespace Exeggcute.src.entities
     {
         public virtual Vector3 Position { get; protected set; }
         public virtual Model Surface { get; protected set; }
-        public virtual BoundingSphere Hitbox { get; protected set; }
+        public virtual BoundingSphere OuterHitbox { get; protected set; }
 
         public float ModelRotX { get; protected set; }
 
@@ -54,8 +54,8 @@ namespace Exeggcute.src.entities
                 }
             }*/
             Position = pos;
-            Hitbox = Util.MergeSpheres(Surface.Meshes);
-            Hitbox = new BoundingSphere(Position, Hitbox.Radius);
+            OuterHitbox = Util.MergeSpheres(Surface.Meshes);
+            OuterHitbox = new BoundingSphere(Position, OuterHitbox.Radius);
         }
 
         public Entity3D(Vector3 pos)
@@ -76,7 +76,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Update()
         {
-            Hitbox = new BoundingSphere(Position, Hitbox.Radius);
+            OuterHitbox = new BoundingSphere(Position, OuterHitbox.Radius);
         }
 
         public abstract void Draw(GraphicsDevice graphics, Matrix view, Matrix projection);

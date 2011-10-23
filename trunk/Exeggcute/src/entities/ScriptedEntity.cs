@@ -20,7 +20,9 @@ namespace Exeggcute.src.entities
 
 
         protected Script script;
-        protected int actionPtr;
+        public int actionPtr { get; protected set; }
+
+        public bool IsAiming { get; protected set; }
 
         public int Health { get; protected set; }
 
@@ -165,6 +167,12 @@ namespace Exeggcute.src.entities
             actionPtr += 1;
         }
 
+        public virtual void Process(AimPlayerAction aim)
+        {
+            AimAngle = Util.AimAt(Position, Level.player.Position);
+            IsAiming = true;
+        }
+
         protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)
         {
             float distance = Vector3.Distance(start, target);
@@ -207,6 +215,7 @@ namespace Exeggcute.src.entities
         public virtual void Process(SetParamAction setparam)
         {
             param[setparam.ParamIndex] = setparam.Value.Value;
+            actionPtr += 1;
         }
 
         public virtual void Process(StopAction stop)

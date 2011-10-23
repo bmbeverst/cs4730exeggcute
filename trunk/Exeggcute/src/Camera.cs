@@ -17,9 +17,6 @@ namespace Exeggcute.src
         public float Far { get; protected set; }
         public float FieldOfView { get; protected set; }
 
-        public float ScrollAngle { get; protected set; }
-        public float ScrollSpeed { get; protected set; }
-
         public Camera(float distance, float angle, float speed)
         {
             Distance = distance;
@@ -27,11 +24,8 @@ namespace Exeggcute.src
             Target = new Vector3(0, 0, 0);
             Up = Vector3.Up;
             Near = 1.0f;
-            Far = 1000.0f;
+            Far = 10000.0f;
             FieldOfView = MathHelper.PiOver4;
-
-            ScrollSpeed = speed;
-            ScrollAngle = angle;
             
         }
 

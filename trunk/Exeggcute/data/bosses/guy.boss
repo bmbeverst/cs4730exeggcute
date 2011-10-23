@@ -1,0 +1,17 @@
+﻿#SAMPLE BOSS
+name:         Guy'sName #cant contain spaces atm, sorry
+model:        playerScene
+deathScript:  death0
+
+spellcard:    Test
+behavior:     death0
+attack:       bomb0
+duration:     600
+health:       1000
+
+spellcard:    Test2
+behavior:     death0
+attack:       bomb0
+duration:     600
+health:       1000
+

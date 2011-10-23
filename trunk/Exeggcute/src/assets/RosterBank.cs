@@ -10,8 +10,8 @@ namespace Exeggcute.src.assets
 {
     class RosterBank
     {
-        protected static Bank<Roster> bank =
-            new Bank<Roster>("data/rosters", "roster");
+        protected static CustomBank<Roster> bank =
+            new CustomBank<Roster>("data/rosters");
 
         protected static RosterLoader loader = new RosterLoader();
         public static Roster Get(string name)
@@ -19,18 +19,12 @@ namespace Exeggcute.src.assets
             return bank[name];
         }
 
-        public static void LoadAll(ContentManager content)
+        public static void LoadAll()
         {
             foreach (string file in bank.AllFiles)
             {
-                Load(content, file);
+                bank.Put(loader.Make(file), file);
             }
-        }
-
-        public static void Load(ContentManager content, string name)
-        {
-            string cutname = Path.GetFileNameWithoutExtension(name);
-            bank.Put(new Roster(loader.Load(name)), cutname);
         }
     }
 }

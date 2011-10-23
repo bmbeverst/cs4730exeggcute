@@ -9,7 +9,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.loading
 {
     class PlayerLoader
     {
@@ -21,8 +21,8 @@ namespace Exeggcute.src
             List<string> names = Util.StripComments(fullpath, true);
             Model model = null;
             BehaviorScript deathScript = null;
-            NewArsenal weapon = null;
-            NewArsenal bomb = null;
+            Arsenal weapon = null;
+            Arsenal bomb = null;
             for (int i = 0; i < names.Count; i += 1)
             {
                 string token = Util.RemoveSpace(names[i]);
@@ -39,17 +39,13 @@ namespace Exeggcute.src
                 }
                 else if (matches("weapon"))
                 {
-                    List<ArsenalEntry> entries = ArsenalBank.Get(value);
-                    weapon = new NewArsenal(entries, World.PlayerShots);
+                    weapon = ArsenalBank.Get(value, World.PlayerShots);
+
                 }
                 else if (matches("bomb"))
                 {
-                    List<ArsenalEntry> entries = ArsenalBank.Get(value);
-                    bomb = new NewArsenal(entries, World.PlayerShots);
+                    bomb = ArsenalBank.Get(value, World.PlayerShots);
                 }
-
-                
-              
             }
             if (bomb == null || model == null || deathScript == null || weapon == null)
             {

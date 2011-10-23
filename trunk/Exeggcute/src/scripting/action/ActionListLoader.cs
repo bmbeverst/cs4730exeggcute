@@ -13,42 +13,25 @@ namespace Exeggcute.src.scripting.action
 {
     class ScriptLoader : ScriptParser<ActionBase>
     {
-        public static readonly string EXT = "cl";
-        public static readonly string ROOT = "data/scripts";
-        protected override string getFilepath(string name)
+
+
+
+        public BehaviorScript MakeBehavior(string filepath)
         {
-            return name;
-        }
-        protected string[] getAllFiles()
-        {
-            return Directory.GetFiles(ROOT);
-        }
-        public ScriptLoader()
-        {
-            Delim = ' ';
-        }
-        public string Join(object name, string ext)
-        {
-            return string.Format("{0}.{1}", name.ToString(), ext);
+            string name = getName(filepath);
+            return new BehaviorScript(name, Load(filepath));
         }
 
-        public List<ActionBase> LoadBehavior(string behavior)
+        public SpawnScript MakeSpawn(string filepath)
         {
-            string name = Join(behavior, "cl");
-            Console.WriteLine("name withext = {0}", name);
-            return Load(name);
+            string name = getName(filepath);
+            return new SpawnScript(name, Load(filepath));
         }
 
-        public List<ActionBase> LoadSpawn(string spawn)
+        public TrajectoryScript MakeTrajectory(string filepath)
         {
-            string name = Join(spawn, "spawn");
-            return Load(name);
-        }
-
-        public List<ActionBase> LoadShot(string shot)
-        {
-            string name = Join(shot, "traj");
-            return Load(name);
+            string name = getName(filepath);
+            return new TrajectoryScript(name, Load(filepath));
         }
 
 
@@ -162,6 +145,12 @@ namespace Exeggcute.src.scripting.action
                 
                 return new List<ActionBase> {
                     new SpawnAction(angle, atype)
+                };
+            }
+            else if (type == CommandType.AimPlayer)
+            {
+                return new List<ActionBase> {
+                    new AimPlayerAction()
                 };
             }
             else

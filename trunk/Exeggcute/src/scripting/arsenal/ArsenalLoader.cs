@@ -7,19 +7,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.scripting.arsenal
 {
-    class ArsenalLoader : ListParser<ArsenalEntry>
+    class ArsenalLoader : EntryListParser<ArsenalEntry>
     {
-        public ArsenalLoader()
+        public Arsenal Make(string filepath)
         {
-            Delim = ' ';
+            return new Arsenal(Parse(filepath), null);
         }
-
-        //fixme, doesnt get path, just appends the file extension
-        protected override string getFilepath(string name)
-        {
-            return string.Format("{0}.arsenal", name);
-        }
-
         protected override ArsenalEntry parseEntry(Stack<string> tokens)
         {
             string modelName = tokens.Pop();

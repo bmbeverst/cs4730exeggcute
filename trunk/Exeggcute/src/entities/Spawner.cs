@@ -55,6 +55,7 @@ namespace Exeggcute.src.entities
 
             Vector3 moverPos = mover.Position + mover.ParentPosition;
             Vector3 difference = ParentPos - moverPos;
+            if (difference.Equals(Vector3.Zero)) return;
             debugAngle = FastTrig.Atan2(difference.Y, difference.X);
             debugPosition = moverPos;
             arrowPosition = Util.AngleToVector3(debugAngle) + debugPosition;
@@ -105,7 +106,15 @@ namespace Exeggcute.src.entities
             }
             else //relative
             {
-                angle = mover.Angle + spawn.Angle.Value;
+                if (mover.IsAiming)
+                {
+                    angle = mover.AimAngle + spawn.Angle.Value;
+                }
+                else
+                {
+                    angle = mover.Angle + spawn.Angle.Value;
+                }
+                
             }
             Shot cloned = shot.Clone(pos, angle);
             shotListHandle.Add(cloned);

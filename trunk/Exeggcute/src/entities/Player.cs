@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.action;
+using Exeggcute.src.graphics;
+using Exeggcute.src.scripting.arsenal;
+using Exeggcute.src.entities.items;
 
 namespace Exeggcute.src.entities
 {
@@ -35,8 +38,9 @@ namespace Exeggcute.src.entities
 
         public bool IsShooting { get; protected set; }
         public bool IsBombing { get; protected set; }
+        public bool IsFocusing { get; protected set; }
 
-        public NewArsenal bomb;
+        public Arsenal bomb;
         public Timer bombTimer = new Timer(180);
         public Timer InvulnTimer;
 
@@ -44,11 +48,17 @@ namespace Exeggcute.src.entities
         protected bool flashDraw;
         protected BehaviorScript deathScript;
 
-
+        protected int graze;
+        protected int power;
+        protected const int POWER_MAX = 128;
+        protected float rollAngle;
+        protected float pitchAngle;
+        public BoundingSphere InnerHitbox { get; protected set; }
         //TODO read player spawn script from a player file!
-        public Player(Model model, BehaviorScript deathScript, NewArsenal arsenal, NewArsenal bomb, HashList<Shot> shotList, HashList<Gib> gibList)
+        public Player(Model model, BehaviorScript deathScript, Arsenal arsenal, Arsenal bomb, HashList<Shot> shotList, HashList<Gib> gibList)
             : base(model, deathScript, arsenal, shotList, gibList)
         {
+            this.graze = 0;
             this.lives = 3;
             this.bombs = 3;
             this.score = 1234;
@@ -56,9 +66,12 @@ namespace Exeggcute.src.entities
             this.FocusSpeed = 0.5f;
             this.InvulnTimer = new Timer(120);
             this.bomb = bomb;
-            this.Hitbox = new BoundingSphere(Position, 0.2f);
+            this.InnerHitbox = new BoundingSphere(Position, 0.2f);
             this.deathScript = deathScript;
             this.Scale = 0.6f;
+
+            LifeSprite = SpriteBank.Get("life");
+            BombSprite = SpriteBank.Get("bomb");
         }
 
         public void LockPosition(Camera camera, Rectangle gameArea)
@@ -92,7 +105,8 @@ namespace Exeggcute.src.entities
         {
             //if (shotList.Count > 0) Util.Die("works");// Console.WriteLine("{0}", shotList.Count);
             float speed;
-            if (controls[Ctrl.Focus].IsPressed)
+            IsFocusing = controls[Ctrl.Focus].IsPressed;
+            if (IsFocusing)
             {
                 speed = FocusSpeed;
             }
@@ -140,6 +154,9 @@ namespace Exeggcute.src.entities
                 Angle = FastTrig.Atan2(dy, dx);
             }
 
+           
+
+
             //FIXME: temporary, just for debugging
             if (controls[Ctrl.RShoulder].IsPressed)
             {
@@ -164,7 +181,75 @@ namespace Exeggcute.src.entities
                 World.Pause();
             }
 
-            
+            processPitchRoll(dx, dy);
+        }
+
+        protected void processPitchRoll(int dx, int dy)
+        {
+            float rollMax = MathHelper.PiOver4;
+            float rollMin = -MathHelper.PiOver4;
+            float pitchMax = MathHelper.PiOver4;
+            float pitchMin = -MathHelper.PiOver4;
+            float rollSpeed;
+            float pitchSpeed;
+            float rightSpeed;
+            //Slow based on focus;
+            if (IsFocusing)
+            {
+                rollSpeed = 0.01f;
+                pitchSpeed = 0.01f;
+                rightSpeed = 0.1f;
+            }
+            else
+            {
+                rollSpeed = 0.02f;
+                pitchSpeed = 0.02f;
+                rightSpeed = 0.1f;
+            }
+
+            // If we are moving opposite of our angle then 
+            // right ourselves more quickly.
+            if (rollAngle < 0 && dx > 0 ||
+                rollAngle > 0 && dx < 0)
+            {
+                rollSpeed = rightSpeed;
+            }
+
+            if (pitchAngle < 0 && dy > 0 ||
+                pitchAngle > 0 && dy < 0)
+            {
+                pitchSpeed = rightSpeed;
+            }
+
+            rollAngle += dx * rollSpeed;
+            pitchAngle += dy * pitchSpeed;
+
+
+            // Clamp values to min and max;
+            // If not moving, rightourselves.
+            rollAngle = Math.Min(rollAngle, rollMax);
+            rollAngle = Math.Max(rollAngle, rollMin);
+            if (dx == 0)
+            {
+                rollAngle -= Math.Sign(rollAngle) * rightSpeed;
+            }
+
+            pitchAngle = Math.Min(pitchAngle, pitchMax);
+            pitchAngle = Math.Max(pitchAngle, pitchMin);
+            if (dy == 0)
+            {
+                pitchAngle -= Math.Sign(pitchAngle) * rightSpeed;
+            }
+
+            // Keep from jittering
+            if (Math.Abs(pitchAngle) <= rightSpeed && dy == 0)
+            {
+                pitchAngle = 0;
+            }
+            if (Math.Abs(rollAngle) <= rightSpeed && dx == 0)
+            {
+                rollAngle = 0;
+            }
         }
         int frame = 0;
         public void Update(ControlManager controls)
@@ -172,7 +257,7 @@ namespace Exeggcute.src.entities
             //shotSpawner.SetPosition(Position);
             if (CanControl) processControls(controls);
             frame += 1;
-            if (IsShooting && frames % 10 == 0) SoundBank.Get("shot0").Play();
+            //if (IsShooting && frames % 10 == 0) SoundBank.Get("shot0").Play();
             if (IsBombing)
             {
                 bomb.Update(Position, Angle);
@@ -187,7 +272,6 @@ namespace Exeggcute.src.entities
                     bombTimer.Increment();
                 }
             }
-            score += 123;
             InvulnTimer.Increment();
             frames += 1;
             flashDraw = (IsInvulnerable && frames % 2 == 0);
@@ -201,31 +285,38 @@ namespace Exeggcute.src.entities
             }
             else
             {
-
                 base.UpdateMovers();
             }
+            InnerHitbox = new BoundingSphere(Position, InnerHitbox.Radius);
         }
 
-        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
-        {
-            if (!flashDraw) base.Draw(graphics, view, projection);
-        }
 
+
+        Sprite LifeSprite;
+        Sprite BombSprite;
         public void DrawHUD(SpriteBatch batch, SpriteFont scoreFont)
         {
             for (int i = 0; i < lives; i += 1)
             {
-                LifeItem.HUDSprite.Draw(batch, new Vector2(50, i * 40));
+                LifeSprite.Draw(batch, new Vector2(50, i * 40));
             }
 
             for (int i = 0; i < bombs; i += 1)
             {
-                BombItem.HUDSprite.Draw(batch, new Vector2(100, i * 40));
+                BombSprite.Draw(batch, new Vector2(100, i * 40));
             }
             //9 decimal places
-            string scoreString = string.Format("{0:000,000,000}", score);
+            string scoreString = string.Format("Score {0:000,000,000}", score);
             batch.DrawString(scoreFont, scoreString, new Vector2(10, 120), Color.White);
-
+            string grazeString = string.Format("Graze       {0:0,000}", graze);
+            batch.DrawString(scoreFont, grazeString, new Vector2(10, 150), Color.White);
+            string powerString = string.Format("Power         {0,3}", power);
+            if (power >= POWER_MAX)
+            {
+                powerString = "Power       -MAX-";
+            }
+            batch.DrawString(scoreFont, powerString, new Vector2(10, 180), Color.White);
+            
         }
 
         public void Kill()
@@ -239,5 +330,48 @@ namespace Exeggcute.src.entities
         }
 
 
+
+        public void Graze(Shot shot)
+        {
+            graze += 1;
+            score += graze * graze;
+        }
+
+        public void Collect(Item item)
+        {
+            score += 100;
+            Util.Warn("FIXME");
+            //throw new InvalidOperationException("can only collect types of items");
+        }
+
+        public void Collect(ExtraLife life)
+        {
+            lives += 1;
+            Util.Warn("FIXME");
+        }
+
+        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+
+            if (Surface == null || flashDraw) return;
+            Matrix[] transforms = new Matrix[Surface.Bones.Count];
+            Surface.CopyAbsoluteBoneTransformsTo(transforms);
+            foreach (ModelMesh mesh in Surface.Meshes)
+            {
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                {
+                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(Scale) *
+                        Matrix.CreateRotationY(rollAngle) *
+                        Matrix.CreateRotationX(-pitchAngle) *
+
+                        Matrix.CreateTranslation(Position);
+                    currentEffect.View = view;
+                    currentEffect.Projection = projection;
+                }
+                mesh.Draw();
+            }
+
+        }
     }
 }

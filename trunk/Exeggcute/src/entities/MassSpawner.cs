@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
+using Exeggcute.src.scripting.arsenal;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.entities
 {
     class SpawnerEntry
     {
         public SpawnScript Spawn { get; protected set; }
-        public NewArsenal Arsenal { get; protected set; }
+        public Arsenal Arsenal { get; protected set; }
         public Vector3 RelPosition { get; protected set; }
         public float Angle { get; protected set; }
-        public SpawnerEntry(SpawnScript spawn, NewArsenal arsenal, Vector3 pos, float angle)
+        public SpawnerEntry(SpawnScript spawn, Arsenal arsenal, Vector3 pos, float angle)
         {
             this.Spawn = spawn;
             this.Arsenal = arsenal;

@@ -6,6 +6,7 @@ using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.entities
 {
@@ -24,6 +25,7 @@ namespace Exeggcute.src.entities
         {
             this.ParentPosition = parentPos;
             this.ParentAngle = parentAngle;
+            if (IsAiming) AimAtPlayer();
             base.Update();
         }
 
@@ -34,26 +36,15 @@ namespace Exeggcute.src.entities
             doSmoothTransition(start, target, moveRel.Duration);
             actionPtr += 1;
         }
-
-        /*public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        public override void Process(AimPlayerAction aim)
         {
-            Matrix[] transforms = new Matrix[Surface.Bones.Count];
-            Surface.CopyAbsoluteBoneTransformsTo(transforms);
-            foreach (ModelMesh mesh in Surface.Meshes)
-            {
-                foreach (BasicEffect currentEffect in mesh.Effects)
-                {
-                    //FIXME: absolutely no reason to do this every frame
-                    currentEffect.World = 
-                        Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationZ(ParentAngle) *
-                        Matrix.CreateTranslation(ParentPosition);
-                    currentEffect.View = view;
-                    currentEffect.Projection = projection;
-                }
-                mesh.Draw();
-            }
-        
-        }*/
+            AimAngle = Util.AimAt(Position, Level.player.Position);
+            IsAiming = true;
+        }
+
+        public void AimAtPlayer()
+        {
+            AimAngle = Util.AimAt(Position, Level.player.Position);
+        }
     }
 }

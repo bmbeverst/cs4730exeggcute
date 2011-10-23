@@ -10,17 +10,6 @@ namespace Exeggcute.src.scripting.task
 {
     class TaskListLoader : ScriptParser<Task>
     {
-        public static readonly string EXT = "level";
-        public static readonly string ROOT = "data/levels";
-        protected override string getFilepath(string name)
-        {
-            return string.Format("{0}/{1}.{2}", ROOT, name, EXT);
-        }
-        public TaskListLoader()
-        {
-            Delim = ' ';
-        }
-
         protected override List<Task> parseElement(Stack<string> tokens)
         {
             TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());

@@ -15,7 +15,7 @@ namespace Exeggcute.src.entities
 
         public int Damage { get; protected set; }
         protected ArsenalEntry arsenalParams;
-
+        public bool HasGrazed { get; protected set; }
         public Shot(ArsenalEntry entry)
             : base(entry.Surface, entry.Trajectory)
         {
@@ -43,5 +43,11 @@ namespace Exeggcute.src.entities
             IsTrash = true;
         }
 
+
+        internal void Graze(Player player)
+        {
+            HasGrazed = true;
+            //TODO add a sound here!
+        }
     }
 }

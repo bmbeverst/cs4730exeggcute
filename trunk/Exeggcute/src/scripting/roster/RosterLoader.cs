@@ -9,22 +9,17 @@ using Exeggcute.src.scripting.arsenal;
 
 namespace Exeggcute.src.scripting.roster
 {
-    class RosterLoader : ListParser<RosterEntry>
+    class RosterLoader : EntryListParser<RosterEntry>
     {
-        public RosterLoader()
+        public Roster Make(string filepath)
         {
-            Delim = ' ';
+            return new Roster(Parse(filepath));
         }
-
-        protected override string getFilepath(string name)
-        {
-            return string.Format("{0}.roster", name);
-        }
-
         protected override RosterEntry parseEntry(Stack<string> tokens)
         {
             string modelname = tokens.Pop();
             string behaviorname = tokens.Pop();
+            string batchname = tokens.Pop();
             string arsenalname = tokens.Pop();
             Alignment alignment = Util.ParseEnum<Alignment>(tokens.Pop());
             HashList<Shot> shotHandle;
@@ -43,9 +38,9 @@ namespace Exeggcute.src.scripting.roster
 
             Model model = ModelBank.Get(modelname);
             BehaviorScript behavior = ScriptBank.GetBehavior(behaviorname);
-            List<ArsenalEntry> entries = ArsenalBank.Get(arsenalname);
-            NewArsenal arsenal = new NewArsenal(entries, shotHandle);
-            return new RosterEntry(model, behavior, arsenal);
+            ItemBatch items = ItemBatchBank.Get(batchname);
+            Arsenal arsenal = ArsenalBank.Get(arsenalname, shotHandle);
+            return new RosterEntry(model, behavior, items, arsenal);
         }
     }
 }

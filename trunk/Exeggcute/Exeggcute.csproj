@@ -42,7 +42,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -138,14 +138,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Alignment.cs" />
+    <Compile Include="src\assets\ItemBank.cs" />
+    <Compile Include="src\assets\ItemBatchBank.cs" />
+    <Compile Include="src\entities\items\ExtraLife.cs" />
+    <Compile Include="src\entities\items\ItemType.cs" />
+    <Compile Include="src\gui\LoadingScreen.cs" />
+    <Compile Include="src\ItemEntry.cs" />
+    <Compile Include="src\loading\ItemLoader.cs" />
     <Compile Include="src\assets\RosterBank.cs" />
+    <Compile Include="src\assets\SongBank.cs" />
     <Compile Include="src\assets\SoundBank.cs" />
-    <Compile Include="src\BehaviorScript.cs" />
-    <Compile Include="src\entities\Arsenal.cs" />
+    <Compile Include="src\loading\LevelLoader.cs" />
+    <Compile Include="src\loading\specs\TerrainInfo.cs" />
+    <Compile Include="src\scripting\BehaviorScript.cs" />
+    <Compile Include="src\loading\BossLoader.cs" />
+    <Compile Include="src\contexts\BossDeadEvent.cs" />
+    <Compile Include="src\entities\Boss.cs" />
     <Compile Include="src\FloatValue.cs" />
-    <Compile Include="src\PlayerLoader.cs" />
-    <Compile Include="src\TrajectoryScript.cs" />
-    <Compile Include="src\SpawnScript.cs" />
+    <Compile Include="src\GrowBox.cs" />
+    <Compile Include="src\ItemBatch.cs" />
+    <Compile Include="src\loading\ItemBatchLoader.cs" />
+    <Compile Include="src\loading\PlayerLoader.cs" />
+    <Compile Include="src\Wrapped2DArray.cs" />
+    <Compile Include="src\scripting\action\AimPlayerAction.cs" />
+    <Compile Include="src\scripting\EntryListParser.cs" />
+    <Compile Include="src\Spellcard.cs" />
+    <Compile Include="src\loading\SpellcardLoader.cs" />
+    <Compile Include="src\scripting\TrajectoryScript.cs" />
+    <Compile Include="src\scripting\SpawnScript.cs" />
     <Compile Include="src\contexts\ScoreEvent.cs" />
     <Compile Include="src\contexts\ToScoresEvent.cs" />
     <Compile Include="src\entities\Gib.cs" />
@@ -153,23 +173,21 @@
     <Compile Include="src\entities\ParentEntity.cs" />
     <Compile Include="src\entities\Mover.cs" />
     <Compile Include="src\ExeggcuteError.cs" />
-    <Compile Include="src\MyString.cs" />
-    <Compile Include="src\NewArsenal.cs" />
+    <Compile Include="src\scripting\arsenal\Arsenal.cs" />
     <Compile Include="src\physics\Force.cs" />
     <Compile Include="src\graphics\Quad.cs" />
     <Compile Include="src\graphics\QuadBatch.cs" />
     <Compile Include="src\graphics\WangTile.cs" />
     <Compile Include="src\physics\PhysicsManager.cs" />
     <Compile Include="src\physics\Attractor.cs" />
-    <Compile Include="src\Script.cs" />
+    <Compile Include="src\scripting\Script.cs" />
     <Compile Include="src\scripting\action\DeleteAction.cs" />
     <Compile Include="src\scripting\action\LoopAction.cs" />
     <Compile Include="src\scripting\action\SetParamAction.cs" />
     <Compile Include="src\ServerTest.cs" />
     <Compile Include="src\SubclassShouldImplementError.cs" />
-    <Compile Include="src\WangMesh.cs" />
+    <Compile Include="src\graphics\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
-    <Compile Include="src\scripting\ListParser.cs" />
     <Compile Include="src\ScoreSet.cs" />
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
@@ -177,7 +195,7 @@
     <Compile Include="src\assets\ArsenalBank.cs" />
     <Compile Include="src\assets\SpriteBank.cs" />
     <Compile Include="src\Camera.cs" />
-    <Compile Include="src\CollisionManager.cs" />
+    <Compile Include="src\EntityManager.cs" />
     <Compile Include="src\assets\Bank.cs" />
     <Compile Include="src\contexts\BackEvent.cs" />
     <Compile Include="src\contexts\ContextEvent.cs" />
@@ -192,13 +210,11 @@
     <Compile Include="src\scripting\task\TaskListLoader.cs" />
     <Compile Include="src\scripting\task\TaskType.cs" />
     <Compile Include="src\Difficulty.cs" />
-    <Compile Include="src\entities\BombItem.cs" />
-    <Compile Include="src\entities\Collectable.cs" />
+    <Compile Include="src\entities\items\Item.cs" />
     <Compile Include="src\entities\Enemy.cs" />
     <Compile Include="src\entities\EntityInfo.cs" />
     <Compile Include="src\entities\Entity.cs" />
     <Compile Include="src\HashList.cs" />
-    <Compile Include="src\entities\LifeItem.cs" />
     <Compile Include="src\entities\Spawner.cs" />
     <Compile Include="src\gui\DifficultyMenu.cs" />
     <Compile Include="src\gui\PauseMenu.cs" />
@@ -278,7 +294,7 @@
     <Compile Include="src\Random.cs" />
     <Compile Include="src\Timer.cs" />
     <Compile Include="src\Util.cs" />
-    <Compile Include="src\TileMap.cs" />
+    <Compile Include="src\graphics\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\arsenals\bomb0.arsenal">
@@ -305,9 +321,6 @@
     <Content Include="data\scripts\trajectories\basic.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\scripts\behaviors\item.cl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="data\scripts\behaviors\playerrespawn.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -319,6 +332,18 @@
     </Content>
     <Content Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="data\bosses\guy.boss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\itembatches\test.batch">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\items\life.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="data\scripts\behaviors\item0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="lib\Nuclex.Input.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

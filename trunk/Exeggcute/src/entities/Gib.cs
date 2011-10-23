@@ -10,7 +10,7 @@ namespace Exeggcute.src.entities
 {
     class Gib : PlanarEntity3D
     {
-        protected const float GIBSPEED = 2;
+        protected const float GIBSPEED = 1f;
         protected const float OFFSET = 2;
         static Random rng = new Random();
         public Gib(Model model, Vector2 parentPos, float parentSpeed, float parentAngle)

@@ -62,7 +62,9 @@ namespace Exeggcute.src.scripting.action
         /// <summary>
         /// Spawns a shot.
         /// </summary>
-        Spawn
+        Spawn,
+
+        AimPlayer
     }
 
 

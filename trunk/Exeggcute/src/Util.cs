@@ -65,6 +65,11 @@ namespace Exeggcute.src
             Environment.Exit(1);
         }
 
+        internal static void Die(object o)
+        {
+            Die(o.ToString());
+        }
+
         /// <summary>
         /// Used to quit with an error message. Also fools C# into thinking
         /// that you're returning a value when one is expected.
@@ -388,9 +393,8 @@ namespace Exeggcute.src
         }
         internal static Tuple<string, string> PreprocessRange(string s)
         {
-            string flattened = Util.RemoveSpace(s);
-            string removed = Regex.Replace(flattened, "[|]", "");
-            string[] split = removed.Split(',');
+            string flattened = Util.RemoveSpace(s).Replace("]", "").Replace("[", "") ;
+            string[] split = flattened.Split(',');
             return new Tuple<string,string>(split[0],split[1]);
         }
 
@@ -426,6 +430,19 @@ namespace Exeggcute.src
         internal static Vector3 AngleToVector3(float debugAngle)
         {
             return new Vector3(FastTrig.Cos(debugAngle), FastTrig.Sin(debugAngle), 0);
+        }
+
+        internal static float AimAt(Vector3 origin, Vector3 target)
+        {
+            float y = target.Y - origin.Y;
+            float x = target.X - origin.X;
+            //HACK
+            return FastTrig.Atan2(y, x + 0.0000000001f);
+        }
+
+        internal static string[] CleanEntry(string entry)
+        {
+            return RemoveSpace(entry).Split(':');
         }
     }
 }
