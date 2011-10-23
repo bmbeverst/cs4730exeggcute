@@ -37,8 +37,8 @@ namespace Exeggcute.src.graphics
         {
             WangCount = 8;
             this.counts = new int[WangCount];
-            this.Cols = (byte)cols;
-            this.Rows = (byte)rows;
+            this.Cols = cols;
+            this.Rows = rows;
             this.grid = new byte[cols, rows];
             for (int i = 0; i < cols; i += 1)
             {

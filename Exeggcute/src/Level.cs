@@ -15,6 +15,8 @@ using Exeggcute.src.graphics;
 using Exeggcute.src.gui;
 using Exeggcute.src.physics;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.entities.items;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {
@@ -28,8 +30,8 @@ namespace Exeggcute.src
         private HUD hud;
         private ParticleSystem particles;
         private Camera camera;
-        private Player player;
-        private CollisionManager collider;
+        public static Player player;
+        private EntityManager collider;
         private PhysicsManager physics;
         private Roster roster;
         private WangMesh terrain;
@@ -39,6 +41,7 @@ namespace Exeggcute.src
         private HashList<Shot> playerShots;
         private HashList<Shot> enemyShots;
         private HashList<Gib> gibList;
+        private HashList<Item> itemList;
 
         private List<Task> taskList;
         private int taskPtr;
@@ -62,23 +65,41 @@ namespace Exeggcute.src
 
         private VisualizationData soundData = new VisualizationData();
 
+        private GrowBox shotEater = null;
+
+
         //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, ContentManager content, Roster roster)
         {
             Song song = content.Load<Song>("songs/Mayhem_Some_Boss_Shit");
+            
             MediaPlayer.Play(song);
+            MediaPlayer.Pause();
             MediaPlayer.IsVisualizationEnabled = true;
             Texture2D wangTexture = TextureBank.Get("wang8");
-            this.terrain = new WangMesh(graphics, wangTexture, 12*2, 100*2, 4, 16, 0.001f);
+            this.terrain = new WangMesh(
+                       graphics, 
+                    wangTexture, 
+                             24, //cols
+                            200, //rows
+                              4, //tile size
+                             16, //height variance
+                          1E-4f, //scroll speed
+            // Concavity.Inside, //orientation
+              Concavity.Outside,
+                             10, //depth
+                            200);//radius
+            
             this.playerShots = World.PlayerShots;
-            this.enemyShots = World.EnemyShots;
-            this.enemyList = World.EnemyList;
-            this.gibList = World.GibList;
+            this.enemyShots  = World.EnemyShots;
+            this.enemyList   = World.EnemyList;
+            this.gibList     = World.GibList;
+            this.itemList    = World.ItemList;
             this.roster = roster;
-            this.taskList = loader.Load("0");
+            this.taskList = loader.Load("data/levels/0.level");
             loadMsgBoxes(content);
 
-            this.collider = new CollisionManager();
+            this.collider = new EntityManager();
             this.physics = new PhysicsManager();
             this.camera = new Camera(100, MathHelper.PiOver2, 1);
             this.hud = new HUD();
@@ -168,12 +189,11 @@ namespace Exeggcute.src
         public void Update(ControlManager controls)
         {
             MediaPlayer.GetVisualizationData(soundData);
-            float sum = 0;
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
             terrain.Update(soundData.Frequencies);
-            //terrain.Impact(player.X, player.Y, 0, 0);
+            terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
@@ -189,43 +209,67 @@ namespace Exeggcute.src
 
             physics.Affect(World.DyingList, true);
             collider.CollideDying(terrain);
-            bool hit = collider.Collide(player, enemyList);
+            bool hit = collider.Collide(player, enemyList) ||
+                       collider.HitPlayer(enemyShots, player);
             if (hit)
             {
                 player.Kill();
+                shotEater = new GrowBox(1);
             }
+            if (shotEater != null)
+            {
+                shotEater.Update();
+                collider.EatShots(enemyShots, shotEater.Rect);
+                if (shotEater.Rect.Height > HalfHeight * 4)
+                {
+                    shotEater = null;
+                }
+            }
+
             collider.Collide(playerShots, enemyList);
-            
+            collider.Collide(itemList, player);
+
+            collider.FilterOffscreen(playerShots, LiveArea);
+            collider.FilterOffscreen(gibList, LiveArea);
+            collider.FilterOffscreen(enemyShots, LiveArea);
+            collider.FilterOffscreen(itemList, LiveArea);
+
             // =[
             collider.FilterDead(playerShots);
-            collider.FilterDead<Shot>(enemyShots);
-            collider.FilterDead<Gib>(gibList);
-            collider.FilterDead<Enemy>(enemyList);
-            collider.FilterDead<Enemy>(World.DyingList);
-            updateShots(playerShots, enemyShots);
-            //collider.MagicFilter(playerShots, enemyShots);
+            collider.FilterDead(enemyShots);
+            collider.FilterDead(gibList);
+            collider.FilterDead(enemyList);
+            collider.FilterDead(World.DyingList);
+            collider.FilterDead(World.ItemList);
+
+
             player.Update(controls);
             player.LockPosition(camera, GameArea);
 
-            foreach (Enemy enemy in enemyList.GetKeys())
-            {
-                enemy.Update();
-            }
 
-            foreach (Gib gib in gibList.GetKeys())
+            updateEntityList(enemyList);
+            updateEntityList(gibList);
+            updateEntityList(itemList);
+            updateEntityList(playerShots);
+            updateEntityList(enemyShots);
+
+        }
+
+        private void drawEntityList<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, HashList<TEntity> entities) 
+            where TEntity : Entity3D
+        {
+            foreach (TEntity entity in entities.GetKeys())
             {
-                gib.Update();
+                entity.Draw(graphics, view, projection);
             }
         }
 
-        private void drawShots(GraphicsDevice graphics, Matrix view, Matrix projection, params HashList<Shot>[] shotLists )
+        private void updateEntityList<TEntity>(HashList<TEntity> entities)
+            where TEntity : Entity3D
         {
-            foreach (HashList<Shot> shots in shotLists)
+            foreach (TEntity entity in entities.GetKeys())
             {
-                foreach (Shot shot in shots.GetKeys())
-                {
-                    shot.Draw(graphics, view, projection);
-                }
+                entity.Update();
             }
         }
 
@@ -237,17 +281,13 @@ namespace Exeggcute.src
 
             player.Draw(graphics, view, projection);
 
-            drawShots(graphics, view, projection,playerShots, enemyShots);
+            drawEntityList(graphics, view, projection, enemyList);
+            drawEntityList(graphics, view, projection, gibList);
+            drawEntityList(graphics, view, projection, itemList);
+            drawEntityList(graphics, view, projection, enemyShots);
+            drawEntityList(graphics, view, projection, playerShots);
 
-            foreach (Enemy enemy in enemyList.GetKeys())
-            {
-                enemy.Draw(graphics, view, projection);
-            }
 
-            foreach (Gib gib in gibList.GetKeys())
-            {
-                gib.Draw(graphics, view, projection);
-            }
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);

@@ -225,7 +225,7 @@ namespace Exeggcute.src.entities
 
             // Process accelerations
             Speed += LinearAccel;
-            Angle += AngularVelocity;
+            AngularVelocity += AngularAccel;
 
             // Process velocities
             Angle += AngularVelocity;

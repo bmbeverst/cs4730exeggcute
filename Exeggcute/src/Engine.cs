@@ -45,96 +45,59 @@ namespace Exeggcute.src
             XRes = 1200;
             YRes = 900;
         }
-
+        public static readonly float FIELD_OF_VIEW = MathHelper.PiOver4;
         public ControlManager controls;
         private static List<Menu> menus = new List<Menu>();
         private static List<TextBoxList> boxes = new List<TextBoxList>();
 
         private ScoreSet scoreSet;
 
+     
+
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
-            
-
             World.Initialize(this, content, graphics);
-            
-            loadTextures(content);
-            
-            loadFonts(content);
-            loadEffects(content);
-            loadModels(content);
-            loadSounds(content);
-            loadSprites(content);
 
-            loadScripts(content);
-            loadArsenals(content);
-            loadRosters(content);
+            loadXNAContent(content);
+
+            SpriteBank.LoadAll(content);
+
+
+            ScriptBank.LoadAll();
+
+            ItemBank.LoadAll();
+            ItemBatchBank.LoadAll();
+
+            ArsenalBank.LoadAll();
+            RosterBank.LoadAll();
             
             loadMenus();
 
-            scoreSet = new ScoreSet();
 
+            scoreSet = new ScoreSet();
             controls = new ControlManager(input);
 
             
-            
         }
 
-        private void loadRosters(ContentManager content)
+        private void loadXNAContent(ContentManager content)
         {
-            RosterBank.LoadAll(content);
+            TextureBank.LoadAll(content);
+
+            FontBank.LoadAll(content);
+            EffectBank.LoadAll(content);
+            ModelBank.LoadAll(content);
+            SoundBank.LoadAll(content);
+            SongBank.LoadAll(content);
         }
-
-        private void loadArsenals(ContentManager content)
-        {
-            ArsenalBank.LoadAll(content);
-        }
-
-        
-
 
         public static Menu GetMenu(ContextName id)
         {
             return menus[(int)id];
         }
 
-        private void loadScripts(ContentManager content)
-        {
-            ScriptBank.LoadAll();
-        }
 
-        private void loadTextures(ContentManager content)
-        {
-            TextureBank.LoadAll(content);
-        }
 
-        private void loadFonts(ContentManager content)
-        {
-            FontBank.LoadAll(content);
-        }
-
-        private void loadEffects(ContentManager content)
-        {
-            EffectBank.LoadAll(content);
-        }
-
-        private void loadModels(ContentManager content)
-        {
-            ModelBank.LoadAll(content);
-        }
-
-        private void loadSprites(ContentManager content)
-        {
-            SpriteBank.LoadAll(content);
-            //HACK
-            LifeItem.HUDSprite = SpriteBank.Get("life");
-            BombItem.HUDSprite = SpriteBank.Get("bomb");
-        }
-
-        private void loadSounds(ContentManager content)
-        {
-            SoundBank.LoadAll(content);
-        }
 
         private void loadMenus()
         {

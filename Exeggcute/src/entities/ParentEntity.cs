@@ -7,6 +7,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.entities
 {
@@ -15,22 +16,35 @@ namespace Exeggcute.src.entities
     /// </summary>
     class ParentEntity : ScriptedEntity
     {
-        protected NewArsenal arsenal;
+        protected Arsenal arsenal;
         protected HashList<Gib> gibList;
         protected HashList<Shot> shotList;
 
         public ParentEntity(Model model,
                             BehaviorScript behavior,
-                            NewArsenal arsenal,
+                            Arsenal arsenal,
                             HashList<Shot> shotListHandle,
                             HashList<Gib> gibListHandle)
             : base(model, behavior)
         {
             this.gibList = gibListHandle;
             this.shotList = shotListHandle;
-            Console.WriteLine(shotListHandle.Name);
             this.arsenal = arsenal;
         }
+
+        /// <summary>
+        /// For use with a boss only.
+        /// </summary>
+        public ParentEntity(Model model,
+                            HashList<Shot> shotListHandle,
+                            HashList<Gib> gibListHandle)
+            : base(model, (BehaviorScript)null)//HACK LOLMAO
+        {
+            this.gibList = gibListHandle;
+            this.shotList = shotListHandle;
+        }
+                
+                            
 
         public override void Process(ShootAction shoot)
         {

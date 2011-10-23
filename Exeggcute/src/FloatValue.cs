@@ -47,6 +47,8 @@ namespace Exeggcute.src
 
         public FloatRange(float min, float max)
         {
+            this.Min = min;
+            this.Max = max;
             this.range = Max - Min;
         }
 

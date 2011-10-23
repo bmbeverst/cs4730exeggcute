@@ -5,6 +5,8 @@ using System.Text;
 using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using System.Collections.ObjectModel;
+using Exeggcute.src.entities.items;
+using Exeggcute.src.graphics;
 
 namespace Exeggcute.src
 {
@@ -12,12 +14,8 @@ namespace Exeggcute.src
     /// Checks whether dynamic entities are in contact with each other.
     /// This is not the class to process physics, only for 
     /// </summary>
-    class CollisionManager
+    class EntityManager
     {
-        public void Update()
-        {
-            List<string> mylsit = new List<string>();
-        }
 
         public bool Collide(Player player, HashList<Enemy> enemies)
         {
@@ -25,7 +23,7 @@ namespace Exeggcute.src
             var keys = enemies.GetKeys();
             foreach (Enemy enemy in keys)
             {
-                if (enemy.Hitbox.Intersects(player.Hitbox))
+                if (enemy.OuterHitbox.Intersects(player.InnerHitbox))
                 {
                     return true;
                 }
@@ -33,17 +31,36 @@ namespace Exeggcute.src
             return false;
         }
 
-        public bool Collide(HashList<Shot> enemyShots, Player player)
+        public bool HitPlayer(HashList<Shot> enemyShots, Player player)
         {
+
             if (player.IsInvulnerable) return false;
             foreach (Shot shot in enemyShots.GetKeys())
             {
-                if (shot.Hitbox.Intersects(player.Hitbox))
+                if (shot.OuterHitbox.Intersects(player.InnerHitbox))
                 {
-                    return true;
+                    return false;// true;
+                }
+                else if (!shot.HasGrazed && shot.OuterHitbox.Intersects(player.OuterHitbox))
+                {
+                    player.Graze(shot);
+                    shot.Graze(player);
                 }
             }
             return false;
+        }
+
+        public void Collide(HashList<Item> itemList, Player player)
+        {
+            foreach (Item item in itemList.GetKeys())
+            {
+                if (item.OuterHitbox.Intersects(player.OuterHitbox))
+                {
+                    // this will call player.Collect. 
+                    // do not call it here (double dispatch!)
+                    item.Collect(player);
+                }
+            }
         }
 
         public void Collide(HashList<Shot> playerShots, HashList<Enemy> enemies)
@@ -52,7 +69,7 @@ namespace Exeggcute.src
             {
                 foreach (Enemy enemy in enemies.GetKeys())
                 {
-                    if (enemy.Hitbox.Intersects(shot.Hitbox))
+                    if (enemy.OuterHitbox.Intersects(shot.OuterHitbox))
                     {
                         enemy.Collide(shot);
                         shot.Collide(enemy);
@@ -60,20 +77,24 @@ namespace Exeggcute.src
                 }
             }
         }
-        /*public void MagicFilter<TEntity>(params IEnumerable<TEntity>[] args) where TEntity : Entity
+
+        /// <summary>
+        /// Removes all entities in worldspace that are outside the given 
+        /// rectangle.
+        /// </summary>
+        public void FilterOffscreen<TEntity>(HashList<TEntity> entities, Rectangle rect)
+            where TEntity : PlanarEntity3D
         {
-            List<TEntity> removed = new List<TEntity>();
-            foreach (var list in args)
+            List<TEntity> toRemove = new List<TEntity>();
+            foreach (TEntity entity in entities.GetKeys())
             {
-                foreach (TEntity entity in args)
+                if (!entity.ContainedIn(rect))
                 {
-                    if (entity.IsTrash)
-                    {
-                        removed.Add(entity);
-                    }
+                    toRemove.Add(entity);
                 }
             }
-        }*/
+            toRemove.ForEach(e => entities.Remove(e));
+        }
         public void FilterDead<TEntity>(HashList<TEntity> entities) where TEntity : Entity
         {
             List<TEntity> removed = new List<TEntity>();
@@ -87,13 +108,17 @@ namespace Exeggcute.src
             removed.ForEach(entity => entities.Remove(entity));
         }
 
+        /// <summary>
+        /// For handling enemy-enemy collisions
+        /// </summary>
+        /// <param name="entities"></param>
         public void Collide(List<Entity3D> entities)
         {
             for (int i = 0; i < entities.Count; i += 1)
             {
                 for (int j = i + 1; j < entities.Count; j += 1)
                 {
-                    if (entities[i].Hitbox.Intersects(entities[j].Hitbox))
+                    if (entities[i].OuterHitbox.Intersects(entities[j].OuterHitbox))
                     {
 
                     }
@@ -103,7 +128,7 @@ namespace Exeggcute.src
 
         public void CollideTerrain<TEntity>(WangMesh terrain, TEntity entity) where TEntity : PlanarEntity3D
         {
-            if (Math.Abs(entity.Position.Z - terrain.Depth) < 2)
+            if (Math.Abs(entity.Position.Z - (terrain.Depth - 100)) < 2)
             {
                 float x = entity.X;
                 float y = entity.Y;
@@ -132,5 +157,16 @@ namespace Exeggcute.src
 
 
 
+
+        internal void EatShots(HashList<Shot> enemyShots, Rectangle rectangle)
+        {
+            foreach (Shot shot in enemyShots.GetKeys())
+            {
+                if (rectangle.Contains((int)shot.X, (int)shot.Y))
+                {
+                    shot.QueueDelete();
+                }
+            }
+        }
     }
 }

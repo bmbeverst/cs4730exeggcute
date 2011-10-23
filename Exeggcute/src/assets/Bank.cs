@@ -10,6 +10,47 @@ using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.assets
 {
+    class CustomBank<TAsset>
+    {
+        protected Dictionary<string, TAsset> bank = new Dictionary<string, TAsset>();
+        protected Dictionary<string, int> seen = new Dictionary<string, int>();
+        public readonly string rootDir;
+        public ReadOnlyCollection<string> AllFiles;
+        public CustomBank(string root)
+        {
+            rootDir = root;
+            string[] files = Util.GetFiles(rootDir);
+            AllFiles = new ReadOnlyCollection<string>(files);
+        }
+
+        public virtual TAsset this[string name]
+        {
+            get
+            {
+                if (seen.ContainsKey(name) && !bank.ContainsKey(name))
+                {
+                    throw new DeletedResourceError("Resource {0} was unloaded", name);
+                }
+                return bank[name];
+            }
+        }
+
+        protected string getName(string filepath)
+        {
+            return Path.GetFileNameWithoutExtension(filepath);
+        }
+
+        /// <summary>
+        /// A hackish method of loading a non-XNA managed asset, such as a 
+        /// script or sprite.
+        /// </summary>
+        public virtual void Put(TAsset asset, string filepath)
+        {
+            string name = getName(filepath);
+            seen[name] = 1;
+            bank[name] = asset;
+        }
+    }
     /// <summary>
     /// This is more or less a hack to allow static classes to subclass.
     /// 

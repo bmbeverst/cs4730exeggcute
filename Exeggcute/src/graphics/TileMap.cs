@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 using Exeggcute.src.graphics;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.graphics
 {
     /// <summary>
     /// Helper class for specifying portions of a texture as individual images.
@@ -58,14 +58,14 @@ namespace Exeggcute.src
             return new Vector2(upperLeft.X + TileWidth * TexelWidth - 0.02f, upperLeft.Y + TileHeight * TexelHeight);
         }
 
-        public Quad CreateQuad(int index, Vector3 position, Vector3 back, float quadWidth, float quadHeight)
+        public Quad CreateQuad(int index, Vector3 position, Vector3 back, Vector3 up, float quadWidth, float quadHeight)
         {
             Point indexPoint = GetPoint(index);
             int i = indexPoint.X;
             int j = indexPoint.Y;
             Vector2 upperLeft = GetUpperLeft(i, j);
             Vector2 lowerRight = GetLowerRight(upperLeft);
-            return new Quad(upperLeft, lowerRight, position, back, quadWidth, quadHeight);
+            return new Quad(upperLeft, lowerRight, position, back, up, quadWidth, quadHeight);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting.action;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.scripting
 {
     class SpawnScript : Script
     {

@@ -31,7 +31,7 @@ namespace Exeggcute.src.scripting.roster
                 {
                     enemies.Add(cache[entry]);
                 }
-                Enemy enemy = new Enemy(entry, Enemy.GetDeathScript(), World.EnemyShots, World.GibList);
+                Enemy enemy = new Enemy(entry, Enemy.GetDeathScript(), entry.HeldItems, World.EnemyShots, World.GibList, World.ItemList);
                 cache[entry] = enemy;
                 enemies.Add(enemy);
             }

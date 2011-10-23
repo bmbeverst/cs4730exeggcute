@@ -12,14 +12,14 @@ namespace Exeggcute.src.assets
     class ScriptBank
     {
 
-        private static Bank<BehaviorScript> behaviorBank =
-            new Bank<BehaviorScript>("data/scripts/behaviors", "cl");
+        private static CustomBank<BehaviorScript> behaviorBank =
+            new CustomBank<BehaviorScript>("data/scripts/behaviors");
 
-        private static Bank<SpawnScript> spawnBank =
-            new Bank<SpawnScript>("data/scripts/spawns", "spawn");
+        private static CustomBank<SpawnScript> spawnBank =
+            new CustomBank<SpawnScript>("data/scripts/spawns");
 
-        private static Bank<TrajectoryScript> trajectoryBank =
-            new Bank<TrajectoryScript>("data/scripts/trajectories", "traj");
+        private static CustomBank<TrajectoryScript> trajectoryBank =
+            new CustomBank<TrajectoryScript>("data/scripts/trajectories");
 
         public static ScriptLoader loader = new ScriptLoader();
 
@@ -42,26 +42,17 @@ namespace Exeggcute.src.assets
         {
             foreach (string file in behaviorBank.AllFiles)
             {
-                string name = Path.GetFileNameWithoutExtension(file);
-                List<ActionBase> list = loader.LoadBehavior(file);
-                BehaviorScript script = new BehaviorScript(name, list);
-                behaviorBank.Put(script, name);
+                behaviorBank.Put(loader.MakeBehavior(file), file);
             }
 
             foreach (string file in spawnBank.AllFiles)
             {
-                string name = Path.GetFileNameWithoutExtension(file);
-                List<ActionBase> list = loader.LoadSpawn(file);
-                SpawnScript script = new SpawnScript(name, list);
-                spawnBank.Put(script, name);
+                spawnBank.Put(loader.MakeSpawn(file), file);
             }
             
             foreach (string file in trajectoryBank.AllFiles)
             {
-                string name = Path.GetFileNameWithoutExtension(file);
-                List<ActionBase> list = loader.LoadShot(file);
-                TrajectoryScript script = new TrajectoryScript(name, list);
-                trajectoryBank.Put(script, name);
+                trajectoryBank.Put(loader.MakeTrajectory(file), file);
             }
             
         }

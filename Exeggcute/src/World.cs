@@ -10,6 +10,7 @@ using Exeggcute.src.contexts;
 using Exeggcute.src.assets;
 using Exeggcute.src.entities;
 using Exeggcute.src.scripting.roster;
+using Exeggcute.src.entities.items;
 
 namespace Exeggcute.src
 {
@@ -28,10 +29,11 @@ namespace Exeggcute.src
         private static Engine engine;
 
         public static HashList<Shot> PlayerShots = new HashList<Shot>("playershots");
-        public static HashList<Shot> EnemyShots = new HashList<Shot>("enemyshots");
-        public static HashList<Gib> GibList = new HashList<Gib>("giblist");
-        public static HashList<Enemy> EnemyList = new HashList<Enemy>("enemylist");
-        public static HashList<Enemy> DyingList = new HashList<Enemy>("dyinglist");
+        public static HashList<Shot>  EnemyShots = new HashList<Shot>("enemyshots");
+        public static HashList<Gib>      GibList = new HashList<Gib>("giblist");
+        public static HashList<Enemy>  EnemyList = new HashList<Enemy>("enemylist");
+        public static HashList<Enemy>  DyingList = new HashList<Enemy>("dyinglist");
+        public static HashList<Item>    ItemList = new HashList<Item>("itemlist");
 
         public static ScoreMenu scoreMenu;
 

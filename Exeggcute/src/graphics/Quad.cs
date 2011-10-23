@@ -84,31 +84,30 @@ namespace Exeggcute.src.graphics
         /// <param name="width">width of the quad</param>
         /// <param name="height">height of the quad</param>
         public Quad(Vector2 topleft,
-            Vector2 bottomRight,
-            Vector3 position,
-            Vector3 back,
-            float width,
-            float height)
+                    Vector2 bottomRight,
+                    Vector3 position,
+                    Vector3 back,
+                    Vector3 up,
+                    float width,
+                    float height)
         {
             Width = width;
             Height = height;
-            initQuad(topleft, bottomRight, position, back);
+            initQuad(topleft, bottomRight, position, back, up);
         }
 
-        public void initQuad(Vector2 texTopLeft, Vector2 texBottomRight, Vector3 center, Vector3 back)
+        public void initQuad(Vector2 texTopLeft, Vector2 texBottomRight, Vector3 center, Vector3 back, Vector3 up)
         {
             Vertices = new VertexPositionNormalTexture[4];
             Indexes = new short[6]; ;
             Center = center;
-            Vector3 normal = back;
-            Vector3 up = Vector3.Up;
             UVTopLeft = texTopLeft;
             UVTopRight = new Vector2(texBottomRight.X, texTopLeft.Y);
             UVBottomLeft = new Vector2(texTopLeft.X, texBottomRight.Y);
             UVBottomRight = texBottomRight;
             
             // I know this seems backwards, but it works
-            Vector3 left = Vector3.Cross(normal, up);
+            Vector3 left = Vector3.Cross(back, up);
             Vector3 topcenter = Center + (up * Height / 2) ;
             TopLeft = topcenter + (left * Width / 2);
             TopRight = topcenter - (left * Width / 2);

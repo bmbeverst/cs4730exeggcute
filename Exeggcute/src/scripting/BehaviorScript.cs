@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting.action;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.scripting
 {
-    class TrajectoryScript : Script
+    class BehaviorScript : Script
     {
-        public readonly string[] names;
-        public TrajectoryScript(string name, List<ActionBase> list)
+        public BehaviorScript(string name, List<ActionBase> list)
             : base(name, list)
         {
 
