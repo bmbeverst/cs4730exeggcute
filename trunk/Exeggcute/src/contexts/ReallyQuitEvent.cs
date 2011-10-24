@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Exeggcute.src.gui;
 
 namespace Exeggcute.src.contexts
 {
-    class LoadLevelEvent : ContextEvent
+    class ReallyQuitEvent : ContextEvent
     {
-        public string Name { get; protected set; }
+        public QuitType Type { get; protected set; }
 
-        public LoadLevelEvent(string name)
+        public ReallyQuitEvent(QuitType type)
         {
-            this.Name = name;
+            this.Type = type;
         }
 
         public override void Process()
         {
             World.Process(this);
-        }
+        }     
     }
 }

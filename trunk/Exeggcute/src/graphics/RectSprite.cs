@@ -23,11 +23,20 @@ namespace Exeggcute.src.graphics
         }
 
         private Vector2[] scaleVectors;
+        private float alpha;
 
-        public RectSprite(int width, int height, Color color, bool filled)
+        public RectSprite(int width, int height, Color color, bool filled, bool blanked=false)
         {
             Point size = new Point(width, height);
             init(size, color, filled);
+            if (blanked) alpha = 255;
+        }
+
+        public RectSprite(Rectangle rect, Color color, bool filled, bool blanked = false)
+        {
+            Point size = new Point(rect.Width, rect.Height);
+            init(size, color, filled);
+            if (blanked) alpha = 255;
         }
 
         private void init(Point size, Color color, bool filled)
@@ -36,7 +45,6 @@ namespace Exeggcute.src.graphics
             DotTexture = TextureBank.Get("dot");
             Size = size;
             FillColor = color;
-            
             if (filled)
             {
                 scaleVectors = new Vector2[] {
@@ -55,6 +63,39 @@ namespace Exeggcute.src.graphics
 
                 };
             }
+        }
+
+        public bool FadeDone { get; protected set; }
+        
+        public void Fade(bool fadeIn, float speed)
+        {
+            if (fadeIn)
+            {
+                alpha -= speed;
+                byte newAlpha = (byte)Math.Max(0, alpha);
+                FillColor = new Color(FillColor.R, FillColor.G, FillColor.B, newAlpha);
+                if (FillColor.A == 0)
+                {
+                    FadeDone = true;
+                    alpha = 0;
+                }
+            }
+            else
+            {
+                alpha += speed;
+                byte newAlpha = (byte)Math.Min(255, alpha);
+                FillColor = new Color(FillColor.R, FillColor.G, FillColor.B, newAlpha);
+                if (FillColor.A == 255)
+                {
+                    FadeDone = true;
+                    alpha = 255;
+                }
+            }
+        }
+
+        public void Reset()
+        {
+            FadeDone = false;
         }
 
         public void Draw(SpriteBatch batch, Vector2 pos)

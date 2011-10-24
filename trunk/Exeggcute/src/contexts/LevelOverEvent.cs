@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Exeggcute.src.contexts
 {
-    class QuitEvent : ContextEvent
+    class LevelOverEvent : ContextEvent
     {
+
         public override void Process()
         {
             World.Process(this);

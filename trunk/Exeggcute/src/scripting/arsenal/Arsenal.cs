@@ -28,8 +28,6 @@ namespace Exeggcute.src.scripting.arsenal
             }
         }
 
-
-
         public Arsenal Copy(HashList<Shot> newHandle)
         {
             return new Arsenal(entries, newHandle);

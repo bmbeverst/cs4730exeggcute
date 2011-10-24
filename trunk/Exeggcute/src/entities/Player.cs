@@ -208,11 +208,6 @@ namespace Exeggcute.src.entities
                 Console.WriteLine("Begin bombing");
             }
 
-            if (controls[Ctrl.Start].DoEatPress())
-            {
-                World.Pause();
-            }
-
             processPitchRoll(dx, dy);
         }
 

@@ -10,7 +10,10 @@ namespace Exeggcute.src.gui
     {
         protected int cursorX;
         protected List<Button> row;
-
+        public override int Height
+        {
+            get { return row[0].Height; }
+        }
         public ButtonRow(List<Button> row, ContextEvent select, ContextEvent deselect)
             : base(select, deselect, null, null)
         {

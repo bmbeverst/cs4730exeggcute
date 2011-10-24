@@ -24,6 +24,7 @@ namespace Exeggcute.src.entities
         protected Timer buffer = new Timer(20);
 
         protected bool introStarted;
+        protected bool outroStarted;
 
 
         protected int spellPtr;
@@ -32,16 +33,18 @@ namespace Exeggcute.src.entities
         protected string currentName;
 
         protected bool isDying;
-        protected bool started;
+        protected bool isDefeated;
+        protected bool isStarted;
         protected List<Spellcard> attacks;
-        public Boss(Model model, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
+        
+        public Boss(Model model, float modelScale, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
             : base(model, World.EnemyShots, World.GibList)
         {
 
             this.spellPtr = -1;
             this.intro = intro;
             this.outro = outro;
-
+            this.Scale = modelScale;
             this.entryScript = entryScript;
             this.defeatScript = defeatScript;
             this.deathScript = deathScript;
@@ -53,7 +56,7 @@ namespace Exeggcute.src.entities
         public override void Update()
         {
             base.Update();
-            if (started)
+            if (isStarted && !isDefeated)
             {
                 if (Health <= 0 || currentTimer.IsDone)
                 {
@@ -64,16 +67,42 @@ namespace Exeggcute.src.entities
                 {
                     currentTimer.Increment();
                 }
-                if (isDying && actionPtr == deathScript.Count)
+            }
+            else if (isDefeated && !isDying)
+            {
+                if (!outroStarted)
                 {
-                    Util.Die("explode");
-                    World.Process(new BossDeadEvent());
+                    World.PushContext(outro);
+                    outroStarted = true;
+                }
+                if (outro.IsDone)
+                {
+                    if (buffer.IsDone && !isDying)
+                    {
+                        isDying = true;
+                        //do whatever here
+                        buffer.Reset();
+                        script = deathScript;
+                        actionPtr = 0;
+                    }
+                    else
+                    {
+                        buffer.Increment();
+                    }
+                }
+            }
+            else if (isDying)
+            {
+                if (actionPtr == script.Count)
+                {
+                    World.CleanupLevel();
                 }
             }
             else
             {
                 if (!introStarted)
                 {
+                    
                     World.PushContext(intro);
                     introStarted = true;
                 }
@@ -94,18 +123,20 @@ namespace Exeggcute.src.entities
         }
         public void Start()
         {
-            started = true;
+            isStarted = true;
             LoadNext();
         }
         public void LoadNext()
         {
             spellPtr += 1;
-            Spellcard next = attacks[spellPtr];
-            if (spellPtr == attacks.Count - 1)
+            
+            if (spellPtr == attacks.Count)
             {
-                //die();
+                die();
+                return;
             }
-
+            Console.WriteLine("Starting {0}", spellPtr);
+            Spellcard next = attacks[spellPtr];
             this.arsenal      = next.Attack;
             this.currentTimer = next.TimeLimit;
             this.currentName  = next.Name;
@@ -117,12 +148,32 @@ namespace Exeggcute.src.entities
 
         protected void die()
         {
-            script = deathScript;
+            script = defeatScript;
+
             actionPtr = 0;
-            isDying = true;
+            isDefeated = true;
+            arsenal = Arsenal.None;
         }
 
-
+        public void Reset()
+        {
+            buffer.Reset();
+            introStarted = false;
+            outroStarted = false;
+            spellPtr = -1;
+            isDying = false;
+            isDefeated = false;
+            isStarted = false;
+            for (int i = 0; i < attacks.Count; i += 1)
+            {
+                attacks[i].Reset();
+            }
+            actionPtr = 0;
+            counter = 0;
+            arsenal = Arsenal.None;
+            intro.Reset();
+            outro.Reset();
+        }
 
         
     }

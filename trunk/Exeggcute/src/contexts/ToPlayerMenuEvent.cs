@@ -5,18 +5,18 @@ using System.Text;
 
 namespace Exeggcute.src.contexts
 {
-    class LoadLevelEvent : ContextEvent
+    class ToPlayerMenuEvent : ContextEvent
     {
-        public string Name { get; protected set; }
+        public Difficulty Setting { get; protected set; }
 
-        public LoadLevelEvent(string name)
+        public ToPlayerMenuEvent(Difficulty setting)
         {
-            this.Name = name;
+            this.Setting = setting;
         }
 
         public override void Process()
         {
             World.Process(this);
-        }
+        }  
     }
 }

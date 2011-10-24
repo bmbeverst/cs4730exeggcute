@@ -10,6 +10,7 @@ namespace Exeggcute.src
         public float Value { get; protected set; }
         public float PrevValue { get; protected set; }
         public float Rate { get; protected set; }
+
         public FloatTimer(float rate)
         {
             Rate = rate;
@@ -20,6 +21,12 @@ namespace Exeggcute.src
         {
             PrevValue = Value;
             Value += Rate;
+        }
+
+        public void Increment(float factor)
+        {
+            PrevValue = Value;
+            Value += Rate*factor;
         }
 
         public int GetDelta()

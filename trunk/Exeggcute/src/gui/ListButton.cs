@@ -17,7 +17,10 @@ namespace Exeggcute.src.gui
     class ListButton : Button 
     {
         public IDrawable2D Image { get; protected set; }
-
+        public override int Height
+        {
+            get { return Image.Height; }
+        }
         public ListButton(ContextEvent activate, IDrawable2D image)
             : base(null, null, activate, null)
         {
@@ -34,7 +37,7 @@ namespace Exeggcute.src.gui
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
-                World.Pop();
+                World.Back();
             }
             base.Update(controls);
         }

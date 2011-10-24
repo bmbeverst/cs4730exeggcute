@@ -28,7 +28,8 @@ namespace Exeggcute.src
     /// </summary>
     class Level : IContext
     {
-        private HUD hud;
+        public HUD Hud { get; protected set; }
+        public string Name { get; protected set; }
         private ParticleSystem particles;
         private Camera camera;
         public static Player player;
@@ -50,6 +51,8 @@ namespace Exeggcute.src
         public static readonly int HalfWidth = 30;
         public static readonly int HalfHeight = 37;
         public Rectangle GameArea { get; protected set; }
+
+
 
         ///<summary>
         /// The percentage the LiveArea is increased to accomodate
@@ -80,6 +83,8 @@ namespace Exeggcute.src
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
                      Player player, 
+                     HUD hud, 
+                     string name,
                      Roster roster, 
                      Song levelTheme, 
                      Song bossTheme,
@@ -90,8 +95,8 @@ namespace Exeggcute.src
         {
             MediaPlayer.IsVisualizationEnabled = true;
 
-            this.terrain = terrain;
-            
+            this.terrain     = terrain;
+            this.Name        = name;
             this.playerShots = World.PlayerShots;
             this.enemyShots  = World.EnemyShots;
             this.enemyList   = World.EnemyList;
@@ -107,7 +112,9 @@ namespace Exeggcute.src
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
             this.camera   = new Camera(100, MathHelper.PiOver2, 1);
-            this.hud      = new HUD();
+            this.Hud      = hud;
+
+            Hud.DoFade(FadeType.In);
 
             //HARDCODED FIXME
             GameArea = new Rectangle(-HalfWidth, -HalfHeight, HalfWidth * 2, HalfHeight * 2);
@@ -116,7 +123,6 @@ namespace Exeggcute.src
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
             Level.player = player;
-
 
             MediaPlayer.Play(levelTheme);
             MediaPlayer.Pause();
@@ -193,13 +199,16 @@ namespace Exeggcute.src
             Task current = taskList[taskPtr];
             current.Process(this);
         }
+
         public void Update(ControlManager controls)
         {
             Update(controls, true);
         }
+
         public void Update(ControlManager controls, bool playerCanShoot)
         {
             MediaPlayer.GetVisualizationData(soundData);
+            Hud.Update();
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
@@ -321,12 +330,27 @@ namespace Exeggcute.src
             particles.Draw(graphics);
 
             batch.Begin();
-            hud.Draw(batch, player);
+            Hud.Draw(batch, player);
             batch.End();
             
         }
-
-
+        bool cleanupStarted;
+        public bool DoneCleanup()
+        {
+            if (!cleanupStarted)
+            {
+                Hud.DoFade(FadeType.Out);
+                cleanupStarted = true;
+            }
+            if (!Hud.IsFading())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public void Load(ContentManager content)
         {
@@ -335,7 +359,8 @@ namespace Exeggcute.src
 
         public void Unload()
         {
-
+            miniBoss.Reset();
+            mainBoss.Reset();
         }
 
         public void Dispose()

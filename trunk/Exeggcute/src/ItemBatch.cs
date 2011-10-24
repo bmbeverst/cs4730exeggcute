@@ -12,6 +12,7 @@ namespace Exeggcute.src
     {
         List<Item> myItems;
         Float3 dispersion;
+
         public ItemBatch(List<Item> items, Float3 dispersion)
         {
             this.myItems = items;
@@ -24,10 +25,8 @@ namespace Exeggcute.src
             foreach (Item item in myItems)
             {
                 Vector3 pos = dispersion.Vector;
-                Console.WriteLine("tried at at {0}", deathPos + pos);
                 item.SetPosition(deathPos + pos);
                 itemList.Add(item);
-                Console.WriteLine("got to {0}", item.Position);
             }
         }
 
