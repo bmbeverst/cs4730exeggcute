@@ -10,32 +10,40 @@ namespace Exeggcute.src.graphics
 {
     class QuadBatch
     {
-        public BasicEffect Shader { get; set; }
+
+        public Effect Shader { get; protected set; }
+        public Texture2D Texture { get; protected set; }
         public QuadBatch(GraphicsDevice graphics, Texture2D texture)
         {
             //Shader = EffectBank.Get(EffectName.terrain);
-            Shader = new BasicEffect(graphics);
+            this.Shader = EffectBank.Get("light0");
+            this.Texture = texture;
             //Shader.EnableDefaultLighting();
-            Shader.World = Matrix.Identity;
+            //Shader.World = Matrix.Identity;
             //Shader.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.9f);
 
-            Shader.TextureEnabled = true;
-            Shader.Texture = texture;
+            //Shader.TextureEnabled = true;
+            //Shader.Texture = texture;
+            
         }
         public void SetCamera(Matrix view, Matrix projection)
         {
-            
-            Shader.View = view;
-            Shader.Projection = projection;
+
+
+            Shader.CurrentTechnique = Shader.Techniques["Textured"];
+            Shader.Parameters["xView"].SetValue(view);
+            Shader.Parameters["xProjection"].SetValue(projection);
+            Shader.Parameters["xTexture"].SetValue(Texture);
         }
 
 
         public void Draw(GraphicsDevice graphics, Wrapped2DArray<Quad> quads, float centerDepth, float rotation)
         {
-            Shader.World = 
+            Matrix world = //Shader.World = 
                   Matrix.CreateTranslation(0, 0, -centerDepth)
                 * Matrix.CreateRotationX(-rotation)
                 * Matrix.CreateTranslation(0, 0, centerDepth);
+            Shader.Parameters["xWorld"].SetValue(world);
             foreach (EffectPass pass in Shader.CurrentTechnique.Passes)
             {
                 pass.Apply();
@@ -45,13 +53,18 @@ namespace Exeggcute.src.graphics
 
         public void DrawNear(GraphicsDevice graphics, Wrapped2DArray<Quad> quads, float centerDepth, float rotation, int start, int buffer)
         {
-            Shader.World =
+            Matrix world = //Shader.World =
                   Matrix.CreateTranslation(0, 0, -centerDepth)
                 * Matrix.CreateRotationX(-rotation)
                 * Matrix.CreateTranslation(0, 0, centerDepth);
+
+            Shader.Parameters["xWorld"].SetValue(world);
+
             foreach (EffectPass pass in Shader.CurrentTechnique.Passes)
             {
+
                 pass.Apply();
+
                 drawRange(graphics, quads, start, buffer);
             }
             

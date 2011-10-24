@@ -54,8 +54,6 @@ namespace Exeggcute.src.graphics
             get { return Vertices[3].TextureCoordinate;  }
             protected set { Vertices[3].TextureCoordinate = value; }
         }
-        
-       
 
         public VertexPositionNormalTexture[] Vertices;
         public short[] Indexes;

@@ -131,7 +131,7 @@ namespace Exeggcute.src.graphics
 
         private void initMesh()
         {
-            //Speed = 0;
+
             Vector3 back = new Vector3(0, 0, -1);
             Vector3 up =  new Vector3(0, 1, 0);
 

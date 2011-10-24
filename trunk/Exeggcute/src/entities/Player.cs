@@ -406,18 +406,23 @@ namespace Exeggcute.src.entities
             }
             
         }
-
+        public Vector3 position = new Vector3(0, 0, 0);
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+
+            position = new Vector3(0, 0.1f, 0);
             foreach (ModelMesh mesh in Surface.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)
                 {
-                    //currentEffect.Parameters["xPointLight1"].SetValue(Position);
-                    //currentEffect.Parameters["xPointIntensity1"].SetValue(1.0f);
-                    currentEffect.Parameters["xLightDirection"].SetValue(Position);
-                    currentEffect.Parameters["xDirLightIntensity"].SetValue(1.0f);
-
+                    currentEffect.Parameters["xPointLight1"].SetValue(Position);
+                    currentEffect.Parameters["xPointIntensity1"].SetValue(1f);
+                    //currentEffect.Parameters["xLightDirection"].SetValue(position);
+                    //currentEffect.Parameters["xDirLightIntensity"].SetValue(0.5f);
+                    currentEffect.Parameters["xAmbient"].SetValue(0f);
+                    //currentEffect.Parameters["xSpotIntensity"].SetValue(0.9f);
+                    //currentEffect.Parameters["xSpotInnerCone"].SetValue(10f);
+                    //currentEffect.Parameters["xSpotOuterCone"].SetValue(10f);
                 }
             }
             base.Draw(graphics, view, projection);
