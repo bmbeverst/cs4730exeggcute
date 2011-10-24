@@ -142,6 +142,7 @@
     <Compile Include="src\assets\ItemBank.cs" />
     <Compile Include="src\assets\ItemBatchBank.cs" />
     <Compile Include="src\assets\PlayerBank.cs" />
+    <Compile Include="src\Campaign.cs" />
     <Compile Include="src\contexts\LevelOverEvent.cs" />
     <Compile Include="src\contexts\PauseEvent.cs" />
     <Compile Include="src\contexts\ReallyQuitEvent.cs" />
@@ -359,6 +360,7 @@
     <None Include="data\bosses\guy.boss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="data\campaigns\default.campaign" />
     <None Include="data\itembatches\test.batch">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

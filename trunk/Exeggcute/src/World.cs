@@ -252,6 +252,10 @@ namespace Exeggcute.src
         public static void LoadNextLevel(HUD hud, Player player, string name, bool doPop)
         {
             ClearLists();
+            if (name.Equals("1"))//FIXME hard coded
+            {
+
+            }
             Level next = levelLoader.Load(content, graphics, player, hud, difficulty, name);
             if (doPop)
             {
