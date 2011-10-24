@@ -13,6 +13,7 @@ namespace Exeggcute.src.loading.specs
     class PlayerInfo : LoadedInfo
     {
         public Model Surface { get; protected set; }
+        public Texture2D Texture { get; protected set; }
         public Arsenal Bomb { get; protected set; }
         public BehaviorScript DeathScript { get; protected set; }
         public int? NumLives { get; protected set; }
@@ -36,6 +37,10 @@ namespace Exeggcute.src.loading.specs
                 if (matches("model"))
                 {
                     Surface = ModelBank.Get(value);
+                }
+                else if (matches("texture"))
+                {
+                    Texture = TextureBank.Get(value);
                 }
                 else if (matches("deathscript"))
                 {

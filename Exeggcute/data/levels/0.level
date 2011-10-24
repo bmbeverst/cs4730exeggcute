@@ -18,9 +18,12 @@ Orientation: Outside
 
 @TaskList:
 spawn 0 ([0|20],40,0) 0
+wait 180
 spawn 0 (0,40,0) 0
+wait 180
 spawn 0 (-10,40,0) 0
-wait 20
+wait 180
+wait 600
 killall
 wait 1
 boss (0,40,0)

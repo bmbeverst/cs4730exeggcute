@@ -239,7 +239,7 @@ namespace Exeggcute.src.graphics
             int i = (int)((x + Width/2 + TileSize/2) / TileSize);
             int j = (int)(CalculateViewIndex() + (y / TileSize));
             
-            Console.WriteLine("locked at {0}, {1}", i, j);
+            //Console.WriteLine("locked at {0}, {1}", i, j);
             for (int tempI = i - 2; tempI < i + 2; tempI++)
             {
                 for (int tempJ = j - 2; tempJ < j + 2; tempJ++)
@@ -247,7 +247,7 @@ namespace Exeggcute.src.graphics
 
                     //j < quads.Rows-1 && j > -(quads.Rows-1)
                     //i < clums-1 && i > -1
-                    if (i < 20 && i > 5 && j < quads.Rows && j > -5)
+                    if (i < vertCols && i > 0)
                     {
                         float distace = 4 - Math.Abs(tempI - i + tempJ - j);
                         Quad current = quads[tempI, tempJ];

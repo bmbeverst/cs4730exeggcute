@@ -14,7 +14,7 @@ namespace Exeggcute.src.assets
 
         public static Effect Get(string name)
         {
-            return bank[name].Clone();
+            return bank[name];//.Clone();
         }
 
         public static void LoadAll(ContentManager content)

@@ -10,7 +10,7 @@ namespace Exeggcute.src.entities
 {
     abstract class PlanarEntity3D : Entity3D
     {
-        
+        public Texture2D Texture { get; protected set; }
         public Vector3 PrevPosition { get; protected set; }
         protected float[] param = new float[16];
         public int ParamCount { get { return param.Length; } }
@@ -157,19 +157,26 @@ namespace Exeggcute.src.entities
         {
             get { return new Vector2(Position.X, Position.Y); }
         }
-
-        public PlanarEntity3D(Model model, Vector3 pos)
+        public PlanarEntity3D(Model model, Texture2D texture, Vector3 pos)
             : base(model, pos)
         {
-            Mass = 1000.0f;
-            Scale = 1;
+            this.Texture = texture;
+            this.Mass = 1000.0f;
+            this.Scale = 1;
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    part.Effect = EffectBank.Get("light0");
+                }
+            }
         }
 
         public PlanarEntity3D(Vector3 pos)
             : base (pos)
         {
-            Mass = 1;
-            Scale = 1;
+            this.Mass = 1;
+            this.Scale = 1;
         }
 
         /// <summary>
@@ -241,27 +248,25 @@ namespace Exeggcute.src.entities
             Surface.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in Surface.Meshes)
             {
-                foreach (BasicEffect currentEffect in mesh.Effects)
+                foreach (Effect currentEffect in mesh.Effects)
                 {
                     //FIXME: absolutely no reason to do this every frame
-                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                    /*currentEffect.World = transforms[mesh.ParentBone.Index] *
                         Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationZ(Angle) *
+                        Matrix.CreateRotationZ(Angle + MathHelper.PiOver2) *
                         Matrix.CreateTranslation(Position);
                     currentEffect.View = view;
-                    currentEffect.Projection = projection;
+                    currentEffect.Projection = projection;*/
 
-                    /*Matrix world = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateRotationY(MathHelper.Pi) *
-                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
-                        Matrix.CreateRotationX(MathHelper.PiOver2) *
+                    Matrix world = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(Scale) *
+                        Matrix.CreateRotationZ(Angle + MathHelper.PiOver2) *
                         Matrix.CreateTranslation(Position);
-                    Texture2D texture = TextureBank.Get(TextureName.fractal);
                     currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                     currentEffect.Parameters["xWorld"].SetValue(world);
                     currentEffect.Parameters["xView"].SetValue(view);
                     currentEffect.Parameters["xProjection"].SetValue(projection);
-                    currentEffect.Parameters["xTexture"].SetValue(texture);*/
+                    currentEffect.Parameters["xTexture"].SetValue(Texture);
 
 
                 }

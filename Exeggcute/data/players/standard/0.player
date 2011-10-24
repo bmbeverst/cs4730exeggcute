@@ -1,6 +1,7 @@
 ﻿#SAMPLE PLAYER
 @info:
 model:        playerScene
+texture:      fractal
 scale:        0.6
 deathScript:  playerrespawn
 lives:        9

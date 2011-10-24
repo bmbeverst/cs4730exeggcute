@@ -12,7 +12,7 @@ namespace Exeggcute.src.entities.items
         protected const float terminalSpeed = -0.3f;
         protected ItemEntry entry;
         public Item(ItemEntry entry)
-            : base(entry.Surface, entry.Behavior)
+            : base(entry.Surface, entry.Texture, entry.Behavior)
         {
             this.entry = entry;
         }

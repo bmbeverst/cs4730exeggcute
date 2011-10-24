@@ -16,6 +16,7 @@ namespace Exeggcute.src.loading
         public List<Spellcard> Spellcards { get; protected set; }
         public string BossName { get; protected set; }
         public Model Surface { get; protected set; }
+        public Texture2D Texture { get; protected set; }
         public BehaviorScript EntryScript { get; protected set; }
         public BehaviorScript DefeatScript { get; protected set; }
         public BehaviorScript DeathScript { get; protected set; }
@@ -27,11 +28,14 @@ namespace Exeggcute.src.loading
         {
 
         }
-
-        public Boss Load(string name)
+        public static Boss Make(string name)
         {
             BossInfo info = new BossInfo();
-
+            return info.Load(name);
+        }
+        public Boss Load(string name)
+        {
+            Spellcards = new List<Spellcard>();
             string path = string.Format("data/bosses/{0}.boss", name);
             List<string> lines = Util.ReadAndStrip(path, true);
             for (int i = 0; i < lines.Count; i += 1)
@@ -41,35 +45,39 @@ namespace Exeggcute.src.loading
                 string value = tokens[1];
                 if (matches("name"))
                 {
-                    info.BossName = value;
+                    BossName = value;
                 }
                 else if (matches("model"))
                 {
-                    info.Surface= ModelBank.Get(value);
+                    Surface= ModelBank.Get(value);
+                }
+                else if (matches("texture"))
+                {
+                    Texture = TextureBank.Get(value);
                 }
                 else if (matches("scale"))
                 {
-                    info.ModelScale = int.Parse(value);
+                    ModelScale = int.Parse(value);
                 }
                 else if (matches("entryScript"))
                 {
-                    info.EntryScript = ScriptBank.GetBehavior(value);
+                    EntryScript = ScriptBank.GetBehavior(value);
                 }
                 else if (matches("defeatscript"))
                 {
-                    info.DefeatScript = ScriptBank.GetBehavior(value);
+                    DefeatScript = ScriptBank.GetBehavior(value);
                 }
                 else if (matches("deathscript"))
                 {
-                    info.DeathScript = ScriptBank.GetBehavior(value);
+                    DeathScript = ScriptBank.GetBehavior(value);
                 }
                 else if (matches("intro"))
                 {
-                    info.Intro = ConversationBank.Get(value);
+                    Intro = ConversationBank.Get(value);
                 }
                 else if (matches("outro"))
                 {
-                    info.Outro = ConversationBank.Get(value);
+                    Outro = ConversationBank.Get(value);
                 }
                 else if (matches("spellcard"))
                 {
@@ -82,7 +90,7 @@ namespace Exeggcute.src.loading
                                                    scInfo.Duration.Value,
                                                    scInfo.Health.Value,
                                                    scInfo.Name);
-                    info.Spellcards.Add(card);
+                    Spellcards.Add(card);
                     i = returnPoint;
                 }
                 else
@@ -91,24 +99,26 @@ namespace Exeggcute.src.loading
                 }
             }
 
-            AssertInitialized(info);
+            AssertInitialized(this);
             if (Spellcards.Count == 0)
             {
                 throw new ParseError("no spellcards found");
             }
             return new Boss(
-                info.Surface,
-                info.ModelScale.Value,
-                info.Intro,
-                info.Outro,
-                info.EntryScript,
-                info.DefeatScript,
-                info.DeathScript,
-                info.Spellcards);
+                Surface,
+                Texture,
+                ModelScale.Value,
+                
+                Intro,
+                Outro,
+                EntryScript,
+                DefeatScript,
+                DeathScript,
+                Spellcards);
 
         }
     }
-    class BossLoader : Loader
+    /*class BossLoader : Loader
     {
         public Boss Load(string name)
         {
@@ -116,6 +126,7 @@ namespace Exeggcute.src.loading
             List<Spellcard> spellcards = new List<Spellcard>();
             string bossName = null;
             Model model = null;
+            Texture2D texture = null;
             BehaviorScript entryScript = null;
             BehaviorScript defeatScript = null;
             BehaviorScript deathScript = null;
@@ -137,6 +148,10 @@ namespace Exeggcute.src.loading
                 else if (matches("model"))
                 {
                     model = ModelBank.Get(value);
+                }
+                else if (matches("texture"))
+                {
+                    texture = TextureBank.Get(value);
                 }
                 else if (matches("scale"))
                 {
@@ -183,6 +198,7 @@ namespace Exeggcute.src.loading
 
             if (bossName == null ||
                 model == null ||
+                texture == null ||
                 entryScript == null ||
                 defeatScript == null ||
                 deathScript == null ||
@@ -198,5 +214,5 @@ namespace Exeggcute.src.loading
 
         }
  
-    }
+    }*/
 }

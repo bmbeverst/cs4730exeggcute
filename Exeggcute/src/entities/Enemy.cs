@@ -40,7 +40,7 @@ namespace Exeggcute.src.entities
                      HashList<Shot> enemyShots, 
                      HashList<Gib> gibList, 
                      HashList<Item> itemList)
-            : base(entry.Surface, entry.Behavior, entry.GetArsenal(World.EnemyShots), enemyShots, gibList)
+            : base(entry.Surface, entry.Texture, entry.Behavior, entry.GetArsenal(World.EnemyShots), enemyShots, gibList)
         {
             Health = 100;
             this.rosterParams = entry;
@@ -109,9 +109,10 @@ namespace Exeggcute.src.entities
             IsTrash = true;
             Vector3 deathpos = new Vector3(X, Y, 0);
             Model gibModel = ModelBank.Get("junk0");
+            Texture2D texture = TextureBank.Get("junk");
             for (int i = 0; i < numGibs; i += 1)
             {
-                gibListHandle.Add(new Gib(gibModel, Position2D, Speed, Angle));
+                gibListHandle.Add(new Gib(gibModel, texture, Position2D, Speed, Angle));
             }
             heldItems.Release(itemListHandle, deathpos);
         }

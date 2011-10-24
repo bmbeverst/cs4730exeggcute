@@ -126,15 +126,31 @@ namespace Exeggcute.src
             }
         }
 
-        public void CollideTerrain<TEntity>(WangMesh terrain, TEntity entity) where TEntity : PlanarEntity3D
+        public void CollideTerrain<TEntity>(WangMesh terrain, TEntity entity, Rectangle gameArea) where TEntity : PlanarEntity3D
         {
-            if (Math.Abs(entity.Position.Z - (terrain.Depth - 100)) < 2)
+            if (Math.Abs(entity.Position.Z - (terrain.Depth)) < 2)
             {
                 float x = entity.X;
                 float y = entity.Y;
                 float z = terrain.Depth;
-                terrain.Impact(x, y, 0, 0);
+                if (entity.ContainedIn(gameArea))
+                {
+                    terrain.Impact(x, y, 0, 0);
+                }
                 entity.QueueDelete();
+            }
+        }
+
+        public void CollideBoss(HashList<Shot> playerShots, Boss boss)
+        {
+            BoundingSphere bossBox = boss.OuterHitbox;
+            foreach (Shot shot in playerShots.GetKeys())
+            {
+                if (shot.OuterHitbox.Intersects(bossBox))
+                {
+                    shot.Collide(boss);
+                    boss.Collide(shot);
+                }
             }
         }
 

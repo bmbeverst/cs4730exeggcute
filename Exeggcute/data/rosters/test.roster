@@ -1,2 +1,2 @@
-﻿#model   behavior  itembatch arsenal   alignment
-testcube testenemy test      testenemy Enemy
+﻿#model   texture  behavior   itembatch arsenal   alignment
+testcube fractal  testenemy  test      testenemy Enemy

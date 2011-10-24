@@ -74,6 +74,7 @@ namespace Exeggcute.src.entities
                       string name,
                       bool isCustom,
                       Model model, 
+                      Texture2D texture, 
                       BehaviorScript deathScript, 
                       Arsenal bomb, 
                       List<Arsenal> arsenalList, 
@@ -86,7 +87,7 @@ namespace Exeggcute.src.entities
                       float hitRadius,
                       HashList<Shot> shotList, 
                       HashList<Gib> gibList)
-            : base(model, deathScript, null, shotList, gibList)
+            : base(model, texture, deathScript, null, shotList, gibList)
         {
             this.RawData = data;
             this.Name = name;
@@ -408,7 +409,20 @@ namespace Exeggcute.src.entities
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            foreach (ModelMesh mesh in Surface.Meshes)
+            {
+                foreach (Effect currentEffect in mesh.Effects)
+                {
+                    //currentEffect.Parameters["xPointLight1"].SetValue(Position);
+                    //currentEffect.Parameters["xPointIntensity1"].SetValue(1.0f);
+                    currentEffect.Parameters["xLightDirection"].SetValue(Position);
+                    currentEffect.Parameters["xDirLightIntensity"].SetValue(1.0f);
 
+                }
+            }
+            base.Draw(graphics, view, projection);
+
+            return;
             if (Surface == null || flashDraw) return;
             Matrix[] transforms = new Matrix[Surface.Bones.Count];
             Surface.CopyAbsoluteBoneTransformsTo(transforms);
@@ -418,6 +432,7 @@ namespace Exeggcute.src.entities
                 {
                     currentEffect.World = transforms[mesh.ParentBone.Index] *
                         Matrix.CreateScale(Scale) *
+                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
                         Matrix.CreateRotationY(rollAngle) *
                         Matrix.CreateRotationX(-pitchAngle) *
 

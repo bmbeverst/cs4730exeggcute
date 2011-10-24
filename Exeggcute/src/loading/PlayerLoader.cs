@@ -50,6 +50,7 @@ namespace Exeggcute.src.loading
                               name,
                               isCustom,
                               info.Surface, 
+                              info.Texture,
                               info.DeathScript, 
                               info.Bomb,  
                               arsenals, 
