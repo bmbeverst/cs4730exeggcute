@@ -232,25 +232,40 @@ namespace Exeggcute.src.graphics
         
         public void Impact(float x, float y, float mass, float speed)
         {
+            //i = x
+            //j = y
             //x = x * FastTrig.Cos(-Spin) - y * FastTrig.Sin(-Spin);
             //y = x * FastTrig.Sin(-Spin) + y * FastTrig.Cos(-Spin);
             int i = (int)((x + Width/2 + TileSize/2) / TileSize);
             int j = (int)(CalculateViewIndex() + (y / TileSize));
+            
+            Console.WriteLine("locked at {0}, {1}", i, j);
+            for (int tempI = i - 2; tempI < i + 2; tempI++)
+            {
+                for (int tempJ = j - 2; tempJ < j + 2; tempJ++)
+                {
 
-            Quad current = quads[i, j];
-            float curY = current.TopRight.Y;
-            float curZ = current.TopRight.Z;
+                    if (i < 20 && i > 5 && j < quads.Rows && j > -5)
+                    {
+                        float distace = 4 - Math.Abs(tempI - i + tempJ - j);
+                        Quad current = quads[tempI, tempJ];
+                        float curY = current.TopRight.Y;
+                        float curZ = current.TopRight.Z;
 
-            float height = getSign() * 25;
+                        float height = getSign() * 2 + distace * 5;
 
-            float r = Radius + height;
-            float theta = FaceAngle * j + ANGLEOFFSET;
-            float newY = -r * FastTrig.Cos(theta);
-            float newZ = Radius + Depth + r * FastTrig.Sin(theta);
-            newZ *= getSign();
-            float xQuad = current.TopRight.X;
-            quads[i, j].UpdateVertices(current.TopLeft, new Vector3(xQuad, newY, newZ), current.BottomLeft, current.BottomRight);
-            lockLocal(i, j);
+                        float r = Radius + height;
+                        float theta = FaceAngle * tempJ + ANGLEOFFSET;
+                        float newY = -r * FastTrig.Cos(theta);
+                        float newZ = Radius + Depth + r * FastTrig.Sin(theta);
+                        newZ *= getSign();
+                        float xQuad = current.TopRight.X;
+                        quads[tempI, tempJ].UpdateVertices(current.TopLeft, new Vector3(xQuad, newY, newZ), current.BottomLeft, current.BottomRight);
+                        lockLocal(tempI, tempJ);    
+                    }
+                    
+                }
+            }
         }
 
         public int getSign()
