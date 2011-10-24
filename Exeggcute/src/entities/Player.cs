@@ -416,9 +416,9 @@ namespace Exeggcute.src.entities
                 foreach (Effect currentEffect in mesh.Effects)
                 {
                     currentEffect.Parameters["xPointLight1"].SetValue(Position);
-                    currentEffect.Parameters["xPointIntensity1"].SetValue(1f);
-                    //currentEffect.Parameters["xLightDirection"].SetValue(position);
-                    //currentEffect.Parameters["xDirLightIntensity"].SetValue(0.5f);
+                    currentEffect.Parameters["xPointIntensity1"].SetValue(5f);
+                    currentEffect.Parameters["xLightDirection"].SetValue(position);
+                    currentEffect.Parameters["xDirLightIntensity"].SetValue(0.5f);
                     currentEffect.Parameters["xAmbient"].SetValue(0f);
                     //currentEffect.Parameters["xSpotIntensity"].SetValue(0.9f);
                     //currentEffect.Parameters["xSpotInnerCone"].SetValue(10f);
