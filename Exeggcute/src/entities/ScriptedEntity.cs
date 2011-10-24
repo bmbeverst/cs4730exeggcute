@@ -151,7 +151,7 @@ namespace Exeggcute.src.entities
             throw new SubclassShouldImplementError();
         }
 
-        public virtual void Process(MoveToAction moveTo)
+        public virtual void Process(MoveAbsAction moveTo)
         {
             Vector3 start = Position;
             Vector3 target = moveTo.Destination.Vector;

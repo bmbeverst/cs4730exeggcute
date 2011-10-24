@@ -7,12 +7,12 @@ using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
 {
-    class MoveToAction : ActionBase
+    class MoveAbsAction : ActionBase
     {
         public Float3 Destination { get; protected set; }
         public int Duration { get; protected set; }
 
-        public MoveToAction(Float3 destination, int duration)
+        public MoveAbsAction(Float3 destination, int duration)
         {
             this.Destination = destination;
             this.Duration = duration;
@@ -25,7 +25,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new MoveToAction(Destination, Duration);
+            return new MoveAbsAction(Destination, Duration);
         }
     }
 }

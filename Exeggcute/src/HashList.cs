@@ -27,6 +27,11 @@ namespace Exeggcute.src
         }
 
 
+        public HashList()
+        {
+            container = new Dictionary<T, bool>();
+        }
+
 
 
         public HashList(IEnumerable<T> collection)

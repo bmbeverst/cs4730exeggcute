@@ -48,26 +48,21 @@ namespace Exeggcute.src
         /// <summary>
         /// Used to quit with an error message.
         /// </summary>
-        internal static void Die(string message, params object[] args)
+        internal static void Die(object message, params object[] args)
         {
             string msg;
             if (args.Length == 0)
             {
-                msg = message;
+                msg = message.ToString();
             }
             else
             {
-                msg = string.Format(message, args);
+                msg = string.Format(message.ToString(), args);
             }
             Console.Error.WriteLine(msg);
             Console.Error.WriteLine("Press enter to exit");
             Console.ReadLine();
             Environment.Exit(1);
-        }
-
-        internal static void Die(object o)
-        {
-            Die(o.ToString());
         }
 
         /// <summary>
@@ -169,10 +164,16 @@ namespace Exeggcute.src
         /// <param name="filepath">the file to be read</param>
         /// <param name="delim">the comment delimiting character</param>
         /// <param name="stripEmpty">empty lines are removed</param>
-        internal static List<string> StripComments(string filepath, bool stripEmpty = false)
+        internal static List<string> ReadAndStrip(string filepath, bool stripEmpty = false)
         {
+            string data = File.ReadAllText(filepath);
+            return StripComments(data, stripEmpty);
+        }
+
+        internal static List<string> StripComments(string data, bool stripEmpty)
+        {
+            List<string> lines = Regex.Split(data, @"\n|\r\n").ToList();
             char delim = '#';
-            List<string> lines = ReadLines(filepath);
             for (int i = lines.Count - 1; i >= 0; i -= 1)
             {
                 string[] parts = lines[i].Split(delim);
@@ -198,7 +199,7 @@ namespace Exeggcute.src
         /// <param name="delim">character beginning a comment</param>
         internal static Stack<string> StackifyFile(string filepath)
         {
-            List<string> lines = Util.StripComments(filepath, true);
+            List<string> lines = Util.ReadAndStrip(filepath, true);
             return Util.Stackify(lines);
         }
 
@@ -394,7 +395,7 @@ namespace Exeggcute.src
         internal static Tuple<string, string> PreprocessRange(string s)
         {
             string flattened = Util.RemoveSpace(s).Replace("]", "").Replace("[", "") ;
-            string[] split = flattened.Split(',');
+            string[] split = flattened.Split('|');
             return new Tuple<string,string>(split[0],split[1]);
         }
 
@@ -444,5 +445,27 @@ namespace Exeggcute.src
         {
             return RemoveSpace(entry).Split(':');
         }
+
+        /// <summary>
+        /// Converts
+        /// <para>FieldName1:    value1 </para>
+        /// <para>FIeldName2:    value2</para>
+        /// To a list of string arrays whose entries are fieldname, value(string) pairs.
+        /// </summary>
+        internal static List<string[]> CleanData(string data)
+        {
+            List<string[]> result = new List<string[]>();
+
+            List<string> lines = Util.StripComments(data, true);
+            for (int i = 0; i < lines.Count; i += 1)
+            {
+                string cleaned = Util.RemoveSpace(lines[i]);
+                result.Add(cleaned.Split(':'));
+            }
+            return result;
+        }
+
+
+        
     }
 }

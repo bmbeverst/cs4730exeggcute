@@ -1,6 +1,14 @@
 ﻿#SAMPLE PLAYER
+@info:
 model:        playerScene
+scale:        0.6
 deathScript:  playerrespawn
-weapon:       weapon0
-bomb:         bomb0
-
+lives:        9
+bombs:        3
+special:      bomb0
+moveSpeed:    1.0
+focusSpeed:   0.5
+hitradius:    0.2
+@weapon:    
+0 weapon0
+1 bomb0

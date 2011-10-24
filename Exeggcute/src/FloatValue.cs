@@ -25,6 +25,11 @@ namespace Exeggcute.src
             return this;
         }
 
+        public virtual FloatValue FromDegrees()
+        {
+            return Mult(FastTrig.degreesToRadians);
+        }
+
         protected FloatValue()
         {
 
@@ -58,6 +63,11 @@ namespace Exeggcute.src
             Max *= x;
             range = Max - Min;
             return this;
+        }
+
+        public override FloatValue FromDegrees()
+        {
+            return Mult(FastTrig.degreesToRadians);
         }
 
     }

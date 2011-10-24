@@ -27,7 +27,7 @@ namespace Exeggcute.src
 
         public void LoadLocal()
         {
-            List<string> lines = Util.StripComments(FILE, true);
+            List<string> lines = Util.ReadAndStrip(FILE, true);
             if (lines.Count != 10)
             {
                 restore(lines);

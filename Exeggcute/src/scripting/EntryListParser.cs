@@ -9,7 +9,7 @@ namespace Exeggcute.src.scripting
     {
         public List<TEntry> Parse(string filepath)
         {
-            List<string> lines = Util.StripComments(filepath, true);
+            List<string> lines = Util.ReadAndStrip(filepath, true);
             List<TEntry> result = new List<TEntry>();
             for (int i = 0; i < lines.Count; i += 1)
             {

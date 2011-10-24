@@ -39,7 +39,7 @@ namespace Exeggcute.src
             {
                 if (shot.OuterHitbox.Intersects(player.InnerHitbox))
                 {
-                    return false;// true;
+                    return true;
                 }
                 else if (!shot.HasGrazed && shot.OuterHitbox.Intersects(player.OuterHitbox))
                 {
@@ -149,7 +149,7 @@ namespace Exeggcute.src
                     float y = enemy.Y;
                     float z = terrain.Depth;
                     terrain.Impact(x, y, 0, 0);
-                    enemy.Die();
+                    enemy.Kill();
                 }
             }
         }

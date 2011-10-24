@@ -70,7 +70,9 @@ namespace Exeggcute.src
 
             ArsenalBank.LoadAll();
             RosterBank.LoadAll();
-            
+
+            ConversationBank.LoadAll();
+
             loadMenus();
 
 

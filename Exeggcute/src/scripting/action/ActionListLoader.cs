@@ -19,31 +19,31 @@ namespace Exeggcute.src.scripting.action
         public BehaviorScript MakeBehavior(string filepath)
         {
             string name = getName(filepath);
-            return new BehaviorScript(name, Load(filepath));
+            return new BehaviorScript(name, FromFile(filepath));
         }
 
         public SpawnScript MakeSpawn(string filepath)
         {
             string name = getName(filepath);
-            return new SpawnScript(name, Load(filepath));
+            return new SpawnScript(name, FromFile(filepath));
         }
 
         public TrajectoryScript MakeTrajectory(string filepath)
         {
             string name = getName(filepath);
-            return new TrajectoryScript(name, Load(filepath));
+            return new TrajectoryScript(name, FromFile(filepath));
         }
 
 
         protected override List<ActionBase> parseElement(Stack<string> tokens)
         {
             CommandType type = Util.ParseEnum<CommandType>(tokens.Pop());
-            if (type == CommandType.MoveTo)
+            if (type == CommandType.MoveAbs)
             {
                 Float3 destination = Util.ParseFloat3(tokens.Pop());
                 int duration = int.Parse(tokens.Pop());
                 return new List<ActionBase> {
-                    new MoveToAction(destination, duration),
+                    new MoveAbsAction(destination, duration),
                     new WaitAction(duration),
                     new SetParamAction("PositionX", destination.X),
                     new SetParamAction("PositionY", destination.Y),

@@ -12,7 +12,8 @@ namespace Exeggcute.src.gui
 {
     class HUD
     {
-        public const float GAME_AREA_RATIO = 0.8000000f;
+        public const float WIDTH_RATIO = 0.8000000f;
+        public const float HEIGHT_RATIO = 0.9333333f;
 
         public Rectangle GameRect { get; protected set; }
 
@@ -23,27 +24,35 @@ namespace Exeggcute.src.gui
         private Doodad bottomBox;
         private Doodad topBox;
 
-        private float HEIGHT_RATIO = 0.9333333f;
-
         public HUD()
         {
-            GameRect = Resize(Engine.XRes, Engine.YRes);
+            Resize(Engine.XRes, Engine.YRes);
             scoreFont = FontBank.Get("consolas");
         }
 
-        public Rectangle Resize(int xres, int yres)
+        public static Rectangle CalculateRect(int xres, int yres)
         {
-            int gameHeight  = (int)(HEIGHT_RATIO * yres);
-            int gameWidth   = (int)(gameHeight * GAME_AREA_RATIO);
-            int boxWidth    = (xres - gameWidth)  / 2;
+            
+            int gameHeight = (int)(HEIGHT_RATIO * yres);
+            int gameWidth = (int)(gameHeight * WIDTH_RATIO);
+            int boxWidth = (xres - gameWidth) / 2;
             int stripHeight = (yres - gameHeight) / 2;
+            return new Rectangle(boxWidth, stripHeight, gameWidth, gameHeight);
+            
+        }
+        public void Resize(int xres, int yres)
+        {
+            GameRect = CalculateRect(xres, yres);
+            int boxWidth = GameRect.X;
+            int stripHeight = GameRect.Y;
+            int gameWidth = GameRect.Width;
+            int gameHeight = GameRect.Height;
             RectSprite sideSprite = new RectSprite(boxWidth, yres, Color.Black, true);
             RectSprite topSprite = new RectSprite(gameWidth, stripHeight, Color.Black, true);
             topBox = new Doodad(topSprite, new Vector2(boxWidth, 0));
             bottomBox = new Doodad(topSprite, new Vector2(boxWidth, yres - stripHeight));
             leftBox = new Doodad(sideSprite, new Vector2(0, 0));
             rightBox = new Doodad(sideSprite, new Vector2(boxWidth + gameWidth, 0));
-            return new Rectangle(boxWidth, stripHeight, gameWidth, gameHeight);
         }
 
 

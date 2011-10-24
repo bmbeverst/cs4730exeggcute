@@ -138,18 +138,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Alignment.cs" />
+    <Compile Include="src\assets\ConversationBank.cs" />
     <Compile Include="src\assets\ItemBank.cs" />
     <Compile Include="src\assets\ItemBatchBank.cs" />
+    <Compile Include="src\Data.cs" />
     <Compile Include="src\entities\items\ExtraLife.cs" />
     <Compile Include="src\entities\items\ItemType.cs" />
+    <Compile Include="src\entities\items\PowerItem.cs" />
     <Compile Include="src\gui\LoadingScreen.cs" />
     <Compile Include="src\ItemEntry.cs" />
+    <Compile Include="src\loading\InfoLoader.cs" />
     <Compile Include="src\loading\ItemLoader.cs" />
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\assets\SongBank.cs" />
     <Compile Include="src\assets\SoundBank.cs" />
     <Compile Include="src\loading\LevelLoader.cs" />
-    <Compile Include="src\loading\specs\TerrainInfo.cs" />
+    <Compile Include="src\loading\PlayerWeaponLoader.cs" />
+    <Compile Include="src\loading\specs\LevelInfo.cs" />
+    <Compile Include="src\loading\specs\PlayerInfo.cs" />
+    <Compile Include="src\loading\TerrainLoader.cs" />
     <Compile Include="src\scripting\BehaviorScript.cs" />
     <Compile Include="src\loading\BossLoader.cs" />
     <Compile Include="src\contexts\BossDeadEvent.cs" />
@@ -159,6 +166,8 @@
     <Compile Include="src\ItemBatch.cs" />
     <Compile Include="src\loading\ItemBatchLoader.cs" />
     <Compile Include="src\loading\PlayerLoader.cs" />
+    <Compile Include="src\scripting\task\BossTask.cs" />
+    <Compile Include="src\scripting\task\KillAllTask.cs" />
     <Compile Include="src\Wrapped2DArray.cs" />
     <Compile Include="src\scripting\action\AimPlayerAction.cs" />
     <Compile Include="src\scripting\EntryListParser.cs" />
@@ -224,7 +233,7 @@
     <Compile Include="src\scripting\action\AimAction.cs" />
     <Compile Include="src\scripting\action\MoveAction.cs" />
     <Compile Include="src\scripting\action\MoveRelativeAction.cs" />
-    <Compile Include="src\scripting\action\MoveToAction.cs" />
+    <Compile Include="src\scripting\action\MoveAbsAction.cs" />
     <Compile Include="src\scripting\roster\RosterEntry.cs" />
     <Compile Include="src\scripting\roster\RosterLoader.cs" />
     <Compile Include="src\scripting\action\SpawnAction.cs" />
@@ -343,6 +352,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="data\scripts\behaviors\item0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\entry0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="lib\Nuclex.Input.dll">
