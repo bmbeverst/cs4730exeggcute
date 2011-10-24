@@ -30,6 +30,13 @@ namespace Exeggcute.src
     {
         public HUD Hud { get; protected set; }
         public string Name { get; protected set; }
+        public Difficulty Difficulty { get; protected set; }
+
+        /// <summary>
+        /// If the user has made no customizations, we will save the
+        /// high scores.
+        /// </summary>
+        public bool ValidScore { get; protected set; }
         private ParticleSystem particles;
         private Camera camera;
         public static Player player;
@@ -83,7 +90,9 @@ namespace Exeggcute.src
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
                      Player player, 
-                     HUD hud, 
+                     HUD hud,
+                     Difficulty difficulty,
+                     bool validScore,
                      string name,
                      Roster roster, 
                      Song levelTheme, 
@@ -97,6 +106,8 @@ namespace Exeggcute.src
 
             this.terrain     = terrain;
             this.Name        = name;
+            this.Difficulty  = difficulty;
+            this.ValidScore  = validScore;
             this.playerShots = World.PlayerShots;
             this.enemyShots  = World.EnemyShots;
             this.enemyList   = World.EnemyList;

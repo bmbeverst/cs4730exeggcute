@@ -17,6 +17,7 @@ namespace Exeggcute.src.gui
         {
             this.heading = new SpriteText(font, "Select difficulty", fontColor);
             this.headingPos = new Vector2(bounds.X - 50, bounds.Y - buttonHeight - 12);
+            this.cursor = 1;
         }
 
         public override void Draw(GraphicsDevice graphics, SpriteBatch batch)

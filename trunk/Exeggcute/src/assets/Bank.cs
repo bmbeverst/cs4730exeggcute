@@ -23,6 +23,21 @@ namespace Exeggcute.src.assets
             AllFiles = new ReadOnlyCollection<string>(files);
         }
 
+        public bool ContainsKey(string key)
+        {
+            return bank.ContainsKey(key);
+        }
+
+        public List<TAsset> GetAssets()
+        {
+            List<TAsset> result = new List<TAsset>();
+            foreach (var pair in bank)
+            {
+                result.Add(pair.Value);
+            }
+            return result;
+        }
+
         public virtual TAsset this[string name]
         {
             get
@@ -35,7 +50,7 @@ namespace Exeggcute.src.assets
             }
         }
 
-        protected string getName(string filepath)
+        public string GetName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);
         }
@@ -46,7 +61,7 @@ namespace Exeggcute.src.assets
         /// </summary>
         public virtual void Put(TAsset asset, string filepath)
         {
-            string name = getName(filepath);
+            string name = GetName(filepath);
             seen[name] = 1;
             bank[name] = asset;
         }

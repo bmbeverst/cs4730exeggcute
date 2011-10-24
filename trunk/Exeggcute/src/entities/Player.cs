@@ -66,7 +66,14 @@ namespace Exeggcute.src.entities
             get { return arsenalList[attackPtr]; }
         }
 
-        public Player(Model model, 
+        public string RawData { get; protected set; }
+        public string Name { get; protected set; }
+        public bool IsCustom { get; protected set; }
+
+        public Player(string data,
+                      string name,
+                      bool isCustom,
+                      Model model, 
                       BehaviorScript deathScript, 
                       Arsenal bomb, 
                       List<Arsenal> arsenalList, 
@@ -81,6 +88,9 @@ namespace Exeggcute.src.entities
                       HashList<Gib> gibList)
             : base(model, deathScript, null, shotList, gibList)
         {
+            this.RawData = data;
+            this.Name = name;
+            this.IsCustom = isCustom;
             this.arsenalList = arsenalList;
             this.thresholds = thresholds;
             this.attackPtr = 0;

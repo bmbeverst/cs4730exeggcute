@@ -23,7 +23,7 @@ namespace Exeggcute.src.loading
     {
         TerrainLoader terrainLoader = new TerrainLoader();
         TaskListLoader taskLoader = new TaskListLoader();
-        public Level Load(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, string name)
+        public Level Load(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string name)
         {
 
             LevelInfo levelInfo = null;
@@ -74,6 +74,8 @@ namespace Exeggcute.src.loading
                              content, 
                              player,
                              hud,
+                             difficulty,
+                             false,//FIXME
                              name,
                              levelInfo.EnemyRoster,
                              levelInfo.LevelTheme,
