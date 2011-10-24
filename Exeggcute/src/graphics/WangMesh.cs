@@ -245,6 +245,8 @@ namespace Exeggcute.src.graphics
                 for (int tempJ = j - 2; tempJ < j + 2; tempJ++)
                 {
 
+                    //j < quads.Rows-1 && j > -(quads.Rows-1)
+                    //i < clums-1 && i > -1
                     if (i < 20 && i > 5 && j < quads.Rows && j > -5)
                     {
                         float distace = 4 - Math.Abs(tempI - i + tempJ - j);
