@@ -260,7 +260,7 @@ namespace Exeggcute.src.entities
 
                     Matrix world = transforms[mesh.ParentBone.Index] *
                         Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationZ(Angle + MathHelper.PiOver2) *
+                        Matrix.CreateRotationZ(Angle) *
                         Matrix.CreateTranslation(Position);
                     currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                     currentEffect.Parameters["xWorld"].SetValue(world);
