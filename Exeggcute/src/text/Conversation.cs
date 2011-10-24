@@ -35,6 +35,7 @@ namespace Exeggcute.src.text
             if (Box.IsDone)
             {
                 IsDone = true;
+                Box.Reset();
                 World.Pop(/*this*/);
             }
         }
@@ -46,6 +47,12 @@ namespace Exeggcute.src.text
 
             Box.Draw(batch, Position, Color.White);
             batch.End();
+        }
+
+        public void Reset()
+        {
+            Box.Reset();
+            IsDone = false;
         }
 
         public void Load(ContentManager content)

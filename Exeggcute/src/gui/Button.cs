@@ -15,6 +15,7 @@ namespace Exeggcute.src.gui
         protected ContextEvent onDeselect;
         protected ContextEvent onActivate;
         protected ContextEvent onDeactivate;
+        public abstract int Height { get; }
         //protected Drawable image;
         public bool IsActive { get; protected set; }
         public bool IsSelected { get; protected set; }
@@ -30,7 +31,11 @@ namespace Exeggcute.src.gui
             this.IsActive = false;
             this.IsSelected = false;
         }
-        
+
+        public void AttachOnActivate(ContextEvent activate)
+        {
+            this.onActivate = activate;
+        }
 
         // A button has no position. That is determined by the menu
         public abstract void Draw(SpriteBatch batch, Vector2 pos);

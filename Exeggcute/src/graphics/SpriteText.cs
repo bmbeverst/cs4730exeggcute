@@ -9,12 +9,17 @@ namespace Exeggcute.src.graphics
         public string Text { get; protected set; }
         public Color FillColor { get; protected set; }
         public Vector2 Center { get; protected set; }
+        public int Height
+        {
+            get { return (int)Font.MeasureString(Text).Y; }
+        }
+
         public SpriteText(SpriteFont font, string text, Color color)
         {
-            Text = text;
-            Font = font;
-            FillColor = color;
-            Center = Font.MeasureString(Text) / 2;
+            this.Text = text;
+            this.Font = font;
+            this.FillColor = color;
+            this.Center = Font.MeasureString(Text) / 2;
         }
 
         public void Draw(SpriteBatch batch, Vector2 pos)

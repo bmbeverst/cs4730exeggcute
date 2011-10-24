@@ -14,6 +14,7 @@ using Exeggcute.src.scripting.roster;
 using Exeggcute.src.scripting;
 using Exeggcute.src.assets;
 using Exeggcute.src.loading.specs;
+using Exeggcute.src.gui;
 
 namespace Exeggcute.src.loading
 {
@@ -22,7 +23,7 @@ namespace Exeggcute.src.loading
     {
         TerrainLoader terrainLoader = new TerrainLoader();
         TaskListLoader taskLoader = new TaskListLoader();
-        public Level Load(ContentManager content, GraphicsDevice graphics, Player player, string name)
+        public Level Load(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, string name)
         {
 
             LevelInfo levelInfo = null;
@@ -72,6 +73,8 @@ namespace Exeggcute.src.loading
             return new Level(graphics, 
                              content, 
                              player,
+                             hud,
+                             name,
                              levelInfo.EnemyRoster,
                              levelInfo.LevelTheme,
                              levelInfo.BossTheme,

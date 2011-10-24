@@ -47,12 +47,8 @@ namespace Exeggcute.src
         }
         public static readonly float FIELD_OF_VIEW = MathHelper.PiOver4;
         public ControlManager controls;
-        private static List<Menu> menus = new List<Menu>();
-        private static List<TextBoxList> boxes = new List<TextBoxList>();
 
         private ScoreSet scoreSet;
-
-     
 
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
@@ -61,7 +57,6 @@ namespace Exeggcute.src
             loadXNAContent(content);
 
             SpriteBank.LoadAll(content);
-
 
             ScriptBank.LoadAll();
 
@@ -75,16 +70,14 @@ namespace Exeggcute.src
 
             loadMenus();
 
-
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
-
-            
         }
 
         private void loadXNAContent(ContentManager content)
         {
-            TextureBank.LoadAll(content);
+            
+            TextureBank.LoadAll(content);//must be first
 
             FontBank.LoadAll(content);
             EffectBank.LoadAll(content);
@@ -93,20 +86,9 @@ namespace Exeggcute.src
             SongBank.LoadAll(content);
         }
 
-        public static Menu GetMenu(ContextName id)
-        {
-            return menus[(int)id];
-        }
-
-
-
-
         private void loadMenus()
         {
-            MainMenu main = new MainMenu();
-            World.PushContext(main);
-            //for now lets ignore the level
-            World.Process(new LoadLevelEvent());
+            World.Begin();
         }
 
         public void Update()
@@ -116,6 +98,10 @@ namespace Exeggcute.src
             if (controls[Ctrl.Quit].IsPressed)
             {
                 Exit();
+            }
+            if (controls[Ctrl.Start].DoEatPress())
+            {
+                World.Pause();
             }
             
         }

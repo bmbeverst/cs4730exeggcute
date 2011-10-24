@@ -14,6 +14,7 @@ namespace Exeggcute.src.graphics
     /// </summary>
     interface IDrawable2D
     {
+        int Height { get; }
         void Draw(SpriteBatch batch, Vector2 pos);
         void Draw(SpriteBatch batch, Vector2 pos, float rotationRadians);
     }

@@ -71,9 +71,9 @@ namespace Exeggcute.src
         /// <summary>
         /// Sets the given ctrl to a new keyboard key.
         /// </summary>
-        public void SetKey(Ctrl ctrl, Keys key)
+        public void SetKey(Ctrl c, Keys key)
         {
-            controls[ctrl].SetKey(key);
+            controls[c].SetKey(key);
         }
 
         /// <summary>

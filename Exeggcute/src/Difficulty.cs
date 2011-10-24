@@ -10,6 +10,6 @@ namespace Exeggcute.src
         Easy,
         Normal,
         Hard,
-        Lunatic
+        VHard
     }
 }

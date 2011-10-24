@@ -17,8 +17,6 @@ namespace Exeggcute.src.entities
     /// </summary>
     abstract class ScriptedEntity : PlanarEntity3D
     {
-
-
         protected Script script;
         public int actionPtr { get; protected set; }
 
@@ -42,7 +40,7 @@ namespace Exeggcute.src.entities
         public ScriptedEntity(Model model, BehaviorScript behavior)
             : base(model, Engine.Jail)
         {
-            Health = 100;
+            this.Health = 100;
             this.script = behavior;
         }
 
@@ -171,13 +169,17 @@ namespace Exeggcute.src.entities
         {
             AimAngle = Util.AimAt(Position, Level.player.Position);
             IsAiming = true;
+            actionPtr += 1;
         }
 
         protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)
         {
             float distance = Vector3.Distance(start, target);
             float speed = (distance / (duration - 1)) * 2;
-            float angle = FastTrig.Atan2(target.Y - start.Y, target.X - start.X);
+            float dx = target.X - start.X;
+            float dy = target.Y - start.Y;
+            if (dy == 0 && dx == 0) return;
+            float angle = FastTrig.Atan2(dy, dx);
             float linearAccel = -(speed / duration);
             Speed = speed;
             Angle = angle;

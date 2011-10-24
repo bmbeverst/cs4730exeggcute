@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.input;
+using Exeggcute.src.graphics;
+using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.contexts;
+using Microsoft.Xna.Framework;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.gui
 {
     class PauseMenu : Menu
     {
-        public PauseMenu()
-            : base(getButtons(), false)
+        public PauseMenu(List<Button> buttons, Rectangle bounds)
+            : base(buttons, bounds, false)
         {
-
+            
         }
+
         public override void Update(ControlManager controls)
         {
             if (controls[Ctrl.Start].DoEatPress())
@@ -22,9 +28,12 @@ namespace Exeggcute.src.gui
             base.Update(controls);
         }
 
-        private static List<Button> getButtons()
+        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            return new List<Button>();
+            batch.Begin();
+            base.Draw(graphics, batch);
+            batch.End();
         }
+
     }
 }

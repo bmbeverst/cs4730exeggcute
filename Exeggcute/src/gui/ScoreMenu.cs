@@ -14,42 +14,19 @@ namespace Exeggcute.src.gui
     {
         protected ScoreSet scores;
         protected SpriteFont font;
-        protected Rectangle buttonBox;
-        protected Doodad buttonBoxOutline;
-        protected List<Vector2> drawPositions = new List<Vector2>();
-        protected int vertButtonSpacing;
-        protected Sprite cursorSprite;
-        public ScoreMenu(SpriteFont font)
-            : base(null, false)
+        public ScoreMenu(List<Button> buttons, Rectangle bounds)
+            : base(buttons, bounds, false)
         {
-            Texture2D cursorTexture = TextureBank.Get("cursor");
-            this.font = font;
-            this.buttons = makeButtons();
+            this.font = FontBank.Get("consolas");
+            this.buttons = buttons;
+            this.buttonBounds = bounds;
             this.scores = new ScoreSet();
-            this.cursorSprite = new StaticSprite(cursorTexture, new Point(0, 0), 16, 16);
-            
             loadScores();
-
-            int width = 100;
-            int height = 100;
-            int bottomOffset = Engine.YRes / 4 + height;
-            buttonBox = new Rectangle((Engine.XRes - width) / 2, Engine.YRes - bottomOffset, width, height);
-            buttonBoxOutline = new Doodad(buttonBox, Color.Black, false);
-            vertButtonSpacing = buttonBox.Height / buttons.Count;
-            for (int i = 0; i < buttons.Count; i += 1)
-            {
-                drawPositions.Add(new Vector2(buttonBox.Left, buttonBox.Top + vertButtonSpacing * i));
-            }
         }
         
         private void loadScores()
         {
             scores.LoadLocal();
-        }
-
-        private static List<Button> getButtons()
-        {
-            return null;
         }
 
         public void ShowLocal()
@@ -80,13 +57,8 @@ namespace Exeggcute.src.gui
         public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
             batch.Begin();
-            scores.Draw(batch, font, new Vector2(0,0), Color.Black);
-            for (int i = 0; i < buttons.Count; i += 1)
-            {
-                buttons[i].Draw(batch, drawPositions[i]);
-            }
-            cursorSprite.Draw(batch, new Vector2(buttonBox.Left - cursorSprite.Width, buttonBox.Top + vertButtonSpacing * cursor));
-            
+            scores.Draw(batch, font, Vector2.Zero, Color.White);
+            base.Draw(graphics, batch);
             batch.End();
         }
         public override void Move(Direction dir)
@@ -100,22 +72,6 @@ namespace Exeggcute.src.gui
                 cursor += 1;
             }
             resolveCursor();
-        }
-        protected List<Button> makeButtons()
-        {
-            Color fontColor = Color.Black;
-            List<Button> buttons = new List<Button> {
-                new ListButton(new ScoreEvent(ScoreEventType.SeeLocal), new SpriteText(font, "View Local", fontColor)),
-                new ListButton(new ScoreEvent(ScoreEventType.SeeNetwork), new SpriteText(font, "View Network", fontColor)),
-                new ListButton(new ScoreEvent(ScoreEventType.Submit), new SpriteText(font, "Submit", fontColor)),
-
-                new ListButton(new BackEvent(), new SpriteText(font, "Back", fontColor)),
-
-
-
-            };
-            
-            return buttons;
         }
 
         public override void Unload()

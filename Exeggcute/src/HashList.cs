@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace Exeggcute.src
 {
-    class HashList<T> : IEnumerable<KeyValuePair<T, bool>>
+    class HashList<T>
     {
         private Dictionary<T, bool> container;
         public int Count
@@ -59,6 +59,11 @@ namespace Exeggcute.src
             container.Remove(entity);
         }
 
+        public void Clear()
+        {
+            container.Clear();
+        }
+
         public Dictionary<T, bool>.KeyCollection GetKeys()
         {
             return container.Keys;
@@ -68,27 +73,5 @@ namespace Exeggcute.src
         {
             return container.GetEnumerator();
         }
-
-
-
-
-
-        #region IEnumerable<KeyValuePair<T,bool>> Members
-
-        IEnumerator<KeyValuePair<T, bool>> IEnumerable<KeyValuePair<T, bool>>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

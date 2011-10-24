@@ -141,12 +141,21 @@
     <Compile Include="src\assets\ConversationBank.cs" />
     <Compile Include="src\assets\ItemBank.cs" />
     <Compile Include="src\assets\ItemBatchBank.cs" />
+    <Compile Include="src\contexts\LevelOverEvent.cs" />
+    <Compile Include="src\contexts\PauseEvent.cs" />
+    <Compile Include="src\contexts\ReallyQuitEvent.cs" />
+    <Compile Include="src\contexts\ToDifficultyMenuEvent.cs" />
+    <Compile Include="src\contexts\ToMainMenuEvent.cs" />
+    <Compile Include="src\contexts\ToPlayerMenuEvent.cs" />
     <Compile Include="src\Data.cs" />
     <Compile Include="src\entities\items\ExtraLife.cs" />
     <Compile Include="src\entities\items\ItemType.cs" />
     <Compile Include="src\entities\items\PowerItem.cs" />
     <Compile Include="src\gui\LoadingScreen.cs" />
+    <Compile Include="src\gui\PlayerMenu.cs" />
+    <Compile Include="src\gui\ReallyQuitMenu.cs" />
     <Compile Include="src\ItemEntry.cs" />
+    <Compile Include="src\LevelSummaryMenu.cs" />
     <Compile Include="src\loading\InfoLoader.cs" />
     <Compile Include="src\loading\ItemLoader.cs" />
     <Compile Include="src\assets\RosterBank.cs" />
@@ -209,7 +218,7 @@
     <Compile Include="src\contexts\BackEvent.cs" />
     <Compile Include="src\contexts\ContextEvent.cs" />
     <Compile Include="src\contexts\LoadLevelEvent.cs" />
-    <Compile Include="src\contexts\QuitEvent.cs" />
+    <Compile Include="src\contexts\ExitGameEvent.cs" />
     <Compile Include="src\entities\EntityArgs.cs" />
     <Compile Include="src\gui\ScoreMenu.cs" />
     <Compile Include="src\scripting\roster\Roster.cs" />
@@ -342,6 +351,9 @@
     <Content Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="data\bosses\guy2.boss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\bosses\guy.boss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -355,6 +367,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\entry0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\boss0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\bossdeath0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\levels\1.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="lib\Nuclex.Input.dll">

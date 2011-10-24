@@ -39,7 +39,7 @@ namespace Exeggcute.src
             {
                 if (shot.OuterHitbox.Intersects(player.InnerHitbox))
                 {
-                    return true;
+                    return false;// true;
                 }
                 else if (!shot.HasGrazed && shot.OuterHitbox.Intersects(player.OuterHitbox))
                 {
