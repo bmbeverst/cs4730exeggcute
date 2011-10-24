@@ -132,7 +132,7 @@ namespace Exeggcute.src.entities
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             base.Draw(graphics, view, projection);
-            
+            return;
             Matrix[] transforms = new Matrix[arrow.Bones.Count];
             arrow.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in arrow.Meshes)

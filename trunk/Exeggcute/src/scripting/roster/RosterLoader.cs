@@ -18,6 +18,7 @@ namespace Exeggcute.src.scripting.roster
         protected override RosterEntry parseEntry(Stack<string> tokens)
         {
             string modelname = tokens.Pop();
+            string texturename = tokens.Pop();
             string behaviorname = tokens.Pop();
             string batchname = tokens.Pop();
             string arsenalname = tokens.Pop();
@@ -37,10 +38,11 @@ namespace Exeggcute.src.scripting.roster
             }
 
             Model model = ModelBank.Get(modelname);
+            Texture2D texture = TextureBank.Get(texturename);
             BehaviorScript behavior = ScriptBank.GetBehavior(behaviorname);
             ItemBatch items = ItemBatchBank.Get(batchname);
             Arsenal arsenal = ArsenalBank.Get(arsenalname, shotHandle);
-            return new RosterEntry(model, behavior, items, arsenal);
+            return new RosterEntry(model, texture, behavior, items, arsenal);
         }
     }
 }

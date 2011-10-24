@@ -1,3 +1,3 @@
-﻿# model     behavior  spawner   trajectory
-  XNAface   option0   enemy1    basic
-  XNAface   option1   enemy1    basic
+﻿# model     texture    behavior  spawner   trajectory
+  XNAface   fractal    option0   enemy1    basic
+  XNAface   fractal    option1   enemy1    basic

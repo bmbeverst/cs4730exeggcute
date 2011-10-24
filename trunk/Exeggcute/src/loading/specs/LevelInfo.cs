@@ -12,8 +12,6 @@ namespace Exeggcute.src.loading.specs
 {
     class LevelInfo : LoadedInfo
     {
-        public static BossLoader bossLoader = new BossLoader();
-
         public Song BossTheme { get; protected set; }
         public Song LevelTheme { get; protected set; }
         public Boss MiniBoss { get; protected set; }
@@ -42,11 +40,12 @@ namespace Exeggcute.src.loading.specs
                 }
                 else if (matches("miniboss"))
                 {
-                    MiniBoss = bossLoader.Load(value);
+                    
+                    MiniBoss = BossInfo.Make(value);
                 }
                 else if (matches("mainboss"))
                 {
-                    MainBoss = bossLoader.Load(value);
+                    MainBoss = BossInfo.Make(value);
                 }
                 else if (matches("roster"))
                 {

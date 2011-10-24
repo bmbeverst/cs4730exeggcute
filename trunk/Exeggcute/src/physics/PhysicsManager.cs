@@ -16,7 +16,7 @@ namespace Exeggcute.src.physics
         public PhysicsManager()
         {
             TerminalSpeed = 1;
-            GlobalGravity = new Vector3(0, 0, -0.1633333f);
+            GlobalGravity = new Vector3(0, 0, -0.1633333f/100);
             //forces.Add(new Attractor(new Vector3(0, 0, 0), 2, 0.1f, 1));
         }
 

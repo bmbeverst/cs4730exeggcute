@@ -37,21 +37,12 @@ namespace Exeggcute.src.entities
         /// with:
         /// </para>
         /// </summary>
-        public ScriptedEntity(Model model, BehaviorScript behavior)
-            : base(model, Engine.Jail)
+        public ScriptedEntity(Model model, Texture2D texture, BehaviorScript behavior)
+            : base(model, texture, Engine.Jail)
         {
             this.Health = 100;
             this.script = behavior;
         }
-
-        /*/// <summary>
-        /// For use with a spawner.
-        /// </summary>
-        public ScriptedEntity(SpawnScript spawn)
-            : base(Engine.Jail)
-        {
-            this.script = spawn;
-        }*/
 
         /// <summary>
         /// For use with a spawner 
@@ -74,8 +65,8 @@ namespace Exeggcute.src.entities
         /// <para> - A model</para>
         /// <para> - No arsenal</para>
         /// </summary>
-        public ScriptedEntity(Model model, TrajectoryScript trajectory)
-            : base(model, Engine.Jail)
+        public ScriptedEntity(Model model, Texture2D texture, TrajectoryScript trajectory)
+            : base(model, texture, Engine.Jail)
         {
             this.script = trajectory;
         }

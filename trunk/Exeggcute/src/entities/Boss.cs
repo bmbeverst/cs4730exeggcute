@@ -37,8 +37,8 @@ namespace Exeggcute.src.entities
         protected bool isStarted;
         protected List<Spellcard> attacks;
         
-        public Boss(Model model, float modelScale, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
-            : base(model, World.EnemyShots, World.GibList)
+        public Boss(Model model, Texture2D texture, float modelScale, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
+            : base(model, texture, World.EnemyShots, World.GibList)
         {
 
             this.spellPtr = -1;

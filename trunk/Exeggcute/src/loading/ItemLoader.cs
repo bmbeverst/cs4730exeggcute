@@ -27,12 +27,14 @@ namespace Exeggcute.src.loading
         protected override ItemEntry parseEntry(Stack<string> tokens)
         {
             string modelname = tokens.Pop();
+            string texturename = tokens.Pop();
             string behaviorname = tokens.Pop();
             string itemtypename = tokens.Pop();
             Model model = ModelBank.Get(modelname);
+            Texture2D texture = TextureBank.Get(texturename);
             BehaviorScript behavior = ScriptBank.GetBehavior(behaviorname);
             ItemType type = Util.ParseEnum<ItemType>(itemtypename);
-            return new ItemEntry(model, behavior, type);
+            return new ItemEntry(model, texture, behavior, type);
         }
     }
 }

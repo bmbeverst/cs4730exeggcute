@@ -17,7 +17,7 @@ namespace Exeggcute.src.entities
         protected ArsenalEntry arsenalParams;
         public bool HasGrazed { get; protected set; }
         public Shot(ArsenalEntry entry)
-            : base(entry.Surface, entry.Trajectory)
+            : base(entry.Surface, entry.Texture, entry.Trajectory)
         {
             Damage = 10;
             this.arsenalParams = entry;

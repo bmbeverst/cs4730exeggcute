@@ -69,11 +69,6 @@ namespace Exeggcute.src.entities
             Position = newpos;
         }
 
-
-
-
-
-
         public virtual void Update()
         {
             OuterHitbox = new BoundingSphere(Position, OuterHitbox.Radius);

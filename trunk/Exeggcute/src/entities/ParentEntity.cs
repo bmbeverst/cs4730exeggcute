@@ -21,11 +21,12 @@ namespace Exeggcute.src.entities
         protected HashList<Shot> shotList;
 
         public ParentEntity(Model model,
+                            Texture2D texture, 
                             BehaviorScript behavior,
                             Arsenal arsenal,
                             HashList<Shot> shotListHandle,
                             HashList<Gib> gibListHandle)
-            : base(model, behavior)
+            : base(model, texture, behavior)
         {
             this.gibList = gibListHandle;
             this.shotList = shotListHandle;
@@ -36,9 +37,10 @@ namespace Exeggcute.src.entities
         /// For use with a boss only.
         /// </summary>
         public ParentEntity(Model model,
+                            Texture2D texture, 
                             HashList<Shot> shotListHandle,
                             HashList<Gib> gibListHandle)
-            : base(model, (BehaviorScript)null)//HACK LOLMAO
+            : base(model, texture, (BehaviorScript)null)//HACK LOLMAO
         {
             this.gibList = gibListHandle;
             this.shotList = shotListHandle;

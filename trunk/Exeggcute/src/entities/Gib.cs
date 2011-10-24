@@ -10,11 +10,12 @@ namespace Exeggcute.src.entities
 {
     class Gib : PlanarEntity3D
     {
-        protected const float GIBSPEED = 1f;
+        protected const float GIBSPEED = 1;
+        protected const float speedFactor = 0.1f;
         protected const float OFFSET = 2;
         static Random rng = new Random();
-        public Gib(Model model, Vector2 parentPos, float parentSpeed, float parentAngle)
-            : base(model, getOffset(parentPos))
+        public Gib(Model model, Texture2D texture, Vector2 parentPos, float parentSpeed, float parentAngle)
+            : base(model, texture, getOffset(parentPos))
         {
             float angle = rng.NextRadian();
             float speed = GIBSPEED;
@@ -26,8 +27,8 @@ namespace Exeggcute.src.entities
             Vector2 sumVelocity    = myVelocity + parentVelocity;
 
             Angle = FastTrig.Atan2(sumVelocity.Y, sumVelocity.X);
-            Speed = sumVelocity.Length();
-            VelocityZ = GIBSPEED/2 +  rng.Next() * GIBSPEED;
+            Speed = sumVelocity.Length()*speedFactor;
+            VelocityZ = ((GIBSPEED/2 +  rng.Next() * GIBSPEED))*speedFactor;
             Mass = 10;
             
         }

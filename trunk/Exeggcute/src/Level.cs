@@ -235,7 +235,7 @@ namespace Exeggcute.src
             //physics.Affect(playerShots, false);
             foreach (Gib gib in gibList.GetKeys())
             {
-                collider.CollideTerrain(terrain, gib);
+                collider.CollideTerrain(terrain, gib, GameArea);
             }
 
             physics.Affect(World.DyingList, true);
@@ -272,6 +272,7 @@ namespace Exeggcute.src
 
             if (boss != null)
             {
+                collider.CollideBoss(playerShots, boss);
                 boss.Update();
             }
 
