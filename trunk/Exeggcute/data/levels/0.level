@@ -1,4 +1,26 @@
-﻿#music:    Mayhem_Some_Boss_Shit
-#texture:  wang8
+﻿@Info:
+  MiniBoss: guy
+  MainBoss: guy
+StageTheme: Mayhem_Some_Boss_Shit
+ BossTheme: Mayhem_Some_Boss_Shit
+    Roster: test
+
+@Terrain:
+      Depth:   10
+     Radius:  100
+       Cols:   24
+       Rows:  200
+   TileSize:    4
+ScrollSpeed: 1E-4
+    Texture: wang8
+Orientation: Outside
+
+
+@TaskList:
+spawn 0 ([0|20],40,0) 0
 spawn 0 (0,40,0) 0
-wait 180
+spawn 0 (-10,40,0) 0
+wait 20
+killall
+wait 1
+boss (0,40,0)

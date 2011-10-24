@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.gui;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.ObjectModel;
-using Exeggcute.src.loading.specs;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.graphics
 {
@@ -90,18 +90,7 @@ namespace Exeggcute.src.graphics
         //MAGIC
         protected int jOffset;
         protected float ANGLEOFFSET = 3 * MathHelper.Pi / 2;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="graphics"></param>
-        /// <param name="texture"></param>
-        /// <param name="vertcols"></param>
-        /// <param name="vertrows"></param>
-        /// <param name="size"></param>
-        /// <param name="heightVariance"></param>
-        /// <param name="scrollSpeed"></param>
-        /// <param name="orientation"></param>
-        /// <param name="depth"></param>
+
         public WangMesh(GraphicsDevice graphics, Texture2D texture, int cols, int rows, float size, float heightVariance, float scrollSpeed, Concavity orientation, float depth, float radius)
         {
             //MUST be initialized first!
@@ -144,7 +133,7 @@ namespace Exeggcute.src.graphics
         {
             //Speed = 0;
             Vector3 back = new Vector3(0, 0, -1);
-            Vector3 up = Vector3.Up;// new Vector3(0, 1, 0);
+            Vector3 up =  new Vector3(0, 1, 0);
 
             for (int i = 0; i < vertCols; i += 1)
             {
@@ -173,13 +162,11 @@ namespace Exeggcute.src.graphics
                 for (int j = 0; j < vertRows; j += 1)
                 {
                     Quad left;
-                    Quad below;
 
                     if (i <= 0) left = null;
                     else left  = quads[i - 1, j];
 
-                    if (j <= 0) below = null;
-                    else below = quads[i, j - 1];
+                    Quad below = quads[i, j - 1];
 
                     quads[i, j].Lock(left, below);
                 }
@@ -202,23 +189,17 @@ namespace Exeggcute.src.graphics
             int xMin = Math.Max(0, xIndex);
             int xMax = Math.Min(vertCols - 1, xIndex + 2);
 
-            int yMin = Math.Max(0, yIndex) + vertRows;
-            /////////////// not vertRows-1 because it wraps!
-            int yMax = Math.Min(vertRows - 1, yIndex + 2) + vertRows;
-
             for (int i = xMin; i < xMax; i += 1)
             {
                 for (int j = yIndex; j < yIndex + 2; j += 1)
                 {
                     Quad left;
-                    Quad above;
-                    Console.WriteLine("LOCKED ");
                     if (i <= 0) left = null;
                     else left = quads[i - 1, j];
 
-                    above = quads[i, j - 1];
+                    Quad below = quads[i, j - 1];
 
-                    quads[i, j].Lock(left, above);
+                    quads[i, j].Lock(left, below);
                 }
             }
             
@@ -251,6 +232,8 @@ namespace Exeggcute.src.graphics
         
         public void Impact(float x, float y, float mass, float speed)
         {
+            //x = x * FastTrig.Cos(-Spin) - y * FastTrig.Sin(-Spin);
+            //y = x * FastTrig.Sin(-Spin) + y * FastTrig.Cos(-Spin);
             int i = (int)((x + Width/2 + TileSize/2) / TileSize);
             int j = (int)(CalculateViewIndex() + (y / TileSize));
 
@@ -268,7 +251,6 @@ namespace Exeggcute.src.graphics
             float xQuad = current.TopRight.X;
             quads[i, j].UpdateVertices(current.TopLeft, new Vector3(xQuad, newY, newZ), current.BottomLeft, current.BottomRight);
             lockLocal(i, j);
-            Console.WriteLine("locked at {0}", j);
         }
 
         public int getSign()
@@ -295,7 +277,6 @@ namespace Exeggcute.src.graphics
             graphics.RasterizerState = rs;*/
             quadBatch.SetCamera(view, projection);
             int buffer = 22;
-
             quadBatch.DrawNear(graphics, quads, centerDepth, Rotation, ViewRow, buffer);
             //quadBatch.Draw(graphics, quads, centerDepth, Rotation);
             

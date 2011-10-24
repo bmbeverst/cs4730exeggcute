@@ -9,17 +9,23 @@ using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.loading
 {
-    class SpellcardLoader
+    class SpellcardInfo : LoadedInfo
     {
-        public static Spellcard Load(List<string> lines, int start, out int end)
+        public int? Health { get; protected set; }
+        public int? Duration { get; protected set; }
+        public BehaviorScript Behavior { get; protected set; }
+        public Arsenal Attack { get; protected set; }
+        public ItemBatch HeldItems { get; protected set; }
+        public string Name { get; protected set; }
+
+        protected SpellcardInfo()
+        {
+
+        }
+
+        public SpellcardInfo(List<string> lines, int start, out int end)
         {
             end = -1;
-            int health = -1;
-            int duration = -1;
-            BehaviorScript behavior = null;
-            Arsenal attack = null;
-            ItemBatch items = null;
-            string name = null;
             for (int i = start; i < lines.Count; i += 1)
             {
                 string[] tokens = Util.CleanEntry(lines[i]);
@@ -28,55 +34,43 @@ namespace Exeggcute.src.loading
 
                 if (matches("name"))
                 {
-                    name = value;
+                    Name = value;
                 }
                 else if (matches("duration"))
                 {
-                    duration = int.Parse(value);
+                    Duration = int.Parse(value);
                 }
                 else if (matches("health"))
                 {
-                    health = int.Parse(value);
+                    Health = int.Parse(value);
                 }
                 else if (matches("behavior"))
                 {
-                    behavior = ScriptBank.GetBehavior(value);
+                    Behavior = ScriptBank.GetBehavior(value);
                 }
                 else if (matches("attack"))
                 {
-                    attack = ArsenalBank.Get(value, World.EnemyShots);
+                    Attack = ArsenalBank.Get(value, World.EnemyShots);
                 }
                 else if (matches("items"))
                 {
-                    items = ItemBatchBank.Get(value);
+                    HeldItems = ItemBatchBank.Get(value);
                 }
                 else if (matches("spellcard"))
                 {
-                    end = i;
+                    end = i - 1;
                     break;
+                }
+                else
+                {
+                    throw new ParseError("Unhandled spellcard field \"{0}\"", currentField);
                 }
             }
             if (end == -1)
             {
                 end = lines.Count - 1;
             }
-            if (behavior == null ||
-                attack == null ||
-                name == null ||
-                items == null ||
-                duration == -1 ||
-                health == -1)
-            {
-                throw new ParseError("Not all fields were initialized");
-            }
-            return new Spellcard(behavior, attack, items, duration, health, name);
-
-
-        }
-        protected static string currentField;
-        protected static bool matches(string regex)
-        {
-            return Regex.IsMatch(currentField, regex, RegexOptions.IgnoreCase);
+            LoadedInfo.AssertInitialized(this);
         }
     }
 }

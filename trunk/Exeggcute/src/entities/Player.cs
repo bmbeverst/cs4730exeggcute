@@ -53,22 +53,54 @@ namespace Exeggcute.src.entities
         protected const int POWER_MAX = 128;
         protected float rollAngle;
         protected float pitchAngle;
+
+        public float HitRadius { get; protected set; }
         public BoundingSphere InnerHitbox { get; protected set; }
-        //TODO read player spawn script from a player file!
-        public Player(Model model, BehaviorScript deathScript, Arsenal arsenal, Arsenal bomb, HashList<Shot> shotList, HashList<Gib> gibList)
-            : base(model, deathScript, arsenal, shotList, gibList)
+
+        protected List<Arsenal> arsenalList;
+        protected List<int> thresholds;
+        protected int attackPtr;
+
+        protected Arsenal currentAttack
         {
+            get { return arsenalList[attackPtr]; }
+        }
+
+        public Player(Model model, 
+                      BehaviorScript deathScript, 
+                      Arsenal bomb, 
+                      List<Arsenal> arsenalList, 
+                      List<int> thresholds, 
+                      int numLives,
+                      int numBombs,
+                      float moveSpeed,
+                      float focusSpeed,
+                      float modelScale,
+                      float hitRadius,
+                      HashList<Shot> shotList, 
+                      HashList<Gib> gibList)
+            : base(model, deathScript, null, shotList, gibList)
+        {
+            this.arsenalList = arsenalList;
+            this.thresholds = thresholds;
+            this.attackPtr = 0;
+            this.arsenal = arsenalList[attackPtr];
+
             this.graze = 0;
-            this.lives = 3;
-            this.bombs = 3;
-            this.score = 1234;
-            this.MoveSpeed = 1;
-            this.FocusSpeed = 0.5f;
+            this.score = 0;
+
+            this.lives = numLives;
+            this.bombs = numBombs;
+            
+            this.MoveSpeed = moveSpeed;
+            this.FocusSpeed = focusSpeed;
             this.InvulnTimer = new Timer(120);
             this.bomb = bomb;
-            this.InnerHitbox = new BoundingSphere(Position, 0.2f);
+            this.HitRadius = hitRadius;
+            this.InnerHitbox = new BoundingSphere(Position, HitRadius);
             this.deathScript = deathScript;
-            this.Scale = 0.6f;
+            this.Scale = modelScale;
+
 
             LifeSprite = SpriteBank.Get("life");
             BombSprite = SpriteBank.Get("bomb");
@@ -101,7 +133,7 @@ namespace Exeggcute.src.entities
             }
 
         }
-        protected void processControls(ControlManager controls)
+        protected void processControls(ControlManager controls, bool canShoot)
         {
             //if (shotList.Count > 0) Util.Die("works");// Console.WriteLine("{0}", shotList.Count);
             float speed;
@@ -167,9 +199,9 @@ namespace Exeggcute.src.entities
                 Z -= speed;
             }
 
-            IsShooting = controls[Ctrl.Action].IsPressed;
+            IsShooting = controls[Ctrl.Action].IsPressed && canShoot;
 
-            if (controls[Ctrl.Cancel].JustPressed && !IsBombing && bombs > 0)
+            if (controls[Ctrl.Cancel].JustPressed && !IsBombing && bombs > 0 && canShoot)
             {
                 IsBombing = true;
                 bombs -= 1;
@@ -251,11 +283,12 @@ namespace Exeggcute.src.entities
                 rollAngle = 0;
             }
         }
+
         int frame = 0;
-        public void Update(ControlManager controls)
+        public void Update(ControlManager controls, bool canShoot)
         {
             //shotSpawner.SetPosition(Position);
-            if (CanControl) processControls(controls);
+            if (CanControl) processControls(controls, canShoot);
             frame += 1;
             //if (IsShooting && frames % 10 == 0) SoundBank.Get("shot0").Play();
             if (IsBombing)
@@ -348,6 +381,24 @@ namespace Exeggcute.src.entities
         {
             lives += 1;
             Util.Warn("FIXME");
+        }
+
+        public void Collect(PowerItem pitem)
+        {
+            power += 1;
+            if (power > thresholds[attackPtr])
+            {
+                if (attackPtr < arsenalList.Count - 1)
+                {
+                    attackPtr += 1;
+                }
+                else
+                {
+                    //TODO
+                    Util.Warn("FIXME");
+                }
+            }
+            
         }
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)

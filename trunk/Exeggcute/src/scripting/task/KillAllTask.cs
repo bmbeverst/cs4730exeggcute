@@ -5,12 +5,11 @@ using System.Text;
 
 namespace Exeggcute.src.scripting.task
 {
-    enum TaskType
+    class KillAllTask : Task
     {
-        Msg,
-        Spawn,
-        Wait,
-        KillAll,
-        Boss
+        public override void Process(Level level)
+        {
+            level.Process(this);
+        }
     }
 }

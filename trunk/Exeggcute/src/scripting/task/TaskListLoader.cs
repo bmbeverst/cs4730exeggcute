@@ -10,6 +10,11 @@ namespace Exeggcute.src.scripting.task
 {
     class TaskListLoader : ScriptParser<Task>
     {
+        public override List<Task> FromFile(string data)
+        {
+            List<string> lines = Util.StripComments(data, true);
+            return base.ParseLines(lines);
+        }
         protected override List<Task> parseElement(Stack<string> tokens)
         {
             TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());
@@ -23,8 +28,8 @@ namespace Exeggcute.src.scripting.task
             else if (type == TaskType.Spawn)
             {
                 int id = int.Parse(tokens.Pop());
-                Vector3 pos = Util.ParseVector3(tokens.Pop());
-                float angle = float.Parse(tokens.Pop()) * FastTrig.degreesToRadians;
+                Float3 pos = Util.ParseFloat3(tokens.Pop());
+                FloatValue angle = Util.ParseFloatValue(tokens.Pop()).FromDegrees();
                 EntityArgs args = new EntityArgs(pos, angle);
                 return new List<Task> {
                     new SpawnTask(id, args)
@@ -38,9 +43,22 @@ namespace Exeggcute.src.scripting.task
                 };
 
             }
+            else if (type == TaskType.KillAll)
+            {
+                return new List<Task> {
+                    new KillAllTask()
+                };
+            }
+            else if (type == TaskType.Boss)
+            {
+                Float3 spawnPos = Util.ParseFloat3(tokens.Pop());
+                return new List<Task> {
+                    new BossTask(spawnPos)
+                };
+            }
             else
             {
-                throw new Exception();
+                throw new ParseError("Unknown type \"{0}\"", type);
             }
         }
     }

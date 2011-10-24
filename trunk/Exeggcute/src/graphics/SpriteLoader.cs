@@ -38,7 +38,7 @@ namespace Exeggcute.src.graphics
         public static Sprite Load(string name)
         {
             string filepath = String.Format("{0}.{1}", name, EXT);
-            List<string> lines = Util.StripComments(filepath, true);
+            List<string> lines = Util.ReadAndStrip(filepath, true);
             lines.Reverse(); //???
             Stack<string> lineStack = new Stack<string>(lines);
             List<IAnimation> anims = new List<IAnimation>();

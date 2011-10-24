@@ -16,6 +16,7 @@ namespace Exeggcute.src.scripting.arsenal
         List<Spawner> spawners = new List<Spawner>();
         public List<ArsenalEntry> entries;
         public HashList<Shot> shotListHandle;
+        public static Arsenal None = new Arsenal(new List<ArsenalEntry>(), new HashList<Shot>());
         public Arsenal(List<ArsenalEntry> entries, HashList<Shot> shotListHandle)
         {
             this.entries = entries;

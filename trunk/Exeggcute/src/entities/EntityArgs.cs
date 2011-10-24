@@ -8,10 +8,10 @@ namespace Exeggcute.src.entities
 {
     class EntityArgs
     {
-        public Vector3 SpawnPosition { get; protected set; }
-        public float AngleHeading { get; protected set; }
+        public Float3 SpawnPosition { get; protected set; }
+        public FloatValue AngleHeading { get; protected set; }
 
-        public EntityArgs(Vector3 pos, float angle)
+        public EntityArgs(Float3 pos, FloatValue angle)
         {
             SpawnPosition = pos;
             AngleHeading = angle;

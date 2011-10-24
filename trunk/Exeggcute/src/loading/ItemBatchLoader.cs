@@ -20,7 +20,7 @@ namespace Exeggcute.src.loading
         {
             List<Item> items = new List<Item>();
 
-            List<string> lines = Util.StripComments(filepath, true);
+            List<string> lines = Util.ReadAndStrip(filepath, true);
 
             dispersion = Util.ParseFloat3(lines[0]);
             for (int i = 1; i < lines.Count; i += 1)

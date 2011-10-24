@@ -40,20 +40,24 @@ namespace Exeggcute.src.text
 
         public TextBoxList(SpriteFont font, string message, float rate)
         {
+            
             //FIXME
-            Size = new Point(500, 300);
+            this.Size = new Point(500, 200);
             // =C
-            arrow = SpriteBank.Get("cursor");
+            this.arrow = SpriteBank.Get("cursor");
             this.font = font;
-            boxes = new List<TextBox>();
-            timer = new FloatTimer(rate);
+            this.boxes = new List<TextBox>();
+            this.timer = new FloatTimer(rate);
             string[] words = message.Split(' ');
-            bg = new RectSprite(Size.X, Size.Y, Color.Green, true);
+            this.bg = new RectSprite(Size.X, Size.Y, Color.Green, true);
+            
             List<TextLine> lines = parseLines(words, font);
             lines.Reverse();
             Stack<TextLine> lineStack = new Stack<TextLine>(lines);
             int count = lineStack.Count;
-            spacingY = font.LineSpacing;
+
+            this.spacingY = font.LineSpacing;
+
             int linesPerBox = (int)(Size.Y / spacingY);
             int remainder = count % linesPerBox;
             int numBoxes = remainder == 0 ? count / linesPerBox : count / linesPerBox + 1;
@@ -76,7 +80,12 @@ namespace Exeggcute.src.text
         {
             timer.Increment();
             TextBox current = boxes[boxPtr];
-            for (int i = 0; i < timer.GetDelta() && !current.IsDone; i += 1)
+            float delta = timer.GetDelta();
+            for (int i = 0; i < delta && !current.IsDone; i += 1)
+            {
+                current.Increment();
+            }
+            if (controls[Ctrl.Action].IsPressed && !current.IsDone)
             {
                 current.Increment();
             }

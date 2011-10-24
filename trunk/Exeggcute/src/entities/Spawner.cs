@@ -129,7 +129,7 @@ namespace Exeggcute.src.entities
         /// <summary>
         /// FOR DEBUG ONLY
         /// </summary>
-        public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             base.Draw(graphics, view, projection);
             

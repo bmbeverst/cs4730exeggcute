@@ -54,8 +54,8 @@ namespace Exeggcute.src.entities
         public Enemy Clone(EntityArgs args)
         {
             Enemy cloned = new Enemy(rosterParams, deathScript, heldItems.Clone(), shotListHandle, gibListHandle, itemListHandle);
-            cloned.Position = args.SpawnPosition;
-            cloned.Angle = args.AngleHeading;
+            cloned.Position = args.SpawnPosition.Vector;
+            cloned.Angle = args.AngleHeading.Value;
             return cloned;
         }
 
@@ -104,7 +104,7 @@ namespace Exeggcute.src.entities
         }
 
         int numGibs = 4;
-        public void Die()
+        public void Kill()
         {
             IsTrash = true;
             Vector3 deathpos = new Vector3(X, Y, 0);

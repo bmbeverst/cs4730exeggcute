@@ -8,54 +8,59 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting;
+using System.IO;
+using Exeggcute.src.loading.specs;
 
 namespace Exeggcute.src.loading
 {
-    class PlayerLoader
+    class PlayerLoader : Loader
     {
-        const char fieldDelim = ':';
-        protected static string currentField;
-        public static Player Load(string name)
+        PlayerWeaponLoader weaponLoader = new PlayerWeaponLoader();
+        public Player Load(string name)
         {
-            string fullpath = string.Format("data/players/{0}.player", name);
-            List<string> names = Util.StripComments(fullpath, true);
-            Model model = null;
-            BehaviorScript deathScript = null;
-            Arsenal weapon = null;
-            Arsenal bomb = null;
-            for (int i = 0; i < names.Count; i += 1)
+            PlayerInfo info = null;
+            List<int> thresholds = null;
+            List<Arsenal> arsenals = null;
+
+            string filepath = string.Format("data/players/{0}.player", name);
+            Data data = new Data(filepath);
+            for (int k = 0; k < data.Count; k += 1)
             {
-                string token = Util.RemoveSpace(names[i]);
-                string[] pair = token.Split(fieldDelim);
-                currentField = pair[0];
-                string value = pair[1];
-                if (matches("model"))
+                List<string> lines = data[k].Lines;
+                currentField = data[k].Tag;
+                if (matches("info"))
                 {
-                    model = ModelBank.Get(value);
-                }
-                else if (matches("deathscript"))
-                {
-                    deathScript = ScriptBank.GetBehavior(value);
+                    info = new PlayerInfo(lines);
                 }
                 else if (matches("weapon"))
                 {
-                    weapon = ArsenalBank.Get(value, World.PlayerShots);
-
+                    thresholds = new List<int>();
+                    arsenals = new List<Arsenal>();
+                    weaponLoader.Load(lines, thresholds, arsenals);
                 }
-                else if (matches("bomb"))
-                {
-                    bomb = ArsenalBank.Get(value, World.PlayerShots);
-                }
+                
             }
-            if (bomb == null || model == null || deathScript == null || weapon == null)
+            if (info == null || thresholds == null || arsenals == null)
             {
-                throw new ParseError("Must specify all fields");
+                throw new ParseError("Not all fields were initialized");
             }
-            return new Player(model, deathScript, weapon, bomb, World.PlayerShots, World.GibList);
-        }
-        protected static bool matches(string regex)
-        {
-            return Regex.IsMatch(currentField, regex, RegexOptions.IgnoreCase);
+
+            
+            return new Player(info.Surface, 
+                              info.DeathScript, 
+                              info.Bomb,  
+                              arsenals, 
+                              thresholds,
+                              info.NumLives.Value,
+                              info.NumBombs.Value,
+                              info.MoveSpeed.Value,
+                              info.FocusSpeed.Value,
+                              info.ModelScale.Value, 
+                              info.HitRadius.Value,
+                              World.PlayerShots, 
+                              World.GibList);
         }
     }
+
+    
 }

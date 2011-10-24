@@ -9,9 +9,9 @@ namespace Exeggcute.src.scripting
     abstract class ScriptParser<TElement>
     {
         protected const char DELIM = ' ';
-        public List<TElement> Load(string filepath)
+
+        public List<TElement> ParseLines(List<string> lines)
         {
-            List<string> lines = Util.StripComments(filepath, true);
             lines.Reverse();
             Stack<string> lineStack = new Stack<string>(lines);
             int size = lineStack.Count;
@@ -27,8 +27,14 @@ namespace Exeggcute.src.scripting
             return result;
         }
 
+        public virtual List<TElement> FromFile(string filepath)
+        {
+            List<string> lines = Util.ReadAndStrip(filepath, true);
+            return ParseLines(lines);
+        }
+
         protected abstract List<TElement> parseElement(Stack<string> tokens);
-        protected string getName(string filepath)
+        protected virtual string getName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);
         }

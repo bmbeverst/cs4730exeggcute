@@ -11,6 +11,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.entities;
 using Exeggcute.src.scripting.roster;
 using Exeggcute.src.entities.items;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {
@@ -57,6 +58,21 @@ namespace Exeggcute.src
             stack.Peek().Draw(graphics, batch);
         }
 
+        public static void UpdateParent(ControlManager controls)
+        {
+            IContext saved = stack.Pop();
+            Level level = (Level)stack.Peek();
+            level.Update(controls, false);
+            stack.Push(saved);
+        }
+
+        public static void DrawParent(GraphicsDevice graphics, SpriteBatch batch)
+        {
+            IContext saved = stack.Pop();
+            stack.Peek().Draw(graphics, batch);
+            stack.Push(saved);
+        }
+
         public static void Process(ContextEvent ent)
         {
 
@@ -99,8 +115,11 @@ namespace Exeggcute.src
 
         public static void Process(LoadLevelEvent ent)
         {
-            Roster levelRoster = RosterBank.Get("test");
-            stack.Push(new Level(graphics, content, levelRoster));
+            LevelLoader loader = new LevelLoader();
+            PlayerLoader playerLoader = new PlayerLoader();
+            Player player = playerLoader.Load("0");
+            Level newLevel = loader.Load(content, graphics, player, "0");
+            stack.Push(newLevel);
         }
 
         public static void Process(QuitEvent ent)

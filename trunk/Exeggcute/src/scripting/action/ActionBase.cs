@@ -17,13 +17,17 @@ namespace Exeggcute.src.scripting.action
         /// <summary>
         /// Tells the entity to move to an absolute position in world space.
         /// </summary>
-        MoveTo,
+        MoveAbs,
 
         /// <summary>
         /// Sets the entity's speed parameters to particular values.
         /// </summary>
         Move,
 
+        /// <summary>
+        /// Sets an arbitrary parameter to the given float value.
+        /// See ScriptedEntity for which parameters can be set (dictionary).
+        /// </summary>
         SetParam,
 
         /// <summary>
@@ -64,6 +68,9 @@ namespace Exeggcute.src.scripting.action
         /// </summary>
         Spawn,
 
+        /// <summary>
+        /// Aim's the shooting angle at the player + a given offset
+        /// </summary>
         AimPlayer
     }
 

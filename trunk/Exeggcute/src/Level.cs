@@ -17,6 +17,7 @@ using Exeggcute.src.physics;
 using Microsoft.Xna.Framework.Media;
 using Exeggcute.src.entities.items;
 using Exeggcute.src.loading;
+using Exeggcute.src.loading.specs;
 
 namespace Exeggcute.src
 {
@@ -67,42 +68,46 @@ namespace Exeggcute.src
 
         private GrowBox shotEater = null;
 
+        private Boss mainBoss = null;
+        private Boss miniBoss = null;
+
+        private Boss boss = null;
+
+        private Song levelTheme = null;
+        private Song bossTheme = null;
 
         //FIXME put a lot of this stuff in Load!
-        public Level(GraphicsDevice graphics, ContentManager content, Roster roster)
+        public Level(GraphicsDevice graphics, 
+                     ContentManager content, 
+                     Player player, 
+                     Roster roster, 
+                     Song levelTheme, 
+                     Song bossTheme,
+                     Boss miniBoss, 
+                     Boss mainBoss,
+                     List<Task> tasks, 
+                     WangMesh terrain)
         {
-            Song song = content.Load<Song>("songs/Mayhem_Some_Boss_Shit");
-            
-            MediaPlayer.Play(song);
-            MediaPlayer.Pause();
             MediaPlayer.IsVisualizationEnabled = true;
-            Texture2D wangTexture = TextureBank.Get("wang8");
-            this.terrain = new WangMesh(
-                       graphics, 
-                    wangTexture, 
-                             24, //cols
-                            200, //rows
-                              4, //tile size
-                             16, //height variance
-                          1E-4f, //scroll speed
-            // Concavity.Inside, //orientation
-              Concavity.Outside,
-                             10, //depth
-                            200);//radius
+
+            this.terrain = terrain;
             
             this.playerShots = World.PlayerShots;
             this.enemyShots  = World.EnemyShots;
             this.enemyList   = World.EnemyList;
             this.gibList     = World.GibList;
             this.itemList    = World.ItemList;
-            this.roster = roster;
-            this.taskList = loader.Load("data/levels/0.level");
-            loadMsgBoxes(content);
+            this.roster      = roster;
+            this.taskList    = tasks;
+            this.miniBoss    = miniBoss;
+            this.mainBoss    = mainBoss;
+            this.levelTheme  = levelTheme;
+            this.bossTheme   = bossTheme;
 
             this.collider = new EntityManager();
-            this.physics = new PhysicsManager();
-            this.camera = new Camera(100, MathHelper.PiOver2, 1);
-            this.hud = new HUD();
+            this.physics  = new PhysicsManager();
+            this.camera   = new Camera(100, MathHelper.PiOver2, 1);
+            this.hud      = new HUD();
 
             //HARDCODED FIXME
             GameArea = new Rectangle(-HalfWidth, -HalfHeight, HalfWidth * 2, HalfHeight * 2);
@@ -110,27 +115,11 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
-            player = PlayerLoader.Load("0");
-        }
+            Level.player = player;
 
-        private int scrollSpeed = 10;
-        public void loadMsgBoxes(ContentManager content)
-        {
-            List<string> allLines = Util.ReadLines("data/msg_boxes.txt");
-            string total = "";
-            for (int i = 0; i < allLines.Count; i += 1)
-            {
-                string line = allLines[i].TrimEnd(' ');
-                line = line + ' ';
-                total += line;
-            }
 
-            string[] messages = total.Split('@');
-            SpriteFont font = FontBank.Get("consolas");
-            for (int i = 1; i < messages.Length; i += 1)
-            {
-                boxes.Add(new TextBoxList(font, messages[i], scrollSpeed));
-            }
+            MediaPlayer.Play(levelTheme);
+            MediaPlayer.Pause();
         }
 
         private void updateShots(params HashList<Shot>[] lists)
@@ -157,7 +146,7 @@ namespace Exeggcute.src
 
         public void Process(MessageTask task)
         {
-            World.PushContext(new Conversation(this, boxes[task.ID]));
+            World.PushContext(new Conversation(boxes[task.ID]));
             taskPtr += 1;
         }
 
@@ -168,7 +157,7 @@ namespace Exeggcute.src
             taskPtr += 1;
         }
 
-        int counter = 0;
+        protected int counter = 0;
         public void Process(WaitTask task)
         {
             if (counter >= task.Duration)
@@ -179,14 +168,36 @@ namespace Exeggcute.src
             counter += 1;
         }
 
+        public void Process(KillAllTask kill)
+        {
+            foreach (Enemy enemy in enemyList.GetKeys())
+            {
+                enemy.Kill();
+            }
+            taskPtr += 1;
+        }
+
+        public void Process(BossTask bossTask)
+        {
+            if (boss == null)
+            {
+                boss = miniBoss;
+                boss.SetPosition(bossTask.Position.Vector);
+            }
+            taskPtr += 1;
+        }
+
         public void ProcessTasks()
         {
             if (taskPtr >= taskList.Count) return;
             Task current = taskList[taskPtr];
             current.Process(this);
         }
-
         public void Update(ControlManager controls)
+        {
+            Update(controls, true);
+        }
+        public void Update(ControlManager controls, bool playerCanShoot)
         {
             MediaPlayer.GetVisualizationData(soundData);
             //camera.Update(controls);
@@ -209,22 +220,8 @@ namespace Exeggcute.src
 
             physics.Affect(World.DyingList, true);
             collider.CollideDying(terrain);
-            bool hit = collider.Collide(player, enemyList) ||
-                       collider.HitPlayer(enemyShots, player);
-            if (hit)
-            {
-                player.Kill();
-                shotEater = new GrowBox(1);
-            }
-            if (shotEater != null)
-            {
-                shotEater.Update();
-                collider.EatShots(enemyShots, shotEater.Rect);
-                if (shotEater.Rect.Height > HalfHeight * 4)
-                {
-                    shotEater = null;
-                }
-            }
+
+            processHit();
 
             collider.Collide(playerShots, enemyList);
             collider.Collide(itemList, player);
@@ -243,7 +240,7 @@ namespace Exeggcute.src
             collider.FilterDead(World.ItemList);
 
 
-            player.Update(controls);
+            player.Update(controls, playerCanShoot);
             player.LockPosition(camera, GameArea);
 
 
@@ -253,6 +250,34 @@ namespace Exeggcute.src
             updateEntityList(playerShots);
             updateEntityList(enemyShots);
 
+            if (boss != null)
+            {
+                boss.Update();
+            }
+
+        }
+
+        /// <summary>
+        /// What to do when the player gets hit
+        /// </summary>
+        private void processHit()
+        {
+            bool hit = collider.Collide(player, enemyList) ||
+                       collider.HitPlayer(enemyShots, player);
+            if (hit)
+            {
+                player.Kill();
+                shotEater = new GrowBox(1);
+            }
+            if (shotEater != null)
+            {
+                shotEater.Update();
+                collider.EatShots(enemyShots, shotEater.Rect);
+                if (shotEater.Rect.Height > HalfHeight * 4)
+                {
+                    shotEater = null;
+                }
+            }
         }
 
         private void drawEntityList<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, HashList<TEntity> entities) 
@@ -287,7 +312,10 @@ namespace Exeggcute.src
             drawEntityList(graphics, view, projection, enemyShots);
             drawEntityList(graphics, view, projection, playerShots);
 
-
+            if (boss != null)
+            {
+                boss.Draw(graphics, view, projection);
+            }
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);

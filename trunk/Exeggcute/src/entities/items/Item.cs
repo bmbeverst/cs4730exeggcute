@@ -9,8 +9,8 @@ namespace Exeggcute.src.entities.items
 {
     class Item : ScriptedEntity
     {
-        const float terminalSpeed = -0.3f;
-        ItemEntry entry;
+        protected const float terminalSpeed = -0.3f;
+        protected ItemEntry entry;
         public Item(ItemEntry entry)
             : base(entry.Surface, entry.Behavior)
         {
