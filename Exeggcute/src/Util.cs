@@ -382,7 +382,8 @@ namespace Exeggcute.src
             string[] result;
             try
             {
-                result = Directory.GetFiles(reldir);
+                result = (string[])Directory.EnumerateFiles(reldir, "*", SearchOption.AllDirectories).ToArray();
+                
             }
             catch
             {

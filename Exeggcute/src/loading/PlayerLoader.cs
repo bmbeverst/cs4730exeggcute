@@ -16,13 +16,13 @@ namespace Exeggcute.src.loading
     class PlayerLoader : Loader
     {
         PlayerWeaponLoader weaponLoader = new PlayerWeaponLoader();
-        public Player Load(string name)
+        public Player Load(string name, bool isCustom)
         {
             PlayerInfo info = null;
             List<int> thresholds = null;
             List<Arsenal> arsenals = null;
-
-            string filepath = string.Format("data/players/{0}.player", name);
+            string folder = isCustom ? "custom" : "standard";
+            string filepath = string.Format("data/players/{0}/{1}.player", folder, name);
             Data data = new Data(filepath);
             for (int k = 0; k < data.Count; k += 1)
             {
@@ -46,7 +46,10 @@ namespace Exeggcute.src.loading
             }
 
             
-            return new Player(info.Surface, 
+            return new Player(data.RawText,
+                              name,
+                              isCustom,
+                              info.Surface, 
                               info.DeathScript, 
                               info.Bomb,  
                               arsenals, 

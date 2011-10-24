@@ -15,21 +15,25 @@ namespace Exeggcute.src
 {
     class LevelSummaryMenu : IContext
     {
+        protected bool validScore;
         protected int scoreGained;
         protected Difficulty difficulty;
         protected FloatTimer timer = new FloatTimer(1);
         protected const int DURATION = 600;
-        protected Texture2D testTexture;
         public bool IsDone { get; protected set; }
         public HUD Hud { get; protected set; }
         public Player Player { get; protected set; }
-        protected SpriteFont font;
         protected string nextName;
+        protected SpriteFont font;
         public LevelSummaryMenu(Level level)
         {
+            this.font = FontBank.Get("consolas");
+            this.validScore = level.ValidScore;
             this.Hud = level.Hud;
             this.Player = Level.player;
             this.nextName = (int.Parse(level.Name) + 1).ToString();
+            this.difficulty = level.Difficulty;
+            this.scoreGained = 0;//FIXME
         }
 
         public void Update(ControlManager controls)
@@ -54,7 +58,6 @@ namespace Exeggcute.src
         {
             batch.Begin();
             Hud.Draw(batch, Player);
-            batch.Draw(testTexture, new Vector2(100, 100), Color.White);
             string progress = timer.Value.ToString();
             batch.DrawString(font, progress, new Vector2(500, 500), Color.White);
             batch.End();

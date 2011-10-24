@@ -50,6 +50,7 @@ namespace Exeggcute.src.gui
         {
             resolveCursor();
             buttons[cursor].Update(controls);
+            resolveCursor();
         }
 
         public virtual void Draw(GraphicsDevice graphics, SpriteBatch batch)

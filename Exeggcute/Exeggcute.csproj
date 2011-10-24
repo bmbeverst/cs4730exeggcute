@@ -141,6 +141,7 @@
     <Compile Include="src\assets\ConversationBank.cs" />
     <Compile Include="src\assets\ItemBank.cs" />
     <Compile Include="src\assets\ItemBatchBank.cs" />
+    <Compile Include="src\assets\PlayerBank.cs" />
     <Compile Include="src\contexts\LevelOverEvent.cs" />
     <Compile Include="src\contexts\PauseEvent.cs" />
     <Compile Include="src\contexts\ReallyQuitEvent.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="src\entities\items\ItemType.cs" />
     <Compile Include="src\entities\items\PowerItem.cs" />
     <Compile Include="src\gui\LoadingScreen.cs" />
+    <Compile Include="src\gui\PlayerButton.cs" />
     <Compile Include="src\gui\PlayerMenu.cs" />
     <Compile Include="src\gui\ReallyQuitMenu.cs" />
     <Compile Include="src\ItemEntry.cs" />
@@ -321,7 +323,7 @@
     <Content Include="data\arsenals\testenemy.arsenal">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\players\0.player">
+    <Content Include="data\players\custom\0c.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\option1.cl">
@@ -376,6 +378,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\levels\1.level">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\players\standard\0.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="lib\Nuclex.Input.dll">

@@ -45,8 +45,8 @@ namespace Exeggcute.src
         private static PauseMenu pauseMenu;
         private static ReallyQuitMenu reallyQuitMenu;
         private static DifficultyMenu difficultyMenu;
-        private static PlayerMenu playerMenu;
-
+        private static PlayerMenu standardPlayerMenu;
+        private static PlayerMenu customPlayerMenu;
         private static LevelLoader levelLoader = new LevelLoader();
 
         private static Difficulty difficulty;
@@ -93,11 +93,30 @@ namespace Exeggcute.src
         public static void Process(ToPlayerMenuEvent ent)
         {
             difficulty = ent.Setting;
-            World.Process(new LoadLevelEvent("0"));
+            
+            Rectangle bounds = new Rectangle(50, 500, 100, 100);
+            SpriteFont font = FontBank.Get("consolas");
+            Color fontColor = Color.Black;
             //FIXME: make player select menu
-            if (playerMenu == null)
+            if (gameType == GameType.Custom)
             {
-
+                if (customPlayerMenu == null)
+                {
+                    List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, true);
+                    customPlayerMenu = new PlayerMenu(buttons, bounds, true);
+                }
+                stack.Push(customPlayerMenu);
+                return;
+            }
+            else
+            {
+                if (standardPlayerMenu == null)
+                {
+                    List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, false);
+                    standardPlayerMenu = new PlayerMenu(buttons, bounds, false);
+                }
+                stack.Push(standardPlayerMenu);
+                return;
             }
         }
 
@@ -129,14 +148,13 @@ namespace Exeggcute.src
                 Rectangle bounds = new Rectangle(500, 500, 100, 100);
                 List<Button> buttons = new List<Button> {
                     new ListButton(new ToPlayerMenuEvent(Difficulty.Easy), new SpriteText(font, "Easy", fontColor)),
-                    new ListButton(new ToPlayerMenuEvent(Difficulty.Normal), new SpriteText(font, "Medium", fontColor)),
+                    new ListButton(new ToPlayerMenuEvent(Difficulty.Normal), new SpriteText(font, "Normal", fontColor)),
                     new ListButton(new ToPlayerMenuEvent(Difficulty.Hard), new SpriteText(font, "Hard", fontColor)),
                     new ListButton(new ToPlayerMenuEvent(Difficulty.VHard), new SpriteText(font, "V-Hard", fontColor)),
                 };
                 difficultyMenu = new DifficultyMenu(buttons, bounds);
             }
             stack.Push(difficultyMenu);
-
         }
 
         public static void Process(ToMainMenuEvent ent)
@@ -220,11 +238,12 @@ namespace Exeggcute.src
 
         public static void Process(LoadLevelEvent ent)
         {
-            string name = ent.Name;
-            PlayerLoader playerLoader = new PlayerLoader();
-            Player player = playerLoader.Load("0");
+            string levelName = ent.LevelName;
+            string playerName = ent.PlayerName;
+            bool isCustom = ent.IsCustom;
+            Player player = PlayerBank.Get(playerName);
             HUD hud = new HUD();
-            LoadNextLevel(hud, player, name, false);
+            LoadNextLevel(hud, player, levelName, false);
         }
 
         /// <summary>
@@ -233,7 +252,7 @@ namespace Exeggcute.src
         public static void LoadNextLevel(HUD hud, Player player, string name, bool doPop)
         {
             ClearLists();
-            Level next = levelLoader.Load(content, graphics, player, hud, name);
+            Level next = levelLoader.Load(content, graphics, player, hud, difficulty, name);
             if (doPop)
             {
                 stack.Pop();
