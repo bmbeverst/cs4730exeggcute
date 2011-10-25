@@ -18,21 +18,14 @@ namespace Exeggcute.src.scripting.task
         protected override List<Task> parseElement(Stack<string> tokens)
         {
             TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());
-            if (type == TaskType.Msg)
+            if (type == TaskType.Spawn)
             {
-                int id = int.Parse(tokens.Pop());
-                return new List<Task> {
-                    new MessageTask(id)
-                };
-            }
-            else if (type == TaskType.Spawn)
-            {
+                //spawn id pos angle
                 int id = int.Parse(tokens.Pop());
                 Float3 pos = Util.ParseFloat3(tokens.Pop());
                 FloatValue angle = Util.ParseFloatValue(tokens.Pop()).FromDegrees();
-                EntityArgs args = new EntityArgs(pos, angle);
                 return new List<Task> {
-                    new SpawnTask(id, args)
+                    new SpawnTask(id, pos, angle)
                 };
             }
             else if (type == TaskType.Wait)
@@ -51,9 +44,8 @@ namespace Exeggcute.src.scripting.task
             }
             else if (type == TaskType.Boss)
             {
-                Float3 spawnPos = Util.ParseFloat3(tokens.Pop());
                 return new List<Task> {
-                    new BossTask(spawnPos)
+                    new BossTask()
                 };
             }
             else

@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Media;
-using Exeggcute.src.entities;
-using Exeggcute.src.scripting.task;
-using Exeggcute.src.graphics;
 using System.IO;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Exeggcute.src.scripting.roster;
-using Exeggcute.src.scripting;
 using Exeggcute.src.assets;
-using Exeggcute.src.loading.specs;
+using Exeggcute.src.entities;
+using Exeggcute.src.graphics;
 using Exeggcute.src.gui;
+using Exeggcute.src.loading.specs;
+using Exeggcute.src.scripting;
+using Exeggcute.src.scripting.roster;
+using Exeggcute.src.scripting.task;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src.loading
 {
 
     class LevelLoader : Loader
     {
-        TerrainLoader terrainLoader = new TerrainLoader();
         TaskListLoader taskLoader = new TaskListLoader();
         public Level Load(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string name)
         {
@@ -29,7 +28,7 @@ namespace Exeggcute.src.loading
             LevelInfo levelInfo = null;
             WangMesh terrain = null;
             List<Task> taskList = new List<Task>();
-            
+            LightSettings lightSettings = null;
 
             string filepath = string.Format("data/levels/{0}.level", name);
             string[] sections = File.ReadAllText(filepath).Split('@');
@@ -49,7 +48,7 @@ namespace Exeggcute.src.loading
                 else if (matches("terrain"))
                 {
                     lines.RemoveAt(0);
-                    terrain = terrainLoader.Load(graphics, lines);
+                    terrain = TerrainInfo.Make(graphics, lines);
                 }
                 else if (matches("tasklist"))
                 {
@@ -57,15 +56,22 @@ namespace Exeggcute.src.loading
                     lineList.RemoveAt(0);
                     taskList = taskLoader.ParseLines(lineList);
                 }
-                else 
+                else if (matches("lights"))
                 {
-                    throw new ParseError("Don't know what to do with heading \"{0}\"",currentField); 
+                    List<string> lineList = Util.StripComments(sections[k], true);
+                    lineList.RemoveAt(0);
+                    lightSettings = new LightSettings(lineList);
+                }
+                else
+                {
+                    throw new ParseError("Don't know what to do with heading \"{0}\"", currentField);
                 }
             }
 
             if (levelInfo == null ||
                 taskList == null ||
-                terrain == null)
+                terrain == null ||
+                lightSettings == null)
             {
                 throw new ParseError("Not all fields were initialized");
             }
@@ -83,7 +89,8 @@ namespace Exeggcute.src.loading
                              levelInfo.MiniBoss,
                              levelInfo.MainBoss,
                              taskList, 
-                             terrain);
+                             terrain,
+                             lightSettings);
         }
     }
 }

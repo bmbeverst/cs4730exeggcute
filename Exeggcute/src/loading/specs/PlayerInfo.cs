@@ -22,10 +22,7 @@ namespace Exeggcute.src.loading.specs
         public float? FocusSpeed { get; protected set; }
         public float? ModelScale { get; protected set; }
         public float? HitRadius { get; protected set; }
-        protected PlayerInfo()
-        {
-
-        }
+        public float? LightLevel { get; protected set; }
 
         public PlayerInfo(List<string> lines)
         {
@@ -73,6 +70,10 @@ namespace Exeggcute.src.loading.specs
                 else if (matches("hitradius"))
                 {
                     HitRadius = float.Parse(value);
+                }
+                else if (matches("lightlevel"))
+                {
+                    LightLevel = float.Parse(value);
                 }
                 else
                 {

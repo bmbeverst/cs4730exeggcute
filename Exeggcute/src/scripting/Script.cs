@@ -6,7 +6,7 @@ using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.scripting
 {
-    abstract class Script
+    /*abstract class Script
     {
         protected List<ActionBase> list;
         public string Name { get; protected set; }
@@ -28,5 +28,5 @@ namespace Exeggcute.src.scripting
         {
             return Name;
         }
-    }
+    }*/
 }

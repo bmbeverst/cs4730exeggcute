@@ -24,7 +24,7 @@ namespace Exeggcute.src
             dispersion = new Float3(new FloatRange(0, 5), new FloatRange(0, 5), new FloatValue(0));
             foreach (Item item in myItems)
             {
-                Vector3 pos = dispersion.Vector;
+                Vector3 pos = dispersion.Vector3;
                 item.SetPosition(deathPos + pos);
                 itemList.Add(item);
             }

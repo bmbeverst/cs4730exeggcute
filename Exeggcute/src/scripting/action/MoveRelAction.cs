@@ -7,13 +7,13 @@ using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
 {
-    class MoveRelativeAction : ActionBase
+    class MoveRelAction : ActionBase
     {
         public Float3 Displacement { get; protected set; }
         public int Duration { get; protected set; }
 
 
-        public MoveRelativeAction(Float3 displacement, int duration)
+        public MoveRelAction(Float3 displacement, int duration)
         {
             this.Displacement = displacement;
             this.Duration = duration;
@@ -26,7 +26,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new MoveRelativeAction(Displacement, Duration);
+            return new MoveRelAction(Displacement, Duration);
         }
     }
 }

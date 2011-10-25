@@ -24,7 +24,7 @@ namespace Exeggcute.src.entities
         protected HashList<Shot> shotListHandle;
         protected HashList<Gib> gibListHandle;
         protected HashList<Item> itemListHandle;
-        protected Script deathScript;
+        protected ScriptInstance deathScript;
 
         protected RosterEntry rosterParams;
 
@@ -35,7 +35,7 @@ namespace Exeggcute.src.entities
         ///setParam defence 10
         /// </summary>
         public Enemy(RosterEntry entry, 
-                     Script deathScript, 
+                     ScriptInstance deathScript, 
                      ItemBatch heldItems, 
                      HashList<Shot> enemyShots, 
                      HashList<Gib> gibList, 
@@ -51,15 +51,15 @@ namespace Exeggcute.src.entities
             this.itemListHandle = World.ItemList;
         }
 
-        public Enemy Clone(EntityArgs args)
+        public Enemy Clone(Float3 pos, FloatValue angle)
         {
             Enemy cloned = new Enemy(rosterParams, deathScript, heldItems.Clone(), shotListHandle, gibListHandle, itemListHandle);
-            cloned.Position = args.SpawnPosition.Vector;
-            cloned.Angle = args.AngleHeading.Value;
+            cloned.Position = pos.Vector3;
+            cloned.Angle = angle.Value;//fixme this does nothing?
             return cloned;
         }
 
-        public static Script GetDeathScript()
+        public static BehaviorScript GetDeathScript()
         {
             return ScriptBank.GetBehavior("death0"); 
         }

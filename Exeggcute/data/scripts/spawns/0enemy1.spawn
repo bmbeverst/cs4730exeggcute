@@ -1,0 +1,6 @@
+﻿spawn rel 10
+spawn rel 5
+spawn rel 0
+spawn rel -5
+spawn rel -10
+loop

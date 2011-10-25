@@ -6,10 +6,10 @@ using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.scripting
 {
-    class BehaviorScript : Script
+    class BehaviorScript : ScriptInstance
     {
-        public BehaviorScript(string name, List<ActionBase> list)
-            : base(name, list)
+        public BehaviorScript(ScriptBase script)
+            : base(script)
         {
 
         }

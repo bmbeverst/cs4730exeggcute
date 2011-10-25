@@ -6,11 +6,10 @@ using Exeggcute.src.scripting.action;
 
 namespace Exeggcute.src.scripting
 {
-    class TrajectoryScript : Script
+    class TrajectoryScript : ScriptInstance
     {
-        public readonly string[] names;
-        public TrajectoryScript(string name, List<ActionBase> list)
-            : base(name, list)
+        public TrajectoryScript(ScriptBase script)
+            : base(script)
         {
 
         }

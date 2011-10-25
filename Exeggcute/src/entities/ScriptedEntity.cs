@@ -17,18 +17,24 @@ namespace Exeggcute.src.entities
     /// </summary>
     abstract class ScriptedEntity : PlanarEntity3D
     {
-        protected Script script;
-        public int actionPtr { get; protected set; }
-
-        public bool IsAiming { get; protected set; }
-
-        public int Health { get; protected set; }
+        protected ScriptInstance script;
 
         /// <summary>
         /// keeps track of how long a command has been processed before
         /// not applicable for all commands 
         /// </summary>
-        protected int counter = 0;
+        protected int waitCounter = 0;
+
+        /// <summary>
+        /// po
+        /// </summary>
+        protected int actionPtr;
+
+        public bool IsAiming { get; protected set; }
+
+        public int Health { get; protected set; }
+
+        
 
 
         /// <summary>
@@ -74,7 +80,7 @@ namespace Exeggcute.src.entities
 
         public void Reset()
         {
-            this.counter = 0;
+            this.waitCounter = 0;
             this.actionPtr = 0;
         }
 
@@ -143,15 +149,15 @@ namespace Exeggcute.src.entities
         public virtual void Process(MoveAbsAction moveTo)
         {
             Vector3 start = Position;
-            Vector3 target = moveTo.Destination.Vector;
+            Vector3 target = moveTo.Destination.Vector3;
             doSmoothTransition(start, target, moveTo.Duration);
             actionPtr += 1;
         }
 
-        public virtual void Process(MoveRelativeAction moveRel)
+        public virtual void Process(MoveRelAction moveRel)
         {
             Vector3 start = Position;
-            Vector3 target = start + moveRel.Displacement.Vector;
+            Vector3 target = start + moveRel.Displacement.Vector3;
             doSmoothTransition(start, target, moveRel.Duration);
             actionPtr += 1;
         }
@@ -169,12 +175,17 @@ namespace Exeggcute.src.entities
             float speed = (distance / (duration - 1)) * 2;
             float dx = target.X - start.X;
             float dy = target.Y - start.Y;
-            if (dy == 0 && dx == 0) return;
+            if (dy == 0 && dx == 0)
+            {
+                Util.Warn("WARNING already at {0} from {1}", target, start);
+                return;
+            }
             float angle = FastTrig.Atan2(dy, dx);
             float linearAccel = -(speed / duration);
             Speed = speed;
             Angle = angle;
             LinearAccel = linearAccel;
+            Console.WriteLine("{0} {1} {2}", Speed, Angle, LinearAccel);
         }
 
         public virtual void Process(SpawnAction spawn)
@@ -185,23 +196,17 @@ namespace Exeggcute.src.entities
             throw new SubclassShouldImplementError();
         }
 
-        public virtual void Process(AimAction aim)
-        {
-            Angle = aim.Angle.Value;
-            actionPtr += 1;
-        }
-
         public virtual void Process(WaitAction wait)
         {
-            if (counter >= wait.Duration)
+            if (waitCounter >= wait.Duration)
             {
                 actionPtr += 1;
-                counter = 0;
+                waitCounter = 0;
             }
             else
             {
                 
-                counter += 1;
+                waitCounter += 1;
             }
         }
 

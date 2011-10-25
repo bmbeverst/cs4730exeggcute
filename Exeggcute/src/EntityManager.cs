@@ -33,7 +33,6 @@ namespace Exeggcute.src
 
         public bool HitPlayer(HashList<Shot> enemyShots, Player player)
         {
-
             if (player.IsInvulnerable) return false;
             foreach (Shot shot in enemyShots.GetKeys())
             {

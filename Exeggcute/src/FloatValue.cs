@@ -77,9 +77,13 @@ namespace Exeggcute.src
         public FloatValue X { get; protected set; }
         public FloatValue Y { get; protected set; }
         public FloatValue Z { get; protected set; }
-        public Vector3 Vector
+        public Vector3 Vector3
         {
             get { return new Vector3(X.Value, Y.Value, Z.Value); }
+        }
+        public Vector2 Vector2
+        {
+            get { return new Vector2(X.Value, Y.Value); }
         }
 
         public Float3(FloatValue x, FloatValue y, FloatValue z)

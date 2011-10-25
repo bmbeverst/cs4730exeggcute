@@ -18,10 +18,18 @@ using Exeggcute.src.graphics;
 namespace Exeggcute.src
 {
     /// <summary>
-    /// Stores and processes the current contexts in game.
-    /// Example: The settings menu is pushed on top of the main menu,
-    /// or the ReallyQuit? menu is pushed on top of the PauseMenu is 
-    /// pushed on the Level Context.
+    /// The world is modeled as a stack of "Contexts" which can be pushed on
+    /// top of one another. For instance, the "Level" context may be pushed 
+    /// onto the "Main menu" context when the player begins the game, or the
+    /// "Pause menu" may be pushed onto the "Level" context when the player
+    /// pauses.
+    /// 
+    /// Generally only the topmost context is processed, but a context may
+    /// choose to allow its parent to be processed as well.
+    /// 
+    /// Currently menus are hardcoded because I can't be bothered to make
+    /// a specification language for them (and its beyond the scope of 
+    /// the project anyhow)
     /// </summary>
     static class World 
     {
@@ -40,6 +48,8 @@ namespace Exeggcute.src
 
         public static IContext Top { get { return stack.Peek(); } }
 
+        // We cache menus so they are loaded once when they are first seen, then
+        // re-used later when they are called upon.
         private static MainMenu mainMenu;
         private static ScoreMenu scoreMenu;
         private static PauseMenu pauseMenu;
@@ -47,8 +57,11 @@ namespace Exeggcute.src
         private static DifficultyMenu difficultyMenu;
         private static PlayerMenu standardPlayerMenu;
         private static PlayerMenu customPlayerMenu;
+
         private static LevelLoader levelLoader = new LevelLoader();
 
+        // As we traverse through the menus, we build settings which are 
+        // sufficient for building a Level instance.
         private static Difficulty difficulty;
         private static GameType gameType;
 
@@ -70,6 +83,10 @@ namespace Exeggcute.src
             stack.Peek().Draw(graphics, batch);
         }
 
+        /// <summary>
+        /// Called by a context when it wants to allow its parent to be
+        /// updated.
+        /// </summary>
         public static void UpdateParent(ControlManager controls)
         {
             IContext saved = stack.Pop();
@@ -78,6 +95,10 @@ namespace Exeggcute.src
             stack.Push(saved);
         }
 
+        /// <summary>
+        /// Called by a context when it wants to allow its parent to be
+        /// drawn.
+        /// </summary>
         public static void DrawParent(GraphicsDevice graphics, SpriteBatch batch)
         {
             IContext saved = stack.Pop();
@@ -136,7 +157,7 @@ namespace Exeggcute.src
         }
 
         /// <summary>
-        /// When going from main to difficulty select menu.
+        /// Called when going from main to difficulty select menu.
         /// </summary>
         public static void Process(ToDifficultyMenuEvent ent)
         {
@@ -157,6 +178,12 @@ namespace Exeggcute.src
             stack.Push(difficultyMenu);
         }
 
+        /// <summary>
+        /// Called when returning to the main menu from anywhere at all.
+        /// Pops things off the stack until we find the main menu, cleaning
+        /// them up as we go.
+        /// </summary>
+        /// <param name="ent"></param>
         public static void Process(ToMainMenuEvent ent)
         {
             int count = stack.Count;//stack.Count is a property, not a constant
@@ -186,17 +213,6 @@ namespace Exeggcute.src
             }
             reallyQuitMenu.Initialize(ent.Type);
             stack.Push(reallyQuitMenu);
-        }
-
-        public static void CleanupLevel()
-        {
-            Level level = (Level)stack.Peek();
-            if (level.DoneCleanup())
-            {
-                level.Unload();
-                stack.Pop();
-                stack.Push(new LevelSummaryMenu(level));
-            }
         }
 
         public static void Process(ScoreEvent ent)
@@ -230,7 +246,7 @@ namespace Exeggcute.src
                     new ListButton(new ScoreEvent(ScoreEventType.Submit), new SpriteText(font, "Submit", fontColor)),
                     new ListButton(new BackEvent(), new SpriteText(font, "Back", fontColor)),
                 };
-                Rectangle bounds = new Rectangle(500,500,100,100);
+                Rectangle bounds = new Rectangle(500, 500, 100, 100);
                 scoreMenu = new ScoreMenu(buttons, bounds);
             }
             stack.Push(scoreMenu);
@@ -245,6 +261,17 @@ namespace Exeggcute.src
             HUD hud = new HUD();
             LoadNextLevel(hud, player, levelName, false);
         }
+        public static void CleanupLevel()
+        {
+            Level level = (Level)stack.Peek();
+            if (level.DoneCleanup())
+            {
+                level.Unload();
+                stack.Pop();
+                stack.Push(new LevelSummaryMenu(level));
+            }
+        }
+
 
         /// <summary>
         /// doPop should be true iff we are loading a level directly from a LevelSummaryMenu

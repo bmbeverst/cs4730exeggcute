@@ -66,7 +66,7 @@ namespace Exeggcute.src.gui
             rightBox = new Doodad(sideSprite, new Vector2(boxWidth + gameWidth, 0));
         }
 
-        float speed = 1f;
+        float speed = 2f;
         public void Update()
         {
             if (fadeType != FadeType.None)

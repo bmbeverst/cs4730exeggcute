@@ -12,12 +12,15 @@ namespace Exeggcute.src.scripting.action
         Abs,
         Rel
     }
+
     class SpawnAction : ActionBase
     {
-        public FloatValue Angle { get; protected set; }
+    
         public AngleType Type { get; protected set; }
+        public FloatValue Angle { get; protected set; }
+        
 
-        public SpawnAction(FloatValue angle, AngleType type)
+        public SpawnAction(AngleType type,FloatValue angle)
         {
             this.Angle = angle;
             this.Type = type;
@@ -30,7 +33,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new SpawnAction(Angle, Type);
+            return new SpawnAction(Type, Angle);
         }
     }
 }

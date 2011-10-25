@@ -10,6 +10,7 @@ special:      bomb0
 moveSpeed:    1.0
 focusSpeed:   0.5
 hitradius:    0.2
+lightlevel:   1
 @weapon:    
 0 weapon0
 1 bomb0

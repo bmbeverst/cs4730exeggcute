@@ -29,10 +29,10 @@ namespace Exeggcute.src.entities
             base.Update();
         }
 
-        public override void Process(MoveRelativeAction moveRel)
+        public override void Process(MoveRelAction moveRel)
         {
             Vector3 start = ParentPosition + Position;
-            Vector3 target = start + moveRel.Displacement.Vector;
+            Vector3 target = start + moveRel.Displacement.Vector3;
             doSmoothTransition(start, target, moveRel.Duration);
             actionPtr += 1;
         }

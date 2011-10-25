@@ -1,6 +1,4 @@
-﻿#spawn rel 0
-wait 6
-#spawn rel 0
-wait 6
+﻿spawn rel 0
+wait 30
 
 loop
