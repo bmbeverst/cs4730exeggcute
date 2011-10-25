@@ -425,7 +425,7 @@
     <Content Include="data\scripts\behaviors\death0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\HOWTO.txt" />
+    <Content Include="HOWTO.txt" />
     <Content Include="Exeggcute.ico" />
     <Content Include="Thumbnail.png" />
     <Content Include="settings.cfg">
