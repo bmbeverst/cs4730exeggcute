@@ -23,8 +23,8 @@ namespace Exeggcute.src
             graphicsManager.PreferredBackBufferWidth = Engine.XRes;
             //graphicsManager.PreferMultiSampling = true;
             /*graphicsManager.SynchronizeWithVerticalRetrace = false;
-            this.IsFixedTimeStep = false;
-            this.InactiveSleepTime = TimeSpan.Zero;*/
+            this.IsFixedTimeStep = false;*/
+            InactiveSleepTime = TimeSpan.Zero;
             Content.RootDirectory = "ExeggcuteContent"; 
             Window.Title = "Exeggcute";
         }

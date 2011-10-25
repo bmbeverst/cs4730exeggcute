@@ -61,6 +61,7 @@ namespace Exeggcute.src.loading
                               info.FocusSpeed.Value,
                               info.ModelScale.Value, 
                               info.HitRadius.Value,
+                              info.LightLevel.Value,
                               World.PlayerShots, 
                               World.GibList);
         }

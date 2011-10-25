@@ -34,7 +34,7 @@ namespace Exeggcute.src.entities
             this.arsenalEntry = arsenalEntry;
             this.shot = new Shot(arsenalEntry);
             this.shotListHandle = shotListHandle;
-            this.active = true;
+            this.active = false;
             this.mover = new Mover(arsenalEntry.Behavior);
             this.Scale = 1.0f;
             this.arrow = ModelBank.Get("arrow");
@@ -70,7 +70,7 @@ namespace Exeggcute.src.entities
             UpdateMover(parentPos, parentAngle);
             if (active)
             {
-                
+                base.Update();
                 if (timer > 0)
                 {
                     timer -= 1;
@@ -80,13 +80,18 @@ namespace Exeggcute.src.entities
                     active = false;
                 }
             }
-            base.Update();
+            
         }
 
         public void SpawnFor(int duration)
         {
             active = true;
             timer = duration;
+        }
+
+        public void Spawn()
+        {
+            active = true;
         }
 
         public void Stop()

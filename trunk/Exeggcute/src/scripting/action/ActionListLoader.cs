@@ -15,23 +15,19 @@ namespace Exeggcute.src.scripting.action
     {
 
 
+        /// <summary>
+        /// I trusted you! I trusted you! I trusted you! I trusted you!
+        /// I trusted you! I trusted you! I trusted you! I trusted you!
+        /// I trusted you! I trusted you! I trusted you! I trusted you!
+        /// I trusted you! I trusted you! I trusted you! I trusted you!
+        /// I trusted you! I trusted you! I trusted you! I trusted you!
+        /// </summary>
 
-        public BehaviorScript MakeBehavior(string filepath)
+        public ScriptBase Make(string filepath)
         {
             string name = getName(filepath);
-            return new BehaviorScript(name, FromFile(filepath));
-        }
+            return new ScriptBase(name, RawFromFile(filepath));
 
-        public SpawnScript MakeSpawn(string filepath)
-        {
-            string name = getName(filepath);
-            return new SpawnScript(name, FromFile(filepath));
-        }
-
-        public TrajectoryScript MakeTrajectory(string filepath)
-        {
-            string name = getName(filepath);
-            return new TrajectoryScript(name, FromFile(filepath));
         }
 
 
@@ -51,12 +47,12 @@ namespace Exeggcute.src.scripting.action
                     new StopAction()
                 };
             }
-            else if (type == CommandType.MoveRelative)
+            else if (type == CommandType.MoveRel)
             {
                 Float3 displacement = Util.ParseFloat3(tokens.Pop());
                 int duration = int.Parse(tokens.Pop());
                 return new List<ActionBase> {
-                    new MoveRelativeAction(displacement, duration),
+                    new MoveRelAction(displacement, duration),
                     new WaitAction(duration),
                     new StopAction()
                 };
@@ -70,13 +66,6 @@ namespace Exeggcute.src.scripting.action
                 FloatValue velocityZ       = Util.ParseFloatValue(tokens.Pop());
                 return new List<ActionBase> {
                     new MoveAction(speed, angularVelocity, linearAccel, angularAccel, velocityZ)
-                };
-            }
-            else if (type == CommandType.Aim)
-            {
-                FloatValue angle = Util.ParseFloatValue(tokens.Pop(), FastTrig.degreesToRadians);
-                return new List<ActionBase> {
-                    new AimAction(angle)
                 };
             }
             else if (type == CommandType.Wait)
@@ -119,7 +108,7 @@ namespace Exeggcute.src.scripting.action
                 {
                     duration = -1;
                 }
-                return new List<ActionBase> { new ShootAction(id, duration, true) };
+                return new List<ActionBase> { new ShootAction(id, duration) };
             }
             else if (type == CommandType.Loop)
             {
@@ -141,10 +130,10 @@ namespace Exeggcute.src.scripting.action
             else if (type == CommandType.Spawn)
             {
                 AngleType atype = Util.ParseEnum<AngleType>(tokens.Pop());
-                FloatValue angle = Util.ParseFloatValue(tokens.Pop()).Mult( FastTrig.degreesToRadians);
+                FloatValue angle = Util.ParseFloatValue(tokens.Pop()).FromDegrees();
                 
                 return new List<ActionBase> {
-                    new SpawnAction(angle, atype)
+                    new SpawnAction(atype, angle)
                 };
             }
             else if (type == CommandType.AimPlayer)

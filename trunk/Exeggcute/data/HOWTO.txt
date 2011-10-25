@@ -1,0 +1,185 @@
+﻿Customization guide v. 0.1
+last updated by moops on oct 25 2011
+
+
+Resource layout:
+All resources from the ExeggcuteContent folder are loaded into memory
+and are available for use by scripted entities. Since XNA compiles 
+all resources to xnb files, the user must have XNA game studio 
+installed in order to add their own resources to the game. This is 
+not desirable but is more or less unavoidable.
+
+
+The files are laid out as follows:
+ExeggcuteContent/
+
+	fonts/
+		Contains SpriteFonts used by XNA. I don't rightly know how to create 
+		one of these, but since menus are currently hardcoded this shouldn't
+		matter.
+	models/
+		Contains the 3d models which are used by various entities. All texture
+		mapped models must expect their textures to be in "../textures/". We
+		assume that a model has at most one texture in it (sorry).
+	sfx/
+		Contains the sound effects used in the game. Currently these cannot
+		be specified, but hopefully it will be possible in the future.
+	shaders/
+		I have no notion of how a user would specify a custom shader that 
+		would be compatible with in game objects in a general way, so
+		these shouldnt be touched.
+	songs/
+		In game music files.
+	sprites/
+		2D images and textures which can either be applied to models or used
+		to draw 2D sprites onto the HUD etc. 2D sprites must have a 
+		corresponding .sprite file in order to be loaded.
+	textures/
+		(see models/ above)
+
+
+Scripting:
+Most in game entities are scripted.
+
+There are three types of scripts, which all share the same common 
+specification language, but in general are expected to act differently.
+
+BehaviorScript:
+    A behavior script is how the entity should move around. For instance
+	if you wanted an enemy to appear on the left side of the screen, move
+	to the center, begin shooting, wait a bit, then exit, all of that
+	would be specified in a BehaviorScript. The player's "respawning"
+	animation is also specified as a BehaviorScript. 
+
+	These scripts live in data/scripts/behaviors/ and have the a .cl
+	extension.
+
+
+SpawnScript:
+	A spawn script specifies the shot spawning sequence of a particular 
+	Spawner (see spawner below). For instance if you want to shoot a
+	ring of shots every 20 frames, you would specify the ring and the
+	delay in this type of script.
+
+	These scripts live in data/scripts/spawns/ and have a .spawn
+	extension.
+
+TrajectoryScript:
+	A trajectory script tells a launched shot where to move. Since a 
+	shot cannot spawn other shots in the current framework, this type
+	of script generally only has move/setparam and wait commands.
+
+	These scripts live in data/scripts/trajectories and have a .traj
+	extension.
+
+Scripts are made up of a series of Commands, which can be thought of 
+as high level instructions for the entity. A Command is interpreted 
+into one or more Actions which are explicit instructions that an
+entity can execute directly.
+
+For a listing of possible Commands, see the CommandType enumeration.
+
+Level:
+	Levels are specified by special files which specify various properties
+	about the level, such as what the background terrain looks like,
+	what music should play, and what bosses are contained in the level.
+	Moreover, levels have scripts as well, which are a sequence of "Tasks"
+	to be performed. Example tasks include spawning an enemy, changing the
+	scroll rate of the terrain, or waiting for a specified amount of time.
+
+	See TaskType.cs for a full listing of Tasks and their syntax.
+
+
+Roster:
+	A Roster is a list of enemies which are available for the level to 
+	spawn. When a level wants to spawn an enemy, it will specify an index
+	integer corresponding to the enemy from the roster it wishes to spawn.
+	More than one level may reference the same roster.
+
+	Rosters are specified in .roster files which are located in the 
+	data/rosters directory.
+
+Arsenal:
+	An arsenal is analogous to a Roster, but instead of enemies, it is a 
+	list of "attacks" that its parent may use. When a ParentEntity 
+	executes a "Shoot" command, it specifies an index into this structure
+	which contains Options.
+
+	Arsenals are specified in .arsenal files which are located in the 
+	data/arsenals directory.
+
+Option:
+	This isn't the name of an actual object, rather it is a concept used
+	by the Arsenal. An Option is a collection of entities that make up a
+	single "gun" or "weapon" used by an entity. Its BehaviorScript tells
+	it how to move relative to its Parent. Its SpawnScript tells it the
+	frequency and specifications of how it should shoot, and its
+	Trajectory tells the resulting shots how to move.
+
+
+
+
+Entities:
+
+Spawner:
+	A spawner is an entity with a *parent* which moves around relative 
+	to that parent based on a BehaviorScript. A Spawner is equipped with
+	a SpawnScript which dictates what shots it should spawn, in what order
+	and when.
+
+Mover:
+	A mover is a container for a BehaviorScript which tells a Spawner
+	where to move and when. It does not exist apart from its parent
+	spawner.
+
+Item: 
+	An item is an entity which moves through space, and when colliding with
+	the player, imparts some hard-coded action to the player. Items are
+	usually dropped via an ItemBatch when an enemy dies.
+
+	Items are specified in .item files located in data/items.
+
+	To fully specify an Item we must have:
+	A model/texture/scale specifying how it looks.
+	A BehaviorScript specifying how it moves after dropped.
+	A TypeName specifying what type of item (bomb, power, etc) it is.
+
+
+ItemBatch:
+	An item batch is a collection of items which may be dropped by 
+	an enemy.
+
+
+Enemy:
+	To fully specify an Enemy we must have:
+	A model/scale/texture specifying how it looks.
+	A BehaviorScript specifying how it moves and behaves.
+	An Arsenal specifying what its attacks do.
+	An ItemBatch specifying what it will drop when it dies.
+	(unimplemented) A GibBatch specifying how it looks when destroyed.
+
+
+Player:
+	There are many configurable properties for the player, which I will not
+	bother enumerating here. Look at a .player file in data/players for 
+	an example.
+
+	There are two types of players. Those which were made by the creators of
+	the game which are in the "standard" folder. These only exist for 
+	reference and any modifications will be overwritten (not implemented). 
+	This is to preserve the fairness of high scores. To use a custom player, 
+	it must be located in the custom/ folder, and can be used in custom mode.
+
+	The last portion of the player file specifies its weapon. At present, a
+	player may only have one weapon, which is a list of (powerlevel, arsenal)
+	pairs. When the player attains a given power level, their weapon becomes
+	upgraded to the corresponding arsenal.
+
+
+
+Campaign: (not implemented)
+	A campaign is a list of levels and an ending. Used for the main story
+	as well as for custom campaigns.
+
+Boss:
+	I'll get around to documenting this

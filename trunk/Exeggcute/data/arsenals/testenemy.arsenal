@@ -1,3 +1,4 @@
 ﻿# model     texture behavior  spawner   trajectory
-  XNAface   face    option0   enemy0    basic
-  XNAface   face    option1   enemy0    basic
+  XNAface   face    0option0  enemy0    basic
+  XNAface   face    0option0  0enemy0   basic
+  XNAface   face    0option0  0enemy2   basic

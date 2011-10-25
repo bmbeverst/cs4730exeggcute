@@ -51,8 +51,9 @@ namespace Exeggcute.src.scripting.arsenal
 
         public void Fire(ShootAction shoot)
         {
+            Console.WriteLine("FIRING {0}", shoot.ID);
             int id = (int)shoot.ID.Value;
-            if (shoot.TurnOn)
+            if (shoot.Duration != -1)
             {
                 spawners[id].SpawnFor(shoot.Duration);
             }
@@ -60,6 +61,11 @@ namespace Exeggcute.src.scripting.arsenal
             {
                 spawners[id].Stop();
             }
+        }
+
+        public void FireAll()
+        {
+            spawners.ForEach(sp => sp.Spawn());
         }
 
         public void StopAll()

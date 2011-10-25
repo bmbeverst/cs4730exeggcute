@@ -15,6 +15,11 @@ namespace Exeggcute.src.scripting.action
         {
             try
             {
+                //HACK
+                if (name.Equals("AngularVelocity"))
+                {
+                    value.FromDegrees();
+                }
                 this.ParamIndex = PlanarEntity3D.ParamMap[name];
             }
             catch (KeyNotFoundException knf)
@@ -26,6 +31,11 @@ namespace Exeggcute.src.scripting.action
 
         public SetParamAction(int index, FloatValue value)
         {
+            //HACK
+            if (index == 4)
+            {
+                value = value.FromDegrees();
+            }
             this.ParamIndex = index;
             this.Value = value;
         }

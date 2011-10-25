@@ -38,9 +38,9 @@ namespace Exeggcute.src.scripting.roster
         }
 
 
-        public Enemy Clone(int id, EntityArgs args)
+        public Enemy Clone(int id, Float3 pos, FloatValue angle)
         {
-            return enemies[id].Clone(args);
+            return enemies[id].Clone(pos, angle);
         }
     }
 }

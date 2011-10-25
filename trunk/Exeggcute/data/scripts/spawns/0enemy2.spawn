@@ -1,0 +1,20 @@
+﻿spawn 2 10
+spawn 2 30
+spawn 2 50
+spawn 2 70
+spawn 2 90
+spawn 2 110
+spawn 2 130
+spawn 2 150
+spawn 2 170
+spawn 2 190
+spawn 2 210
+spawn 2 230
+spawn 2 250
+spawn 2 270
+spawn 2 290
+spawn 2 310
+spawn 2 330
+spawn 2 350
+wait 4
+loop

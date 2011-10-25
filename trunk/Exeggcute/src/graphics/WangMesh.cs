@@ -18,6 +18,13 @@ namespace Exeggcute.src.graphics
         Inside,
         Outside
     }
+
+    enum TerrainType
+    {
+        Flat,
+        Varied,
+        Pulse
+    }
     /// <summary>
     /// A polygonal mesh tiled aperiodically by Wang tiles used for 
     /// scrolling background. The tiles are curved into a cylinder
@@ -85,18 +92,26 @@ namespace Exeggcute.src.graphics
         /// </summary>
         public Concavity Orientation { get; protected set; }
 
+        /// <summary>
+        /// Specifies how to generate the terrain at runtime.
+        /// </summary>
+        public TerrainType Type { get; protected set; }
+
+        protected float heightVariance;
+
         protected float centerDepth;
 
         //MAGIC
         protected int jOffset;
         protected float ANGLEOFFSET = 3 * MathHelper.Pi / 2;
 
-        public WangMesh(GraphicsDevice graphics, Texture2D texture, int cols, int rows, float size, float heightVariance, float scrollSpeed, Concavity orientation, float depth, float radius)
+        public WangMesh(GraphicsDevice graphics, Texture2D texture, int cols, int rows, float size, float heightVariance, float scrollSpeed, Concavity orientation, TerrainType type, float depth, float radius)
         {
             //MUST be initialized first!
             this.Orientation = orientation;
 
-
+            this.Type = type;
+            this.heightVariance = heightVariance;
             Texture2D wangTexture = texture;
             int texWidth = wangTexture.Width;
             int texHeight = wangTexture.Height;
@@ -140,7 +155,15 @@ namespace Exeggcute.src.graphics
                 for (int j = 0; j < vertRows; j += 1)
                 {
                     int index = wangGrid[i, j];
-                    float height = 0;// rng.Next() * heightVariance - heightVariance / 2 + Depth;
+                    float height;
+                    if (Type != TerrainType.Varied)
+                    {
+                        height = 0;
+                    }
+                    else
+                    {
+                        height = rng.Next() * heightVariance - heightVariance / 2 + Depth;
+                    }
                     float r = Radius + height;
                     float theta = FaceAngle * j + ANGLEOFFSET;
                     float y = -r * FastTrig.Cos(theta);
@@ -209,7 +232,7 @@ namespace Exeggcute.src.graphics
         {
             Rotation += Speed;
             ViewRow = CalculateViewIndex();
-            return;
+            if (Type != TerrainType.Pulse) return;
             int spacing = 256 / vertCols;
             for (int j = 0; j < vertRows; j += 1)
             {

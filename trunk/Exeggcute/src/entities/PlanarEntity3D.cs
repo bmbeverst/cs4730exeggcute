@@ -267,8 +267,7 @@ namespace Exeggcute.src.entities
                     currentEffect.Parameters["xView"].SetValue(view);
                     currentEffect.Parameters["xProjection"].SetValue(projection);
                     currentEffect.Parameters["xTexture"].SetValue(Texture);
-
-
+                  
                 }
                 mesh.Draw();
             }

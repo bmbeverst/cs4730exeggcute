@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.particles;
-using Exeggcute.src.entities;
 using Exeggcute.src.assets;
-using Exeggcute.src.text;
-using Exeggcute.src.scripting.task;
-using Exeggcute.src.scripting.roster;
+using Exeggcute.src.entities;
+using Exeggcute.src.entities.items;
 using Exeggcute.src.graphics;
 using Exeggcute.src.gui;
-using Exeggcute.src.physics;
-using Microsoft.Xna.Framework.Media;
-using Exeggcute.src.entities.items;
 using Exeggcute.src.loading;
 using Exeggcute.src.loading.specs;
+using Exeggcute.src.particles;
+using Exeggcute.src.physics;
+using Exeggcute.src.scripting.roster;
+using Exeggcute.src.scripting.task;
+using Exeggcute.src.text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src
 {
@@ -86,7 +86,6 @@ namespace Exeggcute.src
         private Song levelTheme = null;
         private Song bossTheme = null;
 
-        //FIXME put a lot of this stuff in Load!
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
                      Player player, 
@@ -100,9 +99,13 @@ namespace Exeggcute.src
                      Boss miniBoss, 
                      Boss mainBoss,
                      List<Task> tasks, 
-                     WangMesh terrain)
+                     WangMesh terrain,
+                     LightSettings lightSettings)
         {
             MediaPlayer.IsVisualizationEnabled = true;
+            //HACK HARDCODED
+            Effect light = EffectBank.Get("light0");
+            loadLights(lightSettings, light);
 
             this.terrain     = terrain;
             this.Name        = name;
@@ -139,6 +142,38 @@ namespace Exeggcute.src
             MediaPlayer.Pause();
         }
 
+        private void loadLights(LightSettings settings, Effect effect)
+        {
+            effect.CurrentTechnique = effect.Techniques["Textured"];
+
+
+            if (settings.Point1On.Value)
+            {
+                effect.Parameters["xPointLight1"].SetValue(settings.Point1Pos.Value);
+                effect.Parameters["xPointIntensity1"].SetValue(settings.Point1Level.Value);
+                effect.Parameters["xPointIntensity1"].SetValue(settings.Point1Level.Value);
+
+            }
+            if (settings.DirOn.Value)
+            {
+                effect.Parameters["xLightDirection"].SetValue(settings.DirDirection.Value);
+                effect.Parameters["xDirLightIntensity"].SetValue(settings.DirLevel.Value);
+            }
+            if (settings.SpotOn.Value)
+            {
+                effect.Parameters["xSpotPos"].SetValue(settings.SpotPos.Value);
+                effect.Parameters["xSpotDir"].SetValue(settings.SpotDir.Value);
+                effect.Parameters["xSpotInnerCone"].SetValue(settings.SpotInner.Value);
+                effect.Parameters["xSpotOuterCone"].SetValue(settings.SpotOuter.Value);
+                effect.Parameters["xSpotRange"].SetValue(settings.SpotRange.Value);
+                effect.Parameters["xSpotIntensity"].SetValue(settings.SpotLevel.Value);
+            }
+
+            effect.Parameters["xAmbient"].SetValue(settings.AmbientLevel.Value);
+            
+                    
+        }
+
         private void updateShots(params HashList<Shot>[] lists)
         {
             foreach (HashList<Shot> shots in lists)
@@ -161,28 +196,22 @@ namespace Exeggcute.src
             throw new InvalidOperationException("Must call a subclass overload");
         }
 
-        public void Process(MessageTask task)
-        {
-            World.PushContext(new Conversation(boxes[task.ID]));
-            taskPtr += 1;
-        }
-
         public void Process(SpawnTask task)
         {
-            Enemy toSpawn = roster.Clone(task.ID, task.Args);
+            Enemy toSpawn = roster.Clone(task.ID, task.Position, task.Angle);
             enemyList.Add(toSpawn);
             taskPtr += 1;
         }
 
-        protected int counter = 0;
+        protected int waitCounter = 0;
         public void Process(WaitTask task)
         {
-            if (counter >= task.Duration)
+            if (waitCounter >= task.Duration)
             {
-                counter = 0;
+                waitCounter = 0;
                 taskPtr += 1;
             }
-            counter += 1;
+            waitCounter += 1;
         }
 
         public void Process(KillAllTask kill)
@@ -199,7 +228,6 @@ namespace Exeggcute.src
             if (boss == null)
             {
                 boss = miniBoss;
-                boss.SetPosition(bossTask.Position.Vector);
             }
             taskPtr += 1;
         }
@@ -224,7 +252,7 @@ namespace Exeggcute.src
             ProcessTasks();
             particles.Update();
             terrain.Update(soundData.Frequencies);
-            terrain.Impact(player.X, player.Y, 0, 0);
+            //terrain.Impact(player.X, player.Y, 0, 0);
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;

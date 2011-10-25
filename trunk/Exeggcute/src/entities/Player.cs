@@ -69,6 +69,8 @@ namespace Exeggcute.src.entities
         public string RawData { get; protected set; }
         public string Name { get; protected set; }
         public bool IsCustom { get; protected set; }
+        protected float lightLevel;
+
 
         public Player(string data,
                       string name,
@@ -85,6 +87,7 @@ namespace Exeggcute.src.entities
                       float focusSpeed,
                       float modelScale,
                       float hitRadius,
+                      float lightLevel,
                       HashList<Shot> shotList, 
                       HashList<Gib> gibList)
             : base(model, texture, deathScript, null, shotList, gibList)
@@ -96,6 +99,8 @@ namespace Exeggcute.src.entities
             this.thresholds = thresholds;
             this.attackPtr = 0;
             this.arsenal = arsenalList[attackPtr];
+
+            this.lightLevel = lightLevel;
 
             this.graze = 0;
             this.score = 0;
@@ -299,6 +304,7 @@ namespace Exeggcute.src.entities
             //if (IsShooting && frames % 10 == 0) SoundBank.Get("shot0").Play();
             if (IsBombing)
             {
+                bomb.FireAll();
                 bomb.Update(Position, Angle);
                 if (bombTimer.IsDone)
                 {
@@ -320,10 +326,12 @@ namespace Exeggcute.src.entities
             }
             if (IsShooting)
             {
+                arsenal.FireAll();
                 base.Update();
             }
             else
             {
+                arsenal.StopAll();
                 base.UpdateMovers();
             }
             InnerHitbox = new BoundingSphere(Position, InnerHitbox.Radius);
@@ -406,44 +414,26 @@ namespace Exeggcute.src.entities
             }
             
         }
-        public Vector3 position = new Vector3(0, 0, 0);
+
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-
-            position = new Vector3(0, 0.1f, 0);
             foreach (ModelMesh mesh in Surface.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)
                 {
-                    currentEffect.Parameters["xPointLight1"].SetValue(Position);
-                    currentEffect.Parameters["xPointIntensity1"].SetValue(5f);
-                    currentEffect.Parameters["xLightDirection"].SetValue(position);
-                    currentEffect.Parameters["xDirLightIntensity"].SetValue(0.5f);
-                    currentEffect.Parameters["xAmbient"].SetValue(0f);
-                    //currentEffect.Parameters["xSpotIntensity"].SetValue(0.9f);
-                    //currentEffect.Parameters["xSpotInnerCone"].SetValue(10f);
-                    //currentEffect.Parameters["xSpotOuterCone"].SetValue(10f);
-                }
-            }
-            base.Draw(graphics, view, projection);
-
-            return;
-            if (Surface == null || flashDraw) return;
-            Matrix[] transforms = new Matrix[Surface.Bones.Count];
-            Surface.CopyAbsoluteBoneTransformsTo(transforms);
-            foreach (ModelMesh mesh in Surface.Meshes)
-            {
-                foreach (BasicEffect currentEffect in mesh.Effects)
-                {
-                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                    currentEffect.Parameters["xPointLight2"].SetValue(Position);
+                    currentEffect.Parameters["xPointIntensity2"].SetValue(1f);
+                    Matrix world =
                         Matrix.CreateScale(Scale) *
                         Matrix.CreateRotationZ(MathHelper.PiOver2) *
                         Matrix.CreateRotationY(rollAngle) *
                         Matrix.CreateRotationX(-pitchAngle) *
-
                         Matrix.CreateTranslation(Position);
-                    currentEffect.View = view;
-                    currentEffect.Projection = projection;
+                    currentEffect.Parameters["xWorld"].SetValue(world);
+                    currentEffect.Parameters["xView"].SetValue(view);
+                    currentEffect.Parameters["xProjection"].SetValue(projection);
+                    currentEffect.Parameters["xTexture"].SetValue(Texture);
+                    
                 }
                 mesh.Draw();
             }

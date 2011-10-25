@@ -10,13 +10,11 @@ namespace Exeggcute.src.scripting.action
     {
         public FloatValue ID { get; protected set; }
         public int Duration { get; protected set; }
-        public bool TurnOn { get; protected set; }
 
-        public ShootAction(FloatValue id, int dur, bool on)
+        public ShootAction(FloatValue id, int dur)
         {
             this.ID = id;
             this.Duration = dur;
-            this.TurnOn = on;
         }
 
         public override void Process(ScriptedEntity entity)
@@ -26,7 +24,7 @@ namespace Exeggcute.src.scripting.action
 
         public override ActionBase Copy()
         {
-            return new ShootAction(ID, Duration, TurnOn);
+            return new ShootAction(ID, Duration);
         }
 
     }

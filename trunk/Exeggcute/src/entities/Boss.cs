@@ -143,7 +143,7 @@ namespace Exeggcute.src.entities
             this.Health       = next.Health;
             this.script       = next.Behavior;
             actionPtr = 0;
-            counter = 0;
+            waitCounter = 0;
         }
 
         protected void die()
@@ -169,7 +169,7 @@ namespace Exeggcute.src.entities
                 attacks[i].Reset();
             }
             actionPtr = 0;
-            counter = 0;
+            waitCounter = 0;
             arsenal = Arsenal.None;
             intro.Reset();
             outro.Reset();
