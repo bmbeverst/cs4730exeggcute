@@ -11,8 +11,8 @@ namespace Exeggcute.src
     class ScoreSet
     {
         public const int LENGTH = 10;
-        protected ScoreEntry[] localScores = new ScoreEntry[LENGTH];
-        protected ScoreEntry[] networkScores = new ScoreEntry[LENGTH];
+        protected List<ScoreEntry> localScores = new List<ScoreEntry>();
+        protected List<ScoreEntry> networkScores = new List<ScoreEntry>();
         private const string FILE = "data/score.dat";
         private const char DELIM = ',';
 
@@ -24,7 +24,20 @@ namespace Exeggcute.src
         {
             LoadLocal();
         }
+        public void TryInsert(int score)
+        {
+            string playerName = "dummy";
+            ScoreEntry possibleEntry = new ScoreEntry(score, playerName, DateTime.Now);
 
+            localScores.Add(possibleEntry);
+            localScores.Sort();
+            localScores.RemoveAt(localScores.Count - 1);
+
+
+
+
+            //add it to the list of network scores and do the same thing
+        }
         public void LoadLocal()
         {
             List<string> lines = Util.ReadAndStrip(FILE, true);
@@ -45,7 +58,7 @@ namespace Exeggcute.src
                 {
                     throw new ParseError("{0}\nFailed to parse line {1}", error.Message, line);
                 }
-                localScores[i] = entry;
+                localScores.Add(entry);
             }
         }
 
@@ -91,6 +104,22 @@ namespace Exeggcute.src
             // remember to only attempt to write to the 
             // network if we have actually beaten
             // a network high score!
+
+            HashSet<ScoreEntry> newEntries = new HashSet<ScoreEntry>();
+            foreach (ScoreEntry entry in localScores)
+            {
+                newEntries.Add(entry);
+            }
+            foreach(ScoreEntry entry in networkScores)
+            {
+                newEntries.Add(entry);
+            }
+
+            List<ScoreEntry> listEntries = newEntries.ToList();
+            listEntries.Sort();
+            int size = listEntries.Count;
+            listEntries.RemoveRange(10, size - 10);
+            
         }
 
         protected ScoreEntry parseElement(string[] tokens)
@@ -104,7 +133,7 @@ namespace Exeggcute.src
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
         {
             float height = font.MeasureString("A").Y;
-            ScoreEntry[] toDraw = ViewingNetwork ? networkScores : localScores;
+            List<ScoreEntry> toDraw = ViewingNetwork ? networkScores : localScores;
             for (int i = 0; i < LENGTH; i += 1)
             {
                 toDraw[i].Draw(batch, font, pos + new Vector2(0, height * i), color);

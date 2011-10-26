@@ -32,12 +32,21 @@ namespace Exeggcute.src
 
         public static string IntToString(int x)
         {
-            return string.Format("{0:000,000,000}", x);
+            return string.Format("{0:000000000}", x);
         }
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", StringScore, Name, Time);
+            DateTime now = Time;
+            int day = now.Day;
+            int month = now.Month;
+            int year = now.Year;
+            if (year > 2000)
+            {
+                year -= 2000;
+            }
+            string date = string.Format("{0:00}.{1:00}.{2:00}", month, day, year);
+            return string.Format("{0},{1},{2}", StringScore, Name, date);
         }
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
