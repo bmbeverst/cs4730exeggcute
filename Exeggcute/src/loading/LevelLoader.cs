@@ -48,7 +48,8 @@ namespace Exeggcute.src.loading
                 else if (matches("terrain"))
                 {
                     lines.RemoveAt(0);
-                    terrain = TerrainInfo.Make(graphics, lines);
+                    TerrainInfo info = new TerrainInfo(lines);
+                    terrain = info.MakeMesh(graphics);
                 }
                 else if (matches("tasklist"))
                 {

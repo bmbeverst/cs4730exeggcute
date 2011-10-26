@@ -5,13 +5,14 @@ using System.Text;
 using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.entities.items;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
     class ItemBatch
     {
-        List<Item> myItems;
-        Float3 dispersion;
+        private List<Item> myItems;
+        private Float3 dispersion;
 
         public ItemBatch(List<Item> items, Float3 dispersion)
         {
@@ -38,6 +39,11 @@ namespace Exeggcute.src
                 copy.Add(item.Copy());
             }
             return new ItemBatch(copy, dispersion);
+        }
+
+        public static ItemBatch Parse(string name)
+        {
+            return ItemBatchBank.Get(name);
         }
     }
 }

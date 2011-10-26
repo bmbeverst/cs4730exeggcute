@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.entities;
 using Exeggcute.src.scripting;
+using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Exeggcute.src
 {
@@ -31,9 +34,18 @@ namespace Exeggcute.src
         {
             if (!File.Exists(filepath))
             {
-                Die("File \"{0}\" does not exist, or could not be found in {1}", filepath, Directory.GetCurrentDirectory());
+                throw new ExeggcuteError("File \"{0}\" does not exist, or could not be found in {1}", filepath, Directory.GetCurrentDirectory());
             }
             return File.ReadLines(filepath).ToList();
+        }
+
+        internal static string ReadAllText(string filepath)
+        {
+            if (!File.Exists(filepath))
+            {
+                throw new ExeggcuteError("File \"{0}\" does not exist, or could not be found in {1}", filepath, Directory.GetCurrentDirectory());
+            }
+            return File.ReadAllText(filepath);
         }
 
         /// <summary>
@@ -311,7 +323,7 @@ namespace Exeggcute.src
 
         }
 
-        internal static Float3 ParseFloat3(string vec)
+        public static Float3 ParseFloat3(string vec)
         {
             vec = Util.RemoveSpace(vec);
             vec = vec.Replace("(", "").Replace(")", "");
@@ -465,6 +477,39 @@ namespace Exeggcute.src
             }
             return result;
         }
+
+        public static Model ParseModel(string name)
+        {
+            return ModelBank.Get(name);
+        }
+
+        public static Song ParseSong(string name)
+        {
+            return SongBank.Get(name);
+        }
+
+        public static SoundEffect ParseSoundEffect(string name)
+        {
+            return Exeggcute.src.assets.SoundBank.Get(name);
+        }
+
+        public static TEnum? ParseEnumNullable<TEnum>(string name) where TEnum : struct
+        {
+            TEnum? value = Util.ParseEnum<TEnum>(name);
+            return value;
+        }
+
+        public static Texture2D ParseTexture2D(string name)
+        {
+            return TextureBank.Get(name);
+        }
+
+        public static string ParseString(string s)
+        {
+            // that was easy
+            return s;
+        }
+
 
 
         

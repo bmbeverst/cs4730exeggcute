@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using System.Text.RegularExpressions;
 
 namespace Exeggcute.src
 {
@@ -28,6 +29,26 @@ namespace Exeggcute.src
         public virtual FloatValue FromDegrees()
         {
             return Mult(FastTrig.degreesToRadians);
+        }
+
+        public static FloatValue Parse(string s)
+        {
+            if (s.Contains('|'))
+            {
+                return FloatRange.Parse(s);
+            }
+            float floatValue;
+            if (Regex.IsMatch(s, "d"))
+            {
+                s = s.Replace("d", "");
+                floatValue = float.Parse(s) * FastTrig.degreesToRadians;
+            }
+            else
+            {
+                floatValue = float.Parse(s);
+            }
+
+            return new FloatValue(floatValue);
         }
 
         protected FloatValue()
@@ -70,6 +91,15 @@ namespace Exeggcute.src
             return Mult(FastTrig.degreesToRadians);
         }
 
+        public static FloatRange Parse(string s)
+        {
+            string flattened = Util.RemoveSpace(s).Replace("]", "").Replace("[", "");
+            string[] split = flattened.Split('|');
+            float min = float.Parse(split[0]);
+            float max = float.Parse(split[1]);
+            return new FloatRange(min, max);
+        }
+
     }
 
     class Float3
@@ -91,6 +121,17 @@ namespace Exeggcute.src
             this.X = x;
             this.Y = y;
             this.Z = z;
+        }
+
+        public static Float3 Parse(string s)
+        {
+            s = Util.RemoveSpace(s);
+            s = s.Replace("(", "").Replace(")", "");
+            string[] ranges = s.Split(',');
+            FloatValue x = FloatValue.Parse(ranges[0]);
+            FloatValue y = FloatValue.Parse(ranges[1]);
+            FloatValue z = FloatValue.Parse(ranges[2]);
+            return new Float3(x, y, z);
         }
 
 

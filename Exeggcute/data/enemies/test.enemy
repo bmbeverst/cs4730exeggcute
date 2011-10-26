@@ -1,1 +1,17 @@
-﻿#nothing in here yet
+﻿@Info:
+model:       string
+texture:     string
+scale:       float
+health:      int
+defense:     int
+deathScript: string
+shootSFX:    string
+dieSFX:      string
+itembatch:   string
+gibbatch:    string
+
+@Arsenal: #optional name
+look0 behavior0 spawn0 traj0
+#etc
+
+@Behavior: #optional name

@@ -86,5 +86,11 @@ namespace Exeggcute.src.scripting.arsenal
         {
             this.shotListHandle = shotListHandle;
         }
+
+        public static Arsenal Parse(string name)
+        {
+            Util.Warn("fixme, uhh fix this somehow");
+            return ArsenalBank.Get(name, World.EnemyShots);
+        }
     }
 }

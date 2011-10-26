@@ -36,11 +36,13 @@ namespace Exeggcute.src.entities
         protected bool isDefeated;
         protected bool isStarted;
         protected List<Spellcard> attacks;
-        
-        public Boss(Model model, Texture2D texture, float modelScale, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
+
+        protected string name;
+
+        public Boss(string name, Model model, Texture2D texture, float modelScale, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
             : base(model, texture, World.EnemyShots, World.GibList)
         {
-
+            this.name = name;
             this.spellPtr = -1;
             this.intro = intro;
             this.outro = outro;
