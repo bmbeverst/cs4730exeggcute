@@ -48,7 +48,7 @@ namespace Exeggcute.src
         public static readonly float FIELD_OF_VIEW = MathHelper.PiOver4;
         public ControlManager controls;
 
-        private ScoreSet scoreSet;
+        public static ScoreSet scoreSet;
 
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
