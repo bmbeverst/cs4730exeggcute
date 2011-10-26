@@ -40,7 +40,7 @@ namespace Exeggcute.src.gui
 
         public void SyncNetwork()
         {
-            scores.LoadNetwork();
+            scores.WriteNetwork();
             // TODO 
             // Mike suggests the following:
             // 1) Hard code a list of high scores on the network in the database.
