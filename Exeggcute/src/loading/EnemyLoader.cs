@@ -12,8 +12,6 @@ namespace Exeggcute.src.loading
 {
     class EnemyLoader
     {
-
-        
         public static Enemy Load(string name)
         {
             string filepath = string.Format("data/enemies/{0}.enemy", name);
@@ -25,24 +23,16 @@ namespace Exeggcute.src.loading
             }
             EnemyInfo info = new EnemyInfo(infoSection.Tokens);
 
-            List<ArsenalEntry> attacks = new List<ArsenalEntry>();
-            int i = 0;
-            for (i = 1; i < enemyData.Count - 1; i += 1)
-            {
-                List<string[]> tokenList = enemyData[i].Tokens;
-                ArsenalEntry entry = new ArsenalEntry(tokenList);
-                attacks.Add(entry);
-            }
-            Arsenal arsenal = new Arsenal(attacks, World.EnemyShots);
+            DataSection behaviorSection = enemyData[1];
             ScriptLoader scriptLoader = new ScriptLoader();
-            List<List<ActionBase>> actions = scriptLoader.RawFromLines(enemyData[i].Lines);
+            List<List<ActionBase>> actions = scriptLoader.RawFromLines(behaviorSection.Lines);
             BehaviorScript behavior = new BehaviorScript(new ScriptBase(filepath, actions));
             Enemy enemy = new Enemy(info.Body.Model,
                                     info.Body.Texture,
                                     info.Body.Scale.Value,
                                     info.Health.Value,
                                     info.Defence.Value,
-                                    arsenal,
+                                    info.arsenal,
                                     behavior,
                                     info.deathScript,
                                     info.shootSFX,

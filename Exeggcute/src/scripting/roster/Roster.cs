@@ -26,7 +26,7 @@ namespace Exeggcute.src.scripting.roster
             return enemies[id].Clone(pos, angle);
         }
 
-        public Roster Parse(string s)
+        public static Roster Parse(string s)
         {
             return new Roster(s);
         }

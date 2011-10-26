@@ -137,7 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\assets\ArsenalBank.cs" />
+    <Compile Include="src\assets\OptionBank.cs" />
     <Compile Include="src\assets\BodyBank.cs" />
     <Compile Include="src\GibBatch.cs" />
     <Compile Include="src\loading\BodyInfo.cs" />
@@ -220,7 +220,7 @@
     <Compile Include="src\ServerTest.cs" />
     <Compile Include="src\SubclassShouldImplementError.cs" />
     <Compile Include="src\graphics\WangMesh.cs" />
-    <Compile Include="src\scripting\arsenal\ArsenalEntry.cs" />
+    <Compile Include="src\scripting\arsenal\OptionInfo.cs" />
     <Compile Include="src\ScoreSet.cs" />
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
@@ -419,6 +419,12 @@
     <Content Include="data\scripts\spawns\0enemy2.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="data\options\testoption.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="data\scripts\behaviors\aimplayer.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="lib\Nuclex.Input.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -503,9 +509,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="data\arsenals\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>

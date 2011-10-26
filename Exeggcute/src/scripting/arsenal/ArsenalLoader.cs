@@ -10,7 +10,7 @@ namespace Exeggcute.src.scripting.arsenal
 {
     class ArsenalLoader : Loadable
     {
-        protected List<ArsenalEntry> entries;
+        protected List<OptionInfo> entries;
 
     }
     /*class ArsenalLoader : EntryListParser<ArsenalEntry>

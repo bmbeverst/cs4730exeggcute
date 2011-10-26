@@ -32,13 +32,13 @@ namespace Exeggcute.src.loading
 
 
             // the first entry is the special attack!///////////////////////
-            List<ArsenalEntry> bombOptions = new List<ArsenalEntry>();
+            List<OptionInfo> bombOptions = new List<OptionInfo>();
             DataSection bombSection = data[1];
             Data bombData = new Data(name, bombSection.RawText, '$');
             for (int i = 0; i < bombData.Count; i += 1)
             {
                 DataSection currentArsenalSection = bombData[i];
-                ArsenalEntry entry = new ArsenalEntry(currentArsenalSection.Tokens);
+                OptionInfo entry = new OptionInfo(currentArsenalSection.Tokens);
                 bombOptions.Add(entry);
             }
 
@@ -53,11 +53,11 @@ namespace Exeggcute.src.loading
             {
                 DataSection currentSection = data[k];
                 Data arsenalData = new Data(name, currentSection.RawText, '$');
-                List<ArsenalEntry> entries = new List<ArsenalEntry>();
+                List<OptionInfo> entries = new List<OptionInfo>();
                 for (int i = 0; i < arsenalData.Count; i += 1)
                 {
                     DataSection currentArsenal = arsenalData[i];
-                    ArsenalEntry entry = new ArsenalEntry(currentArsenal.Tokens);
+                    OptionInfo entry = new OptionInfo(currentArsenal.Tokens);
                     entries.Add(entry);
                 }
                 

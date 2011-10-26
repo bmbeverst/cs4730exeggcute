@@ -71,7 +71,7 @@ namespace Exeggcute.src.loading
                     }
                     
                 }
-                else if (fieldType.GetMethod(typeParseMethodName) == null)
+                else if (fieldType.GetMethod(typeParseMethodName, new Type[] { typeof(string) }) == null)
                 {
                     string utilParseMethodName = string.Format("Parse{0}", typeName);
                     
