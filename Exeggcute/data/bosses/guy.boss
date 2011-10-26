@@ -12,7 +12,7 @@ outro:        1
 @spellcard:
 name:         Test1
 behavior:     boss0
-attack:       weapon0
+attack:       enemy,testoption
 duration:     300
 health:       1000
 items:        test
@@ -20,7 +20,7 @@ items:        test
 @spellcard:
 name:         Test2
 behavior:     boss0
-attack:       bomb0
+attack:       enemy,testoption
 duration:     300
 health:       1000
 items:        test

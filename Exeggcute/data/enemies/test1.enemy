@@ -1,24 +1,18 @@
 ﻿@Info:
 body:        whitecube
 health:      500
-defense:     1
+defence:     1
 deathScript: death0
 shootSFX:    shot0
 dieSFX:      shot0
 itembatch:   test
 gibbatch:    gibtest
-
-@  Arsenal:
-      body:  whitecube
-  behavior:  0option0
-     spawn:  0enemy0
-trajectory:  basic
-
-@  Arsenal: 
-      body:  whitecube
-  behavior:  option1
-     spawn:  0enemy1
-trajectory:  basic
+arsenal:     enemy,testoption
 
 
-@Behavior: #optional name
+@Behavior: 
+moverel (0,-30,0) 100
+shoot 2 900
+wait 900
+moverel (0,50,0) 100
+delete

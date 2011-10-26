@@ -1,0 +1,5 @@
+﻿  BodyInfo: whitecube
+    Damage: 10
+  Behavior: aimplayer
+Trajectory: basic
+     Spawn: 0enemy0

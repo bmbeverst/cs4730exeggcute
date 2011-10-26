@@ -19,7 +19,7 @@ Orientation:    Outside
 #   Variance:   64
 
 @Lights:
-    Ambient:       0
+    Ambient:       1
 
     Dir:           on
     DirDirection: (0,1,0)
