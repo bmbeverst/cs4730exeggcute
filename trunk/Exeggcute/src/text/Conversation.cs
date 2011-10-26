@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.gui;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.text
 {
@@ -68,6 +69,11 @@ namespace Exeggcute.src.text
         public void Dispose()
         {
 
+        }
+
+        public static Conversation Parse(string s)
+        {
+            return ConversationBank.Get(s);
         }
     }
 }

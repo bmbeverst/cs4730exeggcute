@@ -284,6 +284,8 @@ namespace Exeggcute.src
 
             }
             Level next = levelLoader.Load(content, graphics, player, hud, difficulty, name);
+
+
             if (doPop)
             {
                 stack.Pop();

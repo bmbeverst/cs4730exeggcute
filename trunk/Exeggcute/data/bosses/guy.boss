@@ -1,4 +1,5 @@
 ﻿#SAMPLE BOSS
+@info:
 name:         Guy'sName #cant contain spaces atm, sorry
 model:        playerScene
 texture:      fractal
@@ -9,7 +10,8 @@ deathScript:  bossdeath0
 intro:        0
 outro:        1
 
-spellcard:
+
+@spellcard:
 name:         Test1
 behavior:     boss0
 attack:       weapon0
@@ -17,7 +19,7 @@ duration:     300
 health:       1000
 items:        test
 
-spellcard:
+@spellcard:
 name:         Test2
 behavior:     boss0
 attack:       bomb0

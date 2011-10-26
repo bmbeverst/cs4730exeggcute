@@ -17,7 +17,7 @@ namespace Exeggcute.src
         }
         public int Count { get { return sections.Count; } }
 
-        public Data(string filename)
+        public Data(string filename, bool tokenize)
         {
             this.sections = new List<DataSection>();
             this.Filename = filename;
@@ -26,13 +26,32 @@ namespace Exeggcute.src
             List<string> split = RawText.Split('@').ToList();
             for (int i = 0; i < split.Count; i += 1)
             {
-                List<string> commentsRemoved = Util.StripComments(split[i], true);
-                if (commentsRemoved.Count <= 1)
+                int count;
+                if (tokenize)
                 {
-                    Util.Warn("Empty section found in {0}", filename);
-                    continue;
+                    List<string[]> tokens = Util.CleanData(split[i]);
+                    count = tokens.Count;
+                    if (count <= 1)
+                    {
+                        Util.Warn("Empty section found in {0}", filename);
+                        continue;
+                    }
+                    sections.Add(new DataSection(tokens));
                 }
-                sections.Add(new DataSection(commentsRemoved));
+                else
+                {
+                    List<string> lines = Util.StripComments(split[i], true);
+                    count = lines.Count;
+                    if (count <= 1)
+                    {
+                        Util.Warn("Empty section found in {0}", filename);
+                        continue;
+                    }
+                    sections.Add(new DataSection(lines));
+                }
+                
+                
+                
             }
         }
 
@@ -41,6 +60,7 @@ namespace Exeggcute.src
     class DataSection
     {
         public string Tag { get; protected set; }
+        public List<string[]> Tokens { get; protected set; }
         public List<string> Lines { get; protected set; }
 
         public DataSection(List<string> lines)
@@ -48,6 +68,13 @@ namespace Exeggcute.src
             this.Tag = lines[0].Split(':')[0];
             lines.RemoveAt(0);
             this.Lines = lines;
+        }
+
+        public DataSection(List<string[]> lines)
+        {
+            this.Tag = lines[0][0];
+            lines.RemoveAt(0);
+            this.Tokens = lines;
         }
     }
 }

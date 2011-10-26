@@ -102,6 +102,7 @@ namespace Exeggcute.src
                      WangMesh terrain,
                      LightSettings lightSettings)
         {
+
             MediaPlayer.IsVisualizationEnabled = true;
             //HACK HARDCODED
             Effect light = EffectBank.Get("light0");

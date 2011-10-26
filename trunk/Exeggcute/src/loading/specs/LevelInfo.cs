@@ -40,12 +40,13 @@ namespace Exeggcute.src.loading.specs
                 }
                 else if (matches("miniboss"))
                 {
-                    
-                    MiniBoss = BossInfo.Make(value);
+                    BossInfo info = new BossInfo(value);
+                    MiniBoss = info.MakeBoss();
                 }
                 else if (matches("mainboss"))
                 {
-                    MainBoss = BossInfo.Make(value);
+                    BossInfo info = new BossInfo(value);
+                    MainBoss = info.MakeBoss();
                 }
                 else if (matches("roster"))
                 {

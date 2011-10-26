@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting.action;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.scripting
 {
@@ -12,6 +13,11 @@ namespace Exeggcute.src.scripting
             : base(script)
         {
 
+        }
+
+        public static TrajectoryScript Parse(string name)
+        {
+            return ScriptBank.GetTrajectory(name);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Exeggcute.src.loading
             List<Arsenal> arsenals = null;
             string folder = isCustom ? "custom" : "standard";
             string filepath = string.Format("data/players/{0}/{1}.player", folder, name);
-            Data data = new Data(filepath);
+            Data data = new Data(filepath, false);
             for (int k = 0; k < data.Count; k += 1)
             {
                 List<string> lines = data[k].Lines;
