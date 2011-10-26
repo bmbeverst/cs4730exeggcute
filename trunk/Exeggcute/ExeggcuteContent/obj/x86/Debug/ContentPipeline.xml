@@ -11,6 +11,46 @@
       <Time>2011-10-19T21:18:19.8876953-04:00</Time>
     </Item>
     <Item>
+      <Source>models\arrow.fbx</Source>
+      <Name>models\arrow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\arrow.xnb</Output>
+      <Time>2011-10-21T08:20:25.7382812-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\arrow_0.xml</Key>
+        <Value>2011-10-21T20:59:11.7871093-04:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\bullet0.fbx</Source>
+      <Name>models\bullet0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\bullet0.xnb</Output>
+      <Time>2011-10-21T08:20:25.7294921-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\bullet0_0.xml</Key>
+        <Value>2011-10-21T20:59:11.8564453-04:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\junk1.fbx</Source>
+      <Name>models\junk1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\junk1.xnb</Output>
+      <Time>2011-10-21T08:28:42.9394531-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\junk1_0.xml</Key>
+        <Value>2011-10-21T20:59:11.9257812-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Request>
+    </Item>
+    <Item>
       <Source>models\junk0.fbx</Source>
       <Name>models\junk0</Name>
       <Importer>FbxImporter</Importer>
@@ -20,7 +60,7 @@
       <Time>2011-10-21T07:48:52.0371093-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\junk0_0.xml</Key>
-        <Value>2011-10-21T07:50:12.3867187-04:00</Value>
+        <Value>2011-10-21T20:59:12.9033203-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Request>
     </Item>
@@ -34,7 +74,7 @@
       <Time>2011-10-21T16:15:00.5107421-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\playerScene_0.xml</Key>
-        <Value>2011-10-21T16:15:01.7910156-04:00</Value>
+        <Value>2011-10-21T20:59:12.9638671-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Request>
     </Item>
@@ -48,7 +88,7 @@
       <Time>2011-10-21T07:49:53.4140625-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\testcube_0.xml</Key>
-        <Value>2011-10-21T07:50:13.9560546-04:00</Value>
+        <Value>2011-10-21T20:59:13.6152343-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\Bad_Hair_DayFin_0.xnb</Request>
     </Item>
@@ -62,7 +102,7 @@
       <Time>2011-10-21T07:49:18.828125-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\XNAface_0.xml</Key>
-        <Value>2011-10-21T07:50:14.2578125-04:00</Value>
+        <Value>2011-10-21T20:59:13.8925781-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Request>
     </Item>
@@ -121,6 +161,15 @@
       <Time>2011-10-19T21:17:03.4423828-04:00</Time>
     </Item>
     <Item>
+      <Source>sprites\wang8.png</Source>
+      <Name>sprites\wang8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8.xnb</Output>
+      <Time>2011-10-21T17:46:09.1015625-04:00</Time>
+    </Item>
+    <Item>
       <Source>sprites\fractal.png</Source>
       <Name>sprites\fractal</Name>
       <Importer>TextureImporter</Importer>
@@ -148,136 +197,14 @@
       <Time>2011-10-19T21:16:09.890625-04:00</Time>
     </Item>
     <Item>
-      <Source>models\junk0.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\junk0_0.xml</Output>
-      <Time>2011-10-21T07:48:52.0371093-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\playerScene.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\playerScene_0.xml</Output>
-      <Time>2011-10-21T16:15:00.5107421-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\testcube.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\testcube_0.xml</Output>
-      <Time>2011-10-21T07:49:53.4140625-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\XNAface.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\XNAface_0.xml</Output>
-      <Time>2011-10-21T07:49:18.828125-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\junk.jpg</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
+      <Source>songs\Mayhem_Some_Boss_Shit.mp3</Source>
+      <Name>songs\Mayhem_Some_Boss_Shit</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.8886718-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\fractal.png</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.0566406-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\Bad_Hair_DayFin.jpg</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\Bad_Hair_DayFin_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.649414-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\face.png</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.3203125-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\arrow.fbx</Source>
-      <Name>models\arrow</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\arrow.xnb</Output>
-      <Time>2011-10-21T08:20:25.7382812-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\models\arrow_0.xml</Key>
-        <Value>2011-10-21T08:29:41.2568359-04:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>models\bullet0.fbx</Source>
-      <Name>models\bullet0</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\bullet0.xnb</Output>
-      <Time>2011-10-21T08:20:25.7294921-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\models\bullet0_0.xml</Key>
-        <Value>2011-10-21T08:29:41.4677734-04:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>models\junk1.fbx</Source>
-      <Name>models\junk1</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\junk1.xnb</Output>
-      <Time>2011-10-21T08:28:42.9394531-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\models\junk1_0.xml</Key>
-        <Value>2011-10-21T08:29:41.5673828-04:00</Value>
-      </Dependency>
-      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Request>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.wma</Extra>
+      <Time>2011-10-21T20:57:04.828125-04:00</Time>
     </Item>
     <Item>
       <Source>models\arrow.fbx</Source>
@@ -301,13 +228,105 @@
       <Time>2011-10-21T08:28:42.9394531-04:00</Time>
     </Item>
     <Item>
-      <Source>sprites\wang8.png</Source>
-      <Name>sprites\wang8</Name>
+      <Source>textures\junk.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.8886718-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\junk0.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\junk0_0.xml</Output>
+      <Time>2011-10-21T07:48:52.0371093-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\playerScene.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\playerScene_0.xml</Output>
+      <Time>2011-10-21T16:15:00.5107421-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\fractal.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.0566406-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\testcube.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\testcube_0.xml</Output>
+      <Time>2011-10-21T07:49:53.4140625-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\Bad_Hair_DayFin.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\Bad_Hair_DayFin_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.649414-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\XNAface.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\XNAface_0.xml</Output>
+      <Time>2011-10-21T07:49:18.828125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\face.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.3203125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\junk.jpg</Source>
+      <Name>sprites\junk</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8.xnb</Output>
-      <Time>2011-10-21T17:46:09.1015625-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\junk.xnb</Output>
+      <Time>2011-10-24T16:28:49.2861328-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

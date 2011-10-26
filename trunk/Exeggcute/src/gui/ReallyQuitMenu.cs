@@ -20,7 +20,6 @@ namespace Exeggcute.src.gui
     {
         protected SpriteText question;
         protected Vector2 questionPos;
-        protected SpriteFont font;
 
         public ReallyQuitMenu(List<Button> buttons, Rectangle bounds)
             : base(buttons, bounds, false)

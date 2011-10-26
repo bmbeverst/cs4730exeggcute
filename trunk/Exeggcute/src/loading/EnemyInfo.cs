@@ -7,6 +7,7 @@ using Exeggcute.src.scripting;
 using Microsoft.Xna.Framework.Audio;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Exeggcute.src.scripting.arsenal;
 
 namespace Exeggcute.src.loading
 {
@@ -21,6 +22,7 @@ namespace Exeggcute.src.loading
         public SoundEffect dieSFX;
         public ItemBatch itembatch;
         public GibBatch gibbatch;
+        public Arsenal arsenal;
 
         public EnemyInfo(List<string[]> tokenList)
         {
