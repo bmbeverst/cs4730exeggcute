@@ -15,53 +15,82 @@ namespace Exeggcute.src.loading
 {
     class PlayerLoader : Loader
     {
-        PlayerWeaponLoader weaponLoader = new PlayerWeaponLoader();
         public Player Load(string name, bool isCustom)
         {
-            PlayerInfo info = null;
-            List<int> thresholds = null;
-            List<Arsenal> arsenals = null;
+
             string folder = isCustom ? "custom" : "standard";
             string filepath = string.Format("data/players/{0}/{1}.player", folder, name);
-            Data data = new Data(filepath, false);
-            for (int k = 0; k < data.Count; k += 1)
+            Data data = new Data(filepath);
+
+
+            DataSection infoSection = data[0];
+            if (!infoSection.Tag.Equals("info", StringComparison.CurrentCultureIgnoreCase ))
             {
-                List<string> lines = data[k].Lines;
-                currentField = data[k].Tag;
-                if (matches("info"))
-                {
-                    info = new PlayerInfo(lines);
-                }
-                else if (matches("weapon"))
-                {
-                    thresholds = new List<int>();
-                    arsenals = new List<Arsenal>();
-                    weaponLoader.Load(lines, thresholds, arsenals);
-                }
-                
+                throw new ParseError("info section must come first");
             }
-            if (info == null || thresholds == null || arsenals == null)
+            PlayerInfo info = new PlayerInfo(infoSection.Tokens);
+
+
+            // the first entry is the special attack!///////////////////////
+            List<ArsenalEntry> bombOptions = new List<ArsenalEntry>();
+            DataSection bombSection = data[1];
+            Data bombData = new Data(name, bombSection.RawText, '$');
+            for (int i = 0; i < bombData.Count; i += 1)
             {
-                throw new ParseError("Not all fields were initialized");
+                DataSection currentArsenalSection = bombData[i];
+                ArsenalEntry entry = new ArsenalEntry(currentArsenalSection.Tokens);
+                bombOptions.Add(entry);
             }
 
-            
+            Arsenal special = new Arsenal(bombOptions, World.PlayerShots);
+            /////////////////////////////////////////////////////////////
+
+
+            //// load the player's weapon//////////////////////////////
+            List<Arsenal> weapons = new List<Arsenal>();
+            List<int> thresholds = new List<int>();
+            for (int k = 2; k < data.Count; k += 1)
+            {
+                DataSection currentSection = data[k];
+                Data arsenalData = new Data(name, currentSection.RawText, '$');
+                List<ArsenalEntry> entries = new List<ArsenalEntry>();
+                for (int i = 0; i < arsenalData.Count; i += 1)
+                {
+                    DataSection currentArsenal = arsenalData[i];
+                    ArsenalEntry entry = new ArsenalEntry(currentArsenal.Tokens);
+                    entries.Add(entry);
+                }
+                
+                int thresh = int.Parse(currentSection.TagValue);
+                thresholds.Add(thresh);
+                if (entries.Count == 0)
+                {
+                    throw new ParseError("Arsenal {0} had no entries", k);
+                }
+                Arsenal weap = new Arsenal(entries, World.PlayerShots);
+                weapons.Add(weap);
+            }
+            /////////////////////////////////////////////////////
+           
             return new Player(data.RawText,
                               name,
                               isCustom,
-                              info.Surface, 
-                              info.Texture,
-                              info.DeathScript, 
-                              info.Bomb,  
-                              arsenals, 
+                              info.body.Model,
+                              info.body.Texture,
+                              info.deathScript,
+                              special,  
+                              info.gibBatch,
+                              info.shootSFX,
+                              info.dieSFX,
+                              weapons, 
                               thresholds,
-                              info.NumLives.Value,
-                              info.NumBombs.Value,
-                              info.MoveSpeed.Value,
-                              info.FocusSpeed.Value,
-                              info.ModelScale.Value, 
-                              info.HitRadius.Value,
-                              info.LightLevel.Value,
+                              info.lives.Value,
+                              info.bombs.Value,
+                              info.moveSpeed.Value,
+                              info.focusSpeed.Value,
+                              info.body.Scale.Value, 
+                              info.hitRadius.Value,
+                              info.lightLevel.Value,
                               World.PlayerShots, 
                               World.GibList);
         }

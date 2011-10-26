@@ -57,14 +57,12 @@ namespace Exeggcute.src
             loadXNAContent(content);
 
             SpriteBank.LoadAll(content);
+            BodyBank.LoadAll();
 
             ScriptBank.LoadAll();
 
             ItemBank.LoadAll();
             ItemBatchBank.LoadAll();
-
-            ArsenalBank.LoadAll();
-            RosterBank.LoadAll();
 
             ConversationBank.LoadAll();
 

@@ -91,7 +91,7 @@ namespace Exeggcute.src
             return Mult(FastTrig.degreesToRadians);
         }
 
-        public static FloatRange Parse(string s)
+        public new static FloatRange Parse(string s)
         {
             string flattened = Util.RemoveSpace(s).Replace("]", "").Replace("[", "");
             string[] split = flattened.Split('|');

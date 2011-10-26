@@ -11,6 +11,7 @@ using Exeggcute.src.scripting.action;
 using Exeggcute.src.graphics;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.entities.items;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Exeggcute.src.entities
 {
@@ -79,18 +80,21 @@ namespace Exeggcute.src.entities
                       Texture2D texture, 
                       BehaviorScript deathScript, 
                       Arsenal bomb, 
+                      GibBatch gibBatch,
+                      SoundEffect shootSFX,
+                      SoundEffect dieSFX,
                       List<Arsenal> arsenalList, 
                       List<int> thresholds, 
                       int numLives,
                       int numBombs,
                       float moveSpeed,
                       float focusSpeed,
-                      float modelScale,
+                      float scale,
                       float hitRadius,
                       float lightLevel,
                       HashList<Shot> shotList, 
                       HashList<Gib> gibList)
-            : base(model, texture, deathScript, null, shotList, gibList)
+            : base(model, texture, scale, deathScript, shootSFX, dieSFX, null, gibBatch, shotList, gibList)
         {
             this.RawData = data;
             this.Name = name;
@@ -115,7 +119,6 @@ namespace Exeggcute.src.entities
             this.HitRadius = hitRadius;
             this.InnerHitbox = new BoundingSphere(Position, HitRadius);
             this.deathScript = deathScript;
-            this.Scale = modelScale;
 
 
             LifeSprite = SpriteBank.Get("life");

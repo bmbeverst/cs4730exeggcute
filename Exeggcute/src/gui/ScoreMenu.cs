@@ -13,11 +13,9 @@ namespace Exeggcute.src.gui
     class ScoreMenu : Menu
     {
         protected ScoreSet scores;
-        protected SpriteFont font;
         public ScoreMenu(List<Button> buttons, Rectangle bounds)
             : base(buttons, bounds, false)
         {
-            this.font = FontBank.Get("consolas");
             this.buttons = buttons;
             this.buttonBounds = bounds;
             this.scores = new ScoreSet();

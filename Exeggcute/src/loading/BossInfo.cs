@@ -16,8 +16,7 @@ namespace Exeggcute.src.loading
     {
         protected List<Spellcard> spellcards;
         protected string name;
-        protected Model model;
-        protected Texture2D texture;
+        protected BodyInfo body;
         protected BehaviorScript entryScript;
         protected BehaviorScript defeatScript;
         protected BehaviorScript deathScript;
@@ -29,7 +28,7 @@ namespace Exeggcute.src.loading
         {
             spellcards = new List<Spellcard>();
             string filename = string.Format("data/bosses/{0}.boss", name);
-            Data bossData = new Data(filename, true);
+            Data bossData = new Data(filename);
             DataSection info = bossData[0];
             if (!info.Tag.Equals("info", StringComparison.CurrentCultureIgnoreCase))
             {
@@ -50,9 +49,9 @@ namespace Exeggcute.src.loading
         public Boss MakeBoss()
         {
             return new Boss(name, 
-                            model, 
-                            texture,
-                            scale.Value, 
+                            body.Model, 
+                            body.Texture,
+                            body.Scale.Value, 
                             intro, 
                             outro, 
                             entryScript, 

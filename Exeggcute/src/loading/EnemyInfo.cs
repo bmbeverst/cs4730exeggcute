@@ -10,40 +10,21 @@ using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.loading
 {
-
-
-
-    class EntityInfo : LoadedInfo
+#pragma warning disable 0649
+    class EnemyInfo : Loadable
     {
-        public Model Surface { get; protected set; }
-        public Texture2D Texture { get; protected set; }
-        public float? Scale { get; protected set; }
+        public BodyInfo Body;
+        public int? Health;
+        public int? Defence;
+        public BehaviorScript deathScript;
+        public SoundEffect shootSFX;
+        public SoundEffect dieSFX;
+        public ItemBatch itembatch;
+        public GibBatch gibbatch;
 
-        public EntityInfo(List<string> lines)
+        public EnemyInfo(List<string[]> tokenList)
         {
-            //Type t = 
-        }
-
-        public void SetMatch(string name, string value)
-        {
-
-        }
-    }
-    class EnemyInfo : EntityInfo
-    {
-        
-        public int? Health{ get; protected set; } 
-        public int? Defense{ get; protected set; } 
-        public BehaviorScript deathScript{ get; protected set; } 
-        public SoundEffect shootSFX{ get; protected set; } 
-        public SoundEffect dieSFX{ get; protected set; } 
-        public ItemBatch itembatch{ get; protected set; } 
-        public GibBatch gibbatch{ get; protected set; }
-
-        public EnemyInfo(List<string> lines)
-            : base(lines)
-        {
-
+            loadFromTokens(tokenList);
             
         }
     }

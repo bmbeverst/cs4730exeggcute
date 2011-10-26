@@ -23,7 +23,14 @@ namespace Exeggcute.src.scripting.arsenal
             this.shotListHandle = shotListHandle;
             foreach (ArsenalEntry entry in entries)
             {
-                Spawner next = new Spawner(entry, shotListHandle);
+                Spawner next = new Spawner(entry.Body.Model, 
+                                           entry.Body.Texture, 
+                                           entry.Body.Scale.Value, 
+                                           entry.Damage, 
+                                           entry.Trajectory, 
+                                           entry.Spawn, 
+                                           entry.Behavior, 
+                                           shotListHandle);
                 spawners.Add(next);
             }
         }
@@ -87,10 +94,10 @@ namespace Exeggcute.src.scripting.arsenal
             this.shotListHandle = shotListHandle;
         }
 
-        public static Arsenal Parse(string name)
+        /*public static Arsenal Parse(string name)
         {
             Util.Warn("fixme, uhh fix this somehow");
             return ArsenalBank.Get(name, World.EnemyShots);
-        }
+        }*/
     }
 }

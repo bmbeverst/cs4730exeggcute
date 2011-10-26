@@ -9,8 +9,8 @@ namespace Exeggcute.src.entities.items
 {
     class ExtraLife : Item
     {
-        public ExtraLife(ItemEntry entry)
-            : base(entry)
+        public ExtraLife(Model model, Texture2D texture, float scale, BehaviorScript behavior)
+            : base(model, texture, scale, behavior)
         {
 
         }

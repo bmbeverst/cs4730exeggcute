@@ -16,7 +16,6 @@ namespace Exeggcute.src.assets
         protected static CustomBank<Item> bank =
             new CustomBank<Item>("data/items");
 
-        protected static ItemLoader loader = new ItemLoader();
         public static Item Get(string name)
         {
             return bank[name].Copy();
@@ -26,7 +25,9 @@ namespace Exeggcute.src.assets
         {
             foreach (string file in bank.AllFiles)
             {
-                bank.Put(loader.Make(file), file);
+                ItemEntry entry = new ItemEntry(file);
+                
+                bank.Put(entry.MakeItem(), file);
             }
         }
     }

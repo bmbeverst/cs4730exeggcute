@@ -12,9 +12,7 @@ namespace Exeggcute.src.entities
 #pragma warning disable 0649
     class EnemyInfo : Loadable
     {
-        public Model Model;
-        public Texture2D Texture;
-        public float? Scale;
+        public BodyInfo Body;
         public SoundEffect ShootSFX;
         public SoundEffect DieSFX;
         public ItemBatch Items;

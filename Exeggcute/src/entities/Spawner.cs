@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting.action;
 using Exeggcute.src.scripting.arsenal;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.entities
 {
@@ -17,25 +18,32 @@ namespace Exeggcute.src.entities
     /// </summary>
     class Spawner : ScriptedEntity
     {
-        int timer = 0;
-        bool active;
-        int shotActionPtr = 0;
-        Shot shot;
-        HashList<Shot> shotListHandle;
-        Model arrow;
-        Model debugModel;
-        ArsenalEntry arsenalEntry;
+        protected int timer = 0;
+        protected bool active;
+        protected int shotActionPtr = 0;
+        protected Shot shot;
+        protected HashList<Shot> shotListHandle;
+        protected Model arrow;
+        protected Model debugModel;
+
         public Mover mover { get; protected set; }
         public Vector3 ParentPos { get; protected set; }
         public float ParentAngle { get; protected set; }
-        public Spawner(ArsenalEntry arsenalEntry, HashList<Shot> shotListHandle)
-            : base(arsenalEntry.Spawn)
+        public Spawner(Model model, 
+                       Texture2D texture, 
+                       float scale, 
+                       int damage, 
+                       TrajectoryScript shotTrajectory, 
+                       SpawnScript spawnScript, 
+                       BehaviorScript moverScript, 
+                       HashList<Shot> shotListHandle)
+            : base(spawnScript)
         {
-            this.arsenalEntry = arsenalEntry;
-            this.shot = new Shot(arsenalEntry);
+
+            this.shot = new Shot(model, texture, scale, shotTrajectory, damage);
             this.shotListHandle = shotListHandle;
             this.active = false;
-            this.mover = new Mover(arsenalEntry.Behavior);
+            this.mover = new Mover(moverScript);
             this.Scale = 1.0f;
             this.arrow = ModelBank.Get("arrow");
             this.debugModel = ModelBank.Get("XNAface");

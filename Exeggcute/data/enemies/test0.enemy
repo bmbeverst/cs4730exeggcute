@@ -1,0 +1,24 @@
+﻿@Info:
+body:        whitecube
+health:      500
+defense:     1
+deathScript: death0
+shootSFX:    shot0
+dieSFX:      shot0
+itembatch:   test
+gibbatch:    gibtest
+
+@  Arsenal:
+      body:  whitecube
+  behavior:  0option0
+     spawn:  0enemy0
+trajectory:  basic
+
+@  Arsenal: 
+      body:  whitecube
+  behavior:  option1
+     spawn:  0enemy1
+trajectory:  basic
+
+
+@Behavior: #optional name

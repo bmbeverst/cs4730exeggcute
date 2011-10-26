@@ -9,6 +9,7 @@ using Exeggcute.src.scripting;
 using Exeggcute.src.contexts;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.text;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.entities
 {
@@ -39,14 +40,22 @@ namespace Exeggcute.src.entities
 
         protected string name;
 
-        public Boss(string name, Model model, Texture2D texture, float modelScale, Conversation intro, Conversation outro, BehaviorScript entryScript, BehaviorScript defeatScript, BehaviorScript deathScript, List<Spellcard> attacks)
-            : base(model, texture, World.EnemyShots, World.GibList)
+        public Boss(string name, 
+                    Model model, 
+                    Texture2D texture, 
+                    float scale, 
+                    Conversation intro, 
+                    Conversation outro, 
+                    BehaviorScript entryScript, 
+                    BehaviorScript defeatScript, 
+                    BehaviorScript deathScript, 
+                    List<Spellcard> attacks)
+            : base(model, texture, scale, null, World.EnemyShots, World.GibList)
         {
             this.name = name;
             this.spellPtr = -1;
             this.intro = intro;
             this.outro = outro;
-            this.Scale = modelScale;
             this.entryScript = entryScript;
             this.defeatScript = defeatScript;
             this.deathScript = deathScript;
@@ -121,13 +130,14 @@ namespace Exeggcute.src.entities
                     }
                 }
             }
-            
         }
+
         public void Start()
         {
             isStarted = true;
             LoadNext();
         }
+
         public void LoadNext()
         {
             spellPtr += 1;
@@ -177,6 +187,10 @@ namespace Exeggcute.src.entities
             outro.Reset();
         }
 
-        
+        public static Boss Parse(string name)
+        {
+            BossInfo info = new BossInfo(name);
+            return info.MakeBoss();
+        }
     }
 }

@@ -10,20 +10,21 @@ using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.loading.specs
 {
-    class LevelInfo : LoadedInfo
+#pragma warning disable 0649
+    class LevelInfo : Loadable
     {
-        public Song BossTheme { get; protected set; }
-        public Song LevelTheme { get; protected set; }
-        public Boss MiniBoss { get; protected set; }
-        public Boss MainBoss { get; protected set; }
-        public Roster EnemyRoster { get; protected set; }
+        public Song BossTheme;
+        public Song LevelTheme;
+        public Boss MiniBoss;
+        public Boss MainBoss;
+        public Roster Roster;
 
-        protected LevelInfo()
+        public LevelInfo(List<string[]> tokenList)
         {
-
+            loadFromTokens(tokenList);
         }
 
-        public LevelInfo(List<string[]> lines)
+        /*public LevelInfo(List<string[]> lines)
         {
             for (int i = 0; i < lines.Count; i += 1)
             {
@@ -59,6 +60,6 @@ namespace Exeggcute.src.loading.specs
 
             }
             LoadedInfo.AssertInitialized(this);
-        }
+        }*/
     }
 }

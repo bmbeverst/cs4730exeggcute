@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.arsenal;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {
@@ -14,18 +15,18 @@ namespace Exeggcute.src.entities
     {
 
         public int Damage { get; protected set; }
-        protected ArsenalEntry arsenalParams;
+
         public bool HasGrazed { get; protected set; }
-        public Shot(ArsenalEntry entry)
-            : base(entry.Surface, entry.Texture, entry.Trajectory)
+        public Shot(Model model, Texture2D texture, float scale, TrajectoryScript trajectory, int damage)
+            : base(model, texture, scale, trajectory)
         {
-            Damage = 10;
-            this.arsenalParams = entry;
+            Damage = damage;
         }
 
         public Shot Clone(Vector3 pos, float angle)
         {
-            Shot clone = new Shot(arsenalParams);
+            //FIXME cast
+            Shot clone = new Shot(Surface, Texture, Scale, (TrajectoryScript)script, Damage);
             clone.Angle = angle;
             clone.Position = pos;
             return clone;

@@ -5,17 +5,26 @@ using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.entities
 {
+
     class Gib : PlanarEntity3D
     {
         protected const float GIBSPEED = 1;
         protected const float speedFactor = 0.1f;
         protected const float OFFSET = 2;
         static Random rng = new Random();
-        public Gib(Model model, Texture2D texture, Vector2 parentPos, float parentSpeed, float parentAngle)
-            : base(model, texture, getOffset(parentPos))
+
+        public Gib(Model model, Texture2D texture, float scale)
+            : base(model, texture, scale, Engine.Jail)
+        {
+
+        }
+
+        public Gib(Model model, Texture2D texture, float scale, Vector2 parentPos, float parentSpeed, float parentAngle)
+            : base(model, texture, scale, getOffset(parentPos))
         {
             float angle = rng.NextRadian();
             float speed = GIBSPEED;
@@ -33,11 +42,18 @@ namespace Exeggcute.src.entities
             
         }
 
+        public Gib Copy()
+        {
+            return new Gib(Surface, Texture, Scale);
+        }
+
         private static Vector3 getOffset(Vector2 parentPos)
         {
             float xOffset = OFFSET * rng.NextSign() * rng.Next();
             float yOffset = OFFSET * rng.NextSign() * rng.Next();
             return new Vector3(parentPos.X + xOffset, parentPos.Y + yOffset, 0);
         }
+
+
     }
 }

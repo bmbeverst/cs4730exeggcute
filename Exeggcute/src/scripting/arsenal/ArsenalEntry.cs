@@ -4,24 +4,22 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.scripting.arsenal
 {
-    class ArsenalEntry
+#pragma warning disable 0649
+    class ArsenalEntry : Loadable
     {
-        public Model Surface { get; protected set; }
-        public Texture2D Texture { get; protected set; }
-        public BehaviorScript Behavior { get; protected set; }
-        public TrajectoryScript Trajectory { get; protected set; }
-        public SpawnScript Spawn { get; protected set; }
+        public BodyInfo Body;
+        public int Damage;
+        public BehaviorScript Behavior;
+        public TrajectoryScript Trajectory;
+        public SpawnScript Spawn;
 
-        public ArsenalEntry(Model model, Texture2D texture, BehaviorScript behavior, SpawnScript spawn, TrajectoryScript trajectory)
+        public ArsenalEntry(List<string[]> tokenList)
         {
-            this.Surface = model;
-            this.Texture = texture;
-            this.Behavior = behavior;
-            this.Spawn = spawn;
-            this.Trajectory = trajectory;
+            loadFromTokens(tokenList);
         }
     }
 }
