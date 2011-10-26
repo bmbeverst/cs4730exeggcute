@@ -5,23 +5,28 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.scripting;
 using Exeggcute.src.entities.items;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {
-
-    class ItemEntry
+#pragma warning disable 0649
+    class ItemEntry : Loadable
     {
-        public Model Surface { get; protected set; }
-        public Texture2D Texture { get; protected set; }
-        public BehaviorScript Behavior { get; protected set; }
-        public ItemType Type { get; protected set; }
+        public BodyInfo Body;
+        public BehaviorScript Behavior;
+        public ItemType? Type;
 
-        public ItemEntry(Model model, Texture2D texture, BehaviorScript behavior, ItemType type)
+        public ItemEntry(string filename)
         {
-            this.Surface = model;
-            this.Texture = texture;
-            this.Behavior = behavior;
-            this.Type = type;
+            loadFromFile(filename);
+        }
+
+        public Item MakeItem()
+        {
+            return new Item(Body.Model, 
+                            Body.Texture, 
+                            Body.Scale.Value, 
+                            Behavior);
         }
 
     }

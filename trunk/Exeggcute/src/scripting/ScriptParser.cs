@@ -16,6 +16,12 @@ namespace Exeggcute.src.scripting
             return ParseLines(new Stack<string>(lines));
         }
 
+        public List<List<TElement>> RawFromLines(List<string> lines)
+        {
+            lines.Reverse();
+            return GetRaw(new Stack<string>(lines));
+        }
+
         public List<TElement> ParseLines(Stack<string> lineStack)
         {
             List<List<TElement>> raw = GetRaw(lineStack);

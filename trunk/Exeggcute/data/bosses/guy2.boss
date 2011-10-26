@@ -1,8 +1,6 @@
 ﻿#SAMPLE BOSS
 name:         Guy'sName #cant contain spaces atm, sorry
-model:        playerScene
-texture:      fractal
-scale:        1
+body:        player0
 entryScript:  entry0
 defeatScript: entry0
 deathScript:  bossdeath0

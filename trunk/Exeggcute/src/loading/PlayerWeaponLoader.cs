@@ -13,7 +13,7 @@ namespace Exeggcute.src.loading
     /// Loads a player weapon from a list of lines.
     /// Format:
     /// </summary>
-    class PlayerWeaponLoader : Loader
+    /*class PlayerWeaponLoader : Loader
     {
         public void Load(List<string> lines, List<int> thresholds, List<Arsenal> arsenals)
         {
@@ -34,5 +34,5 @@ namespace Exeggcute.src.loading
                 throw new ParseError("Player's weapon must have at least one arsenal, and arsenal and threshold must be the same size");
             }
         }
-    }
+    }*/
 }

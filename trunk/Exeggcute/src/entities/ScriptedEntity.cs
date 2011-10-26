@@ -33,7 +33,7 @@ namespace Exeggcute.src.entities
         public bool IsAiming { get; protected set; }
 
         public int Health { get; protected set; }
-
+        public int Defence { get; protected set; }
         
 
 
@@ -43,8 +43,8 @@ namespace Exeggcute.src.entities
         /// with:
         /// </para>
         /// </summary>
-        public ScriptedEntity(Model model, Texture2D texture, BehaviorScript behavior)
-            : base(model, texture, Engine.Jail)
+        public ScriptedEntity(Model model, Texture2D texture, float scale, BehaviorScript behavior)
+            : base(model, texture, scale, Engine.Jail)
         {
             this.Health = 100;
             this.script = behavior;
@@ -71,8 +71,8 @@ namespace Exeggcute.src.entities
         /// <para> - A model</para>
         /// <para> - No arsenal</para>
         /// </summary>
-        public ScriptedEntity(Model model, Texture2D texture, TrajectoryScript trajectory)
-            : base(model, texture, Engine.Jail)
+        public ScriptedEntity(Model model, Texture2D texture, float scale, TrajectoryScript trajectory)
+            : base(model, texture, scale, Engine.Jail)
         {
             this.script = trajectory;
         }

@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.scripting.arsenal
 {
-    class ArsenalLoader : EntryListParser<ArsenalEntry>
+    class ArsenalLoader : Loadable
+    {
+        protected List<ArsenalEntry> entries;
+
+    }
+    /*class ArsenalLoader : EntryListParser<ArsenalEntry>
     {
         public Arsenal Make(string filepath)
         {
@@ -28,5 +34,5 @@ namespace Exeggcute.src.scripting.arsenal
 
             return new ArsenalEntry(model, texture, behavior, spawn, trajectory);
         }
-    }
+    }*/
 }

@@ -137,10 +137,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\assets\ArsenalBank.cs" />
+    <Compile Include="src\assets\BodyBank.cs" />
     <Compile Include="src\GibBatch.cs" />
+    <Compile Include="src\loading\BodyInfo.cs" />
     <Compile Include="src\loading\EnemyInfo.cs" />
     <Compile Include="src\loading\EnemyLoader.cs" />
     <Compile Include="src\loading\FieldSetter.cs" />
+    <Compile Include="src\loading\GibInfo.cs" />
     <Compile Include="src\loading\Loadable.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
     <Compile Include="src\Alignment.cs" />
@@ -167,7 +171,6 @@
     <Compile Include="src\LevelSummaryMenu.cs" />
     <Compile Include="src\LightSettings.cs" />
     <Compile Include="src\loading\InfoLoader.cs" />
-    <Compile Include="src\loading\ItemLoader.cs" />
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\assets\SongBank.cs" />
     <Compile Include="src\assets\SoundBank.cs" />
@@ -222,7 +225,6 @@
     <Compile Include="src\assets\AssetNames.cs" />
     <Compile Include="src\assets\ModelBank.cs" />
     <Compile Include="src\assets\ScriptBank.cs" />
-    <Compile Include="src\assets\ArsenalBank.cs" />
     <Compile Include="src\assets\SpriteBank.cs" />
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\EntityManager.cs" />
@@ -324,12 +326,6 @@
     <Compile Include="src\graphics\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\arsenals\bomb0.arsenal">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\arsenals\testenemy.arsenal">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="data\players\custom\0c.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -360,6 +356,15 @@
     <Content Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="data\bodies\junk.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\player0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\whitecube.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\bosses\guy2.boss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -369,7 +374,12 @@
     <None Include="data\campaigns\default.campaign">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\enemies\test.enemy" />
+    <None Include="data\enemies\test0.enemy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\enemies\test1.enemy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\itembatches\test.batch">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -416,11 +426,10 @@
     <Content Include="data\levels\0.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\gibs\gibtest.gib" />
-    <Content Include="data\msg_boxes.txt">
+    <Content Include="data\gibs\gibtest.gib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\arsenals\weapon0.arsenal">
+    <Content Include="data\msg_boxes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\score.dat">
@@ -494,7 +503,9 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="data\arsenals\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>

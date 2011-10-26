@@ -8,12 +8,11 @@ using System.IO;
 
 namespace Exeggcute.src.assets
 {
-    class RosterBank
+    /*class RosterBank
     {
         protected static CustomBank<Roster> bank =
             new CustomBank<Roster>("data/rosters");
 
-        protected static RosterLoader loader = new RosterLoader();
         public static Roster Get(string name)
         {
             return bank[name];
@@ -26,5 +25,5 @@ namespace Exeggcute.src.assets
                 bank.Put(loader.Make(file), file);
             }
         }
-    }
+    }*/
 }

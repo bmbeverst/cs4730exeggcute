@@ -6,15 +6,18 @@ using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.entities;
 using Exeggcute.src.scripting.arsenal;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.scripting.roster
 {
-    class RosterLoader : EntryListParser<RosterEntry>
+
+    /*class RosterLoader : EntryListParser<RosterEntry>
     {
         public Roster Make(string filepath)
         {
             return new Roster(Parse(filepath));
         }
+
         protected override RosterEntry parseEntry(Stack<string> tokens)
         {
             string modelname = tokens.Pop();
@@ -41,8 +44,8 @@ namespace Exeggcute.src.scripting.roster
             Texture2D texture = TextureBank.Get(texturename);
             BehaviorScript behavior = ScriptBank.GetBehavior(behaviorname);
             ItemBatch items = ItemBatchBank.Get(batchname);
-            Arsenal arsenal = ArsenalBank.Get(arsenalname, shotHandle);
+            Arsenal arsenal = EnemyBank.Get(arsenalname, shotHandle);
             return new RosterEntry(model, texture, behavior, items, arsenal);
         }
-    }
+    }*/
 }

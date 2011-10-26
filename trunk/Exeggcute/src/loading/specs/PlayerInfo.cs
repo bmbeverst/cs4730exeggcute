@@ -6,83 +6,29 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Exeggcute.src.loading.specs
 {
-
-    class PlayerInfo : LoadedInfo
+#pragma warning disable 0649
+    class PlayerInfo : Loadable
     {
-        public Model Surface { get; protected set; }
-        public Texture2D Texture { get; protected set; }
-        public Arsenal Bomb { get; protected set; }
-        public BehaviorScript DeathScript { get; protected set; }
-        public int? NumLives { get; protected set; }
-        public int? NumBombs { get; protected set; } 
-        public float? MoveSpeed { get; protected set; }
-        public float? FocusSpeed { get; protected set; }
-        public float? ModelScale { get; protected set; }
-        public float? HitRadius { get; protected set; }
-        public float? LightLevel { get; protected set; }
+        public BodyInfo body;
+        public BehaviorScript deathScript;
+        public GibBatch gibBatch;
+        public SoundEffect shootSFX;
+        public SoundEffect dieSFX;
+        public int? lives;
+        public int? bombs;
+        public float? moveSpeed;
+        public float? focusSpeed;
+        public float? hitRadius;
+        public float? lightLevel;
 
-        public PlayerInfo(List<string> lines)
+        public PlayerInfo(List<string[]> tokenList)
         {
-            for (int i = 0; i < lines.Count; i += 1)
-            {
-                string[] pair = Tokenize(lines[i]);
-                currentField = pair[0];
-                string value = pair[1];
-                if (matches("model"))
-                {
-                    Surface = ModelBank.Get(value);
-                }
-                else if (matches("texture"))
-                {
-                    Texture = TextureBank.Get(value);
-                }
-                else if (matches("deathscript"))
-                {
-                    DeathScript = ScriptBank.GetBehavior(value);
-                }
-                else if (matches("special"))
-                {
-                    Bomb = ArsenalBank.Get(value, World.PlayerShots);
-                }
-                else if (matches("lives"))
-                {
-                    NumLives = int.Parse(value);
-                }
-                else if (matches("bombs"))
-                {
-                    NumBombs = int.Parse(value);
-                }
-                else if (matches("scale"))
-                {
-                    ModelScale = float.Parse(value);
-                }
-                else if (matches("movespeed"))
-                {
-                    MoveSpeed = float.Parse(value);
-                }
-                else if (matches("focusspeed"))
-                {
-                    FocusSpeed = float.Parse(value);
-                }
-                else if (matches("hitradius"))
-                {
-                    HitRadius = float.Parse(value);
-                }
-                else if (matches("lightlevel"))
-                {
-                    LightLevel = float.Parse(value);
-                }
-                else
-                {
-                    throw new ParseError("Token type not handled {0}", currentField);
-                }
-            }
-
-            LoadedInfo.AssertInitialized(this);
+            loadFromTokens(tokenList);
         }
-
     }
+
 }

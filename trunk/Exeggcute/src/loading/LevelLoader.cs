@@ -84,7 +84,7 @@ namespace Exeggcute.src.loading
                              difficulty,
                              false,//FIXME
                              name,
-                             levelInfo.EnemyRoster,
+                             levelInfo.Roster,
                              levelInfo.LevelTheme,
                              levelInfo.BossTheme,
                              levelInfo.MiniBoss,

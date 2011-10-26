@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.entities.items
 {
     class Item : ScriptedEntity
     {
         protected const float terminalSpeed = -0.3f;
-        protected ItemEntry entry;
-        public Item(ItemEntry entry)
-            : base(entry.Surface, entry.Texture, entry.Behavior)
+        public Item(Model model, Texture2D texture, float scale, BehaviorScript behavior)
+            : base(model, texture, scale, behavior)
         {
-            this.entry = entry;
+            
         }
 
         public Item Copy()
         {
-            return new Item(entry);
+            return new Item(Surface, Texture, Scale, (BehaviorScript)script);
         }
         public void Collect(Player player)
         {

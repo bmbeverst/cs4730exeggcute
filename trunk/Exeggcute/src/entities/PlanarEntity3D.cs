@@ -157,12 +157,12 @@ namespace Exeggcute.src.entities
         {
             get { return new Vector2(Position.X, Position.Y); }
         }
-        public PlanarEntity3D(Model model, Texture2D texture, Vector3 pos)
+        public PlanarEntity3D(Model model, Texture2D texture, float scale, Vector3 pos)
             : base(model, pos)
         {
             this.Texture = texture;
+            this.Scale = scale;
             this.Mass = 1000.0f;
-            this.Scale = 1;
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
@@ -176,7 +176,6 @@ namespace Exeggcute.src.entities
             : base (pos)
         {
             this.Mass = 1;
-            this.Scale = 1;
         }
 
         /// <summary>

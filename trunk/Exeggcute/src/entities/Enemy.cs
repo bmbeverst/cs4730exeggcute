@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting;
 using Exeggcute.src.entities.items;
+using Exeggcute.src.scripting.arsenal;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Exeggcute.src.entities
 {
@@ -21,20 +23,44 @@ namespace Exeggcute.src.entities
         /// </summary>
         public bool IsDying { get; protected set; }
 
-        protected HashList<Shot> shotListHandle;
-        protected HashList<Gib> gibListHandle;
         protected HashList<Item> itemListHandle;
-        protected ScriptInstance deathScript;
 
-        protected RosterEntry rosterParams;
+        protected BehaviorScript deathScript;
 
         protected ItemBatch heldItems;
+
+        public Enemy(Model model,
+                     Texture2D texture,
+                     float scale,
+                     int health,
+                     int defence,
+                     Arsenal arsenal,
+                     BehaviorScript behavior, 
+                     BehaviorScript deathScript,
+                     SoundEffect shootSFX,
+                     SoundEffect dieSFX,
+                     ItemBatch items,
+                     GibBatch gibBatch,
+                     HashList<Shot> shotHandle,
+                     HashList<Gib> gibHandle,
+                     HashList<Item> itemHandle)
+            : base(model, texture, scale, behavior, shootSFX, dieSFX,arsenal, gibBatch, shotHandle, gibHandle)
+        {
+            this.Health = health;
+            this.Defence = defence;
+            this.arsenal = arsenal;
+            this.heldItems = items;
+            this.deathScript = deathScript;
+            this.itemListHandle = itemHandle;
+        }
+                     
+
         /// <summary>
         /// TODO FIXME (8:10:51 AM) ZRP: i can just have 
         ///setParam health 100
         ///setParam defence 10
         /// </summary>
-        public Enemy(RosterEntry entry, 
+        /*public Enemy(RosterEntry entry, 
                      ScriptInstance deathScript, 
                      ItemBatch heldItems, 
                      HashList<Shot> enemyShots, 
@@ -49,11 +75,25 @@ namespace Exeggcute.src.entities
             this.heldItems = heldItems;
             this.deathScript = GetDeathScript();
             this.itemListHandle = World.ItemList;
-        }
+        }*/
 
         public Enemy Clone(Float3 pos, FloatValue angle)
         {
-            Enemy cloned = new Enemy(rosterParams, deathScript, heldItems.Clone(), shotListHandle, gibListHandle, itemListHandle);
+            Enemy cloned = new Enemy(Surface, 
+                                     Texture, 
+                                     Scale, 
+                                     Health, 
+                                     Defence, 
+                                     arsenal,
+                                     (BehaviorScript)script,
+                                     deathScript,
+                                     shootSFX, 
+                                     dieSFX,
+                                     heldItems.Clone(),
+                                     gibBatch,
+                                     shotListHandle, 
+                                     gibListHandle, 
+                                     itemListHandle);
             cloned.Position = pos.Vector3;
             cloned.Angle = angle.Value;//fixme this does nothing?
             return cloned;
@@ -103,16 +143,18 @@ namespace Exeggcute.src.entities
 
         }
 
-        int numGibs = 4;
+
         public void Kill()
         {
             IsTrash = true;
             Vector3 deathpos = new Vector3(X, Y, 0);
             Model gibModel = ModelBank.Get("junk0");
             Texture2D texture = TextureBank.Get("junk");
-            for (int i = 0; i < numGibs; i += 1)
+            foreach (Gib gib in gibBatch.gibs)
             {
-                gibListHandle.Add(new Gib(gibModel, texture, Position2D, Speed, Angle));
+                //FIXME double copying
+                Gib newGib = new Gib(gib.Surface, gib.Texture, gib.Scale, Position2D, Speed, Angle);
+                gibListHandle.Add(newGib);
             }
             heldItems.Release(itemListHandle, deathpos);
         }
