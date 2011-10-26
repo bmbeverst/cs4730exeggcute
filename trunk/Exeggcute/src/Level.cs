@@ -143,6 +143,14 @@ namespace Exeggcute.src
             MediaPlayer.Pause();
         }
 
+        public void FadeMusic(bool fadeIn, bool boss)
+        {
+            if (fadeIn)
+            {
+
+            }
+        }
+
         private void loadLights(LightSettings settings, Effect effect)
         {
             effect.CurrentTechnique = effect.Techniques["Textured"];
