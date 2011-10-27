@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Exeggcute.src.assets
 {
-    class SoundBank
+    class SfxBank
     {
         private static Bank<SoundEffect> bank =
             new Bank<SoundEffect>("ExeggcuteContent/sfx", "xnb");
@@ -15,6 +15,11 @@ namespace Exeggcute.src.assets
         public static void Play(string name)
         {
             bank[name].Play();
+        }
+
+        public static bool Contains(string name)
+        {
+            return bank.Contains(name);
         }
 
         public static SoundEffect Get(string name)
@@ -33,3 +38,4 @@ namespace Exeggcute.src.assets
         }
     }
 }
+

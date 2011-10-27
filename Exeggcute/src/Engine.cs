@@ -22,6 +22,7 @@ namespace Exeggcute.src
     {
         public static int XRes { get; protected set; }
         public static int YRes { get; protected set; }
+        public static int FPS { get; protected set; }
         public static Vector2 Center2D
         {
             get { return new Vector2(XRes / 2, YRes / 2); }
@@ -44,6 +45,7 @@ namespace Exeggcute.src
         {
             XRes = 1200;
             YRes = 900;
+            FPS = 60;
         }
         public static readonly float FIELD_OF_VIEW = MathHelper.PiOver4;
         public ControlManager controls;
@@ -70,6 +72,7 @@ namespace Exeggcute.src
 
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
+            //RandoSound mySound = new RandoSound("dink");
         }
 
         private void loadXNAContent(ContentManager content)
@@ -80,7 +83,7 @@ namespace Exeggcute.src
             FontBank.LoadAll(content);
             EffectBank.LoadAll(content);
             ModelBank.LoadAll(content);
-            SoundBank.LoadAll(content);
+            SfxBank.LoadAll(content);
             SongBank.LoadAll(content);
         }
 
