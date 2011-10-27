@@ -12,6 +12,7 @@ using Exeggcute.src.scripting;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
+using System.IO.Compression;
 
 namespace Exeggcute.src
 {
@@ -54,6 +55,7 @@ namespace Exeggcute.src
         internal static void Warn(string message, params object[] args)
         {
             string formatted = String.Format(message, args);
+            log.Add(formatted);
             Console.Error.WriteLine("WARNING: {0}", formatted);
         }
 
@@ -166,6 +168,21 @@ namespace Exeggcute.src
             if (val < min) return min;
             else if (val > max) return max;
             else return val;
+        }
+
+        internal static string Join(List<string> strings, char delim)
+        {
+            string result = "";
+
+            int end = strings.Count - 1;
+            for (int i = 0; i < end; i += 1)
+            {
+                result += strings[i] + delim;
+            }
+
+            result += strings[end];
+
+            return result;
         }
 
         /// <summary>
@@ -488,11 +505,6 @@ namespace Exeggcute.src
             return SongBank.Get(name);
         }
 
-        public static SoundEffect ParseSoundEffect(string name)
-        {
-            return Exeggcute.src.assets.SfxBank.Get(name);
-        }
-
         public static TEnum? ParseEnumNullable<TEnum>(string name) where TEnum : struct
         {
             TEnum? value = Util.ParseEnum<TEnum>(name);
@@ -502,6 +514,11 @@ namespace Exeggcute.src
         public static Texture2D ParseTexture2D(string name)
         {
             return TextureBank.Get(name);
+        }
+
+        public static SoundEffectInstance ParseSoundEffectInstance(string s)
+        {
+            return SfxBank.Get(s);
         }
 
         public static string ParseString(string s)
@@ -515,8 +532,29 @@ namespace Exeggcute.src
             return items[rng.NextInt(items.Count)];
         }
 
+        public static void Debug(string message, params object[] args)
+        {
+            string formatted = string.Format(message, args);
+            log.Add(formatted);
+        }
+
+        private static List<string> log = new List<string>();
+        public static void WriteLog()
+        {
+            if (log == null || log.Count == 0) return;
+            TimeSpan secs = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            string logName = string.Format("Exeggcute-debug-{0}.txt", secs.Seconds);
+            string outName = string.Format("Exeggcute-debug-{0}.gz", secs.Seconds);
+            File.WriteAllLines(logName, log);
+            FileInfo info = new FileInfo(logName);
+
+            using (FileStream inFile = info.OpenRead())
+                using(FileStream outFile = File.Create(outName))
+                    using(GZipStream stream = new GZipStream(outFile, CompressionMode.Compress))
+                        inFile.CopyTo(stream);
 
 
-        
+            //Util.Die("was i useful?");
+        }
     }
 }

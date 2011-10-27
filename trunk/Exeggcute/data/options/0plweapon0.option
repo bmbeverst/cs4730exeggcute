@@ -1,0 +1,6 @@
+﻿  BodyInfo: whitecube
+    Damage: 10
+  Behavior: upspread0
+Trajectory: fast
+     Spawn: 0player0
+ ShotSound: 0playershot0

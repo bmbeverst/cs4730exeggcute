@@ -10,6 +10,8 @@ using Exeggcute.src.contexts;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.text;
 using Exeggcute.src.loading;
+using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.entities
 {
@@ -40,18 +42,22 @@ namespace Exeggcute.src.entities
 
         protected string name;
 
+        protected RepeatedSound hurtSound;
+
         public Boss(string name, 
                     Model model, 
                     Texture2D texture, 
                     float scale, 
                     Conversation intro, 
                     Conversation outro, 
+                    RepeatedSound hurtSound,
                     BehaviorScript entryScript, 
                     BehaviorScript defeatScript, 
                     BehaviorScript deathScript, 
                     List<Spellcard> attacks)
             : base(model, texture, scale, null, World.EnemyShots, World.GibList)
         {
+            this.hurtSound = hurtSound;
             this.name = name;
             this.spellPtr = -1;
             this.intro = intro;
@@ -67,6 +73,7 @@ namespace Exeggcute.src.entities
         public override void Update()
         {
             base.Update();
+            hurtSound.Update();
             if (isStarted && !isDefeated)
             {
                 if (Health <= 0 || currentTimer.IsDone)
@@ -137,6 +144,12 @@ namespace Exeggcute.src.entities
             isStarted = true;
             LoadNext();
         }
+        
+        public override void Collide(Shot shot)
+        {
+            hurtSound.Play();
+            base.Collide(shot);
+        }
 
         public void LoadNext()
         {
@@ -167,7 +180,7 @@ namespace Exeggcute.src.entities
             arsenal = Arsenal.None;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             buffer.Reset();
             introStarted = false;

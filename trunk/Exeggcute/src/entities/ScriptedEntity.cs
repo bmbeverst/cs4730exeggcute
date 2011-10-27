@@ -78,7 +78,7 @@ namespace Exeggcute.src.entities
         }
 
 
-        public void Reset()
+        public virtual void Reset()
         {
             this.waitCounter = 0;
             this.actionPtr = 0;
@@ -130,6 +130,11 @@ namespace Exeggcute.src.entities
         {
             QueueDelete();
             //actionPtr = -1;
+        }
+
+        public virtual void Process(SoundAction sound)
+        {
+            throw new SubclassShouldImplementError();
         }
 
         public virtual void Process(MoveAction move)
@@ -231,7 +236,7 @@ namespace Exeggcute.src.entities
             actionPtr = loop.Pointer;
         }
 
-        public void Collide(Shot shot)
+        public virtual void Collide(Shot shot)
         {
             Health -= shot.Damage;
         }

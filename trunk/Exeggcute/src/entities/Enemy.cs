@@ -11,6 +11,7 @@ using Exeggcute.src.scripting;
 using Exeggcute.src.entities.items;
 using Exeggcute.src.scripting.arsenal;
 using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.entities
 {
@@ -37,14 +38,13 @@ namespace Exeggcute.src.entities
                      Arsenal arsenal,
                      BehaviorScript behavior, 
                      BehaviorScript deathScript,
-                     SoundEffect shootSFX,
-                     SoundEffect dieSFX,
+                     RepeatedSound deathSound,
                      ItemBatch items,
                      GibBatch gibBatch,
                      HashList<Shot> shotHandle,
                      HashList<Gib> gibHandle,
                      HashList<Item> itemHandle)
-            : base(model, texture, scale, behavior, shootSFX, dieSFX,arsenal, gibBatch, shotHandle, gibHandle)
+            : base(model, texture, scale, behavior, deathSound, arsenal, gibBatch, shotHandle, gibHandle)
         {
             this.Health = health;
             this.Defence = defence;
@@ -87,8 +87,7 @@ namespace Exeggcute.src.entities
                                      arsenal,
                                      (BehaviorScript)script,
                                      deathScript,
-                                     shootSFX, 
-                                     dieSFX,
+                                     deathSound,
                                      heldItems.Clone(),
                                      gibBatch,
                                      shotListHandle, 
@@ -144,7 +143,7 @@ namespace Exeggcute.src.entities
         }
 
 
-        public void Kill()
+        public override void Kill()
         {
             IsTrash = true;
             Vector3 deathpos = new Vector3(X, Y, 0);

@@ -142,6 +142,12 @@ namespace Exeggcute.src.scripting.action
                     new AimPlayerAction()
                 };
             }
+            else if (type == CommandType.Sound)
+            {
+                return new List<ActionBase>{
+                    new SoundAction()
+                };
+            }
             else
             {
                 throw new ParseError("Unhandled token type {0}", type);

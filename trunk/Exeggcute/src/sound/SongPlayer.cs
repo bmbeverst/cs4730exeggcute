@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Media;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.sound
 {
     class SongPlayer
     {
@@ -13,15 +13,19 @@ namespace Exeggcute.src
         public bool IsPlaying { get; protected set; }
         public bool IsFading { get; protected set; }
         public float Speed { get; protected set; }
+
         protected Song queuedSong;
         protected int fadeDirection;
         protected bool playQueue;
         protected Timer queueTimer;
 
+        protected float maxVolume;
+
         public SongPlayer(bool loop, float volume, float fadeFrames)
         {
             this.Loop = loop;
             this.Volume = volume;
+            this.maxVolume = volume;
             this.Speed = 1.0f / fadeFrames;
         }
 
@@ -38,7 +42,6 @@ namespace Exeggcute.src
                 IsPlaying = true;
                 MediaPlayer.Play(song);
             }
-
         }
 
         public void Play(Song newSong, int buffer)
@@ -58,25 +61,34 @@ namespace Exeggcute.src
             IsFading = true;
         }
 
+        public void DoFade(int dir, int duration)
+        {
+            fadeDirection = dir;
+            IsFading = true;
+            Speed = 1.0f / duration;
+        }
+
         public void Update()
         {
             if (IsFading)
             {
-                Volume += fadeDirection * Speed;
+
+                Volume += fadeDirection * Speed * maxVolume;
                 MediaPlayer.Volume = Volume;
-                
+
                 if (isFadeDone())
                 {
                     IsFading = false;
                     if (IsPlaying)
                     {
                         MediaPlayer.Stop();
+                        IsPlaying = false;
                     }
                     if (queuedSong != null)
                     {
                         playQueue = true;
                     }
-                    IsPlaying = !IsPlaying;
+                    
                 }
             }
 
@@ -91,8 +103,9 @@ namespace Exeggcute.src
                 {
                     queueTimer = null;
                     MediaPlayer.Play(queuedSong);
-                    MediaPlayer.Volume = 1;
-                    Volume = 1;
+                    MediaPlayer.Volume = maxVolume;
+
+                    Volume = maxVolume;
                     IsPlaying = true;
                     playQueue = false;
                 }
@@ -107,9 +120,9 @@ namespace Exeggcute.src
                 Volume = 0;
                 return true;
             }
-            else if (fadeDirection == 1 && Volume >= 1)
+            else if (fadeDirection == 1 && Volume >= maxVolume)
             {
-                Volume = 1;
+                Volume = maxVolume;
                 return true;
             }
             else

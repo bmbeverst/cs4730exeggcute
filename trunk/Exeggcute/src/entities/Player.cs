@@ -12,6 +12,7 @@ using Exeggcute.src.graphics;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.entities.items;
 using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.entities
 {
@@ -81,8 +82,7 @@ namespace Exeggcute.src.entities
                       BehaviorScript deathScript, 
                       Arsenal bomb, 
                       GibBatch gibBatch,
-                      SoundEffect shootSFX,
-                      SoundEffect dieSFX,
+                      RepeatedSound dieSFX,
                       List<Arsenal> arsenalList, 
                       List<int> thresholds, 
                       int numLives,
@@ -94,7 +94,7 @@ namespace Exeggcute.src.entities
                       float lightLevel,
                       HashList<Shot> shotList, 
                       HashList<Gib> gibList)
-            : base(model, texture, scale, deathScript, shootSFX, dieSFX, null, gibBatch, shotList, gibList)
+            : base(model, texture, scale, deathScript, dieSFX, null, gibBatch, shotList, gibList)
         {
             this.RawData = data;
             this.Name = name;
@@ -369,7 +369,7 @@ namespace Exeggcute.src.entities
             
         }
 
-        public void Kill()
+        public override void Kill()
         {
             Console.WriteLine("KILLED!");
             script = deathScript;

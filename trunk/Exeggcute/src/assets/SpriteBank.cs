@@ -29,7 +29,7 @@ namespace Exeggcute.src.assets
         public static void Load(ContentManager content, string filepath)
         {
             string cutname = Path.GetFileNameWithoutExtension(filepath);
-            bank.Put(SpriteLoader.Load(filepath), cutname);
+            bank.PutWithName(SpriteLoader.Load(filepath), cutname);
         }
     }
 }

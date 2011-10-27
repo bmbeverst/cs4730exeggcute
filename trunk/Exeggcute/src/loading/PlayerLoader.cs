@@ -32,7 +32,7 @@ namespace Exeggcute.src.loading
 
 
             // the first entry is the special attack!///////////////////////
-            List<OptionInfo> bombOptions = new List<OptionInfo>();
+            /*List<OptionInfo> bombOptions = new List<OptionInfo>();
             DataSection bombSection = data[1];
             Data bombData = new Data(name, bombSection.RawText, '$');
             for (int i = 0; i < bombData.Count; i += 1)
@@ -42,25 +42,36 @@ namespace Exeggcute.src.loading
                 bombOptions.Add(entry);
             }
 
-            Arsenal special = new Arsenal(bombOptions, World.PlayerShots);
+            Arsenal special = new Arsenal(bombOptions, World.PlayerShots);*/
             /////////////////////////////////////////////////////////////
 
 
             //// load the player's weapon//////////////////////////////
             List<Arsenal> weapons = new List<Arsenal>();
             List<int> thresholds = new List<int>();
-            for (int k = 2; k < data.Count; k += 1)
+            for (int k = 1; k < data.Count; k += 1)
             {
+                //FIXME really?...
                 DataSection currentSection = data[k];
-                Data arsenalData = new Data(name, currentSection.RawText, '$');
+                List<string> tokens =  currentSection.TagValue.Split(',').ToList();
+                string thresh = tokens[0];
+                
+                tokens.RemoveAt(0);
+                string recombined = Util.Join(tokens, ',');
+
+                weapons.Add(Arsenal.Parse(recombined));
+                thresholds.Add(int.Parse(thresh));
+
+                /*Data arsenalData = new Data(name, currentSection.RawText, '$');
                 List<OptionInfo> entries = new List<OptionInfo>();
+
                 for (int i = 0; i < arsenalData.Count; i += 1)
                 {
                     DataSection currentArsenal = arsenalData[i];
                     OptionInfo entry = new OptionInfo(currentArsenal.Tokens);
                     entries.Add(entry);
                 }
-                
+                //Option
                 int thresh = int.Parse(currentSection.TagValue);
                 thresholds.Add(thresh);
                 if (entries.Count == 0)
@@ -68,7 +79,7 @@ namespace Exeggcute.src.loading
                     throw new ParseError("Arsenal {0} had no entries", k);
                 }
                 Arsenal weap = new Arsenal(entries, World.PlayerShots);
-                weapons.Add(weap);
+                weapons.Add(weap);*/
             }
             /////////////////////////////////////////////////////
            
@@ -78,10 +89,9 @@ namespace Exeggcute.src.loading
                               info.body.Model,
                               info.body.Texture,
                               info.deathScript,
-                              special,  
+                              info.special,  
                               info.gibBatch,
-                              info.shootSFX,
-                              info.dieSFX,
+                              info.deathSound,
                               weapons, 
                               thresholds,
                               info.lives.Value,

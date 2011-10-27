@@ -35,5 +35,11 @@ namespace Exeggcute.src.gui
             batch.End();
         }
 
+        public override void Back()
+        {
+            cursor = 0;
+            World.Unpause();
+        }
+
     }
 }

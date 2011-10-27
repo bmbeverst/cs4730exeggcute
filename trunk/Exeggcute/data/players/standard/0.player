@@ -1,37 +1,17 @@
 ﻿#SAMPLE PLAYER
-@info:
-body:         player0
+@Info
+
+       body:  player0
 deathScript:  playerrespawn
-shootSFX:     shot0
-dieSFX:       shot0
-lives:        9
-bombs:        3
-gibbatch:     gibtest
-moveSpeed:    1.0
-focusSpeed:   0.5
-hitradius:    0.2
-lightlevel:   1
+ deathSound:  shot0
+      lives:  9
+      bombs:  3
+   gibbatch:  gibtest
+  moveSpeed:  1.0
+ focusSpeed:  0.5
+  hitradius:  0.2
+ lightlevel:  1
+    special:  player,0plweapon0
 
-@ Special:
-
-$  Arsenal:
-      body:  whitecube
-  behavior:  0option0
-     spawn:  0enemy0
-trajectory:  basic
-
-@   Weapon:  0
-
-$  Arsenal:
-      body:  whitecube
-  behavior:  0option0
-     spawn:  0enemy0
-trajectory:  basic
-
-@   Weapon:  5
-
-$  Arsenal:  
-      body:  whitecube
-  behavior:  option1
-     spawn:  0enemy1
-trajectory:  basic
+@    Weapon:  0,player,0plweapon0#,opt2,opt3
+@    Weapon:  5,player,0plweapon0#,opt2,opt3

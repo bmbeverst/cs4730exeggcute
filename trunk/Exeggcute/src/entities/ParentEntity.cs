@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.scripting;
 using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.entities
 {
@@ -23,26 +24,24 @@ namespace Exeggcute.src.entities
 
         protected GibBatch gibBatch;
 
-        protected SoundEffect shootSFX;
-        protected SoundEffect dieSFX;
+        protected RepeatedSound deathSound;
 
         public ParentEntity(Model model,
                             Texture2D texture, 
                             float scale,
                             BehaviorScript behavior,
-                            SoundEffect shootSFX,
-                            SoundEffect dieSFX,
+                            RepeatedSound deathSound,
                             Arsenal arsenal,
                             GibBatch gibBatch,
                             HashList<Shot> shotListHandle,
                             HashList<Gib> gibListHandle)
             : base(model, texture, scale, behavior)
         {
-            this.shootSFX = shootSFX;
-            this.dieSFX = dieSFX;
+            this.deathSound = deathSound;
             this.gibListHandle = gibListHandle;
             this.shotListHandle = shotListHandle;
             this.arsenal = arsenal;
+            this.gibBatch = gibBatch;
         }
 
         /// <summary>
@@ -87,6 +86,11 @@ namespace Exeggcute.src.entities
         {
             base.Draw(graphics, view, projection);
             arsenal.Draw(graphics, view, projection, Position);
+        }
+
+        public virtual void Kill()
+        {
+            deathSound.Play();
         }
     }
 }

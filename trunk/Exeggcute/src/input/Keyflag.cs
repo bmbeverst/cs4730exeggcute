@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace Exeggcute.src.input
 {
@@ -12,7 +13,6 @@ namespace Exeggcute.src.input
     class Keyflag
     {
         public byte Value { get; protected set; }
-
 
         public void Update(bool inc)
         {
@@ -47,6 +47,11 @@ namespace Exeggcute.src.input
             if (Value == 1)
             {
                 Value += 1;
+                StackTrace trace = new StackTrace();
+                StackFrame frame = trace.GetFrame(1);
+                string methodName = frame.GetMethod().Name;
+                string callerName = frame.GetMethod().DeclaringType.ToString();
+                Console.WriteLine("Eaten by {0} in {1}", methodName, callerName);
                 return true;
             }
             return false;

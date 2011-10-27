@@ -24,7 +24,6 @@ namespace Exeggcute.src.gui
         public ReallyQuitMenu(List<Button> buttons, Rectangle bounds)
             : base(buttons, bounds, false)
         {
-            this.font = FontBank.Get("consolas");
             this.question = new SpriteText(font, "Really exit?", Color.White);
             this.questionPos = new Vector2(buttonBounds.Left - 12, buttonBounds.Top - buttonHeight - 2);
         }
@@ -55,6 +54,12 @@ namespace Exeggcute.src.gui
         {
             base.Unload();
             cursor = 0;
+        }
+
+        public override void Back()
+        {
+            cursor = 0;
+            World.Back();
         }
     }
 }

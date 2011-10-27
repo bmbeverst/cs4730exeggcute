@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.graphics;
 using Exeggcute.src.contexts;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.gui
 {
@@ -16,7 +17,9 @@ namespace Exeggcute.src.gui
     /// </summary>
     class ListButton : Button 
     {
+
         public IDrawable2D Image { get; protected set; }
+
         public override int Height
         {
             get { return Image.Height; }
@@ -26,6 +29,7 @@ namespace Exeggcute.src.gui
         {
             Image = image;
         }
+
         
 
         public override void Update(ControlManager controls)
@@ -33,18 +37,22 @@ namespace Exeggcute.src.gui
             IsActive = true;
             if (controls[Ctrl.Action].DoEatPress())
             {
+                
+                parent.Select();
                 onActivate.Process();
+                
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
-                World.Back();
+                
+                parent.Back();
             }
             base.Update(controls);
         }
 
         public override void Draw(SpriteBatch batch, Vector2 pos)
         {
-            Image.Draw(batch, pos);
+            if (Image != null) Image.Draw(batch, pos);
         }
 
         protected override void moveUp()

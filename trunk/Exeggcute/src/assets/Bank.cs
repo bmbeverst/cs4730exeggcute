@@ -136,7 +136,7 @@ namespace Exeggcute.src.assets
             }
         }
 
-        protected string getName(string filepath)
+        public string GetName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);
         }
@@ -147,7 +147,7 @@ namespace Exeggcute.src.assets
         /// </summary>
         public virtual void Load(ContentManager content, string filepath)
         {
-            string name = getName(filepath);
+            string name = GetName(filepath);
             // i am a terrible person
             string relpath = Regex.Replace(filepath, "ExeggcuteContent/", "");
 
@@ -159,10 +159,16 @@ namespace Exeggcute.src.assets
         /// A hackish method of loading a non-XNA managed asset, such as a 
         /// script or sprite.
         /// </summary>
-        public virtual void Put(TAsset asset, string name)
+        public virtual void PutWithName(TAsset asset, string name)
         {
             seen[name] = 1;
             bank[name] = asset;
+        }
+
+        public virtual void PutWithFile(TAsset asset, string filename)
+        {
+            string name = GetName(filename);
+            PutWithName(asset, name);
         }
 
         public virtual void Unload(ContentManager content, List<string> names)

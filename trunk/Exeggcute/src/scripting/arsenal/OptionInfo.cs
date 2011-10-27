@@ -5,6 +5,7 @@ using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.loading;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.scripting.arsenal
 {
@@ -14,6 +15,7 @@ namespace Exeggcute.src.scripting.arsenal
     {
         public BodyInfo Body;
         public int Damage;
+        public RepeatedSound ShotSound;
         public BehaviorScript Behavior;
         public TrajectoryScript Trajectory;
         public SpawnScript Spawn;

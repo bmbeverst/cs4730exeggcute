@@ -7,6 +7,7 @@ using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.loading.specs
 {
@@ -16,8 +17,8 @@ namespace Exeggcute.src.loading.specs
         public BodyInfo body;
         public BehaviorScript deathScript;
         public GibBatch gibBatch;
-        public SoundEffect shootSFX;
-        public SoundEffect dieSFX;
+        public RepeatedSound deathSound;
+        public Arsenal special;
         public int? lives;
         public int? bombs;
         public float? moveSpeed;

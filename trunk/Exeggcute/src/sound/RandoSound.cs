@@ -5,27 +5,30 @@ using System.Text;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.assets;
 
-namespace Exeggcute.src
+namespace Exeggcute.src.sound
 {
-    class RandoSound
+    class RandoSound : RepeatedSound
     {
-        protected SoundEffect[] effects;
+        protected SoundEffectInstance[] effects;
         protected static Random rng = new Random();
-        protected int now_2;
-        protected int now_1;
-        protected int now;
 
-        private const int MIN_SOUNDS = 3;
-        private const int MIN_SUGGESTED = 5;
+        protected const int MIN_SOUNDS = 3;
+        protected const int MIN_SUGGESTED = 5;
 
-        public int[] order;
-        public RandoSound(string name)
+        protected int[] order;
+        protected int ptr = 0;
+
+        protected int maxDuration;
+
+        public RandoSound(string name, float volume)
+            : base(volume)
         {
-            List<SoundEffect> all = new List<SoundEffect>();
+            List<SoundEffectInstance> all = new List<SoundEffectInstance>();
 
             int i = 0;
             for (string current = name + i; SfxBank.Contains(current); current = name + i)
             {
+                maxDuration = Math.Max(maxDuration, SfxBank.GetDuration(current));
                 all.Add(SfxBank.Get(current));
                 i += 1;
             }
@@ -48,6 +51,13 @@ namespace Exeggcute.src
             }
         }
 
+        public override void Play()
+        {
+            int index = order[ptr];
+            effects[index].Play();
+            ptr += 1;
+            ptr %= order.Length;
+        }
 
         protected void generateOrder()
         {
@@ -57,35 +67,12 @@ namespace Exeggcute.src
             List<int> possible = getPossible(prev, prevprev);
             for (int i = 0; i < order.Length; i += 1)
             {
-                
-                
-                
-                
-                Console.Write("Possible:(");
                 possible = getPossible(next, prev);
                 prevprev = prev;
                 prev = next;
-                /*next = rng.NextInt(effects.Length);
-
-                while (prev == next || prevprev == next)
-                {
-                    next = rng.NextInt(effects.Length);
-                }*/
 
                 next = Util.GetRandomFrom(possible, rng);
                 order[i] = next;
-                foreach(int k in possible)
-                {
-                    Console.Write("{0},", k);
-                }
-                Console.WriteLine(")");
-
-
-                Console.WriteLine("{0} - {1} - {2}", prevprev, prev, next);
-                Console.WriteLine("Chose {0} from possible\n", next);
-                
-                if (i > 100) Util.Die("cheque");
-                
             }
             for (int i = 0; i < order.Length; i += 1)
             {

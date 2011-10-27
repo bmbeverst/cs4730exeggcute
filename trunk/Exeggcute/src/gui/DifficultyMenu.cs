@@ -27,5 +27,10 @@ namespace Exeggcute.src.gui
             heading.Draw(batch, headingPos);
             batch.End();
         }
+
+        public override void Back()
+        {
+            World.Back();
+        }
     }
 }

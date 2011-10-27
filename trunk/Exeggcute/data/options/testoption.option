@@ -3,3 +3,4 @@
   Behavior: aimplayer
 Trajectory: basic
      Spawn: 0enemy0
+ ShotSound: dink

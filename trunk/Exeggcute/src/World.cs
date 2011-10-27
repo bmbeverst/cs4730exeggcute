@@ -143,9 +143,7 @@ namespace Exeggcute.src
 
         public static void Process(BackEvent ent)
         {
-            Console.WriteLine("back");
-            Top.Unload();
-            stack.Pop();
+            World.Back();
         }
 
         /// <summary>
@@ -154,6 +152,10 @@ namespace Exeggcute.src
         public static void Process(PauseEvent ent)
         {
             stack.Pop();
+            if (!(Top is Level))
+            {
+                Util.Warn("you can only call unpause from a level, because you can only pause in a level!");
+            }
         }
 
         /// <summary>
@@ -264,6 +266,7 @@ namespace Exeggcute.src
         public static void CleanupLevel()
         {
             Level level = (Level)stack.Peek();
+
             if (level.DoneCleanup())
             {
                 level.Unload();
@@ -312,7 +315,14 @@ namespace Exeggcute.src
         public static void SendMove(Direction dir)
         {
             //fixme this is ugly
-            ((Menu)(stack.Peek())).Move(dir);
+            Menu current = (Menu)stack.Peek();
+            current.Move(dir);
+            if (current.ResolveCursor())
+            {
+                SfxBank.Get("menumove").Play();
+            }
+            
+
         }
 
         public static void Pop(/*IContext self*/)
@@ -341,6 +351,15 @@ namespace Exeggcute.src
                 };
                 pauseMenu = new PauseMenu(buttons, bounds);
             }
+            if (Top is Level)
+            {
+                
+            }
+            else
+            {
+                throw new ExeggcuteError("can only pause from a level!");
+            }
+
             stack.Push(pauseMenu);
         }
 

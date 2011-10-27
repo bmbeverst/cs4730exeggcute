@@ -140,6 +140,7 @@
     <Compile Include="src\assets\OptionBank.cs" />
     <Compile Include="src\assets\BodyBank.cs" />
     <Compile Include="src\assets\SfxBank.cs" />
+    <Compile Include="src\entities\SoundAction.cs" />
     <Compile Include="src\GibBatch.cs" />
     <Compile Include="src\loading\BodyInfo.cs" />
     <Compile Include="src\loading\EnemyInfo.cs" />
@@ -147,7 +148,8 @@
     <Compile Include="src\loading\FieldSetter.cs" />
     <Compile Include="src\loading\GibInfo.cs" />
     <Compile Include="src\loading\Loadable.cs" />
-    <Compile Include="src\RandoSound.cs" />
+    <Compile Include="src\sound\RandoSound.cs" />
+    <Compile Include="src\sound\RepeatedSound.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
     <Compile Include="src\Alignment.cs" />
     <Compile Include="src\assets\ConversationBank.cs" />
@@ -193,7 +195,8 @@
     <Compile Include="src\scripting\ScriptInstance.cs" />
     <Compile Include="src\scripting\task\BossTask.cs" />
     <Compile Include="src\scripting\task\KillAllTask.cs" />
-    <Compile Include="src\SongPlayer.cs" />
+    <Compile Include="src\scripting\task\SongFadeTask.cs" />
+    <Compile Include="src\sound\SongPlayer.cs" />
     <Compile Include="src\Wrapped2DArray.cs" />
     <Compile Include="src\scripting\action\AimPlayerAction.cs" />
     <Compile Include="src\scripting\EntryListParser.cs" />
@@ -257,7 +260,6 @@
     <Compile Include="src\scripting\action\MoveRelAction.cs" />
     <Compile Include="src\scripting\action\MoveAbsAction.cs" />
     <Compile Include="src\scripting\roster\RosterEntry.cs" />
-    <Compile Include="src\scripting\roster\RosterLoader.cs" />
     <Compile Include="src\scripting\action\SpawnAction.cs" />
     <Compile Include="src\scripting\action\StopAction.cs" />
     <Compile Include="src\scripting\action\ShootAction.cs" />
@@ -349,7 +351,7 @@
     <Content Include="data\scripts\behaviors\playerrespawn.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\scripts\spawns\player0.spawn">
+    <Content Include="data\scripts\spawns\0player0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\testenemy.cl">
@@ -406,7 +408,7 @@
     <Content Include="data\players\standard\0.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\scripts\behaviors\0option0.cl">
+    <Content Include="data\scripts\behaviors\downspread0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\spawns\0enemy0.spawn">
@@ -433,10 +435,19 @@
     <Content Include="data\levels\4.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="data\options\0plweapon0.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\options\testoption.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="data\scripts\behaviors\aimplayer.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\upspread0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\trajectories\fast.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="lib\Nuclex.Input.dll">
@@ -453,9 +464,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\score.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\rosters\test.roster">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\death0.cl">

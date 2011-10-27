@@ -16,7 +16,6 @@ namespace Exeggcute.src
     /// </summary>
     class EntityManager
     {
-
         public bool Collide(Player player, HashList<Enemy> enemies)
         {
             if (!player.CanControl) return false;

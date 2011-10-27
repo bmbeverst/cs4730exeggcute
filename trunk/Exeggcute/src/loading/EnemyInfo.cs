@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Exeggcute.src.scripting.arsenal;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.loading
 {
@@ -18,8 +19,7 @@ namespace Exeggcute.src.loading
         public int? Health;
         public int? Defence;
         public BehaviorScript deathScript;
-        public SoundEffect shootSFX;
-        public SoundEffect dieSFX;
+        public RepeatedSound deathSound;
         public ItemBatch itembatch;
         public GibBatch gibbatch;
         public Arsenal arsenal;

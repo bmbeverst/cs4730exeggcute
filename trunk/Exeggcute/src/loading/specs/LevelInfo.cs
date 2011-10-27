@@ -23,43 +23,5 @@ namespace Exeggcute.src.loading.specs
         {
             loadFromTokens(tokenList);
         }
-
-        /*public LevelInfo(List<string[]> lines)
-        {
-            for (int i = 0; i < lines.Count; i += 1)
-            {
-                string[] tokens = lines[i];
-                currentField = tokens[0];
-                string value = tokens[1];
-                if (matches("stagetheme"))
-                {
-                    LevelTheme = SongBank.Get(value);
-                }
-                else if (matches("bosstheme"))
-                {
-                    BossTheme = SongBank.Get(value);
-                }
-                else if (matches("miniboss"))
-                {
-                    BossInfo info = new BossInfo(value);
-                    MiniBoss = info.MakeBoss();
-                }
-                else if (matches("mainboss"))
-                {
-                    BossInfo info = new BossInfo(value);
-                    MainBoss = info.MakeBoss();
-                }
-                else if (matches("roster"))
-                {
-                    EnemyRoster = RosterBank.Get(value);
-                }
-                else
-                {
-                    throw new ParseError("Don't know what to do with field \"{0}\"", currentField);
-                }
-
-            }
-            LoadedInfo.AssertInitialized(this);
-        }*/
     }
 }

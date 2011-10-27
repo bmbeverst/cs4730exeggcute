@@ -76,7 +76,7 @@ namespace Exeggcute.src.graphics
         /// </param>
         /// 
         /// <param name="position">T
-        /// he position of the center of this quad.
+        /// the position of the center of this quad.
         /// </param>
         /// <param name="back">Vector pointing towards the camera.</param>
         /// <param name="width">width of the quad</param>
@@ -89,15 +89,15 @@ namespace Exeggcute.src.graphics
                     float width,
                     float height)
         {
-            Width = width;
-            Height = height;
+            this.Width = width;
+            this.Height = height;
             initQuad(topleft, bottomRight, position, back, up);
         }
 
         public void initQuad(Vector2 texTopLeft, Vector2 texBottomRight, Vector3 center, Vector3 back, Vector3 up)
         {
             Vertices = new VertexPositionNormalTexture[4];
-            Indexes = new short[6]; ;
+            Indexes = new short[6];
             Center = center;
             UVTopLeft = texTopLeft;
             UVTopRight = new Vector2(texBottomRight.X, texTopLeft.Y);
@@ -124,7 +124,6 @@ namespace Exeggcute.src.graphics
 
         public void UpdateVertices(Vector3 topleft, Vector3 topright, Vector3 bottomleft, Vector3 bottomright)
         {
-            
             TopLeft = topleft;
             TopRight = topright;
             BottomLeft = bottomleft;
@@ -146,7 +145,6 @@ namespace Exeggcute.src.graphics
 
         public void Lock(Quad left, Quad below)
         {
-
             bool lockLeft = left != null;
             bool lockBelow = below != null;
 
@@ -154,19 +152,13 @@ namespace Exeggcute.src.graphics
             {
                 TopLeft = left.TopRight;
                 BottomLeft = left.BottomRight;
-                
             }
             if (lockBelow)
             {
                 BottomLeft = below.TopLeft;
                 BottomRight = below.TopRight;
             }
-            
             recalculateNormals();
-            
         }
-
-
-        
     }
 }

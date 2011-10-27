@@ -143,7 +143,16 @@ namespace Exeggcute.src.scripting.action
         /// Syntax:
         /// aimplayer 
         /// </summary>
-        AimPlayer
+        AimPlayer,
+
+        /// <summary>
+        /// Play a sound in an entity-specific way. As of writing this is used
+        /// for spawners to make shot sounds.
+        /// 
+        /// Syntax:
+        /// sound
+        /// </summary>
+        Sound
     }
 
 

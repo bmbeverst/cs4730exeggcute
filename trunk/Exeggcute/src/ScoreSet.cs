@@ -87,7 +87,7 @@ namespace Exeggcute.src
                 }
                 catch (SocketException e)
                 {
-                    Console.WriteLine("Unable to connect to server.");
+                    Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
                     return;
                 }
 
@@ -199,7 +199,7 @@ namespace Exeggcute.src
                     }
                     catch (SocketException e)
                     {
-                        Console.WriteLine("Unable to connect to server.");
+                        Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
                         return;
                     }
 
