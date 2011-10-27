@@ -85,12 +85,18 @@ namespace Exeggcute.src.assets
             rootDir = root;
             init(exts);
         }
+
         public Bank(string root, string ext)
         {
             rootDir = root;
             init(new string[] { ext });
-
         }
+
+        public bool Contains(string name)
+        {
+            return bank.ContainsKey(name);
+        }
+
         private void init(string[] exts)
         {
             string[] files = Util.GetFiles(rootDir);
@@ -129,6 +135,7 @@ namespace Exeggcute.src.assets
                 Load(content, file);
             }
         }
+
         protected string getName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);
@@ -163,9 +170,5 @@ namespace Exeggcute.src.assets
             names.ForEach(name => bank.Remove(name));
             throw new Exception("Not implemented");
         }
-
-
-
-
     }
 }

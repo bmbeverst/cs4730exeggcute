@@ -139,6 +139,7 @@
   <ItemGroup>
     <Compile Include="src\assets\OptionBank.cs" />
     <Compile Include="src\assets\BodyBank.cs" />
+    <Compile Include="src\assets\SfxBank.cs" />
     <Compile Include="src\GibBatch.cs" />
     <Compile Include="src\loading\BodyInfo.cs" />
     <Compile Include="src\loading\EnemyInfo.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="src\loading\FieldSetter.cs" />
     <Compile Include="src\loading\GibInfo.cs" />
     <Compile Include="src\loading\Loadable.cs" />
+    <Compile Include="src\RandoSound.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
     <Compile Include="src\Alignment.cs" />
     <Compile Include="src\assets\ConversationBank.cs" />
@@ -173,7 +175,6 @@
     <Compile Include="src\loading\InfoLoader.cs" />
     <Compile Include="src\assets\RosterBank.cs" />
     <Compile Include="src\assets\SongBank.cs" />
-    <Compile Include="src\assets\SoundBank.cs" />
     <Compile Include="src\loading\LevelLoader.cs" />
     <Compile Include="src\loading\PlayerWeaponLoader.cs" />
     <Compile Include="src\loading\specs\LevelInfo.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="src\scripting\ScriptInstance.cs" />
     <Compile Include="src\scripting\task\BossTask.cs" />
     <Compile Include="src\scripting\task\KillAllTask.cs" />
+    <Compile Include="src\SongPlayer.cs" />
     <Compile Include="src\Wrapped2DArray.cs" />
     <Compile Include="src\scripting\action\AimPlayerAction.cs" />
     <Compile Include="src\scripting\EntryListParser.cs" />

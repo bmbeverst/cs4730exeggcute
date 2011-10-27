@@ -86,6 +86,8 @@ namespace Exeggcute.src
         private Song levelTheme = null;
         private Song bossTheme = null;
 
+        public static SongPlayer SongPlayer = new SongPlayer(true, 1, 600);
+
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
                      Player player, 
@@ -139,17 +141,16 @@ namespace Exeggcute.src
             //TODO parse the player file here
             Level.player = player;
 
-            MediaPlayer.Play(levelTheme);
-            MediaPlayer.Pause();
+            
+            SongPlayer.Play(bossTheme);
+            SongPlayer.Play(levelTheme, 300);
         }
 
-        public void FadeMusic(bool fadeIn, bool boss)
+        public void ProcessMusic()
         {
-            if (fadeIn)
-            {
 
-            }
         }
+
 
         private void loadLights(LightSettings settings, Effect effect)
         {
@@ -255,6 +256,7 @@ namespace Exeggcute.src
 
         public void Update(ControlManager controls, bool playerCanShoot)
         {
+            SongPlayer.Update();
             MediaPlayer.GetVisualizationData(soundData);
             Hud.Update();
             //camera.Update(controls);

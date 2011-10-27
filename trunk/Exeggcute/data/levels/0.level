@@ -2,7 +2,7 @@
   MiniBoss: guy
   MainBoss: guy
 LevelTheme: Mayhem_Some_Boss_Shit
- BossTheme: Mayhem_Some_Boss_Shit
+ BossTheme: Birth
     Roster: test
 
 @Terrain:

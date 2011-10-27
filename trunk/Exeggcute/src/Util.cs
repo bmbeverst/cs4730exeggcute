@@ -490,7 +490,7 @@ namespace Exeggcute.src
 
         public static SoundEffect ParseSoundEffect(string name)
         {
-            return Exeggcute.src.assets.SoundBank.Get(name);
+            return Exeggcute.src.assets.SfxBank.Get(name);
         }
 
         public static TEnum? ParseEnumNullable<TEnum>(string name) where TEnum : struct
@@ -508,6 +508,11 @@ namespace Exeggcute.src
         {
             // that was easy
             return s;
+        }
+
+        public static T GetRandomFrom<T>(List<T> items, Random rng)
+        {
+            return items[rng.NextInt(items.Count)];
         }
 
 
