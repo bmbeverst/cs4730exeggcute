@@ -11,6 +11,7 @@ using Exeggcute.src.entities;
 using Exeggcute.src.assets;
 using Exeggcute.src.text;
 using Exeggcute.src.contexts;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src
 {
@@ -72,7 +73,7 @@ namespace Exeggcute.src
 
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
-            //RandoSound mySound = new RandoSound("dink");
+
         }
 
         private void loadXNAContent(ContentManager content)
@@ -85,15 +86,20 @@ namespace Exeggcute.src
             ModelBank.LoadAll(content);
             SfxBank.LoadAll(content);
             SongBank.LoadAll(content);
+            mySound = SfxBank.MakeRepeated("bosshurt3");
         }
 
         private void loadMenus()
         {
             World.Begin();
         }
-
+        RepeatedSound mySound;
+        int frame = 0;
         public void Update()
         {
+            SfxBank.UpdateAll();
+            //mySound.Play();
+            frame += 1;
             controls.Update();
             World.Update(controls);
             if (controls[Ctrl.Quit].IsPressed)
@@ -124,6 +130,8 @@ namespace Exeggcute.src
         {
             controls.WriteToFile();
             scoreSet.WriteLocal();
+            Util.Debug("message");
+            Util.WriteLog();
             Environment.Exit(1);
         }
     }

@@ -43,7 +43,11 @@ namespace Exeggcute.src.gui
             {
                 cursor += 1;
             }
-            resolveCursor();
+        }
+
+        public override void Back()
+        {
+            cursor = buttons.Count - 1;
         }
     }
 }

@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src
 {
@@ -86,7 +87,7 @@ namespace Exeggcute.src
         private Song levelTheme = null;
         private Song bossTheme = null;
 
-        public static SongPlayer SongPlayer = new SongPlayer(true, 1, 600);
+        public SongPlayer SongPlayer = new SongPlayer(true, 0.05f, 600);
 
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
@@ -204,6 +205,12 @@ namespace Exeggcute.src
         public void Process(Task task)
         {
             throw new InvalidOperationException("Must call a subclass overload");
+        }
+
+        public void Process(SongFadeTask task)
+        {
+            SongPlayer.DoFade(-1);
+            taskPtr += 1;
         }
 
         public void Process(SpawnTask task)
@@ -392,6 +399,7 @@ namespace Exeggcute.src
             {
                 Hud.DoFade(FadeType.Out);
                 cleanupStarted = true;
+                SongPlayer.DoFade(-1, 120);
             }
             if (!Hud.IsFading())
             {

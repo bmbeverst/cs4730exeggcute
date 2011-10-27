@@ -29,7 +29,8 @@ namespace Exeggcute.src.scripting.arsenal
                                            entry.Damage, 
                                            entry.Trajectory, 
                                            entry.Spawn, 
-                                           entry.Behavior, 
+                                           entry.Behavior,
+                                           entry.ShotSound,
                                            shotListHandle);
                 spawners.Add(next);
             }

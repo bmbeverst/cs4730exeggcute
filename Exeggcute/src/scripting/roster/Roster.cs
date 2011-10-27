@@ -21,6 +21,12 @@ namespace Exeggcute.src.scripting.roster
                 enemies.Add(enemy);
             }
         }
+
+        public Roster(List<Enemy> enemies)
+        {
+            this.enemies = enemies;
+        }
+
         public Enemy Clone(int id, Float3 pos, FloatValue angle)
         {
             return enemies[id].Clone(pos, angle);
@@ -28,7 +34,14 @@ namespace Exeggcute.src.scripting.roster
 
         public static Roster Parse(string s)
         {
-            return new Roster(s);
+            string[] entries = s.Split(',');
+            List<Enemy> result = new List<Enemy>();
+            foreach (string entry in entries)
+            {
+                Enemy enemy = EnemyLoader.Load(entry);
+                result.Add(enemy);
+            }
+            return new Roster(result);
         }
     }
     /// <summary>

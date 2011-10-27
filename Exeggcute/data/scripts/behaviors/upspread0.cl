@@ -1,0 +1,1 @@
+﻿setparam Angle [88|92]

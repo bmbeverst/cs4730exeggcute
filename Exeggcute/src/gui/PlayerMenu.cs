@@ -60,5 +60,10 @@ namespace Exeggcute.src.gui
             base.Draw(graphics, batch);
             batch.End();
         }
+
+        public override void Back()
+        {
+            World.Back();
+        }
     }
 }

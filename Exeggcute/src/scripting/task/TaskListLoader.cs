@@ -48,6 +48,14 @@ namespace Exeggcute.src.scripting.task
                     new BossTask()
                 };
             }
+            else if (type == TaskType.SongFade)
+            {
+                int frames = int.Parse(tokens.Pop());
+                return new List<Task> {
+                    new WaitTask(frames),
+                    new SongFadeTask(frames)
+                };
+            }
             else
             {
                 throw new ParseError("Unknown type \"{0}\"", type);

@@ -50,6 +50,14 @@ namespace Exeggcute.src.scripting.task
         /// Syntax:
         /// boss
         /// </summary>
-        Boss
+        Boss,
+
+        /// <summary>
+        /// fades out the current song, useful for before the boss.
+        /// Syntax:
+        /// songfade frames
+        /// int frames: the number of frames it should take to go to zero.
+        /// </summary>
+        SongFade
     }
 }

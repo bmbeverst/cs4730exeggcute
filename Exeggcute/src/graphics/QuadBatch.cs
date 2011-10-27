@@ -82,6 +82,8 @@ namespace Exeggcute.src.graphics
                         PrimitiveType.TriangleList,
                         quad.Vertices, 0, 4,
                         quad.Indexes, 0, 2);
+
+                   
                 }
             }
         }

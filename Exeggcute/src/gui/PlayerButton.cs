@@ -7,10 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.contexts;
 using Exeggcute.src.input;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.gui
 {
-    class PlayerButton : Button
+    class PlayerButton : ListButton
     {
         public string RawData { get; protected set; }
         public string Name { get; protected set; }
@@ -25,7 +26,7 @@ namespace Exeggcute.src.gui
         protected SpriteFont font;
         protected Color fontColor;
         public PlayerButton(Player player, SpriteFont font, Color fontColor)
-            : base(null, null, null, null)
+            : base(null, null)
         {
             
             this.RawData = player.RawData;
@@ -45,7 +46,8 @@ namespace Exeggcute.src.gui
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
-                World.Back();
+                SfxBank.Get("back").Play();
+                parent.Back();
             }
             base.Update(controls);
         }

@@ -8,6 +8,7 @@ using Exeggcute.src.scripting;
 using Exeggcute.src.entities;
 using System.Text.RegularExpressions;
 using Exeggcute.src.text;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.loading
 {
@@ -22,6 +23,7 @@ namespace Exeggcute.src.loading
         protected BehaviorScript deathScript;
         protected Conversation intro;
         protected Conversation outro;
+        protected RepeatedSound hurtSound;
         protected float? scale;
 
         public BossInfo(string name)
@@ -53,7 +55,8 @@ namespace Exeggcute.src.loading
                             body.Texture,
                             body.Scale.Value, 
                             intro, 
-                            outro, 
+                            outro,
+                            hurtSound,
                             entryScript, 
                             defeatScript, 
                             deathScript, 

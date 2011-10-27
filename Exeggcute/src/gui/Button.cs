@@ -11,6 +11,7 @@ namespace Exeggcute.src.gui
 {
     abstract class Button
     {
+        protected Menu parent;
         protected ContextEvent onSelect;
         protected ContextEvent onDeselect;
         protected ContextEvent onActivate;
@@ -30,6 +31,12 @@ namespace Exeggcute.src.gui
             this.onDeactivate = deactivate;
             this.IsActive = false;
             this.IsSelected = false;
+        }
+
+
+        public void AttachParent(Menu parent)
+        {
+            this.parent = parent;
         }
 
         public void AttachOnActivate(ContextEvent activate)
@@ -61,6 +68,8 @@ namespace Exeggcute.src.gui
             {
                 moveRight();
             }
+
+            
 
 
         }

@@ -3,7 +3,7 @@
   MainBoss: guy
 LevelTheme: Mayhem_Some_Boss_Shit
  BossTheme: Birth
-    Roster: test
+    Roster: test0,test1
 
 @Terrain:
       Depth:   10
@@ -41,15 +41,16 @@ Orientation:    Outside
 
 
 @TaskList:
-#spawn 0 (-20,40,0) 0
+songfade 60
+spawn 0 (-20,40,0) 0
 wait 7
-#spawn 0 (-10,40,0) 0
+spawn 0 (-10,40,0) 0
 wait 7
-#spawn 0 (0,40,0) 0
+spawn 0 (0,40,0) 0
 wait 7
-#spawn 0 (10,40,0) 0
+spawn 0 (10,40,0) 0
 wait 7
-#spawn 0 (20,40,0) 0
+spawn 0 (20,40,0) 0
 wait 7
 
 wait 120

@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.graphics;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.gui
 {
@@ -23,6 +25,9 @@ namespace Exeggcute.src.gui
         protected Sprite cursorSprite;
         protected SpriteFont font;
         protected Color fontColor;
+        protected RepeatedSound selectSound;
+        protected SoundEffect cancelSound;
+
         public Menu(List<Button> buttons, Rectangle bounds, bool loops)
         {
             this.font = FontBank.Get("consolas");
@@ -42,15 +47,30 @@ namespace Exeggcute.src.gui
             for (int i = 0; i < buttons.Count; i += 1)
             {
                 drawPositions.Add(new Vector2(x, y + spacing * i));
+                buttons[i].AttachParent(this);
             }
 
+            this.cancelSound = SfxBank.DeprecatedGetSound("back");
+            this.selectSound = SfxBank.MakeRepeated("select");
+
+        }
+
+        public virtual void Back()
+        {
+            cancelSound.Play();
+        }
+
+        public virtual void Select()
+        {
+            Console.WriteLine("Should have played");
+            selectSound.Play();
         }
 
         public virtual void Update(ControlManager controls)
         {
-            resolveCursor();
+            ResolveCursor();
             buttons[cursor].Update(controls);
-            resolveCursor();
+            ResolveCursor();
         }
 
         public virtual void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -91,10 +111,33 @@ namespace Exeggcute.src.gui
             }
         }
 
-        protected virtual void resolveCursor()
+        public virtual bool ResolveCursor()
         {
-            if (loops) cursor = (cursor + buttons.Count) % buttons.Count;
-            else cursor = Util.Clamp(cursor, 0, buttons.Count - 1);
+            selectSound.Update();
+            if (loops)
+            {
+                cursor = (cursor + buttons.Count) % buttons.Count;
+                return true;
+            }
+            else
+            {
+                if (cursor < 0)
+                {
+                    cursor = 0;
+                    return false;
+                }
+                else if (cursor > buttons.Count - 1)
+                {
+                    cursor = buttons.Count - 1;
+                    Console.WriteLine("this universe");
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            //else cursor = Util.Clamp(cursor, 0, buttons.Count - 1);
         }
 
         public virtual void Cleanup()

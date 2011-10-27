@@ -24,6 +24,16 @@ namespace Exeggcute.src.scripting
             this.Count = b.Count;
         }
 
+        public void Next()
+        {
+            actionPtr += 1;
+        }
+
+        public ActionBase GetCurrent()
+        {
+            return scriptBase[actionPtr];
+        }
+
         public void Jump(int i)
         {
             actionPtr = scriptBase.LineNumberToAction(i);

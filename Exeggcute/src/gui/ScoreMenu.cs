@@ -69,7 +69,7 @@ namespace Exeggcute.src.gui
             {
                 cursor += 1;
             }
-            resolveCursor();
+            ResolveCursor();
         }
 
         public override void Unload()
@@ -77,7 +77,12 @@ namespace Exeggcute.src.gui
             cursor = 0;
             scores.ViewingNetwork = false;
         }
-        
+
+        public override void Back()
+        {
+            cursor = 0;
+            World.Back();
+        }
     }
 
 

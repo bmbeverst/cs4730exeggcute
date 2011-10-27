@@ -8,6 +8,7 @@ using Exeggcute.src.scripting.action;
 using Exeggcute.src.scripting.arsenal;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.scripting;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.entities
 {
@@ -29,6 +30,9 @@ namespace Exeggcute.src.entities
         public Mover mover { get; protected set; }
         public Vector3 ParentPos { get; protected set; }
         public float ParentAngle { get; protected set; }
+
+        protected RepeatedSound shotSound;
+
         public Spawner(Model model, 
                        Texture2D texture, 
                        float scale, 
@@ -36,12 +40,14 @@ namespace Exeggcute.src.entities
                        TrajectoryScript shotTrajectory, 
                        SpawnScript spawnScript, 
                        BehaviorScript moverScript, 
+                       RepeatedSound shotSound,
                        HashList<Shot> shotListHandle)
             : base(spawnScript)
         {
 
             this.shot = new Shot(model, texture, scale, shotTrajectory, damage);
             this.shotListHandle = shotListHandle;
+            this.shotSound = shotSound;
             this.active = false;
             this.mover = new Mover(moverScript);
             this.Scale = 1.0f;
@@ -106,6 +112,12 @@ namespace Exeggcute.src.entities
         {
             timer = 0;
             active = false;
+        }
+
+        public override void Process(SoundAction sound)
+        {
+            shotSound.Play();
+            actionPtr += 1;
         }
 
         public override void Process(SpawnAction spawn)

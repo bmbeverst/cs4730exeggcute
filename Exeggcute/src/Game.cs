@@ -8,6 +8,7 @@ using Nuclex.Input;
 using Exeggcute.src.text;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.loading;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
@@ -41,6 +42,7 @@ namespace Exeggcute.src
             // that the Banks are loaded in engine, so this must
             // be called before pretty much anything else
             engine = new Engine(GraphicsDevice, Content, new InputManager());
+
             base.LoadContent();
         }
 
@@ -48,10 +50,10 @@ namespace Exeggcute.src
         {
 
         }
-
         protected override void Update(GameTime gameTime)
         {
             engine.Update();
+            
             base.Update(gameTime);
         }
 

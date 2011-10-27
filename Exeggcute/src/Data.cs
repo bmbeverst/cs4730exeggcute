@@ -47,7 +47,7 @@ namespace Exeggcute.src
             {
                 List<string> lines = Util.StripComments(split[i], true);
 
-                if (lines.Count <= 1)
+                if (lines.Count == 0)
                 {
                     Util.Warn("Empty section found {0}", text);
                     continue;
@@ -70,7 +70,14 @@ namespace Exeggcute.src
             this.RawText = rawText;
             string[] tagTokens = lines[0].Split(':');
             this.Tag = tagTokens[0];
-            this.TagValue = tagTokens[1];
+            if (tagTokens.Length >= 2)
+            {
+                this.TagValue = tagTokens[1];
+            }
+            else
+            {
+                this.TagValue = null;
+            }
             lines.RemoveAt(0);
             this.Lines = lines;
             this.Tokens = MakeTokenList();
