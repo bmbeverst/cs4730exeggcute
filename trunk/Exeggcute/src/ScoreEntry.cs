@@ -14,6 +14,7 @@ namespace Exeggcute.src
         public int Score { get; protected set; }
         public string Name { get; protected set; }
         public string Date { get; protected set; }
+
         public ScoreEntry(int score, string name, string date)
         {
             this.StringScore = IntToString(score);
@@ -22,6 +23,7 @@ namespace Exeggcute.src
             Name = name;
             Date = date;
         }
+
         public ScoreEntry(int score, string name)
         {
             DateTime now = DateTime.Now;
@@ -33,7 +35,7 @@ namespace Exeggcute.src
                 year -= 2000;
             }
             string date = string.Format("{0:00}.{1:00}.{2:00}", month, day, year);
-            
+
             this.StringScore = IntToString(score);
             this.IntScore = score;
             Score = score;
@@ -48,8 +50,6 @@ namespace Exeggcute.src
             Name = "AAA";
             Date = "January 1, 2000";
         }
-
-        
 
         public static string IntToString(int x)
         {
@@ -68,7 +68,7 @@ namespace Exeggcute.src
             {
                 return this.Name.CompareTo(other.Name);
             }
-            // Default to salary sort. [High to low]
+            // Default to score sort. [High to low]
             return other.Score.CompareTo(this.Score);
         }
 
