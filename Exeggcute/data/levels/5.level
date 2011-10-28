@@ -2,7 +2,7 @@
   MiniBoss: guy2
   MainBoss: guy2
 StageTheme: Mayhem_Some_Boss_Shit
- BossTheme: Mayhem_Some_Boss_Shit
+ BossTheme: RaidersOfTheLostArc
     Roster: test
 
 @Terrain:

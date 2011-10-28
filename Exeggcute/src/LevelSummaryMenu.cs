@@ -33,7 +33,7 @@ namespace Exeggcute.src
             this.Player = Level.player;
             this.nextName = (int.Parse(level.Name) + 1).ToString();
             this.difficulty = level.Difficulty;
-            this.scoreGained = 0;//FIXME
+            this.scoreGained = Player.Score - level.InitialScore;
         }
 
         public void Update(ControlManager controls)
@@ -58,8 +58,8 @@ namespace Exeggcute.src
         {
             batch.Begin();
             Hud.Draw(batch, Player);
-            string progress = timer.Value.ToString();
-            batch.DrawString(font, progress, new Vector2(500, 500), Color.White);
+            string scoreString = string.Format("Points gained: {0:000,000,000}", scoreGained);
+            batch.DrawString(font, scoreString, new Vector2(500, 500), Color.White);
             batch.End();
         }
 
