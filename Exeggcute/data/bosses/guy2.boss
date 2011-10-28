@@ -1,24 +1,27 @@
 ﻿#SAMPLE BOSS
+@info:
 name:         Guy'sName #cant contain spaces atm, sorry
-body:        player0
+body:         player0
 entryScript:  entry0
 defeatScript: entry0
 deathScript:  bossdeath0
+hurtSound:    bosshurt4
 intro:        0
 outro:        1
 
-spellcard:
+
+@spellcard:
 name:         Test1
 behavior:     boss0
-attack:       weapon0
+attack:       enemy,testoption
 duration:     300
 health:       1000
 items:        test
 
-spellcard:
+@spellcard:
 name:         Test2
 behavior:     boss0
-attack:       bomb0
+attack:       enemy,testoption
 duration:     300
 health:       1000
 items:        test

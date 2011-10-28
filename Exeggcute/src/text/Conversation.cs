@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.gui;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Exeggcute.src.text
 {
@@ -18,10 +19,10 @@ namespace Exeggcute.src.text
 
         public Vector2 Position { get; protected set; }
 
+
         public Conversation(TextBoxList box)
         {
             this.Box = box;
-
             float x = Engine.Center2D.X - Box.Size.X/2;
             Rectangle gameRect = HUD.CalculateRect(Engine.XRes, Engine.YRes);
             float buffer = (gameRect.Width - Box.Size.X) / 2;

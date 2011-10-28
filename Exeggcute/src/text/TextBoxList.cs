@@ -27,6 +27,7 @@ namespace Exeggcute.src.text
         private SpriteFont font;
 
         public Point Size { get; protected set; }
+
         public bool IsDone
         {
             get
@@ -72,7 +73,6 @@ namespace Exeggcute.src.text
                     }
                 }
                 boxes.Add(new TextBox(box));
-
             }
         }
 
@@ -92,6 +92,7 @@ namespace Exeggcute.src.text
 
             if (current.IsDone && controls[Ctrl.Action].JustPressed)
             {
+                current.Stop();
                 boxPtr += 1;
                 shouldExit = (boxPtr == boxes.Count);
             }

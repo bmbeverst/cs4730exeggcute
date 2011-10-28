@@ -68,6 +68,11 @@ namespace Exeggcute.src.sound
             Speed = 1.0f / duration;
         }
 
+        public void SetVolume(float vol)
+        {
+            this.Volume = vol;
+            MediaPlayer.Volume = vol;
+        }
         public void Update()
         {
             if (IsFading)
@@ -93,7 +98,7 @@ namespace Exeggcute.src.sound
             }
 
 
-            if (playQueue)
+            if (playQueue && queueTimer != null)
             {
                 if (!queueTimer.IsDone)
                 {

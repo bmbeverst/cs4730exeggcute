@@ -19,7 +19,7 @@ namespace Exeggcute.src
         protected int scoreGained;
         protected Difficulty difficulty;
         protected FloatTimer timer = new FloatTimer(1);
-        protected const int DURATION = 600;
+        protected const int DURATION = 50;
         public bool IsDone { get; protected set; }
         public HUD Hud { get; protected set; }
         public Player Player { get; protected set; }
@@ -58,9 +58,14 @@ namespace Exeggcute.src
         {
             batch.Begin();
             Hud.Draw(batch, Player);
+            string timeLeft = timer.Value >= DURATION ? "Press shoot to continue!" : "Loading...";
             string scoreString = string.Format("Points gained: {0:000,000,000}", scoreGained);
+
             batch.DrawString(font, scoreString, new Vector2(500, 500), Color.White);
+            batch.DrawString(font, timeLeft, new Vector2(500, 550), Color.White);
+
             batch.End();
+
         }
 
         public void Load(ContentManager content)
