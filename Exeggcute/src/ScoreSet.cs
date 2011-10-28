@@ -72,11 +72,9 @@ namespace Exeggcute.src
         }
 
         public void LoadNetwork()
-        {   
+        {
             if (!networkAlreadyLoaded)
             {
-                // TODO print the scores out on the screen
-
                 IPEndPoint ip = new IPEndPoint(IPAddress.Parse("128.143.69.241"), 9030);
 
                 Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -87,7 +85,7 @@ namespace Exeggcute.src
                 }
                 catch (SocketException e)
                 {
-                    Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
+                    Console.WriteLine("Unable to connect to server.");
                     return;
                 }
 
@@ -111,7 +109,7 @@ namespace Exeggcute.src
 
                 stringData = stringData + stringData2;
 
-                for (int i = 0; i < 10; i++)
+                while (networkScores.Count < 10) // just make sure always > 10 entries in table
                 {
                     int index = stringData.IndexOf("\n");
                     scoreData = stringData.Substring(0, index);
@@ -130,22 +128,24 @@ namespace Exeggcute.src
                     stringData = stringData.Substring(index + 1);
                     Console.WriteLine(date);
 
-                    /*data = new byte[1024];
-                    receivedDataLength = server.Receive(data);
-                    stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
-                    time = new DateTime(Int32.Parse(stringData));
-                    Console.WriteLine(stringData);*/
-                    
-                    //networkScores[i] = new ScoreEntry(score, name, new DateTime());
-                    networkScores.Add(new ScoreEntry(score, name, date));
+                    bool duplicate = false;
+                    foreach (ScoreEntry entry in networkScores)
+                    {
+                        if (entry.Score == score && entry.Name == name && entry.Date == date)
+                        {
+                            duplicate = true;
+                        }
+                    }
+                    if (!duplicate)
+                    {
+                        networkScores.Add(new ScoreEntry(score, name, date));
+                    }
                 }
                 server.Shutdown(SocketShutdown.Both);
                 server.Close();
             }
 
             ViewingNetwork = true;
-            
-            
         }
 
         public void WriteLocal()
@@ -160,20 +160,18 @@ namespace Exeggcute.src
 
         public void WriteNetwork()
         {
-            // TODO use me to write data to the network
-            // remember to only attempt to write to the 
-            // network if we have actually beaten
-            // a network high score!
-
             HashSet<ScoreEntry> newEntries = new HashSet<ScoreEntry>();
+
             foreach (ScoreEntry entry in localScores)
             {
                 newEntries.Add(entry);
             }
+
             foreach (ScoreEntry entry in networkScores)
             {
                 newEntries.Add(entry);
             }
+
             List<ScoreEntry> listEntries = newEntries.ToList();
             listEntries.Sort();
             int size = listEntries.Count;
@@ -181,39 +179,47 @@ namespace Exeggcute.src
 
             if (!networkAlreadyLoaded)
             {
-                // TODO load high scores from the network
-
                 byte[] data;
                 int receivedDataLength;
                 string stringData;
 
-                for (int i = 0; i < 10; i++)
+                int counter = 0;
+                bool duplicate = false;
+                foreach (ScoreEntry entry in networkScores)
                 {
-                    IPEndPoint ip = new IPEndPoint(IPAddress.Parse("128.143.69.241"), 9030);
-
-                    Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-                    try
+                    counter = 0;
+                    if (entry.Score == listEntries.ElementAt(counter).Score && entry.Name == listEntries.ElementAt(counter).Name
+                        && entry.Date == listEntries.ElementAt(counter).Date)
                     {
-                        server.Connect(ip);
+                        duplicate = true;
                     }
-                    catch (SocketException e)
+                    counter++;
+                }
+                if (!duplicate)
+                {
+                    for (int i = 0; i < 10; i++)
                     {
-                        Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
-                        return;
+                        IPEndPoint ip = new IPEndPoint(IPAddress.Parse("128.143.69.241"), 9030);
+
+                        Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                        try
+                        {
+                            server.Connect(ip);
+                        }
+                        catch (SocketException e)
+                        {
+                            Console.WriteLine("Unable to connect to server.");
+                            return;
+                        }
+
+                        String query = "InsertInto" + listEntries.ElementAt(i).Score + "&" +
+                                   listEntries.ElementAt(i).Name + "&" + listEntries.ElementAt(i).Date + "\r\n";
+                        server.Send(Encoding.ASCII.GetBytes(query));
+
+                        server.Shutdown(SocketShutdown.Both);
+                        server.Close();
                     }
-
-                    server.Send(Encoding.ASCII.GetBytes("InsertInto101&BenPowell&10.26.11\r\n"));
-
-                    server.Send(Encoding.ASCII.GetBytes("InsertInto" + listEntries.ElementAt(i).Score + "&" +
-                           listEntries.ElementAt(i).Name + "&" + listEntries.ElementAt(i).Date + "&"));
-
-                    /*data = new byte[1024];
-                    receivedDataLength = server.Receive(data);
-                    stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);*/
-
-                    server.Shutdown(SocketShutdown.Both);
-                    server.Close();
                 }
             }
 
