@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Exeggcute.src.sound;
+using System.Speech.Synthesis;
 
 namespace Exeggcute.src
 {
@@ -84,10 +85,10 @@ namespace Exeggcute.src
 
         private Boss boss;
 
-        private Song levelTheme;
-        private Song bossTheme;
+        private static Song levelTheme;
+        private static Song bossTheme;
 
-        public SongPlayer SongPlayer = new SongPlayer(true, 0.05f, 600);
+        public static SongPlayer SongPlayer = new SongPlayer(true, 1f, 300);
 
         public readonly int InitialScore;
 
@@ -126,8 +127,8 @@ namespace Exeggcute.src
             this.taskList    = tasks;
             this.miniBoss    = miniBoss;
             this.mainBoss    = mainBoss;
-            this.levelTheme  = levelTheme;
-            this.bossTheme   = bossTheme;
+            Level.levelTheme  = levelTheme;
+            Level.bossTheme   = bossTheme;
 
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
@@ -145,8 +146,12 @@ namespace Exeggcute.src
             Level.player = player;
             this.InitialScore = player.Score;
             
-            SongPlayer.Play(bossTheme);
-            SongPlayer.Play(levelTheme, 300);
+            //SongPlayer.Play(bossTheme);
+
+
+
+            SongPlayer.SetVolume(1);
+            SongPlayer.Play(levelTheme);
         }
 
         public void ProcessMusic()
@@ -186,7 +191,12 @@ namespace Exeggcute.src
             
                     
         }
-
+        
+        public static void PlayBossMusic()
+        {
+            SongPlayer.SetVolume(1);
+            SongPlayer.Play(bossTheme);
+        }
         private void updateShots(params HashList<Shot>[] lists)
         {
             foreach (HashList<Shot> shots in lists)

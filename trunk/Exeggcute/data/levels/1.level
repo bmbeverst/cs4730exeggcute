@@ -1,44 +1,59 @@
 ﻿@Info:
   MiniBoss: guy2
   MainBoss: guy2
-StageTheme: EggPlanet
+LevelTheme: EggPlanet
  BossTheme: BowsersFleet
-    Roster: test
+    Roster: test0,test1
 
 @Terrain:
       Depth:   10
-     Radius:  100
+     Radius:  200
        Cols:   24
        Rows:  200
    TileSize:    4
-ScrollSpeed: 1E-4
-    Texture: wang8
-Orientation: Outside
+ScrollSpeed:    0.0001
+    Texture:    wang8
+Orientation:    Outside
+       Type:    Varied
+   Variance:    12
 
 @Lights:
-    Ambient:      0.5
+    Ambient:       1
 
-    Dir:          on
-    DirDirection: (0,1,0)
-    DirLevel:     0.1
+    Dir:           on
+    DirDirection:  (0,1,0)
+    DirLevel:      0.1
 
-    Point1:       on
-    Point1Pos:    (0,10,0)
-    Point1Level:  0.5
+    Point1:        on
+    Point1Pos:     (0,10,0)
+    Point1Level:   0.5
 
-    Spot:on
-    SpotPos:     (0,0,0)
-    SpotDir:     (0, -1, 0)
-    SpotInner:   0.3490
-    SpotOuter:   0.6981
-    SpotRange:   10.0
-    SpotLevel:   0.0
+    Spot:          on
+    SpotPos:       (0,0,0)
+    SpotDir:       (0, -1, 0)
+    SpotInner:     0.3490
+    SpotOuter:     0.6981
+    SpotRange:     10.0
+    SpotLevel:     0.0
+
+
+
 
 @TaskList:
-spawn 0 ([0|20],40,0) 0
-spawn 0 (0,40,0) 0
+spawn 0 (-20,40,0) 0
+wait 7
 spawn 0 (-10,40,0) 0
-wait 20
+wait 7
+spawn 0 (0,40,0) 0
+wait 7
+spawn 0 (10,40,0) 0
+wait 7
+spawn 0 (20,40,0) 0
+wait 7
+
+wait 120
+#spawn 1 (0,40,0) 0
+#wait 900
 killall
 wait 1
 boss

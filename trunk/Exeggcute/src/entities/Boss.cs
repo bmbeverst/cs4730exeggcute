@@ -69,13 +69,18 @@ namespace Exeggcute.src.entities
             this.attacks = attacks;
             this.arsenal = Arsenal.None;
         }
-
+        bool songStarted = false;
         public override void Update()
         {
             base.Update();
             hurtSound.Update();
             if (isStarted && !isDefeated)
             {
+                if (!songStarted)
+                {
+                    Level.PlayBossMusic();
+                    songStarted = true;
+                }
                 if (Health <= 0 || currentTimer.IsDone)
                 {
                     currentTimer.Reset();

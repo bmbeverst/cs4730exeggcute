@@ -1,7 +1,3 @@
-﻿spawn rel 10
-spawn rel 5
-spawn rel 0
-spawn rel -5
-spawn rel -10
-wait 10
+﻿spawn rel [-30|30]
+wait 30
 loop

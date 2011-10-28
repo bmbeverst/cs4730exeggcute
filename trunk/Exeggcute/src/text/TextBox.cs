@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Speech.Synthesis;
 
 namespace Exeggcute.src.text
 {
     class TextBox
     {
+        private SpeechSynthesizer synth;
         private List<TextLine> lines;
         private int linePtr;
+        private string total;
+        private bool speechStarted;
         public TextLine CurrentLine
         {
             get { return lines[linePtr]; }
@@ -28,6 +32,25 @@ namespace Exeggcute.src.text
         public TextBox(List<TextLine> lines)
         {
             this.lines = lines;
+            this.total = "";
+            foreach (var line in lines)
+            {
+                total += line.Line;
+            }
+
+            synth = new SpeechSynthesizer();
+            synth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.NotSet, 0);
+            //synth.SelectVoice("LH Michael");
+        }
+
+        public void Start()
+        {
+            synth.SpeakAsync(total);
+        }
+
+        public void Stop()
+        {
+            synth.SpeakAsyncCancelAll();
         }
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color, float spacingY)
@@ -46,6 +69,7 @@ namespace Exeggcute.src.text
         /// </summary>
         public void Increment()
         {
+            if (!speechStarted) Start();
             if (IsDone) throw new InvalidOperationException("Do not increment if IsDone");
             if (!CurrentLine.IsDone)
             {

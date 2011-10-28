@@ -12,7 +12,7 @@ deathScript: death0
 
 @Behavior: 
 moverel (0,-30,0) 100
-shoot 0 900
+shoot 0 1800
 wait 900
 moverel (0,50,0) 100
 delete
