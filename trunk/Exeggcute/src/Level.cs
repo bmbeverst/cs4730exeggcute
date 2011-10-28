@@ -77,17 +77,19 @@ namespace Exeggcute.src
 
         private VisualizationData soundData = new VisualizationData();
 
-        private GrowBox shotEater = null;
+        private GrowBox shotEater;
 
-        private Boss mainBoss = null;
-        private Boss miniBoss = null;
+        private Boss mainBoss;
+        private Boss miniBoss;
 
-        private Boss boss = null;
+        private Boss boss;
 
-        private Song levelTheme = null;
-        private Song bossTheme = null;
+        private Song levelTheme;
+        private Song bossTheme;
 
         public SongPlayer SongPlayer = new SongPlayer(true, 0.05f, 600);
+
+        public readonly int InitialScore;
 
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
@@ -141,7 +143,7 @@ namespace Exeggcute.src
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
             Level.player = player;
-
+            this.InitialScore = player.Score;
             
             SongPlayer.Play(bossTheme);
             SongPlayer.Play(levelTheme, 300);

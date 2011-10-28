@@ -22,11 +22,9 @@ namespace Exeggcute.src.entities
         public float MoveSpeed { get; protected set; }
         public float FocusSpeed { get; protected set; }
 
-        //private Spawner shotSpawner;
-
         private int lives;
         private int bombs;
-        private int score;
+        public int Score { get; protected set; }
 
         public bool CanControl
         {
@@ -107,7 +105,7 @@ namespace Exeggcute.src.entities
             this.lightLevel = lightLevel;
 
             this.graze = 0;
-            this.score = 0;
+            this.Score = 0;
 
             this.lives = numLives;
             this.bombs = numBombs;
@@ -356,7 +354,7 @@ namespace Exeggcute.src.entities
                 BombSprite.Draw(batch, new Vector2(100, i * 40));
             }
             //9 decimal places
-            string scoreString = string.Format("Score {0:000,000,000}", score);
+            string scoreString = string.Format("Score {0:000,000,000}", Score);
             batch.DrawString(scoreFont, scoreString, new Vector2(10, 120), Color.White);
             string grazeString = string.Format("Graze       {0:0,000}", graze);
             batch.DrawString(scoreFont, grazeString, new Vector2(10, 150), Color.White);
@@ -384,12 +382,12 @@ namespace Exeggcute.src.entities
         public void Graze(Shot shot)
         {
             graze += 1;
-            score += graze * graze;
+            Score += graze * graze;
         }
 
         public void Collect(Item item)
         {
-            score += 100;
+            Score += 100;
             Util.Warn("FIXME");
             //throw new InvalidOperationException("can only collect types of items");
         }
