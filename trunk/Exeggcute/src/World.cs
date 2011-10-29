@@ -89,7 +89,16 @@ namespace Exeggcute.src
         
         public static void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            Terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
+            if (Terrain == menuTerrain)
+            {
+
+                Terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
+            }
+            else
+            {
+                Terrain.Draw(graphics, camera.GetView(), camera.GetProjection());
+            
+            }
             stack.Peek().Draw(graphics, batch);
         }
 
@@ -350,9 +359,10 @@ namespace Exeggcute.src
                 throw new InvalidOperationException("Can only pop yourself");
             }
         }
-
+        private static WangMesh savedTerrain;
         public static void Pause()
         {
+            savedTerrain = Terrain;
             Terrain = menuTerrain;
             if (pauseMenu == null)
             {
@@ -384,6 +394,7 @@ namespace Exeggcute.src
             {
                 throw new InvalidOperationException("Only can unpause from the pause menu");
             }
+            Terrain = savedTerrain;
             stack.Pop();
         }
 
