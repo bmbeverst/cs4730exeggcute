@@ -10,11 +10,9 @@ namespace Exeggcute.src.scripting.task
 {
     class TaskListLoader : ScriptParser<Task>
     {
-        public override List<Task> FromFile(string data)
-        {
-            List<string> lines = Util.StripComments(data, true);
-            return base.ParseLines(lines);
-        }
+
+
+
         protected override List<Task> parseElement(Stack<string> tokens)
         {
             TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());

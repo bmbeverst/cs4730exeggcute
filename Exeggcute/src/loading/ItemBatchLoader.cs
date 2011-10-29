@@ -16,6 +16,7 @@ namespace Exeggcute.src.loading
             List<Item> items = Load(filepath, out dispersion);
             return new ItemBatch(items, dispersion);
         }
+
         public List<Item> Load(string filepath, out Float3 dispersion)
         {
             List<Item> items = new List<Item>();

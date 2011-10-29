@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
 using Exeggcute.src.loading;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
@@ -16,8 +17,9 @@ namespace Exeggcute.src
             List<string> lines = Util.ReadAndStrip(filepath, true);
             foreach (string line in lines)
             {
-                GibInfo entry = new GibInfo(line);
-                gibs.Add(entry.MakeGib());
+                BodyInfo body = BodyBank.Get(line);
+                Gib gib = new Gib(body.Model, body.Texture, body.Scale.Value, body.Radius.Value, body.Rotation.Value);
+                gibs.Add(gib);
             }
         }
 

@@ -49,13 +49,11 @@ The sound volume in game. Values are between 0 and 100.
             List<string> commentLines = new List<string>();
             for (int i = 0; i < lines.Count; i += 1 )
             {
-                //Console.WriteLine(lines[i]);
                 if (ConfigItem.IsComment(lines[i]))
                 {
                     commentLines.Add(lines[i]);
                     continue;
                 }
-                //Console.WriteLine("Setting line: {0}", lines[i]);
                 Lines.Add(new ConfigItem(lines[i], i, commentLines));
                 commentLines.Clear();
             }

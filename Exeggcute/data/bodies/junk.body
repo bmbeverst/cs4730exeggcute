@@ -1,3 +1,5 @@
 ﻿model:    junk1
 texture:  junk
-scale:    1
+scale:    0.3
+radius:   1
+rotation: (0,0,0)

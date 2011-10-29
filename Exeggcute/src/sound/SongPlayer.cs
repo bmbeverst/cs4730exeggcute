@@ -31,6 +31,7 @@ namespace Exeggcute.src.sound
 
         public void Play(Song song)
         {
+            //return;
             MediaPlayer.IsRepeating = Loop;
             if (IsPlaying)
             {

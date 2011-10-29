@@ -5,11 +5,13 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
+using Exeggcute.src.entities.items;
 
 namespace Exeggcute.src.entities
 {
     abstract class PlanarEntity3D : Entity3D
     {
+        public Model Surface { get; protected set; }
         public Texture2D Texture { get; protected set; }
         public Vector3 PrevPosition { get; protected set; }
         protected float[] param = new float[16];
@@ -137,8 +139,10 @@ namespace Exeggcute.src.entities
 
         public float Scale { get; protected set; }
 
-        
-
+        /*public float ModelRotX { get; protected set; }
+        public float ModelRotY { get; protected set; }
+        public float ModelRotZ { get; protected set; }*/
+        public Vector3 ModelRotation;
         private float vx
         {
             get { return Speed * FastTrig.Cos(Angle); }
@@ -152,16 +156,20 @@ namespace Exeggcute.src.entities
             //FIXME: cache!
             get { return new Vector3(vx, vy, 0); }
         }
-
+        public Matrix BaseMatrix { get; protected set; }
         public Vector2 Position2D
         {
             get { return new Vector2(Position.X, Position.Y); }
         }
-        public PlanarEntity3D(Model model, Texture2D texture, float scale, Vector3 pos)
-            : base(model, pos)
+        public Vector3 DegRotation;
+        public PlanarEntity3D(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, Vector3 pos)
+            : base(pos, radius)
         {
+            this.Surface = model;
             this.Texture = texture;
             this.Scale = scale;
+            this.DegRotation = rotation;
+            this.ModelRotation = DegRotation * FastTrig.degreesToRadians;
             this.Mass = 1000.0f;
             foreach (ModelMesh mesh in model.Meshes)
             {
@@ -170,6 +178,13 @@ namespace Exeggcute.src.entities
                     part.Effect = EffectBank.Get("light0");
                 }
             }
+
+            BaseMatrix =
+                Matrix.CreateScale(Scale) * 
+                Matrix.CreateRotationX(ModelRotation.X) *
+                Matrix.CreateRotationY(ModelRotation.Y) *
+                Matrix.CreateRotationZ(ModelRotation.Z);
+            
         }
 
         public PlanarEntity3D(Vector3 pos)
@@ -204,16 +219,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Influence(Vector3 accel, float terminal)
         {
-            /*if (accel.Equals(Vector3.Zero)) return;
-            //Console.WriteLine("accel:{0}", accel);
-            float x = accel.X + vx;
-            float y = accel.Y + vy;
-            Vector2 newVelocity = new Vector2(x, y);
-            Speed = newVelocity.Length();
-            //Console.WriteLine("{0} ({1},{2})",Speed, x, y);
-            //Console.Write("OLD ({0}, ");
-            Angle = FastTrig.Atan2(newVelocity.Y, newVelocity.X);
-            //Console.WriteLine("{0}) NEW", Angle);*/
+
             VelocityZ += accel.Z;
             VelocityZ = Math.Min(VelocityZ, terminal);
             
@@ -258,8 +264,11 @@ namespace Exeggcute.src.entities
                     currentEffect.Projection = projection;*/
 
                     Matrix world = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationZ(Angle) *
+                        /*Matrix.CreateScale(Scale) *
+                        Matrix.CreateRotationX(ModelRotation.X) *
+                        Matrix.CreateRotationY(ModelRotation.Y) **/
+                        BaseMatrix *
+                        Matrix.CreateRotationZ(Angle /*+ ModelRotation.Z*/) *
                         Matrix.CreateTranslation(Position);
                     currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                     currentEffect.Parameters["xWorld"].SetValue(world);

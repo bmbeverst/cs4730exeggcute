@@ -20,7 +20,8 @@ namespace Exeggcute.src.entities
         public int? Health;
         public int? Defense;
 
-        public EnemyInfo(List<string[]> tokenList)
+        public EnemyInfo(string filename, List<string[]> tokenList)
+            : base(filename)
         {
             loadFromTokens(tokenList);
         }

@@ -1,0 +1,5 @@
+﻿model:    torus
+texture:  rainbow
+scale:    0.1
+radius:   1
+rotation: (0,0,0)

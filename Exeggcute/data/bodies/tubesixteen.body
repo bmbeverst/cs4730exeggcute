@@ -1,0 +1,5 @@
+﻿model:    tube
+texture:  sixteen0
+scale:    0.05
+radius:   2
+rotation: (0,90,0)

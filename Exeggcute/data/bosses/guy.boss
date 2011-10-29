@@ -1,7 +1,7 @@
 ﻿#SAMPLE BOSS
 @info:
 name:         Guy'sName #cant contain spaces atm, sorry
-body:         player0
+body:         boss0
 entryScript:  entry0
 defeatScript: entry0
 deathScript:  bossdeath0

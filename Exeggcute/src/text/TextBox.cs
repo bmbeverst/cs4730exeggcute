@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Speech.Synthesis;
+using Exeggcute.src.graphics;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.text
 {
@@ -15,6 +17,7 @@ namespace Exeggcute.src.text
         private int linePtr;
         private string total;
         private bool speechStarted;
+        
         public TextLine CurrentLine
         {
             get { return lines[linePtr]; }
@@ -28,7 +31,15 @@ namespace Exeggcute.src.text
             }  
         }
 
-        
+        public static Sprite UpperLeftSprite;
+        public static Sprite UpperRightSprite;
+        public static Sprite LowerLeftSprite;
+        public static Sprite LowerRightSprite;
+        public static Sprite LeftSprite;
+        public static Sprite RightSprite;
+        public static Sprite TopSprite;
+        public static Sprite LowerSprite;
+        public static Sprite MiddleSprite;
         public TextBox(List<TextLine> lines)
         {
             this.lines = lines;
@@ -39,8 +50,21 @@ namespace Exeggcute.src.text
             }
 
             synth = new SpeechSynthesizer();
-            synth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.NotSet, 0);
+            synth.SelectVoiceByHints(VoiceGender.NotSet, VoiceAge.NotSet, 0);
             //synth.SelectVoice("LH Michael");
+        }
+
+        public static void LoadSprites()
+        {
+            UpperLeftSprite = SpriteBank.Get("textboxUL");
+            UpperRightSprite = SpriteBank.Get("textboxUR");
+            LowerLeftSprite = SpriteBank.Get("textboxLL");
+            LowerRightSprite = SpriteBank.Get("textboxLR");
+            LeftSprite = SpriteBank.Get("textboxLeft");
+            RightSprite = SpriteBank.Get("textboxRight");
+            TopSprite = SpriteBank.Get("textboxTop");
+            LowerSprite = SpriteBank.Get("textboxLower");
+            MiddleSprite = SpriteBank.Get("textboxMiddle");
         }
 
         public void Start()

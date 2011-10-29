@@ -42,7 +42,6 @@ namespace Exeggcute.src.physics
             if (d < DeadZone) return Vector3.Zero;
             float d_pow = (float)Math.Pow((double)r.Length(), (double)(Exponent + 1.0));
             Vector3 result  = ((Mass * otherMass * PhysicsManager.BigG) / d_pow) * r;
-            Console.WriteLine(result);
             return -result;
         }
 

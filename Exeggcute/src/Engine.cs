@@ -69,10 +69,14 @@ namespace Exeggcute.src
 
             ConversationBank.LoadAll();
 
+            PlayerBank.LoadAll();
             loadMenus();
 
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
+            TextBox.LoadSprites();
+            //World.LoadTerrain();
+            AssetManager.Commit();
 
         }
 
@@ -86,7 +90,7 @@ namespace Exeggcute.src
             ModelBank.LoadAll(content);
             SfxBank.LoadAll(content);
             SongBank.LoadAll(content);
-            mySound = SfxBank.MakeRepeated("bosshurt3");
+            mySound = SfxBank.MakeRepeated("1pew");
         }
 
         private void loadMenus()
@@ -130,7 +134,6 @@ namespace Exeggcute.src
         {
             controls.WriteToFile();
             scoreSet.WriteLocal();
-            Util.Debug("message");
             Util.WriteLog();
             Environment.Exit(1);
         }

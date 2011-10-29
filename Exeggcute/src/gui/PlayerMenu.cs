@@ -16,20 +16,15 @@ namespace Exeggcute.src.gui
     /// </summary>
     class PlayerMenu : Menu
     {
-        public static List<Button> MakeButtons(SpriteFont font, Color fontColor, bool canUseCustom)
+        public static List<Button> MakeButtons(SpriteFont font, Color fontColor, bool isCustom)
         {
-            if (!PlayerBank.IsLoaded)
-            {
-                PlayerBank.LoadAll();
-            }
             SpriteFont myfont = FontBank.Get("consolas");
             Color color = Color.Black;
             Rectangle bounds = new Rectangle(500, 500, 100, 100);
             List<Button> buttons = new List<Button>();
-            foreach (Player player in PlayerBank.GetAll())
+            foreach (Player player in PlayerBank.GetAll(isCustom))
             {
-                Console.WriteLine("yes");
-                if (!canUseCustom && player.IsCustom)
+                if (!isCustom && player.IsCustom)
                 {
                     continue;
                 }
@@ -47,18 +42,45 @@ namespace Exeggcute.src.gui
 
         public bool CanUseCustom { get; protected set; }
 
-        public PlayerMenu(List<Button> buttons, Rectangle bounds, bool canUseCustom)
+        List<Player> playerCopies = new List<Player>();
+
+        public PlayerMenu(List<Player> players, List<Button> buttons, Rectangle bounds, bool canUseCustom)
             : base(buttons, bounds, false)
         {
+
+            
             this.CanUseCustom = canUseCustom;
+            foreach (Player player in players)
+            {
+
+                player.DoDemo();
+                playerCopies.Add(player);
+            }
         }
-
-
+        public override void Update(ControlManager controls)
+        {
+            base.Update(controls);
+            playerCopies[cursor].Update();
+            foreach (Shot shot in World.PlayerShots.GetKeys())
+            {
+                shot.Update();
+            }
+        }
         public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
             batch.Begin();
             base.Draw(graphics, batch);
+            
             batch.End();
+
+            Matrix view = World.camera.GetView();
+            Matrix projection = World.camera.GetProjection();
+            //playerCopies[cursor].SetPosition(new Vector3(0, 0, 0));
+            playerCopies[cursor].Draw(graphics, view, projection);
+            foreach (Shot shot in World.PlayerShots.GetKeys())
+            {
+                shot.Draw(graphics, view, projection);
+            }
         }
 
         public override void Back()

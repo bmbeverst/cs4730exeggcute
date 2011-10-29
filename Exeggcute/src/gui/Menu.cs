@@ -10,6 +10,7 @@ using Exeggcute.src.graphics;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
+using Exeggcute.src.text;
 
 namespace Exeggcute.src.gui
 {
@@ -20,29 +21,38 @@ namespace Exeggcute.src.gui
         protected List<Vector2> drawPositions;
         protected Rectangle buttonBounds;
         protected RectSprite outline;
+        protected RectSprite outlineShadow;
+
         protected bool loops;
         protected float buttonHeight;
         protected Sprite cursorSprite;
         protected SpriteFont font;
         protected Color fontColor;
-        protected RepeatedSound selectSound;
+        protected SoundEffect selectSound;
         protected SoundEffect cancelSound;
 
         public Menu(List<Button> buttons, Rectangle bounds, bool loops)
         {
+            Color bgColor = new Color(0, 170, 0);
             this.font = FontBank.Get("consolas");
             this.fontColor = Color.White;
             this.buttonHeight = buttons[0].Height;
             this.cursor = 0;
             this.buttons = buttons;
             this.loops = loops;
-            this.buttonBounds = bounds;
-            this.outline = new RectSprite(buttonBounds, Color.Black, false);
+            this.buttonBounds = Util.NearestMult(bounds, 16);
+            this.outline = new RectSprite(buttonBounds, bgColor, true);
+            int shadowOffset = 6;
+            Rectangle offsetOutline = new Rectangle(buttonBounds.Left + shadowOffset,
+                                                    buttonBounds.Top + shadowOffset,
+                                                    buttonBounds.Width + shadowOffset * 2,
+                                                    buttonBounds.Height + shadowOffset * 2);
+            this.outlineShadow = new RectSprite(offsetOutline, Color.Black, true);
             this.drawPositions = new List<Vector2>();
             Texture2D cursorTexture = TextureBank.Get("cursor");
             this.cursorSprite = new StaticSprite(cursorTexture, new Point(0, 0), 16, 16);
-            int x = bounds.X;
-            int y = bounds.Y;
+            int x = buttonBounds.X;
+            int y = buttonBounds.Y;
             float spacing = buttonHeight;
             for (int i = 0; i < buttons.Count; i += 1)
             {
@@ -51,7 +61,7 @@ namespace Exeggcute.src.gui
             }
 
             this.cancelSound = SfxBank.DeprecatedGetSound("back");
-            this.selectSound = SfxBank.MakeRepeated("select");
+            this.selectSound = SfxBank.DeprecatedGetSound("select");
 
         }
 
@@ -62,7 +72,6 @@ namespace Exeggcute.src.gui
 
         public virtual void Select()
         {
-            Console.WriteLine("Should have played");
             selectSound.Play();
         }
 
@@ -75,15 +84,33 @@ namespace Exeggcute.src.gui
 
         public virtual void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            cursorSprite.Draw(batch, new Vector2(buttonBounds.Left - cursorSprite.Width - 3, buttonBounds.Top + buttonHeight * cursor));
+            int xOffset = -16;
+            outlineShadow.Draw(batch, drawPositions[0] + new Vector2(xOffset + 16, 16));
+            outline.Draw(batch, drawPositions[0] + new Vector2(xOffset, 0));
+            TextBox.UpperLeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Top - 16));
+            TextBox.LowerLeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Bottom));
+            TextBox.UpperRightSprite.Draw(batch, new Vector2(buttonBounds.Right + xOffset, buttonBounds.Top - 16));
+            TextBox.LowerRightSprite.Draw(batch, new Vector2(buttonBounds.Right + xOffset, buttonBounds.Bottom));
+            for (int i = 0; i < buttonBounds.Width / 16; i += 1)
+            {
+                TextBox.TopSprite.Draw(batch, new Vector2(buttonBounds.Left + i * 16 + xOffset, buttonBounds.Top - 16));
+                TextBox.LowerSprite.Draw(batch, new Vector2(buttonBounds.Left + i * 16 + xOffset, buttonBounds.Bottom));
+            }
+            for (int i = 0; i < buttonBounds.Height / 16; i += 1)
+            {
+                TextBox.LeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Top + i * 16));
+                TextBox.RightSprite.Draw(batch, new Vector2(buttonBounds.Right + xOffset, buttonBounds.Top + i * 16));
+            }
+
+            cursorSprite.Draw(batch, new Vector2(buttonBounds.Left - cursorSprite.Width - 3, buttonBounds.Top + buttonHeight * cursor + 5));
             for (int i = 0; i < buttons.Count; i += 1)
             {
                 buttons[i].Draw(batch, drawPositions[i]);
             }
-            outline.Draw(batch, drawPositions[0]);
+            
         }
 
-
+        
         public virtual void Load(ContentManager content)
         {
 
@@ -113,7 +140,6 @@ namespace Exeggcute.src.gui
 
         public virtual bool ResolveCursor()
         {
-            selectSound.Update();
             if (loops)
             {
                 cursor = (cursor + buttons.Count) % buttons.Count;
@@ -129,7 +155,6 @@ namespace Exeggcute.src.gui
                 else if (cursor > buttons.Count - 1)
                 {
                     cursor = buttons.Count - 1;
-                    Console.WriteLine("this universe");
                     return false;
                 }
                 else

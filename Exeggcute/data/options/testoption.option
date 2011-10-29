@@ -1,6 +1,6 @@
-﻿  BodyInfo: whitecube
+﻿  BodyInfo: torus0
     Damage: 10
   Behavior: aimplayer
 Trajectory: basic
      Spawn: 0enemy0
- ShotSound: dink
+ ShotSound: 1pew

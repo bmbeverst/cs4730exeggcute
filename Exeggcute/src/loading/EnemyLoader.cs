@@ -12,24 +12,31 @@ namespace Exeggcute.src.loading
 {
     class EnemyLoader
     {
+        private static string getFilename(string name)
+        {
+            return string.Format("data/enemies/{0}.enemy", name);
+            
+        }
         public static Enemy Load(string name)
         {
-            string filepath = string.Format("data/enemies/{0}.enemy", name);
-            Data enemyData = new Data(filepath);
+            string filename = getFilename(name);
+            Data enemyData = new Data(filename);
             DataSection infoSection = enemyData[0];
             if (!infoSection.Tag.Equals("info",  StringComparison.CurrentCultureIgnoreCase))
             {
                 throw new ParseError("info section must come first");
             }
-            EnemyInfo info = new EnemyInfo(infoSection.Tokens);
+            EnemyInfo info = new EnemyInfo(filename, infoSection.Tokens);
 
             DataSection behaviorSection = enemyData[1];
             ScriptLoader scriptLoader = new ScriptLoader();
-            List<List<ActionBase>> actions = scriptLoader.RawFromLines(behaviorSection.Lines);
-            BehaviorScript behavior = new BehaviorScript(new ScriptBase(filepath, actions));
+            List<List<ActionBase>> actions = scriptLoader.RawFromLines(filename, behaviorSection.Lines);
+            BehaviorScript behavior = new BehaviorScript(new ScriptBase(filename, actions));
             Enemy enemy = new Enemy(info.Body.Model,
                                     info.Body.Texture,
                                     info.Body.Scale.Value,
+                                    info.Body.Radius.Value,
+                                    info.Body.Rotation.Value,
                                     info.Health.Value,
                                     info.Defence.Value,
                                     info.arsenal,

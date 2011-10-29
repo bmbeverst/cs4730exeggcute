@@ -1,0 +1,5 @@
+﻿model:    pyramid
+texture:  void
+scale:    0.1
+radius:   1
+rotation: (0,0,0)

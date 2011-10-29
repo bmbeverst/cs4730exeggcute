@@ -18,16 +18,16 @@ namespace Exeggcute.src.gui
     class ListButton : Button 
     {
 
-        public IDrawable2D Image { get; protected set; }
+        public SpriteText Text { get; protected set; }
 
         public override int Height
         {
-            get { return Image.Height; }
+            get { return Text.Height; }
         }
-        public ListButton(ContextEvent activate, IDrawable2D image)
+        public ListButton(ContextEvent activate, SpriteText text)
             : base(null, null, activate, null)
         {
-            Image = image;
+            this.Text = text;
         }
 
         
@@ -49,10 +49,23 @@ namespace Exeggcute.src.gui
             }
             base.Update(controls);
         }
+        static float scale = 2;
+        Vector2[] offsets = new Vector2[] {
+            new Vector2(scale,scale),
+            //new Vector2(scale,-scale),
+            //new Vector2(-scale,-scale),
+            //new Vector2(-scale,scale),
+             
 
+        };
         public override void Draw(SpriteBatch batch, Vector2 pos)
         {
-            if (Image != null) Image.Draw(batch, pos);
+            if (Text == null) return;
+            foreach (Vector2 offset in offsets)
+            {
+                Text.Draw(batch, pos + offset, Color.Black);
+            }
+            Text.Draw(batch, pos);
         }
 
         protected override void moveUp()

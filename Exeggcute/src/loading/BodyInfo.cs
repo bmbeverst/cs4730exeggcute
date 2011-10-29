@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.loading
 {
@@ -13,10 +14,14 @@ namespace Exeggcute.src.loading
         public Model Model;
         public Texture2D Texture;
         public float? Scale;
+        public float? Radius;
+        public Vector3? Rotation;
 
         public BodyInfo(string filename)
+            : base(filename)
         {
             loadFromFile(filename);
+            
         }
 
         public static BodyInfo Parse(string s)

@@ -33,6 +33,8 @@ namespace Exeggcute.src.entities
         public Enemy(Model model,
                      Texture2D texture,
                      float scale,
+                     float radius,
+                     Vector3 rotation,
                      int health,
                      int defence,
                      Arsenal arsenal,
@@ -44,7 +46,7 @@ namespace Exeggcute.src.entities
                      HashList<Shot> shotHandle,
                      HashList<Gib> gibHandle,
                      HashList<Item> itemHandle)
-            : base(model, texture, scale, behavior, deathSound, arsenal, gibBatch, shotHandle, gibHandle)
+            : base(model, texture, scale, radius, rotation, behavior, deathSound, arsenal, gibBatch, shotHandle, gibHandle)
         {
             this.Health = health;
             this.Defence = defence;
@@ -55,33 +57,13 @@ namespace Exeggcute.src.entities
         }
                      
 
-        /// <summary>
-        /// TODO FIXME (8:10:51 AM) ZRP: i can just have 
-        ///setParam health 100
-        ///setParam defence 10
-        /// </summary>
-        /*public Enemy(RosterEntry entry, 
-                     ScriptInstance deathScript, 
-                     ItemBatch heldItems, 
-                     HashList<Shot> enemyShots, 
-                     HashList<Gib> gibList, 
-                     HashList<Item> itemList)
-            : base(entry.Surface, entry.Texture, entry.Behavior, entry.GetArsenal(World.EnemyShots), enemyShots, gibList)
-        {
-            Health = 100;
-            this.rosterParams = entry;
-            this.shotListHandle = shotList;
-            this.gibListHandle = gibList;
-            this.heldItems = heldItems;
-            this.deathScript = GetDeathScript();
-            this.itemListHandle = World.ItemList;
-        }*/
-
         public Enemy Clone(Float3 pos, FloatValue angle)
         {
             Enemy cloned = new Enemy(Surface, 
                                      Texture, 
                                      Scale, 
+                                     Radius,
+                                     ModelRotation,
                                      Health, 
                                      Defence, 
                                      arsenal,
@@ -114,31 +96,18 @@ namespace Exeggcute.src.entities
                 ProcessPhysics();
             }
 
-            //Console.WriteLine("{0} {1} {2}", IsDying, cmdPtr, IsShooting);
             if (Health <= 0 && !IsDying)
             {
                 World.DyingList.Add(this);
                 IsDying = true;
                 script = deathScript;
-                //Console.WriteLine(deathActions.Name.ToString());
                 actionPtr = 0;
                 arsenal.StopAll();
                 //use giblist
                 //TODO make enemies transparent when dying
                 
             }
-            /*else if (IsDying)
-            {
-                Util.Die("is dying");
-                //Console.WriteLine(cmdPtr);
-                if (actionPtr == script.Count)
-                {
-                    Vector3 deathpos = new Vector3(X, Y, 0);
-                    Util.Die("released");
-                    heldItems.Release(itemListHandle, deathpos);
-                    IsTrash = true;
-                }
-            }*/
+
 
         }
 
@@ -152,7 +121,7 @@ namespace Exeggcute.src.entities
             foreach (Gib gib in gibBatch.gibs)
             {
                 //FIXME double copying
-                Gib newGib = new Gib(gib.Surface, gib.Texture, gib.Scale, Position2D, Speed, Angle);
+                Gib newGib = new Gib(gib.Surface, gib.Texture, gib.Scale,gib.Radius, gib.ModelRotation, Position2D, Speed, Angle);
                 gibListHandle.Add(newGib);
             }
             heldItems.Release(itemListHandle, deathpos);
@@ -161,7 +130,6 @@ namespace Exeggcute.src.entities
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             base.Draw(graphics, view, projection);
-            arsenal.Draw(graphics, view, projection, Position);
         }
 
     }

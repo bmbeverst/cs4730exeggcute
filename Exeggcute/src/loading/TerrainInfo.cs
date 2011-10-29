@@ -27,7 +27,14 @@ namespace Exeggcute.src.loading
         public Concavity? Orientation;
         public TerrainType? Type;
 
-        public TerrainInfo(List<string[]> lines)
+        public TerrainInfo(string filename)
+            : base(filename)
+        {
+            loadFromFile(filename);
+        }
+
+        public TerrainInfo(string filename, List<string[]> lines)
+            : base(filename)
         {
             this.loadFromTokens(lines);
         }

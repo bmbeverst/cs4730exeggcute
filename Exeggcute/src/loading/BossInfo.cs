@@ -27,9 +27,10 @@ namespace Exeggcute.src.loading
         protected float? scale;
 
         public BossInfo(string name)
+            : base(getFilename(name))
         {
             spellcards = new List<Spellcard>();
-            string filename = string.Format("data/bosses/{0}.boss", name);
+            string filename = getFilename(name);
             Data bossData = new Data(filename);
             DataSection info = bossData[0];
             if (!info.Tag.Equals("info", StringComparison.CurrentCultureIgnoreCase))
@@ -41,7 +42,7 @@ namespace Exeggcute.src.loading
             {
                 List<string[]> tokenList = bossData[i].Tokens;
 
-                SpellcardInfo scInfo = new SpellcardInfo(bossData[i].Tokens);
+                SpellcardInfo scInfo = new SpellcardInfo(filename, bossData[i].Tokens);
                 Spellcard next = scInfo.MakeSpellcard();
                 spellcards.Add(next);
             }
@@ -54,6 +55,8 @@ namespace Exeggcute.src.loading
                             body.Model, 
                             body.Texture,
                             body.Scale.Value, 
+                            body.Radius.Value,
+                            body.Rotation.Value,
                             intro, 
                             outro,
                             hurtSound,
@@ -61,6 +64,11 @@ namespace Exeggcute.src.loading
                             defeatScript, 
                             deathScript, 
                             spellcards);
+        }
+
+        private static string getFilename(string name)
+        {
+            return string.Format("data/bosses/{0}.boss", name);
         }
     }
 }

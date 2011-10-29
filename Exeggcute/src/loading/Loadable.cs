@@ -7,12 +7,21 @@ using Exeggcute.src.scripting;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.graphics;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src.loading
 {
+
     abstract class Loadable
     {
         protected char DELIM = ':';
+        public string Filename { get; protected set; }
+        public List<string> methodFails = new List<string>();
+        public Loadable(string filename)
+        {
+            this.Filename = filename;
+        }
+
         protected virtual void loadFromFile(string filepath)
         {
             List<string[]> lines = LinesFromFile(filepath);
@@ -21,74 +30,100 @@ namespace Exeggcute.src.loading
 
         protected virtual void loadFromTokens(List<string[]> tokenList)
         {
-            List<FieldSetter> table = loadTable(tokenList);
-            loadFields(table);
+            List<Pair<FieldInfo, string>> pairs = loadPairs(tokenList);
+            loadFields(pairs);
+
         }
 
-        protected virtual List<FieldSetter> loadTable(List<string[]> tokenList)
+        protected virtual List<Pair<FieldInfo, string>> loadPairs(List<string[]> tokenList)
         {
             Type thisType = this.GetType();
             PropertyInfo[] properties = thisType.GetProperties();
-            if (properties.Length > 0) throw new ParseError("No implemented for properties, sorry");
+            if (properties.Length > 0 && properties[0].Name != "Filename")
+            {
+                throw new ParseError("No implemented for properties, sorry");
+            }
             FieldInfo[] fields = thisType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            List<FieldSetter> table = new List<FieldSetter>();
+            List<Pair<FieldInfo, string>> pairs = new List<Pair<FieldInfo, string>>();
             foreach (string[] tokens in tokenList)
             {
-                FieldSetter setter = parse(tokens, fields);
-                table.Add(setter);
+                Pair<FieldInfo, string> pair = parse(tokens, fields);
+                pairs.Add(pair);
             }
-            return table;
+            return pairs;
         }
 
-        protected virtual void loadFields(List<FieldSetter> table)
+        protected virtual void loadFields(List<Pair<FieldInfo, string>> pairs)
         {
-            Type utilType = typeof(Util);
-
-            foreach (FieldSetter setter in table)
+            bool methodNotFound = false;
+            foreach (var pair in pairs)
             {
-                FieldInfo info = setter.Field;
-                string typeName = info.FieldType.Name;
-                
-                string value = setter.StringValue;
-                Type fieldType = info.FieldType;
-                string typeParseMethodName = "Parse";
-                if (fieldType.IsGenericType)
-                {
-                    Type innerType = fieldType.GetGenericArguments()[0];
-                    if (innerType.IsEnum)
-                    {
+                FieldInfo info = pair.First;
+                string value = pair.Second;
 
-                        string enumParseMethodName = "ParseEnumNullable";
-                        MethodInfo enumParser = utilType.GetMethod(enumParseMethodName);
-                        MethodInfo genericized = enumParser.MakeGenericMethod(innerType);
-                        info.SetValue(this, genericized.Invoke(null, new object[] { value }));
-                    }
-                    else if (innerType.IsPrimitive)
-                    {
-                        string enumParseMethodName = "Parse";
-                        MethodInfo primitiveParser = innerType.GetMethod(enumParseMethodName, new Type[] { typeof(string) });
-                        info.SetValue(this, primitiveParser.Invoke(null, new object[] { value }));
-                    }
-                    
-                }
-                else if (fieldType.GetMethod(typeParseMethodName, new Type[] { typeof(string) }) == null)
+                UnknownType type = UnknownType.MakeType(info, value);
+                try
                 {
-                    string utilParseMethodName = string.Format("Parse{0}", typeName);
-                    
-                    info.SetValue(this, utilType.InvokeMember(utilParseMethodName, BindingFlags.InvokeMethod, null, null, new object[] { value }));
+                    type.SetField(this);
                 }
-                else
+                catch (MethodNotFoundError mnf)
                 {
-                    info.SetValue(this, fieldType.InvokeMember(typeParseMethodName, BindingFlags.InvokeMethod, null, null, new object[] { value }));
+                    methodNotFound = true;
+                    methodFails.Add(mnf.Message);
+                }
+
+            }
+
+            List<string> missing = getUninitialized();
+
+            string errors = "";
+            if (missing.Count > 0)
+            {
+                errors += string.Format("    The following fields in {0} were uninitialized:\n", this.GetType().Name);
+                foreach (string missed in missing)
+                {
+                    errors += string.Format("        {0}\n", missed);
                 }
             }
+
+            if (methodNotFound)
+            {
+                errors += string.Format("    Did not find the following expected methods:\n");
+                foreach (string missed in methodFails)
+                {
+                    errors += string.Format("        {0}", missed);
+                }
+            }
+
+            if (errors.Length > 0)
+            {
+                AssetManager.LogFailure(errors);
+            }
         }
+
+        protected virtual List<string> getUninitialized()
+        {
+            Type thisType = this.GetType();
+            FieldInfo[] fields = thisType.GetFields();
+            List<string> missing = new List<string>();
+            foreach(FieldInfo info in fields)
+            {
+                if (info.DeclaringType == thisType &&
+                    info.GetValue(this) == null)
+                {
+                    string error = string.Format("\"{0}\" of type \"{1}\"", info.Name, info.FieldType) ;
+                    missing.Add(error);
+                }
+            }
+            return missing;
+        }
+
         protected virtual List<string[]> LinesFromFile(string filepath)
         {
             string allText = Util.ReadAllText(filepath);
             return Util.CleanData(allText);
         }
-        protected virtual FieldSetter parse(string[] tokens, FieldInfo[] fields)
+        protected virtual Pair<FieldInfo, string> parse(string[] tokens, FieldInfo[] fields)
         {
             string name = tokens[0];
             FieldInfo info = null;
@@ -104,7 +139,7 @@ namespace Exeggcute.src.loading
                 throw new ParseError("No field with name \"{0}\"", name);
             }
             string stringValue = tokens[1];
-            FieldSetter value = new FieldSetter(info, stringValue);
+            Pair<FieldInfo, string> value = new Pair<FieldInfo, string>(info, stringValue);
             return value;
         }
         protected bool equals(string s0, string s1)
@@ -114,3 +149,65 @@ namespace Exeggcute.src.loading
 
     }
 }
+/*LoadableType loadableType = helper.LoadType;
+Type fieldType = info.FieldType;
+string typeName = fieldType.Name;
+
+BindingFlags flags = BindingFlags.NonPublic |
+                     BindingFlags.InvokeMethod |
+                     BindingFlags.Static |
+                     BindingFlags.Public;
+
+string value = helper.StringValue;
+                
+Type parserType;
+object invoker = null;
+object[] parameters = new object[] { value };
+object parsedValue;
+
+if (fieldType.IsGenericType)
+{
+    //HACK, for now we only look at the first type!
+    Type innerType = fieldType.GetGenericArguments()[0];
+    if (innerType.IsEnum)
+    {
+        parserName = "ParseEnumNullable";
+        MethodInfo enumParser = utilType.GetMethod(parserName, typeSignature);
+        method = enumParser.MakeGenericMethod(innerType);
+        parserType = null;
+        parsedValue = method.Invoke(invoker, parameters);
+        info.SetValue(this, parsedValue);
+        continue;
+    }
+    else if (innerType.IsPrimitive)
+    {
+        parserName = "Parse";
+        parserType = innerType;
+    }
+    else if (!innerType.IsClass) // its a struct!
+    {
+        parserName = "Parse" + innerType.Name;
+        parserType = utilType;
+    }
+    else
+    {
+        throw new ParseError("How do I {0} without magic?", innerType);
+    }
+
+
+}
+else if (hasParserMethod)
+{
+    parserName = string.Format("Parse{0}", typeName);
+    parserType = utilType;
+}
+else
+{
+    parserName = "Parse";
+    parserType = fieldType;
+}
+
+method = parserType.GetMethod(parserName, flags, null, typeSignature, null);
+parsedValue = method.Invoke(invoker, parameters);
+info.SetValue(this, parsedValue);
+}*/

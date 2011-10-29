@@ -67,6 +67,14 @@ namespace Exeggcute.src.assets
             bank.PutWithFile(effect.CreateInstance(), filename);
         }
 
+        public static RepeatedSound MakeRepeated(string name, int duration)
+        {
+            float volume = 1.0f;
+            SoundEffect sound = DeprecatedGetSound(name);
+            RepeatedSound repeated = new RepeatedSound(sound, duration, volume);
+            repeatedBank[name] = repeated;
+            return repeated;
+        }
         public static RepeatedSound MakeRepeated(string name)
         {
             if (repeatedBank.ContainsKey(name))

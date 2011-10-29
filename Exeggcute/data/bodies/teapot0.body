@@ -1,0 +1,5 @@
+﻿model:    teapot
+texture:  sixteen0
+scale:    0.1
+radius:   1
+rotation: (0,0,0)

@@ -21,20 +21,28 @@ namespace Exeggcute.src.scripting.arsenal
         public SpawnScript Spawn;
 
         public OptionInfo(string name)
+            : base(getFilename(name))
         {
             string filename = string.Format("data/options/{0}.option", name);
             loadFromFile(filename);
         }
 
-        public OptionInfo(List<string[]> tokenList)
+        public OptionInfo(string filename, List<string[]> tokenList)
+            : base(filename)
         {
             loadFromTokens(tokenList);
         }
 
         public static OptionInfo Parse(String name)
         {
-            string filename = string.Format("data/options/{0}.option", name);
+            string filename = getFilename(name);
             return new OptionInfo(filename);
+        }
+
+        private static string getFilename(string name)
+        {
+            return string.Format("data/options/{0}.option", name);
+            
         }
     }
 }

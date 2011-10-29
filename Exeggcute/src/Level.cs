@@ -76,7 +76,7 @@ namespace Exeggcute.src
 
         private TaskListLoader loader = new TaskListLoader();
 
-        private VisualizationData soundData = new VisualizationData();
+        
 
         private GrowBox shotEater;
 
@@ -104,6 +104,7 @@ namespace Exeggcute.src
                      Song bossTheme,
                      Boss miniBoss, 
                      Boss mainBoss,
+                     Camera camera,
                      List<Task> tasks, 
                      WangMesh terrain,
                      LightSettings lightSettings)
@@ -114,6 +115,7 @@ namespace Exeggcute.src
             Effect light = EffectBank.Get("light0");
             loadLights(lightSettings, light);
 
+            World.Terrain    = terrain;
             this.terrain     = terrain;
             this.Name        = name;
             this.Difficulty  = difficulty;
@@ -132,7 +134,7 @@ namespace Exeggcute.src
 
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
-            this.camera   = new Camera(100, MathHelper.PiOver2, 1);
+            this.camera   = camera;
             this.Hud      = hud;
 
             Hud.DoFade(FadeType.In);
@@ -144,6 +146,8 @@ namespace Exeggcute.src
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
             Level.player = player;
+            player.SetPosition(Engine.Jail);
+            player.ResetFromDemo();
             this.InitialScore = player.Score;
             
             //SongPlayer.Play(bossTheme);
@@ -276,13 +280,12 @@ namespace Exeggcute.src
         public void Update(ControlManager controls, bool playerCanShoot)
         {
             SongPlayer.Update();
-            MediaPlayer.GetVisualizationData(soundData);
+            
             Hud.Update();
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
-            terrain.Update(soundData.Frequencies);
-            //terrain.Impact(player.X, player.Y, 0, 0);
+
             for (int i = 0; i < 1; i += 1)
             {
                 if (player.Velocity.Equals(Vector3.Zero)) break;
@@ -381,7 +384,6 @@ namespace Exeggcute.src
         {
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
-            terrain.Draw(graphics, view, projection);
 
             player.Draw(graphics, view, projection);
 

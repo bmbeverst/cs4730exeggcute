@@ -6,19 +6,19 @@ LevelTheme: IntoTheGalaxy
     Roster: test0,test1
 
 @Terrain:
-      Depth:   10
+Depth:10
      Radius:  200
        Cols:   24
        Rows:  200
    TileSize:    4
 ScrollSpeed:    0.0001
-    Texture:    wang8
+    Texture:    wang8_3
 Orientation:    Outside
        Type:    Varied
    Variance:    12
 
 @Lights:
-    Ambient:       1
+    Ambient:       0.5
 
     Dir:           on
     DirDirection:  (0,1,0)

@@ -12,6 +12,7 @@ using Exeggcute.src.text;
 using Exeggcute.src.loading;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.entities
 {
@@ -48,6 +49,8 @@ namespace Exeggcute.src.entities
                     Model model, 
                     Texture2D texture, 
                     float scale, 
+                    float radius,
+                    Vector3 rotation, 
                     Conversation intro, 
                     Conversation outro, 
                     RepeatedSound hurtSound,
@@ -55,7 +58,7 @@ namespace Exeggcute.src.entities
                     BehaviorScript defeatScript, 
                     BehaviorScript deathScript, 
                     List<Spellcard> attacks)
-            : base(model, texture, scale, null, World.EnemyShots, World.GibList)
+            : base(model, texture, scale, radius, rotation, null, World.EnemyShots, World.GibList)
         {
             this.hurtSound = hurtSound;
             this.name = name;

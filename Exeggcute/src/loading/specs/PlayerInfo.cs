@@ -26,7 +26,8 @@ namespace Exeggcute.src.loading.specs
         public float? hitRadius;
         public float? lightLevel;
 
-        public PlayerInfo(List<string[]> tokenList)
+        public PlayerInfo(string filename, List<string[]> tokenList)
+            : base(filename)
         {
             loadFromTokens(tokenList);
         }

@@ -16,8 +16,6 @@ namespace Exeggcute.src.gui
         public ScoreMenu(List<Button> buttons, Rectangle bounds)
             : base(buttons, bounds, false)
         {
-            this.buttons = buttons;
-            this.buttonBounds = bounds;
             this.scores = new ScoreSet();
             loadScores();
         }

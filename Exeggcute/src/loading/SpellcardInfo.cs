@@ -19,7 +19,8 @@ namespace Exeggcute.src.loading
         protected ItemBatch items;
         protected string name;
 
-        public SpellcardInfo(List<string[]> tokens)
+        public SpellcardInfo(string filename, List<string[]> tokens)
+            : base(filename)
         {
             loadFromTokens(tokens);
         }
