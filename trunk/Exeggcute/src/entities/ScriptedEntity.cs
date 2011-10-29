@@ -43,8 +43,8 @@ namespace Exeggcute.src.entities
         /// with:
         /// </para>
         /// </summary>
-        public ScriptedEntity(Model model, Texture2D texture, float scale, BehaviorScript behavior)
-            : base(model, texture, scale, Engine.Jail)
+        public ScriptedEntity(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, BehaviorScript behavior)
+            : base(model, texture, scale, radius, rotation, Engine.Jail)
         {
             this.Health = 100;
             this.script = behavior;
@@ -71,8 +71,8 @@ namespace Exeggcute.src.entities
         /// <para> - A model</para>
         /// <para> - No arsenal</para>
         /// </summary>
-        public ScriptedEntity(Model model, Texture2D texture, float scale, TrajectoryScript trajectory)
-            : base(model, texture, scale, Engine.Jail)
+        public ScriptedEntity(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, TrajectoryScript trajectory)
+            : base(model, texture, scale, radius, rotation, Engine.Jail)
         {
             this.script = trajectory;
         }
@@ -93,6 +93,11 @@ namespace Exeggcute.src.entities
             type {0} in script {1}";
             string message = string.Format(error, cmd.GetType(), script);
             throw new NotImplementedException(message);
+        }
+
+        public virtual void Process(UpgradeAction upgrade)
+        {
+            throw new SubclassShouldImplementError("For player only");
         }
 
         /// <summary>
@@ -190,7 +195,6 @@ namespace Exeggcute.src.entities
             Speed = speed;
             Angle = angle;
             LinearAccel = linearAccel;
-            Console.WriteLine("{0} {1} {2}", Speed, Angle, LinearAccel);
         }
 
         public virtual void Process(SpawnAction spawn)

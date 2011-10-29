@@ -30,8 +30,8 @@ namespace Exeggcute.src.loading
             List<Task> taskList = new List<Task>();
             LightSettings lightSettings = null;
 
-            string filepath = string.Format("data/levels/{0}.level", name);
-            string[] sections = File.ReadAllText(filepath).Split('@');
+            string filename = string.Format("data/levels/{0}.level", name);
+            string[] sections = File.ReadAllText(filename).Split('@');
             for (int k = 0; k < sections.Length; k += 1)
             {
                 if (sections[k].Length == 0) continue;
@@ -43,19 +43,19 @@ namespace Exeggcute.src.loading
                 if (matches("info"))
                 {
                     lines.RemoveAt(0);
-                    levelInfo = new LevelInfo(lines);
+                    levelInfo = new LevelInfo(filename, lines);
                 }
                 else if (matches("terrain"))
                 {
                     lines.RemoveAt(0);
-                    TerrainInfo info = new TerrainInfo(lines);
+                    TerrainInfo info = new TerrainInfo(filename, lines);
                     terrain = info.MakeMesh(graphics);
                 }
                 else if (matches("tasklist"))
                 {
                     List<string> lineList = Util.StripComments(sections[k], true);
                     lineList.RemoveAt(0);
-                    taskList = taskLoader.ParseLines(lineList);
+                    taskList = taskLoader.ParseLines(filename, lineList);
                 }
                 else if (matches("lights"))
                 {
@@ -89,6 +89,7 @@ namespace Exeggcute.src.loading
                              levelInfo.BossTheme,
                              levelInfo.MiniBoss,
                              levelInfo.MainBoss,
+                             World.camera,
                              taskList, 
                              terrain,
                              lightSettings);

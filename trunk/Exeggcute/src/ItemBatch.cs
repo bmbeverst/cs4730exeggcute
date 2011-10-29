@@ -27,6 +27,7 @@ namespace Exeggcute.src
             {
                 Vector3 pos = dispersion.Vector3;
                 item.SetPosition(deathPos + pos);
+                Console.WriteLine(item.ModelRotation);
                 itemList.Add(item);
             }
         }

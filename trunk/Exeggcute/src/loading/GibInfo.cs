@@ -10,19 +10,23 @@ namespace Exeggcute.src.loading
 #pragma warning disable 0649
     class GibInfo : Loadable
     {
-        protected Model model;
-        protected Texture2D texture;
-        protected float? scale;
+        protected BodyInfo body;
 
         public GibInfo(string name)
+            : base(getFilename(name))
         {
-            string filename = string.Format("data/bodies/{0}.body", name);
+            string filename = getFilename(name);
             loadFromFile(filename);
         }
 
         public Gib MakeGib()
         {
-            return new Gib(model, texture, scale.Value);
+            return new Gib(body.Model, body.Texture, body.Scale.Value, body.Radius.Value, body.Rotation.Value);
+        }
+
+        public static string getFilename(string name)
+        {
+            return string.Format("data/bodies/{0}.body", name);
         }
     }
 }

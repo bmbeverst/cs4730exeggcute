@@ -10,6 +10,7 @@ using Exeggcute.src.gui;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.ObjectModel;
 using Exeggcute.src.loading;
+using Exeggcute.src.sound;
 
 namespace Exeggcute.src.graphics
 {
@@ -39,6 +40,8 @@ namespace Exeggcute.src.graphics
         private QuadBatch quadBatch;
         private TileMap tilemap;
         private Random rng = new Random();
+
+        private RepeatedSound collideSound;
 
         /// <summary>
         /// The width of the terrain in world coordinates.
@@ -109,7 +112,8 @@ namespace Exeggcute.src.graphics
         {
             //MUST be initialized first!
             this.Orientation = orientation;
-
+            //fixme
+            this.collideSound = SfxBank.MakeRepeated("crash");
             this.Type = type;
             this.heightVariance = heightVariance;
             Texture2D wangTexture = texture;
@@ -261,8 +265,8 @@ namespace Exeggcute.src.graphics
             //y = x * FastTrig.Sin(-Spin) + y * FastTrig.Cos(-Spin);
             int i = (int)((x + Width/2 + TileSize/2) / TileSize);
             int j = (int)(CalculateViewIndex() + (y / TileSize));
-            
-            //Console.WriteLine("locked at {0}, {1}", i, j);
+
+            collideSound.Play();
             for (int tempI = i - 2; tempI < i + 2; tempI++)
             {
                 for (int tempJ = j - 2; tempJ < j + 2; tempJ++)
@@ -305,10 +309,6 @@ namespace Exeggcute.src.graphics
             return (int)(-Rotation / FaceAngle + 0.5f);
         }
 
-        //TODO
-        /// <summary>
-        /// TODO: Make wrap into a cylinder for automagic infinite scrolling!
-        /// </summary>
         public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             /*RasterizerState old = graphics.RasterizerState;
@@ -321,6 +321,15 @@ namespace Exeggcute.src.graphics
             //quadBatch.Draw(graphics, quads, centerDepth, Rotation);
             
             //graphics.RasterizerState = old;
+        }
+        float zRot;
+        public void DrawRot(GraphicsDevice graphics, Matrix view, Matrix projection, float zRotSpeed)
+        {
+            zRot += zRotSpeed;
+            quadBatch.SetCamera(view, projection);
+            int buffer = 22;
+            quadBatch.DrawNearRot(graphics, quads, centerDepth, Rotation, ViewRow, buffer, zRot);
+            
         }
     }
 }

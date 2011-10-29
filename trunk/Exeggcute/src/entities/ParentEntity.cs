@@ -29,13 +29,15 @@ namespace Exeggcute.src.entities
         public ParentEntity(Model model,
                             Texture2D texture, 
                             float scale,
+                            float radius,
+                            Vector3 rotation,
                             BehaviorScript behavior,
                             RepeatedSound deathSound,
                             Arsenal arsenal,
                             GibBatch gibBatch,
                             HashList<Shot> shotListHandle,
                             HashList<Gib> gibListHandle)
-            : base(model, texture, scale, behavior)
+            : base(model, texture, scale, radius, rotation, behavior)
         {
             this.deathSound = deathSound;
             this.gibListHandle = gibListHandle;
@@ -49,11 +51,13 @@ namespace Exeggcute.src.entities
         /// </summary>
         public ParentEntity(Model model,
                             Texture2D texture, 
-                            float scale, 
+                            float scale,
+                            float radius,
+                            Vector3 rotation,
                             GibBatch gibBatch,
                             HashList<Shot> shotListHandle,
                             HashList<Gib> gibListHandle)
-            : base(model, texture, scale, (BehaviorScript)null)//HACK LOLMAO
+            : base(model, texture, scale, radius, rotation, (BehaviorScript)null)//HACK LOLMAO
         {
             this.gibListHandle = gibListHandle;
             this.shotListHandle = shotListHandle;

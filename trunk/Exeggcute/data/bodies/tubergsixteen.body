@@ -1,0 +1,6 @@
+﻿#used for power item
+model:    tube
+texture:  rgsixteen
+scale:    0.05
+radius:   4
+rotation: (90,0,0)

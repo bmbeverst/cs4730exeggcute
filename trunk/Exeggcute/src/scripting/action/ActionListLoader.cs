@@ -14,7 +14,6 @@ namespace Exeggcute.src.scripting.action
     class ScriptLoader : ScriptParser<ActionBase>
     {
 
-
         /// <summary>
         /// I trusted you! I trusted you! I trusted you! I trusted you!
         /// I trusted you! I trusted you! I trusted you! I trusted you!
@@ -34,6 +33,7 @@ namespace Exeggcute.src.scripting.action
         protected override List<ActionBase> parseElement(Stack<string> tokens)
         {
             CommandType type = Util.ParseEnum<CommandType>(tokens.Pop());
+
             if (type == CommandType.MoveAbs)
             {
                 Float3 destination = Util.ParseFloat3(tokens.Pop());
@@ -57,13 +57,20 @@ namespace Exeggcute.src.scripting.action
                     new StopAction()
                 };
             }
+            else if (type == CommandType.Upgrade)
+            {
+                int max = int.Parse(tokens.Pop());
+                return new List<ActionBase> {
+                    new UpgradeAction(max)
+                };
+            }
             else if (type == CommandType.Move)
             {
-                FloatValue speed           = Util.ParseFloatValue(tokens.Pop());
+                FloatValue speed = Util.ParseFloatValue(tokens.Pop());
                 FloatValue angularVelocity = Util.ParseFloatValue(tokens.Pop());
-                FloatValue linearAccel     = Util.ParseFloatValue(tokens.Pop());
-                FloatValue angularAccel    = Util.ParseFloatValue(tokens.Pop());
-                FloatValue velocityZ       = Util.ParseFloatValue(tokens.Pop());
+                FloatValue linearAccel = Util.ParseFloatValue(tokens.Pop());
+                FloatValue angularAccel = Util.ParseFloatValue(tokens.Pop());
+                FloatValue velocityZ = Util.ParseFloatValue(tokens.Pop());
                 return new List<ActionBase> {
                     new MoveAction(speed, angularVelocity, linearAccel, angularAccel, velocityZ)
                 };
@@ -131,7 +138,7 @@ namespace Exeggcute.src.scripting.action
             {
                 AngleType atype = Util.ParseEnum<AngleType>(tokens.Pop());
                 FloatValue angle = Util.ParseFloatValue(tokens.Pop()).FromDegrees();
-                
+
                 return new List<ActionBase> {
                     new SpawnAction(atype, angle)
                 };

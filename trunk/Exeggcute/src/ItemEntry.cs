@@ -17,16 +17,34 @@ namespace Exeggcute.src
         public ItemType? Type;
 
         public ItemEntry(string filename)
+            : base(filename)
         {
             loadFromFile(filename);
         }
 
         public Item MakeItem()
         {
-            return new Item(Body.Model, 
-                            Body.Texture, 
-                            Body.Scale.Value, 
-                            Behavior);
+            ItemType type = Type.Value;
+            if (type == ItemType.ExtraLife)
+            {
+                return new ExtraLife(Body.Model,
+                                     Body.Texture,
+                                     Body.Scale.Value,
+                                     Body.Radius.Value,
+                                     Body.Rotation.Value,
+                                     Behavior);
+            }
+            else if (type == ItemType.Power)
+            {
+                return new PowerItem(Body.Model,
+                                     Body.Texture,
+                                     Body.Scale.Value,
+                                     Body.Radius.Value,
+                                     Body.Rotation.Value,
+                                     Behavior);
+            }
+            throw new NotImplementedException();
+            
         }
 
     }

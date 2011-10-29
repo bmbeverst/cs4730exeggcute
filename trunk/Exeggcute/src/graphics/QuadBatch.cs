@@ -62,14 +62,28 @@ namespace Exeggcute.src.graphics
 
             foreach (EffectPass pass in Shader.CurrentTechnique.Passes)
             {
-
                 pass.Apply();
-
                 drawRange(graphics, quads, start, buffer);
             }
             
         }
+        public void DrawNearRot(GraphicsDevice graphics, Wrapped2DArray<Quad> quads, float centerDepth, float rotation, int start, int buffer, float zRot)
+        {
+            Matrix world = //Shader.World =
+                  Matrix.CreateTranslation(0, 0, -centerDepth)
+                * Matrix.CreateRotationX(-rotation)
+                * Matrix.CreateRotationZ(zRot)
+                * Matrix.CreateTranslation(0, 0, centerDepth);
 
+            Shader.Parameters["xWorld"].SetValue(world);
+
+            foreach (EffectPass pass in Shader.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                drawRange(graphics, quads, start, buffer);
+            }
+
+        }
         protected void drawAll(GraphicsDevice graphics, Wrapped2DArray<Quad> quads)
         {
             for (int j = 0; j < quads.Rows; j += 1)

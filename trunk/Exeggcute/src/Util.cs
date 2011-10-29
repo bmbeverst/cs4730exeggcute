@@ -175,12 +175,20 @@ namespace Exeggcute.src
             string result = "";
 
             int end = strings.Count - 1;
+            if (end < 0)
+            {
+                return "";
+            }
+            else if (end == 0)
+            {
+                return strings[0];
+            }
             for (int i = 0; i < end; i += 1)
             {
                 result += strings[i] + delim;
             }
 
-            result += strings[end];
+            if (end > 0)result += strings[end];
 
             return result;
         }
@@ -299,6 +307,14 @@ namespace Exeggcute.src
             return result;
         }
 
+        internal static Rectangle NearestMult(Rectangle bounds, int multiple)
+        {
+            int heightMult = (bounds.Height / multiple) + 1;
+            int widthMult = (bounds.Width / multiple) + 1;
+
+            return new Rectangle(bounds.Left, bounds.Top, widthMult * multiple, heightMult * multiple);
+        }
+
         /// <summary>
         /// Converts the input string into a Vector2. Expected format is (X,Y)
         /// </summary>
@@ -322,7 +338,7 @@ namespace Exeggcute.src
         /// <summary>
         /// Converts the input string into a Vector3. Expected format is (X,Y,Z)
         /// </summary>
-        internal static Vector3 ParseVector3(string vec)
+        public static Vector3 ParseVector3(string vec)
         {
             try
             {
@@ -542,6 +558,7 @@ namespace Exeggcute.src
         public static void WriteLog()
         {
             if (log == null || log.Count == 0) return;
+            return;
             TimeSpan secs = DateTime.UtcNow - new DateTime(1970, 1, 1);
             string logName = string.Format("Exeggcute-debug-{0}.txt", secs.Seconds);
             string outName = string.Format("Exeggcute-debug-{0}.gz", secs.Seconds);

@@ -19,7 +19,8 @@ namespace Exeggcute.src.loading.specs
         public Boss MainBoss;
         public Roster Roster;
 
-        public LevelInfo(List<string[]> tokenList)
+        public LevelInfo(string filename, List<string[]> tokenList)
+            : base(filename)
         {
             loadFromTokens(tokenList);
         }

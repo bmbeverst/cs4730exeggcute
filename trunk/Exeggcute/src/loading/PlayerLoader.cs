@@ -15,12 +15,16 @@ namespace Exeggcute.src.loading
 {
     class PlayerLoader : Loader
     {
+        private static string getFilename(string name, string folder)
+        {
+            return string.Format("data/players/{0}/{1}.player", folder, name);
+        }
         public Player Load(string name, bool isCustom)
         {
 
             string folder = isCustom ? "custom" : "standard";
-            string filepath = string.Format("data/players/{0}/{1}.player", folder, name);
-            Data data = new Data(filepath);
+            string filename = getFilename(name, folder);
+            Data data = new Data(filename);
 
 
             DataSection infoSection = data[0];
@@ -28,22 +32,7 @@ namespace Exeggcute.src.loading
             {
                 throw new ParseError("info section must come first");
             }
-            PlayerInfo info = new PlayerInfo(infoSection.Tokens);
-
-
-            // the first entry is the special attack!///////////////////////
-            /*List<OptionInfo> bombOptions = new List<OptionInfo>();
-            DataSection bombSection = data[1];
-            Data bombData = new Data(name, bombSection.RawText, '$');
-            for (int i = 0; i < bombData.Count; i += 1)
-            {
-                DataSection currentArsenalSection = bombData[i];
-                OptionInfo entry = new OptionInfo(currentArsenalSection.Tokens);
-                bombOptions.Add(entry);
-            }
-
-            Arsenal special = new Arsenal(bombOptions, World.PlayerShots);*/
-            /////////////////////////////////////////////////////////////
+            PlayerInfo info = new PlayerInfo(filename, infoSection.Tokens);
 
 
             //// load the player's weapon//////////////////////////////
@@ -62,24 +51,6 @@ namespace Exeggcute.src.loading
                 weapons.Add(Arsenal.Parse(recombined));
                 thresholds.Add(int.Parse(thresh));
 
-                /*Data arsenalData = new Data(name, currentSection.RawText, '$');
-                List<OptionInfo> entries = new List<OptionInfo>();
-
-                for (int i = 0; i < arsenalData.Count; i += 1)
-                {
-                    DataSection currentArsenal = arsenalData[i];
-                    OptionInfo entry = new OptionInfo(currentArsenal.Tokens);
-                    entries.Add(entry);
-                }
-                //Option
-                int thresh = int.Parse(currentSection.TagValue);
-                thresholds.Add(thresh);
-                if (entries.Count == 0)
-                {
-                    throw new ParseError("Arsenal {0} had no entries", k);
-                }
-                Arsenal weap = new Arsenal(entries, World.PlayerShots);
-                weapons.Add(weap);*/
             }
             /////////////////////////////////////////////////////
            
@@ -88,6 +59,9 @@ namespace Exeggcute.src.loading
                               isCustom,
                               info.body.Model,
                               info.body.Texture,
+                              info.body.Scale.Value, 
+                              info.body.Radius.Value,
+                              info.body.Rotation.Value,
                               info.deathScript,
                               info.special,  
                               info.gibBatch,
@@ -98,7 +72,7 @@ namespace Exeggcute.src.loading
                               info.bombs.Value,
                               info.moveSpeed.Value,
                               info.focusSpeed.Value,
-                              info.body.Scale.Value, 
+                              
                               info.hitRadius.Value,
                               info.lightLevel.Value,
                               World.PlayerShots, 

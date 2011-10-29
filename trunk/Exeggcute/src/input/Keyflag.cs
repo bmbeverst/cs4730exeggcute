@@ -51,7 +51,6 @@ namespace Exeggcute.src.input
                 StackFrame frame = trace.GetFrame(1);
                 string methodName = frame.GetMethod().Name;
                 string callerName = frame.GetMethod().DeclaringType.ToString();
-                Console.WriteLine("Eaten by {0} in {1}", methodName, callerName);
                 return true;
             }
             return false;

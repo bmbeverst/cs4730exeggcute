@@ -14,6 +14,7 @@ using Exeggcute.src.entities.items;
 using Exeggcute.src.loading;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src
 {
@@ -48,6 +49,8 @@ namespace Exeggcute.src
 
         public static IContext Top { get { return stack.Peek(); } }
 
+        public static WangMesh Terrain;
+        private static WangMesh menuTerrain;
         // We cache menus so they are loaded once when they are first seen, then
         // re-used later when they are called upon.
         private static MainMenu mainMenu;
@@ -65,6 +68,8 @@ namespace Exeggcute.src
         private static Difficulty difficulty;
         private static GameType gameType;
 
+        public static Camera camera = new Camera(100, MathHelper.PiOver2, 0.1f);
+
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
             World.content = content;
@@ -73,13 +78,18 @@ namespace Exeggcute.src
             isInitialized = true;
         }
 
+
+        private static VisualizationData soundData = new VisualizationData();
         public static void Update(ControlManager controls)
         {
+            MediaPlayer.GetVisualizationData(soundData);
+            Terrain.Update(soundData.Frequencies);
             stack.Peek().Update(controls);
         }
         
         public static void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
+            Terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
             stack.Peek().Draw(graphics, batch);
         }
 
@@ -119,12 +129,15 @@ namespace Exeggcute.src
             SpriteFont font = FontBank.Get("consolas");
             Color fontColor = Color.Black;
             //FIXME: make player select menu
-            if (gameType == GameType.Custom)
+            bool isCustom = (gameType == GameType.Custom);
+            List<Player> players = PlayerBank.GetAll(isCustom).ToList();
+            if (isCustom)
             {
                 if (customPlayerMenu == null)
                 {
                     List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, true);
-                    customPlayerMenu = new PlayerMenu(buttons, bounds, true);
+                    
+                    customPlayerMenu = new PlayerMenu(players, buttons, bounds, isCustom);
                 }
                 stack.Push(customPlayerMenu);
                 return;
@@ -133,8 +146,8 @@ namespace Exeggcute.src
             {
                 if (standardPlayerMenu == null)
                 {
-                    List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, false);
-                    standardPlayerMenu = new PlayerMenu(buttons, bounds, false);
+                    List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, isCustom);
+                    standardPlayerMenu = new PlayerMenu(players, buttons, bounds, isCustom);
                 }
                 stack.Push(standardPlayerMenu);
                 return;
@@ -168,7 +181,7 @@ namespace Exeggcute.src
             {
                 SpriteFont font = FontBank.Get("consolas");
                 Color fontColor = Color.Black;
-                Rectangle bounds = new Rectangle(500, 500, 100, 100);
+                Rectangle bounds = new Rectangle(500, 500, 100, 116);
                 List<Button> buttons = new List<Button> {
                     new ListButton(new ToPlayerMenuEvent(Difficulty.Easy), new SpriteText(font, "Easy", fontColor)),
                     new ListButton(new ToPlayerMenuEvent(Difficulty.Normal), new SpriteText(font, "Normal", fontColor)),
@@ -248,7 +261,7 @@ namespace Exeggcute.src
                     new ListButton(new ScoreEvent(ScoreEventType.Submit), new SpriteText(font, "Submit", fontColor)),
                     new ListButton(new BackEvent(), new SpriteText(font, "Back", fontColor)),
                 };
-                Rectangle bounds = new Rectangle(500, 500, 100, 100);
+                Rectangle bounds = new Rectangle(500, 500, 190, 190);
                 scoreMenu = new ScoreMenu(buttons, bounds);
             }
             stack.Push(scoreMenu);
@@ -259,10 +272,11 @@ namespace Exeggcute.src
             string levelName = ent.LevelName;
             string playerName = ent.PlayerName;
             bool isCustom = ent.IsCustom;
-            Player player = PlayerBank.Get(playerName);
+            Player player = PlayerBank.Get(playerName, isCustom);
             HUD hud = new HUD();
             LoadNextLevel(hud, player, levelName, false);
         }
+
         public static void CleanupLevel()
         {
             Level level = (Level)stack.Peek();
@@ -339,6 +353,7 @@ namespace Exeggcute.src
 
         public static void Pause()
         {
+            Terrain = menuTerrain;
             if (pauseMenu == null)
             {
                 SpriteFont font = FontBank.Get("consolas");
@@ -395,13 +410,17 @@ namespace Exeggcute.src
             stack.Pop();
         }
 
+
         public static void Begin()
         {
+            TerrainInfo info = new TerrainInfo("data/world/bg.terrain");
+            menuTerrain = info.MakeMesh(graphics);
+            Terrain = menuTerrain;
             if (mainMenu == null)
             {
                 Color fontColor = Color.Black;
                 SpriteFont font = FontBank.Get("consolas");
-                Rectangle bounds = new Rectangle(500, 500, 100, 100);
+                Rectangle bounds = new Rectangle(500, 500, 166, 150);
                 List<Button> buttons = new List<Button> {
                     new ListButton(new ToDifficultyMenuEvent(GameType.Campaign),
                                    new SpriteText(font, "Campaign", fontColor)),

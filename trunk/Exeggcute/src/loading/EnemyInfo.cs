@@ -24,7 +24,8 @@ namespace Exeggcute.src.loading
         public GibBatch gibbatch;
         public Arsenal arsenal;
 
-        public EnemyInfo(List<string[]> tokenList)
+        public EnemyInfo(string filename, List<string[]> tokenList)
+            : base(filename)
         {
             loadFromTokens(tokenList);
             

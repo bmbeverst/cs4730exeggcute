@@ -36,6 +36,8 @@ namespace Exeggcute.src.entities
         public Spawner(Model model, 
                        Texture2D texture, 
                        float scale, 
+                       float radius,
+                       Vector3 rotation,
                        int damage, 
                        TrajectoryScript shotTrajectory, 
                        SpawnScript spawnScript, 
@@ -44,8 +46,7 @@ namespace Exeggcute.src.entities
                        HashList<Shot> shotListHandle)
             : base(spawnScript)
         {
-
-            this.shot = new Shot(model, texture, scale, shotTrajectory, damage);
+            this.shot = new Shot(model, texture, scale, radius, rotation, shotTrajectory, damage);
             this.shotListHandle = shotListHandle;
             this.shotSound = shotSound;
             this.active = false;

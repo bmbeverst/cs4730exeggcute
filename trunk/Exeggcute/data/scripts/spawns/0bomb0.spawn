@@ -1,0 +1,10 @@
+﻿spawn rel -30
+spawn rel -20
+spawn rel -10
+spawn rel 0
+spawn rel 10
+spawn rel 20
+spawn rel 30
+sound
+wait 3
+loop

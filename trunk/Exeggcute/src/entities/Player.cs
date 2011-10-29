@@ -61,7 +61,7 @@ namespace Exeggcute.src.entities
         protected List<int> thresholds;
         protected int attackPtr;
 
-        protected Arsenal currentAttack
+        public Arsenal CurrentAttack
         {
             get { return arsenalList[attackPtr]; }
         }
@@ -71,12 +71,14 @@ namespace Exeggcute.src.entities
         public bool IsCustom { get; protected set; }
         protected float lightLevel;
 
-
         public Player(string data,
                       string name,
                       bool isCustom,
                       Model model, 
                       Texture2D texture, 
+                      float scale,
+                      float radius,
+                      Vector3 rotation,
                       BehaviorScript deathScript, 
                       Arsenal bomb, 
                       GibBatch gibBatch,
@@ -87,12 +89,11 @@ namespace Exeggcute.src.entities
                       int numBombs,
                       float moveSpeed,
                       float focusSpeed,
-                      float scale,
                       float hitRadius,
                       float lightLevel,
                       HashList<Shot> shotList, 
                       HashList<Gib> gibList)
-            : base(model, texture, scale, deathScript, dieSFX, null, gibBatch, shotList, gibList)
+            : base(model, texture, scale, radius, rotation, deathScript, dieSFX, null, gibBatch, shotList, gibList)
         {
             this.RawData = data;
             this.Name = name;
@@ -152,7 +153,6 @@ namespace Exeggcute.src.entities
         }
         protected void processControls(ControlManager controls, bool canShoot)
         {
-            //if (shotList.Count > 0) Util.Die("works");// Console.WriteLine("{0}", shotList.Count);
             float speed;
             IsFocusing = controls[Ctrl.Focus].IsPressed;
             if (IsFocusing)
@@ -179,16 +179,16 @@ namespace Exeggcute.src.entities
             if (controls[Ctrl.Left].IsPressed)
             {
                 dx = -1;
-                ModelRotX = 1;
+                ModelRotation.X = 1;
             }
             else if (controls[Ctrl.Right].IsPressed)
             {
                 dx = 1;
-                ModelRotX = -1;
+                ModelRotation.X = -1;
             }
             else
             {
-                ModelRotX = 0;
+                ModelRotation.X = 0;
             }
 
             //This makes it so we dont overwrite the angle if our speed is 0
@@ -222,7 +222,6 @@ namespace Exeggcute.src.entities
             {
                 IsBombing = true;
                 bombs -= 1;
-                Console.WriteLine("Begin bombing");
             }
 
             processPitchRoll(dx, dy);
@@ -296,6 +295,21 @@ namespace Exeggcute.src.entities
             }
         }
 
+        public void DoDemo()
+        {
+            BehaviorScript script = ScriptBank.GetBehavior("playerdemo0");
+            this.script = script;
+            actionPtr = 0;
+        }
+
+        public void ResetFromDemo()
+        {
+            this.script = deathScript;
+            actionPtr = 0;
+            attackPtr = 0;
+            power = 0;
+        }
+
         int frame = 0;
         public void Update(ControlManager controls, bool canShoot)
         {
@@ -311,7 +325,6 @@ namespace Exeggcute.src.entities
                 {
                     IsBombing = false;
                     bombTimer.Reset();
-                    Console.WriteLine("End bombing");
                 }
                 else
                 {
@@ -367,12 +380,26 @@ namespace Exeggcute.src.entities
             
         }
 
+        public override void Process(UpgradeAction upgrade)
+        {
+            Console.Write("UPGRADED {0}", attackPtr);
+            power = thresholds[attackPtr] + 1;
+            attackPtr += 1;
+            if (power > POWER_MAX || attackPtr == arsenalList.Count || attackPtr > upgrade.Max)
+            {
+                attackPtr = 0;
+                power = 0;
+            }
+            this.arsenal = CurrentAttack;
+            Console.WriteLine(" TO {0}", attackPtr);
+        }
+
         public override void Kill()
         {
-            Console.WriteLine("KILLED!");
             script = deathScript;
             actionPtr = 0;
             lives -= 1;
+            deathSound.Play();
             InvulnTimer.Reset();
             //spawn the death animation
         }
@@ -395,22 +422,23 @@ namespace Exeggcute.src.entities
         public void Collect(ExtraLife life)
         {
             lives += 1;
-            Util.Warn("FIXME");
+            
         }
 
         public void Collect(PowerItem pitem)
         {
+
             power += 1;
             if (power > thresholds[attackPtr])
             {
                 if (attackPtr < arsenalList.Count - 1)
                 {
                     attackPtr += 1;
+                    this.arsenal = CurrentAttack;
                 }
                 else
                 {
-                    //TODO
-                    Util.Warn("FIXME");
+                    
                 }
             }
             
@@ -425,8 +453,7 @@ namespace Exeggcute.src.entities
                     currentEffect.Parameters["xPointLight2"].SetValue(Position);
                     currentEffect.Parameters["xPointIntensity2"].SetValue(1f);
                     Matrix world =
-                        Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationZ(MathHelper.PiOver2) *
+                        BaseMatrix *
                         Matrix.CreateRotationY(rollAngle) *
                         Matrix.CreateRotationX(-pitchAngle) *
                         Matrix.CreateTranslation(Position);

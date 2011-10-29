@@ -1,0 +1,5 @@
+﻿model:    hairpin
+texture:  four
+scale:    0.1
+radius:   1
+rotation: (90,0,0)

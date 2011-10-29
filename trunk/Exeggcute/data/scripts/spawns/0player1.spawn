@@ -1,0 +1,8 @@
+﻿spawn rel [-7|-1]
+spawn rel [1|7]
+spawn rel 10
+spawn rel -10
+sound
+wait 3
+
+loop

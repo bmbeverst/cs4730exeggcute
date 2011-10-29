@@ -26,6 +26,8 @@ namespace Exeggcute.src.scripting.arsenal
                 Spawner next = new Spawner(entry.Body.Model, 
                                            entry.Body.Texture, 
                                            entry.Body.Scale.Value, 
+                                           entry.Body.Radius.Value,
+                                           entry.Body.Rotation.Value,
                                            entry.Damage, 
                                            entry.Trajectory, 
                                            entry.Spawn, 

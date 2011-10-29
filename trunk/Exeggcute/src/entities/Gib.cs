@@ -17,14 +17,14 @@ namespace Exeggcute.src.entities
         protected const float OFFSET = 2;
         static Random rng = new Random();
 
-        public Gib(Model model, Texture2D texture, float scale)
-            : base(model, texture, scale, Engine.Jail)
+        public Gib(Model model, Texture2D texture, float scale, float radius, Vector3 rotation)
+            : base(model, texture, scale, radius, rotation, Engine.Jail)
         {
 
         }
 
-        public Gib(Model model, Texture2D texture, float scale, Vector2 parentPos, float parentSpeed, float parentAngle)
-            : base(model, texture, scale, getOffset(parentPos))
+        public Gib(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, Vector2 parentPos, float parentSpeed, float parentAngle)
+            : base(model, texture, scale, radius, rotation, getOffset(parentPos))
         {
             float angle = rng.NextRadian();
             float speed = GIBSPEED;
@@ -44,8 +44,9 @@ namespace Exeggcute.src.entities
 
         public Gib Copy()
         {
-            return new Gib(Surface, Texture, Scale);
+            return new Gib(Surface, Texture, Scale, Radius, ModelRotation);
         }
+
 
         private static Vector3 getOffset(Vector2 parentPos)
         {

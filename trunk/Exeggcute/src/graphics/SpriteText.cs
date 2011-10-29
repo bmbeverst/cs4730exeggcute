@@ -27,6 +27,11 @@ namespace Exeggcute.src.graphics
             batch.DrawString(Font, Text, pos, Color.White);
         }
 
+        public void Draw(SpriteBatch batch, Vector2 pos, Color color)
+        {
+            batch.DrawString(Font, Text, pos, color);
+        }
+
         public void Draw(SpriteBatch batch, Vector2 pos, float rotationRadians)
         {
             batch.DrawString(Font, Text, pos, FillColor, rotationRadians, Center, Vector2.One, SpriteEffects.None, 0);

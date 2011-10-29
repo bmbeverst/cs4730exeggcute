@@ -34,7 +34,6 @@ namespace Exeggcute.src.physics
                 {
                     totalForce += GlobalGravity;
                 }
-                //Console.WriteLine("{0}", totalForce);
                 entity.Influence(totalForce, TerminalSpeed);
             }
         }

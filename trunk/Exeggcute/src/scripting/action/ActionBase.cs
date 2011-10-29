@@ -152,7 +152,14 @@ namespace Exeggcute.src.scripting.action
         /// Syntax:
         /// sound
         /// </summary>
-        Sound
+        Sound,
+
+        /// <summary>
+        /// Upgrades the player's weapon. Used only in demo mode.
+        /// Syntax:
+        /// upgrade
+        /// </summary>
+        Upgrade
     }
 
 

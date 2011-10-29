@@ -57,10 +57,9 @@ namespace Exeggcute.src.gui
             if (IsActive)
             {
                 
-                batch.DrawString(font, RawData, dataPos, fontColor);
+                //batch.DrawString(font, RawData, dataPos, fontColor);
             }
             batch.DrawString(font, Name, pos, fontColor);
-            //Console.WriteLine("{0} {1}", pos, dataPos);
         }
 
 

@@ -17,16 +17,16 @@ namespace Exeggcute.src.entities
         public int Damage { get; protected set; }
 
         public bool HasGrazed { get; protected set; }
-        public Shot(Model model, Texture2D texture, float scale, TrajectoryScript trajectory, int damage)
-            : base(model, texture, scale, trajectory)
+        public Shot(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, TrajectoryScript trajectory, int damage)
+            : base(model, texture, scale, radius, rotation, trajectory)
         {
-            Damage = damage;
+            this.Damage = damage;
         }
 
         public Shot Clone(Vector3 pos, float angle)
         {
             //FIXME cast
-            Shot clone = new Shot(Surface, Texture, Scale, (TrajectoryScript)script, Damage);
+            Shot clone = new Shot(Surface, Texture, Scale, Radius, DegRotation, (TrajectoryScript)script, Damage);
             clone.Angle = angle;
             clone.Position = pos;
             return clone;

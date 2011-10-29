@@ -1,3 +1,4 @@
 ﻿spawn rel [-30|30]
+sound
 wait 30
 loop

@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\assets\AssetManager.cs" />
     <Compile Include="src\assets\OptionBank.cs" />
     <Compile Include="src\assets\BodyBank.cs" />
     <Compile Include="src\assets\SfxBank.cs" />
@@ -149,6 +150,9 @@
     <Compile Include="src\loading\FieldSetter.cs" />
     <Compile Include="src\loading\GibInfo.cs" />
     <Compile Include="src\loading\Loadable.cs" />
+    <Compile Include="src\loading\LoaderError.cs" />
+    <Compile Include="src\loading\MethodNotFoundError.cs" />
+    <Compile Include="src\scripting\action\UpgradeAction.cs" />
     <Compile Include="src\sound\RandoSound.cs" />
     <Compile Include="src\sound\RepeatedSound.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
@@ -289,7 +293,6 @@
     <Compile Include="src\scripting\ScriptParser.cs" />
     <Compile Include="src\scripting\task\WaitTask.cs" />
     <Compile Include="src\entities\Shot.cs" />
-    <Compile Include="src\scripting\arsenal\ArsenalLoader.cs" />
     <Compile Include="src\text\Conversation.cs" />
     <Compile Include="src\text\TextBox.cs" />
     <Compile Include="src\text\TextBoxList.cs" />
@@ -361,13 +364,40 @@
     <Content Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="data\bodies\boss0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\tubergsixteen.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\tubefractal.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\tubesixteen.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\hairpin0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\teapot0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\pyramid0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\diamond0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\bodies\torus0.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\bodies\junk.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\bodies\player0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\bodies\whitecube.body">
+    <None Include="data\bodies\cubewhite.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\bosses\guy2.boss">
@@ -386,6 +416,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\itembatches\test.batch">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\items\point.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\items\power.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\items\life.item">
@@ -439,6 +475,12 @@
     <None Include="data\options\0plweapon0.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="data\options\0plweapon1.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\options\0plbomb0.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\options\testoption.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -451,6 +493,21 @@
     <Content Include="data\scripts\trajectories\fast.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\scripts\behaviors\playerdemo0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\players\standard\1.player">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\spawns\0player1.spawn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\spawns\0bomb0.spawn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="data\world\bg.terrain">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="lib\Nuclex.Input.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

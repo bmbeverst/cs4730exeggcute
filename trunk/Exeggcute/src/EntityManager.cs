@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using System.Collections.ObjectModel;
 using Exeggcute.src.entities.items;
 using Exeggcute.src.graphics;
+using Exeggcute.src.sound;
+using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {
@@ -16,6 +18,7 @@ namespace Exeggcute.src
     /// </summary>
     class EntityManager
     {
+        public RepeatedSound collectSound = SfxBank.MakeRepeated("gulp", 5);
         public bool Collide(Player player, HashList<Enemy> enemies)
         {
             if (!player.CanControl) return false;
@@ -56,6 +59,7 @@ namespace Exeggcute.src
                 {
                     // this will call player.Collect. 
                     // do not call it here (double dispatch!)
+                    collectSound.Play();
                     item.Collect(player);
                 }
             }
