@@ -26,6 +26,11 @@ namespace Exeggcute.src.assets
             }
         }
 
+        public static List<string> GetLoaded()
+        {
+            return bank.GetAllLoaded();
+        }
+
         public static void LoadAll()
         {
             string failures = "";

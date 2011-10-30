@@ -10,6 +10,7 @@ using Exeggcute.src.console.commands;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Input;
 using Exeggcute.src.graphics;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src.console
 {
@@ -130,15 +131,134 @@ namespace Exeggcute.src.console
 
         public override void AcceptCommand(ConsoleCommand command)
         {
-            Write("There is no overloaded method to accept a command of type {0}", command.GetType().Name);
+            Write("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
         }
 
         public override void AcceptCommand(ContextCommand command)
         {
-            Util.Die("happy");
             Write("Attempting to change contexts to {0}", command.Name);
         }
 
+        // FIXME monstrosity
+        public override void AcceptCommand(ListCommand list)
+        {
+            FileType type = list.Type;
+            string message = "Loaded objects of that type include:\n";
+            List<string> names;
 
+            List<string> notImplemented = new List<string> { "not implemented/dynamically loaded" };
+            if (type == FileType.Behavior)
+            {
+                names = ScriptBank.GetLoadedBehaviors();
+            }
+            else if (type == FileType.Spawn)
+            {
+                names = ScriptBank.GetLoadedSpawns();
+            }
+            else if (type == FileType.Trajectory)
+            {
+                names = ScriptBank.GetLoadedTrajectories();
+            }
+            else if (type == FileType.Body)
+            {
+                names = BodyBank.GetLoaded();
+            }
+            else if (type == FileType.Item)
+            {
+                names = ItemBank.GetLoaded();
+            }
+            else if (type == FileType.ItemBatch)
+            {
+                names = ItemBatchBank.GetLoaded();
+            }
+            else if (type == FileType.Boss)
+            {
+                names = notImplemented;
+            }
+            else if (type == FileType.Level)
+            {
+                names = notImplemented;
+            }
+            else if (type == FileType.Campaign)
+            {
+                names = notImplemented;
+            }
+            else if (type == FileType.Enemy)
+            {
+                names = notImplemented;
+            }
+            else if (type == FileType.GibBatch)
+            {
+                names = notImplemented;
+            }
+            else if (type == FileType.Option)
+            {
+                names = OptionBank.GetLoaded();
+            }
+            else if (type == FileType.Font)
+            {
+                names = FontBank.GetLoaded();
+            }
+            else if (type == FileType.Model)
+            {
+                names = ModelBank.GetLoaded();
+            }
+            else if (type == FileType.Sfx)
+            {
+                names = SfxBank.GetLoaded();
+            }
+            else if (type == FileType.Song)
+            {
+                names = SongBank.GetLoaded();
+            }
+            else if (type == FileType.Texture)
+            {
+                names = TextureBank.GetLoaded();
+            }
+            else if (type == FileType.Sprite)
+            {
+                names = SpriteBank.GetLoaded();
+            }
+            else if (type == FileType.Player)
+            {
+                List<Player> customs = PlayerBank.GetAll(true);
+                List<Player> standard = PlayerBank.GetAll(false);
+                names = new List<string>();
+                customs.ForEach(player => names.Add(string.Format("custom: {0}", player.Name)));
+                standard.ForEach(player => names.Add(string.Format("standard: {0}", player.Name)));
+
+            }
+            else
+            {
+                string msg = string.Format("Did not expect type {0}", type);
+                names = new List<string> { msg };
+            }
+            
+
+            names.ForEach(name => message += name + "\n");
+            Write(message);
+        }
+
+        public override void AcceptCommand(SpawnCommand spawn)
+        {
+            SpawnType type = spawn.Type;
+            string name = spawn.Name;
+            if (type == SpawnType.Player)
+            {
+                World.InsertPlayer(name);
+            }
+            else if (type == SpawnType.Boss)
+            {
+                World.InsertBoss(name);
+            }
+            else if (type == SpawnType.Enemy)
+            {
+                World.InsertEnemy(name);
+            }
+            else
+            {
+                Write("Did not expect the type {0}", type);
+            }
+        }
     }
 }

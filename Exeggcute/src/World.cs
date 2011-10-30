@@ -19,6 +19,7 @@ using Exeggcute.src.sound;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.text;
 using Exeggcute.src.console;
+using Exeggcute.src.console.commands;
 
 namespace Exeggcute.src
 {
@@ -530,6 +531,44 @@ namespace Exeggcute.src
             stack.Pop();
         }
 
+        public static IContext getSecond()
+        {
+            IContext temp = stack.Pop();
+            IContext result = stack.Peek();
+            stack.Push(temp);
+            return result;
+        }
+
+        public static void InsertPlayer(string name)
+        {
+            if (!PlayerBank.Exists(name))
+            {
+                console.Write("No player named {0} found", name);
+                console.AcceptCommand(new ListCommand(console, FileType.Player));
+            }
+            bool isCustom = PlayerBank.IsCustom(name);
+            IContext second= getSecond();
+            if (second is Sandbox)
+            {
+                Sandbox sandbox = (Sandbox)second;
+                sandbox.Player = PlayerBank.Get(name, isCustom);
+            }
+            else
+            {
+                console.Write("May only insert a player into a Level or Sandbox context. See 'help context'");
+
+            }
+        }
+
+        public static void InsertEnemy(string name)
+        {
+
+        }
+
+        public static void InsertBoss(string name)
+        {
+
+        }
 
         public static void Begin()
         {

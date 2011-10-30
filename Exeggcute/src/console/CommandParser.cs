@@ -24,35 +24,58 @@ namespace Exeggcute.src.console
             }
 
             ConsoleCommand command;
-
-            if (type == ConsoleCommandType.Context)
+            try
             {
-                command = new ContextCommand(console, tokens[1]);
-            }
-            else if (type == ConsoleCommandType.Help)
-            {
-                string otherUsage = tokens.Length > 1 ? GetUsage(tokens[1]) : null;
-                command = new HelpCommand(console, otherUsage);
-
-            }
-            else if (type == ConsoleCommandType.List)
-            {
-                FileType fileType;
-                string typeString = tokens[1];
-                try
+                if (type == ConsoleCommandType.Context)
                 {
-                    fileType = Util.ParseEnum<FileType>(typeString);
+                    command = new ContextCommand(console, tokens[1]);
                 }
-                catch
+                else if (type == ConsoleCommandType.Help)
                 {
-                    string msg = string.Format("No FileType with name \"{0}\"\n{1}", typeString, ListCommand.Usage);
-                    return HelpCommand.MakeGeneric(console, msg);
+                    string otherUsage = tokens.Length > 1 ? GetUsage(tokens[1]) : null;
+                    command = new HelpCommand(console, otherUsage);
+
                 }
-                command = new ListCommand(console, fileType);
+                else if (type == ConsoleCommandType.List)
+                {
+                    FileType fileType;
+                    string typeString = tokens[1];
+                    try
+                    {
+                        fileType = Util.ParseEnum<FileType>(typeString);
+                    }
+                    catch
+                    {
+                        string msg = string.Format("No FileType with name \"{0}\"\n{1}", typeString, ListCommand.Usage);
+                        return HelpCommand.MakeGeneric(console, msg);
+                    }
+                    command = new ListCommand(console, fileType);
+                }
+                else if (type == ConsoleCommandType.Spawn)
+                {
+                    SpawnType spawnType;
+                    string typeString = tokens[1];
+                    string name = tokens[2];
+                    try
+                    {
+                        spawnType = Util.ParseEnum<SpawnType>(typeString);
+                    }
+                    catch
+                    {
+                        string msg = string.Format("No SpawnType with name \"{0}\"\n{1}", typeString, SpawnCommand.Usage);
+                        return HelpCommand.MakeGeneric(console, msg);
+                    }
+                    command = new SpawnCommand(console, spawnType, name);
+                }
+                else
+                {
+                    return HelpCommand.MakeUnhandled(console, type);
+                }
             }
-            else
+            catch
             {
-                return HelpCommand.MakeUnhandled(console, type);
+                string msg = string.Format("Invalid arguments for type {0}.\nEnter 'help {0}' for details.", type);
+                return HelpCommand.MakeGeneric(console, msg);
             }
 
 
@@ -82,6 +105,10 @@ namespace Exeggcute.src.console
             else if (type == ConsoleCommandType.Spawn)
             {
                 return SpawnCommand.Usage;
+            }
+            else if (type == ConsoleCommandType.List)
+            {
+                return ListCommand.Usage;
             }
             else
             {

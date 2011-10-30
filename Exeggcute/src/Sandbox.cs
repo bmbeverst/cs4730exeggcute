@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.console;
 using Exeggcute.src.console.commands;
+using Exeggcute.src.entities;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src
 {
@@ -12,10 +14,13 @@ namespace Exeggcute.src
     {
 
         public EntityManager collider;
-
+        public Player Player;
+        public Rectangle GameArea;
         public Sandbox()
         {
             collider = new EntityManager();
+            GameArea = new Rectangle(-Level.HalfWidth, -Level.HalfHeight, Level.HalfWidth * 2, Level.HalfHeight * 2);
+
         }
 
 
@@ -31,13 +36,22 @@ namespace Exeggcute.src
         
         public override void Update(ControlManager controls)
         {
-            
+            if (Player != null)
+            {
+                Player.Update(controls, true);
+                Player.LockPosition(GameArea);
+            }
         }
 
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
-
+            Matrix view = camera.GetView();
+            Matrix projection = camera.GetProjection();
+            if (Player != null)
+            {
+                Player.Draw(graphics, view, projection);
+            }
         }
 
 
