@@ -42,7 +42,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>22</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -142,8 +142,18 @@
     <Compile Include="src\assets\OptionBank.cs" />
     <Compile Include="src\assets\BodyBank.cs" />
     <Compile Include="src\assets\SfxBank.cs" />
+    <Compile Include="src\ConsoleContext.cs" />
+    <Compile Include="src\console\CommandParser.cs" />
+    <Compile Include="src\console\commands\ConsoleCommand.cs" />
+    <Compile Include="src\console\commands\HelpCommand.cs" />
+    <Compile Include="src\console\commands\ListCommand.cs" />
+    <Compile Include="src\console\commands\SpawnCommand.cs" />
+    <Compile Include="src\console\DevConsole.cs" />
+    <Compile Include="src\console\KeyboardManager.cs" />
+    <Compile Include="src\console\commands\ContextCommand.cs" />
     <Compile Include="src\entities\SoundAction.cs" />
     <Compile Include="src\GibBatch.cs" />
+    <Compile Include="src\HealthBar.cs" />
     <Compile Include="src\loading\BodyInfo.cs" />
     <Compile Include="src\loading\EnemyInfo.cs" />
     <Compile Include="src\loading\EnemyLoader.cs" />
@@ -152,7 +162,9 @@
     <Compile Include="src\loading\Loadable.cs" />
     <Compile Include="src\loading\LoaderError.cs" />
     <Compile Include="src\loading\MethodNotFoundError.cs" />
+    <Compile Include="src\Sandbox.cs" />
     <Compile Include="src\scripting\action\UpgradeAction.cs" />
+    <Compile Include="src\scripting\task\BarrierTask.cs" />
     <Compile Include="src\sound\RandoSound.cs" />
     <Compile Include="src\sound\RepeatedSound.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
@@ -172,7 +184,6 @@
     <Compile Include="src\entities\items\ExtraLife.cs" />
     <Compile Include="src\entities\items\ItemType.cs" />
     <Compile Include="src\entities\items\PowerItem.cs" />
-    <Compile Include="src\gui\LoadingScreen.cs" />
     <Compile Include="src\gui\PlayerButton.cs" />
     <Compile Include="src\gui\PlayerMenu.cs" />
     <Compile Include="src\gui\ReallyQuitMenu.cs" />
@@ -201,7 +212,8 @@
     <Compile Include="src\scripting\task\BossTask.cs" />
     <Compile Include="src\scripting\task\KillAllTask.cs" />
     <Compile Include="src\scripting\task\SongFadeTask.cs" />
-    <Compile Include="src\sound\SongPlayer.cs" />
+    <Compile Include="src\sound\SongManager.cs" />
+    <Compile Include="src\console\ConsoleBuffer.cs" />
     <Compile Include="src\Wrapped2DArray.cs" />
     <Compile Include="src\scripting\action\AimPlayerAction.cs" />
     <Compile Include="src\scripting\EntryListParser.cs" />
@@ -364,69 +376,69 @@
     <Content Include="controls.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="data\bodies\boss0.body">
+    <Content Include="data\bodies\boss0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\tubergsixteen.body">
+    </Content>
+    <Content Include="data\bodies\tubergsixteen.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\tubefractal.body">
+    </Content>
+    <Content Include="data\bodies\tubefractal.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\tubesixteen.body">
+    </Content>
+    <Content Include="data\bodies\tubesixteen.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\hairpin0.body">
+    </Content>
+    <Content Include="data\bodies\hairpin0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\teapot0.body">
+    </Content>
+    <Content Include="data\bodies\teapot0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\pyramid0.body">
+    </Content>
+    <Content Include="data\bodies\pyramid0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\diamond0.body">
+    </Content>
+    <Content Include="data\bodies\diamond0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\torus0.body">
+    </Content>
+    <Content Include="data\bodies\torus0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\junk.body">
+    </Content>
+    <Content Include="data\bodies\junk.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\player0.body">
+    </Content>
+    <Content Include="data\bodies\player0.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bodies\cubewhite.body">
+    </Content>
+    <Content Include="data\bodies\cubewhite.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bosses\guy2.boss">
+    </Content>
+    <Content Include="data\bosses\guy2.boss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\bosses\guy.boss">
+    </Content>
+    <Content Include="data\bosses\guy.boss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\campaigns\default.campaign">
+    </Content>
+    <Content Include="data\campaigns\default.campaign">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\enemies\test0.enemy">
+    </Content>
+    <Content Include="data\enemies\test0.enemy">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\enemies\test1.enemy">
+    </Content>
+    <Content Include="data\enemies\test1.enemy">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\itembatches\test.batch">
+    </Content>
+    <Content Include="data\itembatches\test.batch">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\items\point.item">
+    </Content>
+    <Content Include="data\items\point.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\items\power.item">
+    </Content>
+    <Content Include="data\items\power.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\items\life.item">
+    </Content>
+    <Content Include="data\items\life.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="data\scripts\behaviors\item0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -472,18 +484,18 @@
     <Content Include="data\levels\4.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="data\options\0plweapon0.option">
+    <Content Include="data\options\0plweapon0.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\options\0plweapon1.option">
+    </Content>
+    <Content Include="data\options\0plweapon1.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\options\0plbomb0.option">
+    </Content>
+    <Content Include="data\options\0plbomb0.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\options\testoption.option">
+    </Content>
+    <Content Include="data\options\testoption.option">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="data\scripts\behaviors\aimplayer.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -505,9 +517,15 @@
     <Content Include="data\scripts\spawns\0bomb0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="data\world\bg.terrain">
+    <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="data\players\custom\debug.player">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\bodies\debugplayer.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="lib\Nuclex.Input.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

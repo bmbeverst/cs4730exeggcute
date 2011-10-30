@@ -10,11 +10,13 @@ using Microsoft.Xna.Framework;
 using Exeggcute.src.gui;
 using Exeggcute.src.entities;
 using Exeggcute.src.contexts;
+using Exeggcute.src.console.commands;
 
 namespace Exeggcute.src
 {
-    class LevelSummaryMenu : IContext
+    class LevelSummaryMenu : ConsoleContext
     {
+        
         protected bool validScore;
         protected int scoreGained;
         protected Difficulty difficulty;
@@ -25,8 +27,10 @@ namespace Exeggcute.src
         public Player Player { get; protected set; }
         protected string nextName;
         protected SpriteFont font;
+
         public LevelSummaryMenu(Level level)
         {
+            this.Parent = level;
             this.font = FontBank.Get("consolas");
             this.validScore = level.ValidScore;
             this.Hud = level.Hud;
@@ -34,17 +38,12 @@ namespace Exeggcute.src
             this.nextName = (int.Parse(level.Name) + 1).ToString();
             this.difficulty = level.Difficulty;
             this.scoreGained = Player.Score - level.InitialScore;
+
         }
 
-        public void Update(ControlManager controls)
+        public override void Update(ControlManager controls)
         {
-            float speed = 1.0f;
-            if (controls[Ctrl.Action].IsPressed)
-            {
-                speed *= 2;
-            }
-
-            timer.Increment(speed);
+            timer.Increment(1.0f);
 
             if (timer.Value >= DURATION &&
                 controls[Ctrl.Action].DoEatPress())
@@ -54,31 +53,32 @@ namespace Exeggcute.src
             }
         }
 
-        public void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw2D(SpriteBatch batch)
         {
-            batch.Begin();
             Hud.Draw(batch, Player);
             string timeLeft = timer.Value >= DURATION ? "Press shoot to continue!" : "Loading...";
             string scoreString = string.Format("Points gained: {0:000,000,000}", scoreGained);
 
             batch.DrawString(font, scoreString, new Vector2(500, 500), Color.White);
             batch.DrawString(font, timeLeft, new Vector2(500, 550), Color.White);
-
-            batch.End();
-
         }
 
-        public void Load(ContentManager content)
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
+        {
+            
+        }
+
+        public override void Unload()
         {
 
         }
-        public void Unload()
+        public override void Dispose()
         {
 
         }
-        public void Dispose()
+        public override void AcceptCommand(ConsoleCommand command)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

@@ -25,12 +25,15 @@ namespace Exeggcute.src.gui
             base.Update(controls);
         }
 
-        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw2D(SpriteBatch batch)
         {
-            batch.Begin();
             buttonBoxOutline.Draw(batch);
-            base.Draw(graphics, batch);
-            batch.End();
+            base.Draw2D(batch);
+        }
+
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
+        {
+            base.Draw3D(graphics, camera);
         }
 
         public override void Move(Direction dir)

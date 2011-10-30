@@ -170,7 +170,13 @@ namespace Exeggcute.src
             else return val;
         }
 
-        internal static string Join(List<string> strings, char delim)
+        internal static bool IsWhitespace(string s)
+        {
+            string stripped = Util.RemoveSpace(s);
+            return stripped.Length == 0;
+        }
+
+        internal static string Join<TObject>(List<TObject> strings, char delim)
         {
             string result = "";
 
@@ -181,14 +187,14 @@ namespace Exeggcute.src
             }
             else if (end == 0)
             {
-                return strings[0];
+                return strings[0].ToString();
             }
             for (int i = 0; i < end; i += 1)
             {
-                result += strings[i] + delim;
+                result += strings[i].ToString() + delim;
             }
 
-            if (end > 0)result += strings[end];
+            if (end > 0) result += strings[end].ToString();
 
             return result;
         }
@@ -412,6 +418,12 @@ namespace Exeggcute.src
         {
             return Util.Stackify<string>(line.Split(delim));
         }
+
+        internal static bool StrEq(string s0, string s1)
+        {
+            return Regex.IsMatch(s0, s1, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+        }
+
 
         /// <summary>
         /// Converts a speed,angle into a Vector2

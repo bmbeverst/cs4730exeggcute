@@ -9,6 +9,7 @@ using Exeggcute.src.entities.items;
 using Exeggcute.src.graphics;
 using Exeggcute.src.sound;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src
 {
@@ -51,7 +52,7 @@ namespace Exeggcute.src
             return false;
         }
 
-        public void Collide(HashList<Item> itemList, Player player)
+        public void CollideItems(HashList<Item> itemList, Player player)
         {
             foreach (Item item in itemList.GetKeys())
             {
@@ -174,8 +175,6 @@ namespace Exeggcute.src
 
 
 
-
-
         internal void EatShots(HashList<Shot> enemyShots, Rectangle rectangle)
         {
             foreach (Shot shot in enemyShots.GetKeys())
@@ -184,6 +183,55 @@ namespace Exeggcute.src
                 {
                     shot.QueueDelete();
                 }
+            }
+        }
+
+        private void updateEntityList<TEntity>(HashList<TEntity> entities)
+            where TEntity : Entity3D
+        {
+            foreach (TEntity entity in entities.GetKeys())
+            {
+                entity.Update();
+            }
+        }
+
+        public void UpdateAll(Rectangle liveArea)
+        {
+            FilterDead(World.PlayerShots);
+            FilterDead(World.EnemyShots);
+            FilterDead(World.EnemyList);
+            FilterDead(World.ItemList);
+            FilterDead(World.GibList);
+            FilterDead(World.DyingList);
+
+            FilterOffscreen(World.PlayerShots, liveArea);
+            FilterOffscreen(World.EnemyShots, liveArea);
+            FilterOffscreen(World.ItemList, liveArea);
+            FilterOffscreen(World.GibList, liveArea);
+
+            updateEntityList(World.PlayerShots);
+            updateEntityList(World.EnemyShots);
+            updateEntityList(World.EnemyList);
+            updateEntityList(World.ItemList);
+            updateEntityList(World.GibList);   
+        }
+
+        public void DrawAll(GraphicsDevice graphics, Matrix projection, Matrix view)
+        {
+            drawEntityList(graphics, view, projection, World.GibList);
+            drawEntityList(graphics, view, projection, World.EnemyList);
+            drawEntityList(graphics, view, projection, World.ItemList);
+            drawEntityList(graphics, view, projection, World.EnemyShots);
+            drawEntityList(graphics, view, projection, World.PlayerShots);
+        }
+
+
+        private void drawEntityList<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, HashList<TEntity> entities)
+            where TEntity : Entity3D
+        {
+            foreach (TEntity entity in entities.GetKeys())
+            {
+                entity.Draw(graphics, view, projection);
             }
         }
     }

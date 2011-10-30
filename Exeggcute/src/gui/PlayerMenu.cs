@@ -19,8 +19,7 @@ namespace Exeggcute.src.gui
         public static List<Button> MakeButtons(SpriteFont font, Color fontColor, bool isCustom)
         {
             SpriteFont myfont = FontBank.Get("consolas");
-            Color color = Color.Black;
-            Rectangle bounds = new Rectangle(500, 500, 100, 100);
+            Color color = Color.White;
             List<Button> buttons = new List<Button>();
             foreach (Player player in PlayerBank.GetAll(isCustom))
             {
@@ -44,11 +43,14 @@ namespace Exeggcute.src.gui
 
         List<Player> playerCopies = new List<Player>();
 
+        SpriteText menuTitle;
+        EntityManager manager = new EntityManager();
+
         public PlayerMenu(List<Player> players, List<Button> buttons, Rectangle bounds, bool canUseCustom)
             : base(buttons, bounds, false)
         {
 
-            
+            menuTitle = new SpriteText(font, "Player select", Color.White);
             this.CanUseCustom = canUseCustom;
             foreach (Player player in players)
             {
@@ -56,9 +58,12 @@ namespace Exeggcute.src.gui
                 player.DoDemo();
                 playerCopies.Add(player);
             }
+
+            
         }
         public override void Update(ControlManager controls)
         {
+            manager.FilterOffscreen(World.PlayerShots, new Rectangle(-55, -40, 110, 80));
             base.Update(controls);
             playerCopies[cursor].Update();
             foreach (Shot shot in World.PlayerShots.GetKeys())
@@ -66,21 +71,25 @@ namespace Exeggcute.src.gui
                 shot.Update();
             }
         }
-        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
-        {
-            batch.Begin();
-            base.Draw(graphics, batch);
-            
-            batch.End();
 
-            Matrix view = World.camera.GetView();
-            Matrix projection = World.camera.GetProjection();
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
+        {
+
+            Matrix view = camera.GetView();
+            Matrix projection = camera.GetProjection();
             //playerCopies[cursor].SetPosition(new Vector3(0, 0, 0));
             playerCopies[cursor].Draw(graphics, view, projection);
             foreach (Shot shot in World.PlayerShots.GetKeys())
             {
                 shot.Draw(graphics, view, projection);
             }
+            base.Draw3D(graphics, camera);
+        }
+
+        public override void Draw2D(SpriteBatch batch)
+        {
+            base.Draw2D(batch);
+            menuTitle.Draw(batch, new Vector2(50, 400));
         }
 
         public override void Back()

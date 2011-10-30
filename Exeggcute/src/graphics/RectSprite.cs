@@ -107,6 +107,11 @@ namespace Exeggcute.src.graphics
             }
         }
 
+        public void DrawSolidWidth(SpriteBatch batch, Vector2 pos, float w, float h)
+        {
+            batch.Draw(DotTexture, pos, null, FillColor, 0, Vector2.Zero, new Vector2(w, h), SpriteEffects.None, 0);
+        }
+
         public void Draw(SpriteBatch batch, Vector2 pos, float rotationRadians)
         {
             throw new NotImplementedException("Not intended to be rotatable since this often represents a hitbox. A hitbox does not behave correctly when rotated out of the box.");

@@ -9,12 +9,11 @@ hurtSound:    bosshurt4
 intro:        0
 outro:        1
 
-
 @spellcard:
 name:         Test1
 behavior:     boss0
 attack:       enemy,testoption
-duration:     300
+duration:     3000
 health:       1000
 items:        test
 
@@ -22,6 +21,6 @@ items:        test
 name:         Test2
 behavior:     boss0
 attack:       enemy,testoption
-duration:     300
+duration:     3000
 health:       1000
 items:        test

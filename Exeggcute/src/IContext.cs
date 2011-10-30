@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Exeggcute.src.console.commands;
 
 namespace Exeggcute.src
 {
@@ -13,6 +14,12 @@ namespace Exeggcute.src
     /// </summary>
     interface IContext
     {
+        /// <summary>
+        /// A handle for a context's parent which may well be null. This 
+        /// allows a context to allow input to be passed up and draw etc
+        /// </summary>
+        IContext Parent { get; }
+
         /// <summary>
         /// Called once per frame when this context is on the top of the world
         /// stack, and additionally whenever this context's children decide 
@@ -27,12 +34,17 @@ namespace Exeggcute.src
         /// that it should. This method does all the drawing necessary for the 
         /// context.
         /// </summary>
-        void Draw(GraphicsDevice graphics, SpriteBatch batch);
+        void Draw3D(GraphicsDevice graphics, Camera camera);
 
         /// <summary>
-        /// DEPRECATED
+        /// Draws the 2D spritebatch elements of this context. The caller
+        /// can be assured that batch.Begin and batch.End are called as
+        /// desired.
         /// </summary>
-        void Load(ContentManager content);
+        /// <param name="batch"></param>
+        void Draw2D(SpriteBatch batch);
+
+
 
         /// <summary>
         /// Called whenever the context is popped from the stack.
@@ -45,5 +57,7 @@ namespace Exeggcute.src
         /// game is exited.
         /// </summary>
         void Dispose();
+
+        
     }
 }

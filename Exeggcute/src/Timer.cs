@@ -47,5 +47,25 @@ namespace Exeggcute.src
         {
             Max = newMax;
         }
+
+        public bool IncrUntilDone()
+        {
+            Increment();
+            if (IsDone)
+            {
+                Reset();
+                return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns a number between 0 and 1 
+        /// </summary>
+        public float GetRatio()
+        {
+            return (float)Value / (float)Max;
+        }
     }
 }

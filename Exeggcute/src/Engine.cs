@@ -12,6 +12,7 @@ using Exeggcute.src.assets;
 using Exeggcute.src.text;
 using Exeggcute.src.contexts;
 using Exeggcute.src.sound;
+using System.Diagnostics;
 
 namespace Exeggcute.src
 {
@@ -55,6 +56,8 @@ namespace Exeggcute.src
 
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
         {
+            
+            
             World.Initialize(this, content, graphics);
 
             loadXNAContent(content);
@@ -70,14 +73,15 @@ namespace Exeggcute.src
             ConversationBank.LoadAll();
 
             PlayerBank.LoadAll();
-            loadMenus();
 
+            loadMenus();
+            
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
             TextBox.LoadSprites();
             //World.LoadTerrain();
             AssetManager.Commit();
-
+            World.MakeConsole();
         }
 
         private void loadXNAContent(ContentManager content)
@@ -98,6 +102,7 @@ namespace Exeggcute.src
             World.Begin();
         }
         RepeatedSound mySound;
+        
         int frame = 0;
         public void Update()
         {

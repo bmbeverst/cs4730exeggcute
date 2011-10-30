@@ -42,12 +42,15 @@ namespace Exeggcute.src.gui
             buttons[0].AttachOnActivate(boundEvent);
         }
 
-        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
-            batch.Begin();
+            base.Draw3D(graphics, camera);
+        }
+
+        public override void Draw2D(SpriteBatch batch)
+        {
             question.Draw(batch, questionPos);
- 	        base.Draw(graphics, batch);
-            batch.End();
+ 	        base.Draw2D(batch);
         }
 
         public override void Unload()

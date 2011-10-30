@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Exeggcute.src.sound;
 using System.Speech.Synthesis;
+using Exeggcute.src.console.commands;
 
 namespace Exeggcute.src
 {
@@ -28,7 +29,7 @@ namespace Exeggcute.src
     /// Base class for game "levels". If there is only one persistent
     /// level in our game, then that counts too.
     /// </summary>
-    class Level : IContext
+    class Level : ConsoleContext
     {
         public HUD Hud { get; protected set; }
         public string Name { get; protected set; }
@@ -40,7 +41,7 @@ namespace Exeggcute.src
         /// </summary>
         public bool ValidScore { get; protected set; }
         private ParticleSystem particles;
-        private Camera camera;
+
         public static Player player;
         private EntityManager collider;
         private PhysicsManager physics;
@@ -76,8 +77,6 @@ namespace Exeggcute.src
 
         private TaskListLoader loader = new TaskListLoader();
 
-        
-
         private GrowBox shotEater;
 
         private Boss mainBoss;
@@ -87,8 +86,6 @@ namespace Exeggcute.src
 
         private static Song levelTheme;
         private static Song bossTheme;
-
-        public static SongPlayer SongPlayer = new SongPlayer(true, 1f, 300);
 
         public readonly int InitialScore;
 
@@ -104,12 +101,10 @@ namespace Exeggcute.src
                      Song bossTheme,
                      Boss miniBoss, 
                      Boss mainBoss,
-                     Camera camera,
                      List<Task> tasks, 
                      WangMesh terrain,
                      LightSettings lightSettings)
         {
-
             MediaPlayer.IsVisualizationEnabled = true;
             //HACK HARDCODED
             Effect light = EffectBank.Get("light0");
@@ -127,14 +122,19 @@ namespace Exeggcute.src
             this.itemList    = World.ItemList;
             this.roster      = roster;
             this.taskList    = tasks;
+
+
             this.miniBoss    = miniBoss;
             this.mainBoss    = mainBoss;
+            miniBoss.AttachConversations(this);
+            mainBoss.AttachConversations(this);
+
+
             Level.levelTheme  = levelTheme;
             Level.bossTheme   = bossTheme;
 
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
-            this.camera   = camera;
             this.Hud      = hud;
 
             Hud.DoFade(FadeType.In);
@@ -149,73 +149,15 @@ namespace Exeggcute.src
             player.SetPosition(Engine.Jail);
             player.ResetFromDemo();
             this.InitialScore = player.Score;
-            
-            //SongPlayer.Play(bossTheme);
 
 
-
-            SongPlayer.SetVolume(1);
-            SongPlayer.Play(levelTheme);
-        }
-
-        public void ProcessMusic()
-        {
-
+            World.RequestPlay(levelTheme);
         }
 
 
-        private void loadLights(LightSettings settings, Effect effect)
+        public override void AcceptCommand(ConsoleCommand command)
         {
-            effect.CurrentTechnique = effect.Techniques["Textured"];
-
-
-            if (settings.Point1On.Value)
-            {
-                effect.Parameters["xPointLight1"].SetValue(settings.Point1Pos.Value);
-                effect.Parameters["xPointIntensity1"].SetValue(settings.Point1Level.Value);
-                effect.Parameters["xPointIntensity1"].SetValue(settings.Point1Level.Value);
-
-            }
-            if (settings.DirOn.Value)
-            {
-                effect.Parameters["xLightDirection"].SetValue(settings.DirDirection.Value);
-                effect.Parameters["xDirLightIntensity"].SetValue(settings.DirLevel.Value);
-            }
-            if (settings.SpotOn.Value)
-            {
-                effect.Parameters["xSpotPos"].SetValue(settings.SpotPos.Value);
-                effect.Parameters["xSpotDir"].SetValue(settings.SpotDir.Value);
-                effect.Parameters["xSpotInnerCone"].SetValue(settings.SpotInner.Value);
-                effect.Parameters["xSpotOuterCone"].SetValue(settings.SpotOuter.Value);
-                effect.Parameters["xSpotRange"].SetValue(settings.SpotRange.Value);
-                effect.Parameters["xSpotIntensity"].SetValue(settings.SpotLevel.Value);
-            }
-
-            effect.Parameters["xAmbient"].SetValue(settings.AmbientLevel.Value);
-            
-                    
-        }
-        
-        public static void PlayBossMusic()
-        {
-            SongPlayer.SetVolume(1);
-            SongPlayer.Play(bossTheme);
-        }
-        private void updateShots(params HashList<Shot>[] lists)
-        {
-            foreach (HashList<Shot> shots in lists)
-            {
-                List<Shot> toRemove = new List<Shot>();
-                foreach (Shot shot in shots.GetKeys())
-                {
-                    shot.Update();
-                    if (!shot.ContainedIn(LiveArea))
-                    {
-                        toRemove.Add(shot);
-                    }
-                }
-                toRemove.ForEach(shot => shots.Remove(shot));
-            }
+            throw new NotImplementedException();
         }
 
         public void Process(Task task)
@@ -223,10 +165,20 @@ namespace Exeggcute.src
             throw new InvalidOperationException("Must call a subclass overload");
         }
 
+        bool fadeStarted = false;
         public void Process(SongFadeTask task)
         {
-            SongPlayer.DoFade(-1);
+            World.DoFadeOut(task.NumFrames);
             taskPtr += 1;
+            
+        }
+
+        public void Process(BarrierTask barrier)
+        {
+            if (World.CanPassBarrier(barrier))
+            {
+                taskPtr += 1;
+            }
         }
 
         public void Process(SpawnTask task)
@@ -272,14 +224,13 @@ namespace Exeggcute.src
             current.Process(this);
         }
 
-        public void Update(ControlManager controls)
+        public override void Update(ControlManager controls)
         {
             Update(controls, true);
         }
 
         public void Update(ControlManager controls, bool playerCanShoot)
         {
-            SongPlayer.Update();
             
             Hud.Update();
             //camera.Update(controls);
@@ -305,31 +256,14 @@ namespace Exeggcute.src
             processHit();
 
             collider.Collide(playerShots, enemyList);
-            collider.Collide(itemList, player);
+            collider.CollideItems(itemList, player);
 
-            collider.FilterOffscreen(playerShots, LiveArea);
-            collider.FilterOffscreen(gibList, LiveArea);
-            collider.FilterOffscreen(enemyShots, LiveArea);
-            collider.FilterOffscreen(itemList, LiveArea);
 
-            // =[
-            collider.FilterDead(playerShots);
-            collider.FilterDead(enemyShots);
-            collider.FilterDead(gibList);
-            collider.FilterDead(enemyList);
-            collider.FilterDead(World.DyingList);
-            collider.FilterDead(World.ItemList);
+            collider.UpdateAll(LiveArea);
 
 
             player.Update(controls, playerCanShoot);
-            player.LockPosition(camera, GameArea);
-
-
-            updateEntityList(enemyList);
-            updateEntityList(gibList);
-            updateEntityList(itemList);
-            updateEntityList(playerShots);
-            updateEntityList(enemyShots);
+            player.LockPosition(GameArea);
 
             if (boss != null)
             {
@@ -362,36 +296,14 @@ namespace Exeggcute.src
             }
         }
 
-        private void drawEntityList<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, HashList<TEntity> entities) 
-            where TEntity : Entity3D
-        {
-            foreach (TEntity entity in entities.GetKeys())
-            {
-                entity.Draw(graphics, view, projection);
-            }
-        }
-
-        private void updateEntityList<TEntity>(HashList<TEntity> entities)
-            where TEntity : Entity3D
-        {
-            foreach (TEntity entity in entities.GetKeys())
-            {
-                entity.Update();
-            }
-        }
-
-        public void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
 
             player.Draw(graphics, view, projection);
 
-            drawEntityList(graphics, view, projection, enemyList);
-            drawEntityList(graphics, view, projection, gibList);
-            drawEntityList(graphics, view, projection, itemList);
-            drawEntityList(graphics, view, projection, enemyShots);
-            drawEntityList(graphics, view, projection, playerShots);
+            collider.DrawAll(graphics, projection, view);
 
             if (boss != null)
             {
@@ -400,12 +312,15 @@ namespace Exeggcute.src
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
-
-            batch.Begin();
-            Hud.Draw(batch, player);
-            batch.End();
             
         }
+
+        public override void Draw2D(SpriteBatch batch)
+        {
+            Hud.Draw(batch, player);
+            if (boss != null) boss.Draw2D(batch);
+        }
+
         bool cleanupStarted;
         public bool DoneCleanup()
         {
@@ -413,7 +328,6 @@ namespace Exeggcute.src
             {
                 Hud.DoFade(FadeType.Out);
                 cleanupStarted = true;
-                SongPlayer.DoFade(-1, 120);
             }
             if (!Hud.IsFading())
             {
@@ -425,19 +339,58 @@ namespace Exeggcute.src
             }
         }
 
-        public void Load(ContentManager content)
+        public void StartBoss()
         {
+            this.boss = mainBoss;
 
         }
 
-        public void Unload()
+        public void EndBossIntro(Boss boss)
+        {
+            World.RequestPlay(bossTheme);
+        }
+
+        public override void Unload()
         {
             miniBoss.Reset();
             mainBoss.Reset();
+            
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+
+        }
+
+
+        private void loadLights(LightSettings settings, Effect effect)
+        {
+            effect.CurrentTechnique = effect.Techniques["Textured"];
+
+
+            if (settings.Point1On.Value)
+            {
+                effect.Parameters["xPointLight1"].SetValue(settings.Point1Pos.Value);
+                effect.Parameters["xPointIntensity1"].SetValue(settings.Point1Level.Value);
+                effect.Parameters["xPointIntensity1"].SetValue(settings.Point1Level.Value);
+
+            }
+            if (settings.DirOn.Value)
+            {
+                effect.Parameters["xLightDirection"].SetValue(settings.DirDirection.Value);
+                effect.Parameters["xDirLightIntensity"].SetValue(settings.DirLevel.Value);
+            }
+            if (settings.SpotOn.Value)
+            {
+                effect.Parameters["xSpotPos"].SetValue(settings.SpotPos.Value);
+                effect.Parameters["xSpotDir"].SetValue(settings.SpotDir.Value);
+                effect.Parameters["xSpotInnerCone"].SetValue(settings.SpotInner.Value);
+                effect.Parameters["xSpotOuterCone"].SetValue(settings.SpotOuter.Value);
+                effect.Parameters["xSpotRange"].SetValue(settings.SpotRange.Value);
+                effect.Parameters["xSpotIntensity"].SetValue(settings.SpotLevel.Value);
+            }
+
+            effect.Parameters["xAmbient"].SetValue(settings.AmbientLevel.Value);
 
         }
     }

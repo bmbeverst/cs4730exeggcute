@@ -124,7 +124,7 @@ namespace Exeggcute.src.entities
             BombSprite = SpriteBank.Get("bomb");
         }
 
-        public void LockPosition(Camera camera, Rectangle gameArea)
+        public void LockPosition(Rectangle gameArea)
         {
             // HACK
             // If we cant control, then don't lock us to the screen, we are
@@ -382,7 +382,6 @@ namespace Exeggcute.src.entities
 
         public override void Process(UpgradeAction upgrade)
         {
-            Console.Write("UPGRADED {0}", attackPtr);
             power = thresholds[attackPtr] + 1;
             attackPtr += 1;
             if (power > POWER_MAX || attackPtr == arsenalList.Count || attackPtr > upgrade.Max)
@@ -391,7 +390,6 @@ namespace Exeggcute.src.entities
                 power = 0;
             }
             this.arsenal = CurrentAttack;
-            Console.WriteLine(" TO {0}", attackPtr);
         }
 
         public override void Kill()
@@ -434,6 +432,7 @@ namespace Exeggcute.src.entities
                 if (attackPtr < arsenalList.Count - 1)
                 {
                     attackPtr += 1;
+                    SfxBank.Play("powerup");
                     this.arsenal = CurrentAttack;
                 }
                 else

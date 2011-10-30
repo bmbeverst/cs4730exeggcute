@@ -25,6 +25,7 @@ namespace Exeggcute.src.gui
         protected static Vector2 dataPos = new Vector2(500, 100);
         protected SpriteFont font;
         protected Color fontColor;
+        protected Player player;
         public PlayerButton(Player player, SpriteFont font, Color fontColor)
             : base(null, null)
         {
@@ -35,11 +36,16 @@ namespace Exeggcute.src.gui
             this.fontColor = fontColor;
             this.IsCustom = player.IsCustom;
             this.onActivate = new LoadLevelEvent("0", Name, IsCustom);
+            this.player = player;
         }
 
         public override void Update(ControlManager controls)
         {
-            IsActive = true;
+            if (!IsActive)
+            {
+                IsActive = true;
+                player.DoDemo();
+            }
             if (controls[Ctrl.Action].DoEatPress())
             {
                 onActivate.Process();
@@ -68,12 +74,14 @@ namespace Exeggcute.src.gui
         {
             World.SendMove(Direction.Up);
             IsActive = false;
+            player.ResetFromDemo();
         }
 
         protected override void moveDown()
         {
             World.SendMove(Direction.Down);
             IsActive = false;
+            player.ResetFromDemo();
         }
 
         protected override void moveLeft()

@@ -129,7 +129,6 @@ namespace Exeggcute.src.text
                 float lookAhead = font.MeasureString(actual + space + words[i]).X;
                 if (lookAhead > Size.X)
                 {
-                    //Console.WriteLine("Adding line \"{0}\"", actual);
                     lines.Add(new TextLine(actual));
                     actual = "";
                 }

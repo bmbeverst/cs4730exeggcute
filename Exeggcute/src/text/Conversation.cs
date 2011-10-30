@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.gui;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.console.commands;
 
 namespace Exeggcute.src.text
 {
-    class Conversation : IContext
+    class Conversation : ConsoleContext
     {
         public TextBoxList Box { get; protected set; }
 
@@ -30,10 +31,15 @@ namespace Exeggcute.src.text
             this.Position = new Vector2(x, Engine.YRes - y - Box.Size.Y);
         }
 
-        public void Update(ControlManager controls)
+        public void AttachParent(IContext parent)
+        {
+            this.Parent = parent;
+        }
+
+        public override void Update(ControlManager controls)
         {
             Box.Update(controls);
-            World.UpdateParent(controls);
+            ((Level)Parent).Update(controls, false);
             if (Box.IsDone)
             {
                 IsDone = true;
@@ -42,13 +48,15 @@ namespace Exeggcute.src.text
             }
         }
 
-        public void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw2D(SpriteBatch batch)
         {
-            World.DrawParent(graphics, batch);
-            batch.Begin();
-
+            Parent.Draw2D(batch);
             Box.Draw(batch, Position, Color.White);
-            batch.End();
+        }
+
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
+        {
+            Parent.Draw3D(graphics, camera);
         }
 
         public void Reset()
@@ -62,14 +70,19 @@ namespace Exeggcute.src.text
 
         }
 
-        public void Unload()
+        public override void Unload()
         {
 
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
 
+        }
+
+        public override void AcceptCommand(ConsoleCommand command)
+        {
+            throw new NotImplementedException();
         }
 
         public static Conversation Parse(string s)

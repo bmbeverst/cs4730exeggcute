@@ -57,7 +57,7 @@ namespace Exeggcute.src.sound
 
         public static RepeatedSound Parse(string s)
         {
-            float volume = 1.0f;
+            float volume = 0.0f;
             string[] tokens = s.Split(',');
             string name = tokens[0];
             if (!SfxBank.Contains(name) && SfxBank.Contains(name + "0"))

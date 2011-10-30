@@ -62,6 +62,7 @@ namespace Exeggcute.src.assets
             // orz
             string relpath = Regex.Replace(filename, "ExeggcuteContent/", "");
             SoundEffect effect = content.Load<SoundEffect>(relpath);
+
             soundBases[name] = effect;
             durations[name] = (effect.Duration.Milliseconds / 1000f) * Engine.FPS;
             bank.PutWithFile(effect.CreateInstance(), filename);
@@ -69,7 +70,7 @@ namespace Exeggcute.src.assets
 
         public static RepeatedSound MakeRepeated(string name, int duration)
         {
-            float volume = 1.0f;
+            float volume = 0.0f;// 1.0f;
             SoundEffect sound = DeprecatedGetSound(name);
             RepeatedSound repeated = new RepeatedSound(sound, duration, volume);
             repeatedBank[name] = repeated;

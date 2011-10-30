@@ -50,8 +50,8 @@ namespace Exeggcute.src.scripting.task
             {
                 int frames = int.Parse(tokens.Pop());
                 return new List<Task> {
-                    new WaitTask(frames),
-                    new SongFadeTask(frames)
+                    new SongFadeTask(frames),
+                    new BarrierTask(BarrierType.FadeOut)
                 };
             }
             else

@@ -11,10 +11,11 @@ using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
 using Exeggcute.src.text;
+using Exeggcute.src.console.commands;
 
 namespace Exeggcute.src.gui
 {
-    abstract class Menu : IContext
+    abstract class Menu : ConsoleContext
     {
         protected int cursor;
         protected List<Button> buttons;
@@ -65,6 +66,16 @@ namespace Exeggcute.src.gui
 
         }
 
+        public override void AcceptCommand(ConsoleCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AttachParent(IContext parent)
+        {
+            this.Parent = parent;
+        }
+
         public virtual void Back()
         {
             cancelSound.Play();
@@ -75,14 +86,14 @@ namespace Exeggcute.src.gui
             selectSound.Play();
         }
 
-        public virtual void Update(ControlManager controls)
+        public override void Update(ControlManager controls)
         {
             ResolveCursor();
             buttons[cursor].Update(controls);
             ResolveCursor();
         }
 
-        public virtual void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw2D(SpriteBatch batch)
         {
             int xOffset = -16;
             outlineShadow.Draw(batch, drawPositions[0] + new Vector2(xOffset + 16, 16));
@@ -110,18 +121,18 @@ namespace Exeggcute.src.gui
             
         }
 
-        
-        public virtual void Load(ContentManager content)
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
 
         }
 
-        public virtual void Unload()
+
+        public override void Unload()
         {
 
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
 
         }
@@ -163,11 +174,6 @@ namespace Exeggcute.src.gui
                 }
             }
             //else cursor = Util.Clamp(cursor, 0, buttons.Count - 1);
-        }
-
-        public virtual void Cleanup()
-        {
-
         }
 
 
