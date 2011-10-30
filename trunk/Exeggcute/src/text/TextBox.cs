@@ -69,12 +69,12 @@ namespace Exeggcute.src.text
 
         public void Start()
         {
-            synth.SpeakAsync(total);
+           // synth.SpeakAsync(total);
         }
 
         public void Stop()
         {
-            synth.SpeakAsyncCancelAll();
+            //synth.SpeakAsyncCancelAll();
         }
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color, float spacingY)

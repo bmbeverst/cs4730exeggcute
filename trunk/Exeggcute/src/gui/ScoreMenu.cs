@@ -50,13 +50,17 @@ namespace Exeggcute.src.gui
             //    server.
         }
 
-        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
-            batch.Begin();
-            scores.Draw(batch, font, Vector2.Zero, Color.White);
-            base.Draw(graphics, batch);
-            batch.End();
+            base.Draw3D(graphics, camera);
         }
+
+        public override void Draw2D(SpriteBatch batch)
+        {
+            scores.Draw(batch, font, Vector2.Zero, Color.White);
+            base.Draw2D(batch);
+        }
+
         public override void Move(Direction dir)
         {
             if (dir == Direction.Up)

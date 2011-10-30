@@ -89,7 +89,6 @@ namespace Exeggcute.src.loading
                              levelInfo.BossTheme,
                              levelInfo.MiniBoss,
                              levelInfo.MainBoss,
-                             World.camera,
                              taskList, 
                              terrain,
                              lightSettings);

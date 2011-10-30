@@ -15,6 +15,10 @@ using Exeggcute.src.loading;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.sound;
+using Exeggcute.src.scripting.task;
+using Exeggcute.src.text;
+using Exeggcute.src.console;
 
 namespace Exeggcute.src
 {
@@ -34,6 +38,8 @@ namespace Exeggcute.src
     /// </summary>
     static class World 
     {
+        private static DevConsole console;
+
         private static Stack<IContext> stack = new Stack<IContext>();
         private static bool isInitialized = false;
         private static ContentManager content;
@@ -61,6 +67,8 @@ namespace Exeggcute.src
         private static PlayerMenu standardPlayerMenu;
         private static PlayerMenu customPlayerMenu;
 
+        private static SongManager songManager = new SongManager(0.1f);
+
         private static LevelLoader levelLoader = new LevelLoader();
 
         // As we traverse through the menus, we build settings which are 
@@ -76,12 +84,40 @@ namespace Exeggcute.src
             World.graphics = graphics;
             World.engine = engine;
             isInitialized = true;
+            
         }
 
+        public static void MakeConsole()
+        {
+            console = new DevConsole();
+        }
 
         private static VisualizationData soundData = new VisualizationData();
+
+
+
+        static bool consoleAttached = false;
         public static void Update(ControlManager controls)
         {
+            if (controls[Ctrl.Console].DoEatPress())
+            {
+                if (consoleAttached)
+                {
+                    stack.Pop();
+                    console.DetachParent();
+                    consoleAttached = false;
+                    MediaPlayer.Resume();
+                    
+                }
+                else
+                {
+                    console.AttachParent(Top);
+                    stack.Push(console);
+                    consoleAttached = true;
+                    MediaPlayer.Pause();
+                }
+            }
+            songManager.Update();
             MediaPlayer.GetVisualizationData(soundData);
             Terrain.Update(soundData.Frequencies);
             stack.Peek().Update(controls);
@@ -89,9 +125,9 @@ namespace Exeggcute.src
         
         public static void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
+
             if (Terrain == menuTerrain)
             {
-
                 Terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
             }
             else
@@ -99,30 +135,12 @@ namespace Exeggcute.src
                 Terrain.Draw(graphics, camera.GetView(), camera.GetProjection());
             
             }
-            stack.Peek().Draw(graphics, batch);
-        }
 
-        /// <summary>
-        /// Called by a context when it wants to allow its parent to be
-        /// updated.
-        /// </summary>
-        public static void UpdateParent(ControlManager controls)
-        {
-            IContext saved = stack.Pop();
-            Level level = (Level)stack.Peek();
-            level.Update(controls, false);
-            stack.Push(saved);
-        }
+            Top.Draw3D(graphics, camera);
 
-        /// <summary>
-        /// Called by a context when it wants to allow its parent to be
-        /// drawn.
-        /// </summary>
-        public static void DrawParent(GraphicsDevice graphics, SpriteBatch batch)
-        {
-            IContext saved = stack.Pop();
-            stack.Peek().Draw(graphics, batch);
-            stack.Push(saved);
+            batch.Begin();
+            Top.Draw2D(batch);
+            batch.End();
         }
 
         public static void Process(ContextEvent ent)
@@ -134,10 +152,10 @@ namespace Exeggcute.src
         {
             difficulty = ent.Setting;
             
-            Rectangle bounds = new Rectangle(50, 500, 100, 100);
+            Rectangle bounds = new Rectangle(100, 500, 100, 100);
             SpriteFont font = FontBank.Get("consolas");
             Color fontColor = Color.Black;
-            //FIXME: make player select menu
+
             bool isCustom = (gameType == GameType.Custom);
             List<Player> players = PlayerBank.GetAll(isCustom).ToList();
             if (isCustom)
@@ -286,6 +304,42 @@ namespace Exeggcute.src
             LoadNextLevel(hud, player, levelName, false);
         }
 
+        public static void DoFadeOut(int frames)
+        {
+            songManager.FadeOut(frames);
+        }
+
+        public static bool CanPassBarrier(BarrierTask barrier)
+        {
+            BarrierType type = barrier.Type;
+            if (type == BarrierType.FadeOut)
+            {
+
+                return prebossProcessing();
+            }
+            else
+            {
+                throw new ExeggcuteError("Dont know what to do with barrier of type {0}", type);
+            }
+        }
+
+        private static bool prebossProcessing()
+        {
+            bool finished = songManager.State == SongManager.SongState.Off;
+            if (finished)
+            {
+                Level level = (Level)Top;
+                level.StartBoss();
+            }
+            return finished;
+        }
+
+        public static void RequestPlay(Song song)
+        {
+            songManager.Play(song);
+        }
+
+
         public static void CleanupLevel()
         {
             Level level = (Level)stack.Peek();
@@ -298,6 +352,61 @@ namespace Exeggcute.src
             }
         }
 
+        public static void ContextSwitch(string name)
+        {
+
+            if (!(Top is DevConsole))
+            {
+                throw new ExeggcuteError("impossible");
+            }
+            else
+            {
+                stack.Pop();
+            }
+            Player player = null;
+            HUD hud = null;
+            while (!(Top is MainMenu))
+            {
+                if (stack.Count == 0) throw new ExeggcuteError("main menu expected on top!");
+                if (Top is Level)
+                {
+                    //unload level
+                    Level level = (Level)Top;
+                    player = Level.player;
+                    hud = level.Hud;
+                    ClearLists();
+                    level.Unload();
+                    songManager.Stop();
+                }
+                stack.Pop();
+            }
+
+            if (player == null || hud == null)
+            {
+                player = PlayerBank.Get("debug", true);
+                hud = new HUD();
+            }
+
+            IContext newContext;
+            if (Util.StrEq(name, "sandbox"))
+            {
+                Terrain = menuTerrain;
+                newContext = new Sandbox();
+            }
+            else
+            {
+                newContext = levelLoader.Load(content, graphics, player, hud, difficulty, name);
+            }
+
+
+
+
+
+            
+            console.AttachParent(newContext);
+            stack.Push(newContext);
+            stack.Push(console);
+        }
 
         /// <summary>
         /// doPop should be true iff we are loading a level directly from a LevelSummaryMenu
@@ -362,8 +471,14 @@ namespace Exeggcute.src
         private static WangMesh savedTerrain;
         public static void Pause()
         {
+            if (!(Top is Level))
+            {
+                return;
+            }
+
             savedTerrain = Terrain;
             Terrain = menuTerrain;
+            songManager.Pause();
             if (pauseMenu == null)
             {
                 SpriteFont font = FontBank.Get("consolas");
@@ -376,14 +491,7 @@ namespace Exeggcute.src
                 };
                 pauseMenu = new PauseMenu(buttons, bounds);
             }
-            if (Top is Level)
-            {
-                
-            }
-            else
-            {
-                throw new ExeggcuteError("can only pause from a level!");
-            }
+            
 
             stack.Push(pauseMenu);
         }
@@ -395,6 +503,7 @@ namespace Exeggcute.src
                 throw new InvalidOperationException("Only can unpause from the pause menu");
             }
             Terrain = savedTerrain;
+            songManager.Unpause();
             stack.Pop();
         }
 

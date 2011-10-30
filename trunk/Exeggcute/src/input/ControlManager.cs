@@ -31,7 +31,9 @@ namespace Exeggcute.src
             defaults[Ctrl.LShoulder] = new Control(Keys.H,        Buttons.LeftShoulder);
             defaults[Ctrl.RShoulder] = new Control(Keys.J,        Buttons.RightShoulder);
             defaults[Ctrl.Skip]      = new Control(Keys.LeftShift,Buttons.X);
-            defaults[Ctrl.Quit]      = new Control(Keys.Escape,  (Buttons)(0));
+            defaults[Ctrl.Quit]      = new Control(Keys.Escape,   Buttons.RightThumbstickLeft);
+            defaults[Ctrl.Console]   = new Control(Keys.OemTilde, Buttons.RightThumbstickRight);
+
         }
         public static Ctrl[] AllControls = (Ctrl[])Enum.GetValues(typeof(Ctrl));
 
@@ -50,8 +52,11 @@ namespace Exeggcute.src
 
         private KeyboardState kbState, kbStatePrev;
         private GamePadState gpState, gpStatePrev;
-
+        private MouseState mouseState;
         public bool ControllerUnplugged { get; protected set; }
+
+        protected int prevMouseWheel;
+        public int MouseWheelDelta { get; protected set; }
 
         /// <summary>
         /// Creates a new control manager wrapper around an InputManager object.
@@ -66,6 +71,7 @@ namespace Exeggcute.src
             {
                 keyFlags[ctrl] = new Keyflag();
             }
+
         }
 
         /// <summary>
@@ -90,7 +96,7 @@ namespace Exeggcute.src
         /// Computes the keys which were pressed on this frame, but were
         /// not pressed on the previous frame.
         /// </summary>
-        private Keys[] newlyPressedKeys()
+        public Keys[] GetNewlyPressedKeys()
         {
             Keys[] thisFrame = kbState.GetPressedKeys();
             Keys[] lastFrame = kbStatePrev.GetPressedKeys();
@@ -119,7 +125,8 @@ namespace Exeggcute.src
             gpStatePrev = gpState;
             kbState = Input.GetKeyboard().GetState();
             gpState = Input.GetGamePad(ExtendedPlayerIndex.Five).GetState();
-            Keys[] kbPressed = newlyPressedKeys();
+
+            Keys[] kbPressed = GetNewlyPressedKeys();
             Buttons[] gpPressed = newlyPressedButtons();
             if (kbPressed.Length > 0)
             {
@@ -164,7 +171,14 @@ namespace Exeggcute.src
                 bool witnessed = pair.Value.IsActive(kbState, gpState);
                 keyFlags[ctrl].Update(witnessed);
             }
-            if (IsCustomizing) Customize(); 
+            if (IsCustomizing) Customize();
+
+            // Mouse
+            mouseState = Input.GetMouse().GetState();
+
+            int mouseWheelValue = mouseState.ScrollWheelValue;
+            MouseWheelDelta = Math.Sign(mouseWheelValue - prevMouseWheel);
+            prevMouseWheel = mouseWheelValue;
         }
 
         public void UpdateInput()
@@ -180,6 +194,9 @@ namespace Exeggcute.src
                 ControllerUnplugged = true;
                 throw new ExeggcuteError("controller unplugged");
             }
+
+            
+                
         }
 
         /// <summary>
@@ -209,7 +226,7 @@ namespace Exeggcute.src
             {
                 if (!controls.ContainsKey(ctrl))
                 {
-                    Util.Warn("Did not find {0}", ctrl);
+                    Util.Debug("Did not find {0}", ctrl);
                     controls[ctrl] = defaults[ctrl];
                 }
             }

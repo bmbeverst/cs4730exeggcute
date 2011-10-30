@@ -9,6 +9,7 @@ using Exeggcute.src.text;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.loading;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Input;
 
 namespace Exeggcute.src
 {

@@ -13,6 +13,7 @@ using Exeggcute.src.loading;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src.entities
 {
@@ -30,7 +31,6 @@ namespace Exeggcute.src.entities
         protected bool introStarted;
         protected bool outroStarted;
 
-
         protected int spellPtr;
 
         protected Timer currentTimer;
@@ -44,6 +44,11 @@ namespace Exeggcute.src.entities
         protected string name;
 
         protected RepeatedSound hurtSound;
+        protected Level level;
+
+        protected int maxHealth;
+
+        public HealthBar HealthMeter { get; protected set; }
 
         public Boss(string name, 
                     Model model, 
@@ -60,6 +65,7 @@ namespace Exeggcute.src.entities
                     List<Spellcard> attacks)
             : base(model, texture, scale, radius, rotation, null, World.EnemyShots, World.GibList)
         {
+            
             this.hurtSound = hurtSound;
             this.name = name;
             this.spellPtr = -1;
@@ -75,15 +81,11 @@ namespace Exeggcute.src.entities
         bool songStarted = false;
         public override void Update()
         {
+            if (HealthMeter != null) HealthMeter.Update(Health);
             base.Update();
             hurtSound.Update();
             if (isStarted && !isDefeated)
             {
-                if (!songStarted)
-                {
-                    Level.PlayBossMusic();
-                    songStarted = true;
-                }
                 if (Health <= 0 || currentTimer.IsDone)
                 {
                     currentTimer.Reset();
@@ -99,6 +101,7 @@ namespace Exeggcute.src.entities
                 if (!outroStarted)
                 {
                     World.PushContext(outro);
+                    World.DoFadeOut(120);
                     outroStarted = true;
                 }
                 if (outro.IsDone)
@@ -147,16 +150,27 @@ namespace Exeggcute.src.entities
             }
         }
 
+        public void AttachConversations(Level parent)
+        {
+            intro.AttachParent(parent);
+            outro.AttachParent(parent);
+            this.level = parent;
+        }
+
         public void Start()
         {
             isStarted = true;
+            level.EndBossIntro(this);
             LoadNext();
         }
         
         public override void Collide(Shot shot)
         {
-            hurtSound.Play();
-            base.Collide(shot);
+            if (isStarted)
+            {
+                hurtSound.Play();
+                base.Collide(shot);
+            }
         }
 
         public void LoadNext()
@@ -173,7 +187,9 @@ namespace Exeggcute.src.entities
             this.arsenal      = next.Attack;
             this.currentTimer = next.TimeLimit;
             this.currentName  = next.Name;
+            this.maxHealth    = next.Health;
             this.Health       = next.Health;
+            this.HealthMeter  = new HealthBar(maxHealth, 500, 5, currentTimer);
             this.script       = next.Behavior;
             actionPtr = 0;
             waitCounter = 0;
@@ -213,5 +229,12 @@ namespace Exeggcute.src.entities
             BossInfo info = new BossInfo(name);
             return info.MakeBoss();
         }
+
+        public void Draw2D(SpriteBatch batch)
+        {
+            if (HealthMeter != null) HealthMeter.Draw(batch, new Vector2(0, 0));
+        }
+
+        
     }
 }

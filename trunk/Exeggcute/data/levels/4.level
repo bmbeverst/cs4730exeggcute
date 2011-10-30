@@ -1,9 +1,9 @@
 ﻿@Info:
   MiniBoss: guy2
   MainBoss: guy2
-StageTheme: BattleForTheGrandStar
+LevelTheme: BattleForTheGrandStar
  BossTheme: jaws
-    Roster: test
+    Roster: test0,test1
 
 @Terrain:
       Depth:   10

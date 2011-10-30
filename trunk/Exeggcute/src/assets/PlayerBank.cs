@@ -72,7 +72,7 @@ namespace Exeggcute.src.assets
                 try
                 {
                     string name = customBank.GetName(file);
-                    standardBank.Put(loader.Load(name, true), file);
+                    customBank.Put(loader.Load(name, true), file);
                 }
                 catch (Exception e)
                 {

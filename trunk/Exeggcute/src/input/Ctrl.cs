@@ -23,6 +23,7 @@ namespace Exeggcute.src.input
         Cancel, 
         Focus,
         Skip,
-        Quit
+        Quit,
+        Console
     }
 }

@@ -1,9 +1,9 @@
 ﻿@Info:
   MiniBoss: guy2
   MainBoss: guy2
-StageTheme: Mayhem_Some_Boss_Shit
+LevelTheme: Mayhem_Some_Boss_Shit
  BossTheme: RaidersOfTheLostArc
-    Roster: test
+    Roster: test0,test1
 
 @Terrain:
       Depth:   10

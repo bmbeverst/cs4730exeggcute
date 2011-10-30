@@ -18,7 +18,6 @@ namespace Exeggcute.src.entities.items
 
         public override Item Copy()
         {
-            Console.WriteLine(DegRotation);
             return new ExtraLife(Surface, Texture, Scale, Radius, DegRotation, (BehaviorScript)script);
         }
 

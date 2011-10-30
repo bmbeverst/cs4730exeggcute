@@ -70,10 +70,13 @@ namespace Exeggcute.src.graphics
         public void DrawNearRot(GraphicsDevice graphics, Wrapped2DArray<Quad> quads, float centerDepth, float rotation, int start, int buffer, float zRot)
         {
             Matrix world = //Shader.World =
+                  
                   Matrix.CreateTranslation(0, 0, -centerDepth)
+                
                 * Matrix.CreateRotationX(-rotation)
-                * Matrix.CreateRotationZ(zRot)
-                * Matrix.CreateTranslation(0, 0, centerDepth);
+                
+                * Matrix.CreateTranslation(0, 0, centerDepth)
+                * Matrix.CreateRotationZ(zRot);
 
             Shader.Parameters["xWorld"].SetValue(world);
 

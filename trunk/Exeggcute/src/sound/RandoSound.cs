@@ -45,10 +45,6 @@ namespace Exeggcute.src.sound
 
             order = new int[i * 100];
             generateOrder();
-            for (int k = 0; k < order.Length; k += 1)
-            {
-                Console.Write("{0} ", order[k]);
-            }
         }
 
         public override void Play()

@@ -20,12 +20,15 @@ namespace Exeggcute.src.gui
             this.cursor = 1;
         }
 
-        public override void Draw(GraphicsDevice graphics, SpriteBatch batch)
+        public override void Draw2D(SpriteBatch batch)
         {
-            batch.Begin();
-            base.Draw(graphics, batch);
+            base.Draw2D(batch);
             heading.Draw(batch, headingPos);
-            batch.End();
+        }
+
+        public override void Draw3D(GraphicsDevice graphics, Camera camera)
+        {
+            base.Draw3D(graphics, camera);
         }
 
         public override void Back()
