@@ -16,6 +16,12 @@ namespace Exeggcute.src.assets
         {
             return bank[name];
         }
+
+        public static List<string> GetLoaded()
+        {
+            return bank.GetAllLoaded();
+        }
+
         public static void LoadAll()
         {
             foreach (string file in bank.AllFiles)

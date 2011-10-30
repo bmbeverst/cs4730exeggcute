@@ -14,12 +14,19 @@ namespace Exeggcute.src.console.commands
         Boss,
         Campaign,
         Enemy,
-        Gib,
+        GibBatch,
         ItemBatch,
         Item,
         Level,
         Option,
         Player,
+        Model,
+        Sfx,
+        Song,
+        Texture,
+        Sprite,
+        Font
+
     }
     class ListCommand : ConsoleCommand
     {

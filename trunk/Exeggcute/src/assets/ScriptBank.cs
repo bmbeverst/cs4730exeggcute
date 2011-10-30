@@ -38,6 +38,21 @@ namespace Exeggcute.src.assets
             return new TrajectoryScript(trajectoryBank[trajectory]);
         }
 
+        public static List<string> GetLoadedBehaviors()
+        {
+            return behaviorBank.GetAllLoaded();
+        }
+
+        public static List<string> GetLoadedSpawns()
+        {
+            return spawnBank.GetAllLoaded();
+        }
+
+        public static List<string> GetLoadedTrajectories()
+        {
+            return trajectoryBank.GetAllLoaded();
+        }
+
         public static void LoadAll()
         {
             foreach (string file in behaviorBank.AllFiles)

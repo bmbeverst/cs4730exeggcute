@@ -69,7 +69,7 @@ command. Thank you for helping us help you help us all.
         public static HelpCommand MakeTypeFailure(DevConsole devConsole, string name)
         {
             HelpCommand result = new HelpCommand(devConsole);
-            result.Output = string.Format("Failed to parse typename from your input \"{0}\".", name);
+            result.Output = string.Format("Failed to parse command name from your input \"{0}\".", name);
             return result;
         }
 

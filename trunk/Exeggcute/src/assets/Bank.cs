@@ -16,11 +16,18 @@ namespace Exeggcute.src.assets
         protected Dictionary<string, int> seen = new Dictionary<string, int>();
         public readonly string rootDir;
         public ReadOnlyCollection<string> AllFiles;
+
+
         public CustomBank(string root)
         {
             rootDir = root;
             string[] files = Util.GetFiles(rootDir);
             AllFiles = new ReadOnlyCollection<string>(files);
+        }
+
+        public List<string> GetAllLoaded()
+        {
+            return bank.Keys.ToList();
         }
 
         public bool ContainsKey(string key)
@@ -90,6 +97,11 @@ namespace Exeggcute.src.assets
         {
             rootDir = root;
             init(new string[] { ext });
+        }
+
+        public List<string> GetAllLoaded()
+        {
+            return bank.Keys.ToList();
         }
 
         public bool Contains(string name)

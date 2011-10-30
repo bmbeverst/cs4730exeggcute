@@ -52,6 +52,33 @@ namespace Exeggcute.src.assets
             }
         }
 
+        public static bool Exists(string name)
+        {
+            return standardBank.ContainsKey(name) ||
+                   customBank.ContainsKey(name);
+        }
+
+        /// <summary>
+        /// Returns whether or not the given name refers to a custom player.
+        /// Assumes that the player exists in one of the banks which must
+        /// be checked before calling using this Exists function.
+        /// </summary>
+        public static bool IsCustom(string name)
+        {
+            if (standardBank.ContainsKey(name))
+            {
+                return false;
+            }
+            else if (customBank.ContainsKey(name))
+            {
+                return true;
+            }
+            else
+            {
+                throw new ExeggcuteError("Check to see if exists first!");
+            }
+        }
+
         public static void LoadAll()
         {
             foreach (string file in standardBank.AllFiles)

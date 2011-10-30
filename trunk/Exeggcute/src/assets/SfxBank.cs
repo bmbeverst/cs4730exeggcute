@@ -27,6 +27,11 @@ namespace Exeggcute.src.assets
             bank[name].Play();
         }
 
+        public static List<string> GetLoaded()
+        {
+            return bank.GetAllLoaded();
+        }
+
         public static bool Contains(string name)
         {
             return bank.Contains(name);

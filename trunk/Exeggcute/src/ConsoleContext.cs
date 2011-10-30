@@ -39,5 +39,10 @@ namespace Exeggcute.src
         {
             throw new SubclassShouldImplementError();
         }
+
+        public virtual void AcceptCommand(ListCommand list)
+        {
+            throw new SubclassShouldImplementError();
+        }
     }
 }
