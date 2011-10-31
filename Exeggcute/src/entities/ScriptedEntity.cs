@@ -23,12 +23,12 @@ namespace Exeggcute.src.entities
         /// keeps track of how long a command has been processed before
         /// not applicable for all commands 
         /// </summary>
-        protected int waitCounter = 0;
+        public int WaitCounter { get; protected set; }
 
         /// <summary>
         /// po
         /// </summary>
-        protected int actionPtr;
+        public int ActionPtr { get; protected set; }
 
         public bool IsAiming { get; protected set; }
 
@@ -87,8 +87,8 @@ namespace Exeggcute.src.entities
 
         public virtual void Reset()
         {
-            this.waitCounter = 0;
-            this.actionPtr = 0;
+            this.WaitCounter = 0;
+            this.ActionPtr = 0;
         }
 
         public virtual void Process(ActionBase cmd)
@@ -124,7 +124,7 @@ namespace Exeggcute.src.entities
             // for thousands of objects?
             if (script == null || script.Count == 0) return;
             ///////////yuck//////////////////
-            for (int i = actionPtr; i < script.Count; i += 1)
+            for (int i = ActionPtr; i < script.Count; i += 1)
             {
                 ActionBase current = script[i];
                 current.Process(this);
@@ -155,7 +155,7 @@ namespace Exeggcute.src.entities
             LinearAccel = move.LinearAccel.Value;
             AngularVelocity = move.AngularVelocity.Value;
             AngularAccel = move.AngularAccel.Value;
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public virtual void Process(ShootAction shoot)
@@ -168,7 +168,7 @@ namespace Exeggcute.src.entities
             Vector3 start = Position;
             Vector3 target = moveTo.Destination.Vector3;
             doSmoothTransition(start, target, moveTo.Duration);
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public virtual void Process(MoveRelAction moveRel)
@@ -176,14 +176,14 @@ namespace Exeggcute.src.entities
             Vector3 start = Position;
             Vector3 target = start + moveRel.Displacement.Vector3;
             doSmoothTransition(start, target, moveRel.Duration);
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public virtual void Process(AimPlayerAction aim)
         {
             AimAngle = Util.AimAt(Position, Level.player.Position);
             IsAiming = true;
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)
@@ -214,22 +214,22 @@ namespace Exeggcute.src.entities
 
         public virtual void Process(WaitAction wait)
         {
-            if (waitCounter >= wait.Duration)
+            if (WaitCounter >= wait.Duration)
             {
-                actionPtr += 1;
-                waitCounter = 0;
+                ActionPtr += 1;
+                WaitCounter = 0;
             }
             else
             {
                 
-                waitCounter += 1;
+                WaitCounter += 1;
             }
         }
 
         public virtual void Process(SetParamAction setparam)
         {
             param[setparam.ParamIndex] = setparam.Value.Value;
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public virtual void Process(StopAction stop)
@@ -239,12 +239,12 @@ namespace Exeggcute.src.entities
             AngularAccel = 0;
             AngularVelocity = 0;
             VelocityZ = 0;
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public virtual void Process(LoopAction loop)
         {
-            actionPtr = loop.Pointer;
+            ActionPtr = loop.Pointer;
         }
 
         public virtual void Collide(Shot shot)

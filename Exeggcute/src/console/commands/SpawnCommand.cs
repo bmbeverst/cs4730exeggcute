@@ -16,7 +16,7 @@ namespace Exeggcute.src.console.commands
         static SpawnCommand()
         {
             string usageBase = 
-@"Usage: Spawn 
+@"    
     Spawn TYPE NAME     Spawns an entity of type TYPE with name NAME. 
                         Possible TYPEs include: ({0})"; 
             SpawnType[] typeValues = (SpawnType[])Enum.GetValues(typeof(SpawnType));
@@ -31,11 +31,16 @@ namespace Exeggcute.src.console.commands
         public SpawnType Type { get; protected set; }
         public string Name { get; protected set; }
 
-        public SpawnCommand(DevConsole devConsole, SpawnType type, string name)
+        public Float3 Position { get; protected set; }
+        public FloatValue Angle { get; protected set; }
+
+        public SpawnCommand(DevConsole devConsole, SpawnType type, string name, Float3 pos, FloatValue angle)
             : base(devConsole)
         {
             this.Type = type;
             this.Name = name;
+            this.Position = pos;
+            this.Angle = angle;
         }
 
         public override void AcceptCommand(ConsoleContext context)

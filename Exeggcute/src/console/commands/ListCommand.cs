@@ -31,20 +31,18 @@ namespace Exeggcute.src.console.commands
     {
         static ListCommand()
         {
-            string baseUsage =
-@"Usage: List
-    List FILETYPE       Lists all loaded files of type TYPE. Permissable types
-                        to query are:
-";
+            string baseUsage = "";
             foreach (FileType type in Enum.GetValues(typeof(FileType)))
             {
                 baseUsage += type + "\n";
             }
 
-            Usage = baseUsage;
+            ValidTypes = baseUsage;
         }
-        public static string Usage = ConsoleCommand.StaticUsage;
-
+        public static string Usage = 
+@"
+    List FILETYPE       Lists all loaded files of type TYPE.";
+        public static string ValidTypes = ConsoleCommand.StaticUsage;
         public FileType Type { get; protected set; }
         public ListCommand(DevConsole devConsole, FileType type)
             : base(devConsole)

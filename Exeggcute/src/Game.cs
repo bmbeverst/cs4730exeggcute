@@ -48,6 +48,11 @@ namespace Exeggcute.src
 
             base.LoadContent();
         }
+
+        /// <summary>
+        /// Passing null to this function will keep the same dataset
+        /// </summary>
+        /// <param name="name"></param>
         public void Reset(string name)
         {
             engine = new Engine(GraphicsDevice, Content, new InputManager(), name);
@@ -88,6 +93,11 @@ namespace Exeggcute.src
                 Console.WriteLine("{0}\nFailed to connect to server", error.Message); 
             }
             base.Initialize();
+        }
+
+        public void Exit()
+        {
+            engine.Exit();
         }
         
     }

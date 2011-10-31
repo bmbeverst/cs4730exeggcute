@@ -22,7 +22,7 @@ namespace Exeggcute.src.loading
         public int? Rows;
         public float? TileSize;
         public float? ScrollSpeed;
-        public float? Variance;
+        public float Variance = 0;
         public Texture2D Texture;
         public Concavity? Orientation;
         public TerrainType? Type;
@@ -46,7 +46,7 @@ namespace Exeggcute.src.loading
                                 Cols.Value,
                                 Rows.Value,
                                 TileSize.Value,
-                                Variance.GetValueOrDefault(),
+                                Variance,
                                 ScrollSpeed.Value,
                                 Orientation.Value,
                                 Type.Value,

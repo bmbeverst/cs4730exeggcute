@@ -15,24 +15,21 @@ namespace Exeggcute.src.loading
 {
     class PlayerLoader : Loader
     {
-        private static string getFilename(string name, string folder)
+        private static string getFilename(string name)
         {
-            return string.Format("data/players/{0}/{1}.player", folder, name);
+            return string.Format("data/players/{0}.player", name);
         }
 
         public Player LoadFromFile(string filename)
         {
-            bool isCustom = Regex.IsMatch(filename, "/custom/");
             string name = Path.GetFileNameWithoutExtension(filename);
-
-            return Load(name, isCustom);
+            return Load(name);
         }
 
-        public Player Load(string name, bool isCustom)
+        public Player Load(string name)
         {
 
-            string folder = isCustom ? "custom" : "standard";
-            string filename = getFilename(name, folder);
+            string filename = getFilename(name);
             Data data = new Data(filename);
 
 
@@ -65,7 +62,6 @@ namespace Exeggcute.src.loading
            
             return new Player(data.RawText,
                               name,
-                              isCustom,
                               info.body.Model,
                               info.body.Texture,
                               info.body.Scale.Value, 

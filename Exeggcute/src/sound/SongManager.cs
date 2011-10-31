@@ -118,6 +118,16 @@ namespace Exeggcute.src.sound
             }
         }
 
+        public void ResetState()
+        {
+            volume = maxVolume;
+            State = SongState.Off;
+            MediaPlayer.Stop();
+            isPaused = false;
+            nextState = SongState.Off;
+            fadeTimer = null;
+        }
+
         public void FadeOut(int frames)
         {
             if (State != SongState.Playing)

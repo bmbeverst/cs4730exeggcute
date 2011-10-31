@@ -153,14 +153,16 @@
     <Compile Include="src\ConsoleContext.cs" />
     <Compile Include="src\console\CommandParser.cs" />
     <Compile Include="src\console\commands\ConsoleCommand.cs" />
+    <Compile Include="src\console\commands\ExitCommand.cs" />
     <Compile Include="src\console\commands\LoadCommand.cs" />
     <Compile Include="src\console\commands\HelpCommand.cs" />
     <Compile Include="src\console\commands\ListCommand.cs" />
     <Compile Include="src\console\commands\PackageCommand.cs" />
+    <Compile Include="src\console\commands\ResetCommand.cs" />
     <Compile Include="src\console\commands\SpawnCommand.cs" />
     <Compile Include="src\console\DevConsole.cs" />
     <Compile Include="src\console\KeyboardManager.cs" />
-    <Compile Include="src\console\commands\ContextCommand.cs" />
+    <Compile Include="src\console\commands\GoCommand.cs" />
     <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\SoundAction.cs" />
     <Compile Include="src\GibBatch.cs" />
@@ -347,7 +349,7 @@
     <Compile Include="src\graphics\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\players\custom\0c.player">
+    <Content Include="data\players\0c.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\option1.cl">
@@ -455,7 +457,7 @@
     <Content Include="data\levels\1.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\players\standard\0.player">
+    <Content Include="data\players\0.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\downspread0.cl">
@@ -509,7 +511,7 @@
     <Content Include="data\scripts\behaviors\playerdemo0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\players\standard\1.player">
+    <Content Include="data\players\1.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\spawns\0player1.spawn">
@@ -522,7 +524,7 @@
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\players\custom\debug.player">
+    <Content Include="data\players\debug.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\bodies\debugplayer.body">
@@ -646,7 +648,10 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="data\players\custom\" />
+    <Folder Include="data\players\standard\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>

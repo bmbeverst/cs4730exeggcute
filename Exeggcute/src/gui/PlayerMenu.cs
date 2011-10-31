@@ -16,20 +16,14 @@ namespace Exeggcute.src.gui
     /// </summary>
     class PlayerMenu : Menu
     {
-        public static List<Button> MakeButtons(SpriteFont font, Color fontColor, bool isCustom)
+        public static List<Button> MakeButtons(SpriteFont font, Color fontColor)
         {
             SpriteFont myfont = Assets.Font["consolas"];
             Color color = Color.White;
             List<Button> buttons = new List<Button>();
-            foreach (Player player in PlayerBank.GetAll(isCustom))
+            foreach (Player player in Assets.Player.GetAssets())
             {
-                if (!isCustom && player.IsCustom)
-                {
-                    continue;
-                }
-
                 buttons.Add(new PlayerButton(player, myfont, color));
-                
             }
 
             if (buttons.Count <= 0)
@@ -39,19 +33,16 @@ namespace Exeggcute.src.gui
             return buttons;
         }
 
-        public bool CanUseCustom { get; protected set; }
-
         List<Player> playerCopies = new List<Player>();
 
         SpriteText menuTitle;
         EntityManager manager = new EntityManager();
 
-        public PlayerMenu(List<Player> players, List<Button> buttons, Rectangle bounds, bool canUseCustom)
+        public PlayerMenu(List<Player> players, List<Button> buttons, Rectangle bounds)
             : base(buttons, bounds, false)
         {
 
             menuTitle = new SpriteText(font, "Player select", Color.White);
-            this.CanUseCustom = canUseCustom;
             foreach (Player player in players)
             {
 

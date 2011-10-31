@@ -9,13 +9,11 @@ namespace Exeggcute.src.contexts
     {
         public string LevelName { get; protected set; }
         public string PlayerName { get; protected set; }
-        public bool IsCustom { get; protected set; }
 
-        public LoadLevelEvent(string levelName, string playerName, bool isCustom)
+        public LoadLevelEvent(string levelName, string playerName)
         {
             this.LevelName = levelName;
             this.PlayerName = playerName;
-            this.IsCustom = IsCustom;
         }
 
         public override void Process()

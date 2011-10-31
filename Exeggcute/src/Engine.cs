@@ -85,7 +85,7 @@ namespace Exeggcute.src
             ConversationBank.LoadAll();
 
             Assets.Enemy.LoadAll();
-            PlayerBank.LoadAll();
+            Assets.Player.LoadAll();
 
             loadMenus();
             
@@ -93,6 +93,7 @@ namespace Exeggcute.src
             controls = new ControlManager(input);
             TextBox.LoadSprites();
             //World.LoadTerrain();
+            Assets.Level.LoadAll();
             AssetManager.Commit();
         }
 

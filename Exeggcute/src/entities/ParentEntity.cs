@@ -72,17 +72,15 @@ namespace Exeggcute.src.entities
 
         }
 
-
         public override void Process(ShootAction shoot)
         {
             arsenal.Fire(shoot);
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public override void Update()
         {
  	        base.Update();
-
             arsenal.Update(Position, Angle);
         }
 
@@ -91,7 +89,6 @@ namespace Exeggcute.src.entities
             arsenal.UpdateMovers(Position, Angle);
             base.Update();
         }
-
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
         {

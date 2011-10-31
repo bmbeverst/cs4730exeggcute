@@ -65,8 +65,7 @@ namespace Exeggcute.src
         private static PauseMenu pauseMenu;
         private static ReallyQuitMenu reallyQuitMenu;
         private static DifficultyMenu difficultyMenu;
-        private static PlayerMenu standardPlayerMenu;
-        private static PlayerMenu customPlayerMenu;
+        private static PlayerMenu playerMenu;
 
         private static SongManager songManager = new SongManager(0.1f);
 
@@ -123,7 +122,8 @@ namespace Exeggcute.src
             songManager.Update();
             MediaPlayer.GetVisualizationData(soundData);
             Terrain.Update(soundData.Frequencies);
-            stack.Peek().Update(controls);
+            
+            Top.Update(controls);
         }
         
         public static void Draw(GraphicsDevice graphics, SpriteBatch batch)
@@ -159,29 +159,15 @@ namespace Exeggcute.src
             SpriteFont font = Assets.Font["consolas"];
             Color fontColor = Color.Black;
 
-            bool isCustom = (gameType == GameType.Custom);
-            List<Player> players = PlayerBank.GetAll(isCustom).ToList();
-            if (isCustom)
+            List<Player> players = Assets.Player.GetAssets();
+            
+            if (playerMenu == null)
             {
-                if (customPlayerMenu == null)
-                {
-                    List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, true);
-                    
-                    customPlayerMenu = new PlayerMenu(players, buttons, bounds, isCustom);
-                }
-                stack.Push(customPlayerMenu);
-                return;
+                List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor);
+                playerMenu = new PlayerMenu(players, buttons, bounds);
             }
-            else
-            {
-                if (standardPlayerMenu == null)
-                {
-                    List<Button> buttons = PlayerMenu.MakeButtons(font, fontColor, isCustom);
-                    standardPlayerMenu = new PlayerMenu(players, buttons, bounds, isCustom);
-                }
-                stack.Push(standardPlayerMenu);
-                return;
-            }
+            stack.Push(playerMenu);
+            return;
         }
 
         public static void Process(BackEvent ent)
@@ -301,8 +287,7 @@ namespace Exeggcute.src
         {
             string levelName = ent.LevelName;
             string playerName = ent.PlayerName;
-            bool isCustom = ent.IsCustom;
-            Player player = PlayerBank.Get(playerName, isCustom);
+            Player player = Assets.Player[playerName];
             HUD hud = new HUD();
             LoadNextLevel(hud, player, levelName, false);
         }
@@ -342,6 +327,10 @@ namespace Exeggcute.src
             songManager.Play(song);
         }
 
+        public static void ResetMusic()
+        {
+            songManager.ResetState();
+        }
 
         public static void CleanupLevel()
         {
@@ -376,29 +365,38 @@ namespace Exeggcute.src
                     //unload level
                     Level level = (Level)Top;
                     player = Level.player;
-                    hud = level.Hud;
+                    hud = Level.Hud;
                     ClearLists();
                     level.Unload();
-                    songManager.Stop();
                 }
                 stack.Pop();
             }
 
             if (player == null || hud == null)
             {
-                player = PlayerBank.Get("debug", true);
+                player = Assets.Player["debug"];
                 hud = new HUD();
             }
 
             IContext newContext;
-            if (Util.StrEq(name, "sandbox"))
+            
+            if (Util.StrEq(name, "sandbox") || Util.StrEq(name, "sb"))
             {
                 Terrain = menuTerrain;
                 newContext = new Sandbox();
             }
+            else if (!Assets.Level.ContainsKey(name))
+            {
+                console.Write("No level named \"{0}\" found.", name);
+                console.Write("Available levels include:");
+                console.Write(Assets.Level.GetLoadedNames());
+                return;
+            }
             else
             {
-                newContext = levelLoader.Load(content, graphics, player, hud, difficulty, name);
+                Level next = Assets.Level[name];
+                Console.WriteLine("pushing " + name);
+                newContext = next;
             }
 
 
@@ -407,6 +405,7 @@ namespace Exeggcute.src
 
             
             console.AttachParent(newContext);
+            Console.WriteLine("Pushing new context");
             stack.Push(newContext);
             stack.Push(console);
         }
@@ -417,17 +416,17 @@ namespace Exeggcute.src
         public static void LoadNextLevel(HUD hud, Player player, string name, bool doPop)
         {
             ClearLists();
-            if (name.Equals("1"))//FIXME hard coded
-            {
-
-            }
-            Level next = levelLoader.Load(content, graphics, player, hud, difficulty, name);
-
+            Level next = Assets.Level[name];
+            Level.player = player;
+            Level.Hud = hud;
+                //levelLoader.LoadByName(content, graphics, player, hud, difficulty, name);
+            
 
             if (doPop)
             {
                 stack.Pop();
             }
+            Console.WriteLine("pushing 429");
             stack.Push(next);
         }
 
@@ -543,28 +542,38 @@ namespace Exeggcute.src
 
         public static void InsertPlayer(string name)
         {
-            if (!PlayerBank.Exists(name))
+            if (!Assets.Player.ContainsKey(name))
             {
-                console.Write("No player named {0} found", name);
+                console.Write("No player named {0} found. Valid choices are:", name);
                 console.AcceptCommand(new ListCommand(console, FileType.Player));
+                return;
             }
-            bool isCustom = PlayerBank.IsCustom(name);
-            IContext second= getSecond();
+            IContext second = getSecond();
             if (second is Sandbox)
             {
                 Sandbox sandbox = (Sandbox)second;
-                sandbox.Player = PlayerBank.Get(name, isCustom);
+                sandbox.Player = Assets.Player[name];
             }
             else
             {
                 console.Write("May only insert a player into a Level or Sandbox context. See 'help context'");
-
             }
         }
 
-        public static void InsertEnemy(string name)
+        public static void InsertEnemy(string name, Float3 pos, FloatValue angle)
         {
-            console.Write("TODO: not implemented");
+            if (!Assets.Enemy.ContainsKey(name))
+            {
+                console.Write("No enemy exists with that name. Valid enemies are:");
+                console.Write(Assets.Enemy.GetLoadedNames());
+                return;
+            }
+            if (!(getSecond() is Sandbox))
+            {
+                console.Write("May only insert an enemy into a Level or Sandbox context. See 'help context'");
+                return;
+            }
+            EnemyList.Add(Assets.Enemy[name].Clone(pos, angle));
         }
 
         public static void InsertBoss(string name)
@@ -598,7 +607,7 @@ namespace Exeggcute.src
             };
                 mainMenu = new MainMenu(buttons, bounds);
             }
-            World.PushContext(mainMenu);
+            stack.Push(mainMenu);
         }
 
         public static void ConsoleWrite(string message, params object[] args)
@@ -612,6 +621,21 @@ namespace Exeggcute.src
             {
                 console.Write(formatted);
             }
+        }
+
+        public static Level LoadLevelFromFile(string filename)
+        {
+            if (!isInitialized) throw new ExeggcuteError("World not initialized yet!");
+            Player player = null;
+            if (Level.player == null)
+            {
+                player = Assets.Player["debug"];
+            }
+            else
+            {
+                player = Level.player;
+            }
+            return levelLoader.LoadByFile(content, graphics, player, new HUD(), Difficulty.Normal, filename);
         }
     }
 }

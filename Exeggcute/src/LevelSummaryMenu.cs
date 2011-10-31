@@ -33,11 +33,11 @@ namespace Exeggcute.src
             this.Parent = level;
             this.font = Assets.Font["consolas"];
             this.validScore = level.ValidScore;
-            this.Hud = level.Hud;
+            this.Hud = Level.Hud;
             this.Player = Level.player;
             this.nextName = (int.Parse(level.Name) + 1).ToString();
             this.difficulty = level.Difficulty;
-            this.scoreGained = Player.Score - level.InitialScore;
+            this.scoreGained = Player.Score - level.initialScore;
 
         }
 
