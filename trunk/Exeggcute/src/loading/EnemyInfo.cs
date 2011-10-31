@@ -27,7 +27,7 @@ namespace Exeggcute.src.loading
         public EnemyInfo(string filename, List<string[]> tokenList)
             : base(filename)
         {
-            loadFromTokens(tokenList);
+            loadFromTokens(tokenList, true);
             
         }
     }

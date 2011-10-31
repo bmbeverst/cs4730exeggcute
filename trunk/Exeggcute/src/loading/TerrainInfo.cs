@@ -30,13 +30,13 @@ namespace Exeggcute.src.loading
         public TerrainInfo(string filename)
             : base(filename)
         {
-            loadFromFile(filename);
+            loadFromFile(filename, true);
         }
 
         public TerrainInfo(string filename, List<string[]> lines)
             : base(filename)
         {
-            this.loadFromTokens(lines);
+            this.loadFromTokens(lines, true);
         }
 
         public WangMesh MakeMesh(GraphicsDevice graphics)

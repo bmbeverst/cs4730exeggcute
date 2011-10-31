@@ -22,21 +22,16 @@ namespace Exeggcute.src.loading
             this.Filename = filename;
         }
 
-        protected Loadable()
-        {
-
-        }
-
-        protected virtual void loadFromFile(string filepath)
+        protected virtual void loadFromFile(string filepath, bool verify)
         {
             List<string[]> lines = LinesFromFile(filepath);
-            loadFromTokens(lines);
+            loadFromTokens(lines, verify);
         }
 
-        protected virtual void loadFromTokens(List<string[]> tokenList)
+        protected virtual void loadFromTokens(List<string[]> tokenList, bool verify)
         {
             List<Pair<FieldInfo, string>> pairs = loadPairs(tokenList);
-            loadFields(pairs);
+            loadFields(pairs, verify);
 
         }
 
@@ -58,7 +53,7 @@ namespace Exeggcute.src.loading
             return pairs;
         }
 
-        protected virtual void loadFields(List<Pair<FieldInfo, string>> pairs)
+        protected virtual void loadFields(List<Pair<FieldInfo, string>> pairs, bool verify)
         {
             bool methodNotFound = false;
             foreach (var pair in pairs)
@@ -79,15 +74,19 @@ namespace Exeggcute.src.loading
 
             }
 
-            List<string> missing = getUninitialized();
-
             string errors = "";
-            if (missing.Count > 0)
+            if (verify)
             {
-                errors += string.Format("    The following fields in {0} were uninitialized:\n", this.GetType().Name);
-                foreach (string missed in missing)
+                List<string> missing = getUninitialized();
+
+                
+                if (missing.Count > 0)
                 {
-                    errors += string.Format("        {0}\n", missed);
+                    errors += string.Format("    The following fields in {0} were uninitialized:\n", this.GetType().Name);
+                    foreach (string missed in missing)
+                    {
+                        errors += string.Format("        {0}\n", missed);
+                    }
                 }
             }
 

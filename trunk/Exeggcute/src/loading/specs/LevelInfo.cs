@@ -22,7 +22,7 @@ namespace Exeggcute.src.loading.specs
         public LevelInfo(string filename, List<string[]> tokenList)
             : base(filename)
         {
-            loadFromTokens(tokenList);
+            loadFromTokens(tokenList, true);
         }
     }
 }

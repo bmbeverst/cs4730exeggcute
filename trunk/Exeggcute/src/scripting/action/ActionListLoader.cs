@@ -13,15 +13,6 @@ namespace Exeggcute.src.scripting.action
 {
     class ScriptLoader : ScriptParser<ActionBase>
     {
-
-        /// <summary>
-        /// I trusted you! I trusted you! I trusted you! I trusted you!
-        /// I trusted you! I trusted you! I trusted you! I trusted you!
-        /// I trusted you! I trusted you! I trusted you! I trusted you!
-        /// I trusted you! I trusted you! I trusted you! I trusted you!
-        /// I trusted you! I trusted you! I trusted you! I trusted you!
-        /// </summary>
-
         public ScriptBase Make(string filepath)
         {
             string name = getName(filepath);
@@ -95,7 +86,7 @@ namespace Exeggcute.src.scripting.action
                 int index;
                 try
                 {
-                    index = PlanarEntity3D.ParamMap[paramName];
+                    index = PlanarEntity3D.ParamMap[paramName.ToLower()];
                 }
                 catch (KeyNotFoundException knf)
                 {

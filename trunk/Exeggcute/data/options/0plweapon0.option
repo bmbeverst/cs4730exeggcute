@@ -1,6 +1,7 @@
-﻿  BodyInfo: tubergsixteen
-    Damage: 10
- ShotSound: 0playershot0
-  Behavior: upspread0
-Trajectory: fast
-     Spawn: 0player0
+﻿@Info:
+   BodyInfo: tubergsixteen
+     Damage: 10
+  ShotSound: 0playershot0
+@  Behavior: upspread0
+@Trajectory: fast
+@     Spawn: 0player0

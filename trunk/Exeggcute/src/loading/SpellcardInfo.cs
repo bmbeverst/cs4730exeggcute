@@ -22,7 +22,7 @@ namespace Exeggcute.src.loading
         public SpellcardInfo(string filename, List<string[]> tokens)
             : base(filename)
         {
-            loadFromTokens(tokens);
+            loadFromTokens(tokens, true);
         }
 
         public Spellcard MakeSpellcard()

@@ -6,7 +6,7 @@ LevelTheme: IntoTheGalaxy
     Roster: test0,test1
 
 @Terrain:
-Depth:10
+      Depth:  10
      Radius:  200
        Cols:   24
        Rows:  200

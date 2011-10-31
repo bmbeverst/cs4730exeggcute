@@ -16,7 +16,7 @@ namespace Exeggcute.src.loading
             : base(getFilename(name))
         {
             string filename = getFilename(name);
-            loadFromFile(filename);
+            loadFromFile(filename, true);
         }
 
         public Gib MakeGib()

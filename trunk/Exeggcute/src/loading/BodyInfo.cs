@@ -21,17 +21,10 @@ namespace Exeggcute.src.loading
         public BodyInfo(string filename)
             : base(filename)
         {
-            loadFromFile(filename);
+            loadFromFile(filename, true);
             
         }
 
-        /// <summary>
-        /// DO NOT USE
-        /// </summary>
-        public BodyInfo()
-        {
-
-        }
 
         public static BodyInfo LoadFromFile(string filename)
         {

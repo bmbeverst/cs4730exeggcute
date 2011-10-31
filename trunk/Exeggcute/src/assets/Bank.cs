@@ -57,6 +57,11 @@ namespace Exeggcute.src.assets
             get { return bank[name]; }
         }
 
+        public virtual void Insert(string name, TAsset asset)
+        {
+            bank[name] = asset;
+        }
+
         public virtual string GetName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);

@@ -19,7 +19,7 @@ namespace Exeggcute.src
         public ItemInfo(string filename)
             : base(filename)
         {
-            loadFromFile(filename);
+            loadFromFile(filename, true);
         }
 
         public static ItemInfo LoadFromFile(string filename)
@@ -27,13 +27,6 @@ namespace Exeggcute.src
             return new ItemInfo(filename);
         }
 
-        /// <summary>
-        /// DO NOT USE
-        /// </summary>
-        public ItemInfo()
-        {
-
-        }
 
         public Item MakeItem()
         {

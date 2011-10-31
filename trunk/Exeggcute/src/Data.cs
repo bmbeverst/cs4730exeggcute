@@ -65,10 +65,15 @@ namespace Exeggcute.src
         public List<string[]> Tokens { get; protected set; }
         public List<string> Lines { get; protected set; }
 
+        public int Count
+        {
+            get { return Lines.Count; }
+        }
+
         public DataSection(string rawText, List<string> lines)
         {
             this.RawText = rawText;
-            string[] tagTokens = lines[0].Split(':');
+            string[] tagTokens = Util.CleanEntry(lines[0]);
             this.Tag = tagTokens[0];
             if (tagTokens.Length >= 2)
             {

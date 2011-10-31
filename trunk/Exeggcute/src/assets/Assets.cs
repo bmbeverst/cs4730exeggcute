@@ -85,6 +85,13 @@ namespace Exeggcute.src.assets
             return new SpawnScript(Spawn[name]);
         }
 
+        public static bool ScriptExists(string name)
+        {
+            return Spawn.ContainsKey(name) ||
+                   Trajectory.ContainsKey(name) ||
+                   Behavior.ContainsKey(name);
+        }
+
 
 
 
