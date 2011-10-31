@@ -10,8 +10,8 @@ deathScript:  playerrespawn
   moveSpeed:  1.0
  focusSpeed:  0.5
   hitradius:  0.2
- lightlevel:  1
+ lightlevel:  0
     special:  player,0plbomb0
 
-@    Weapon:  0,player,0plweapon0#,opt2,opt3
+@    Weapon:  0,player,0plweaponsine0
 @    Weapon:  5,player,0plweapon1#,opt2,opt3
