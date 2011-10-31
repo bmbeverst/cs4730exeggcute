@@ -287,15 +287,6 @@
       <Time>2011-10-19T21:17:03.4423828-04:00</Time>
     </Item>
     <Item>
-      <Source>sprites\wang8.png</Source>
-      <Name>sprites\wang8</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8.xnb</Output>
-      <Time>2011-10-21T17:46:09.1015625-04:00</Time>
-    </Item>
-    <Item>
       <Source>sprites\fractal.png</Source>
       <Name>sprites\fractal</Name>
       <Importer>TextureImporter</Importer>
@@ -564,7 +555,7 @@
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.xnb</Output>
       <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.wma</Extra>
-      <Time>2011-10-21T20:57:04.828125-04:00</Time>
+      <Time>2011-10-31T15:57:57.8964843-04:00</Time>
     </Item>
     <Item>
       <Source>songs\RaidersOfTheLostArk.mp3</Source>
@@ -885,7 +876,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8_3.xnb</Output>
-      <Time>2011-10-29T01:11:07.6982421-04:00</Time>
+      <Time>2011-10-31T15:16:02.4609375-04:00</Time>
     </Item>
     <Item>
       <Source>sfx\1pew.wav</Source>
@@ -958,6 +949,24 @@
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\powerup.xnb</Output>
       <Time>2011-10-30T02:01:09.8031563-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\wang8_1.png</Source>
+      <Name>sprites\wang8_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8_1.xnb</Output>
+      <Time>2011-10-31T15:04:46.0253906-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\wang8_4.png</Source>
+      <Name>sprites\wang8_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8_4.xnb</Output>
+      <Time>2011-10-31T15:19:13.2988281-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

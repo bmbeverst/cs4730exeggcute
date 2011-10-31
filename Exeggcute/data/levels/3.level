@@ -12,7 +12,7 @@ LevelTheme: GalaxyPlant
        Rows:  200
    TileSize:    4
 ScrollSpeed:    0.0001
-    Texture:    wang8_2
+    Texture:    wang8_4
 Orientation:    Outside
        Type:    Pulse
 

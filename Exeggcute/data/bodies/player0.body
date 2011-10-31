@@ -2,4 +2,5 @@
 texture:  fractal
 scale:    0.6
 radius:   1
+mass:     1
 rotation: (0,0,90)

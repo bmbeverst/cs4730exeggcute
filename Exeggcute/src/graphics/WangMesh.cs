@@ -277,12 +277,12 @@ namespace Exeggcute.src.graphics
                     //i < clums-1 && i > -1
                     if (i < vertCols && i > 0)
                     {
-                        float distace = 4 - Math.Abs(tempI - i + tempJ - j);
+                        float distance = 4 - Math.Abs(tempI - i + tempJ - j);
                         Quad current = quads[tempI, tempJ];
                         float curY = current.TopRight.Y;
                         float curZ = current.TopRight.Z;
 
-                        float height = getSign() * 2 + distace * 5;
+                        float height = getSign() * 2 + distance * 5 * mass;
 
                         float r = Radius + height;
                         float theta = FaceAngle * tempJ + ANGLEOFFSET;

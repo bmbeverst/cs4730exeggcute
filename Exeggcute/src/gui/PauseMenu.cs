@@ -35,9 +35,7 @@ namespace Exeggcute.src.gui
 
         public override void Draw2D(SpriteBatch batch)
         {
-            batch.Begin();
             base.Draw2D(batch);
-            batch.End();
         }
 
         public override void Back()

@@ -122,5 +122,10 @@ namespace Exeggcute.src.assets
         {
 
         }
+
+        public static void UnloadAll(ContentManager content)
+        {
+
+        }
     }
 }

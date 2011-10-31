@@ -2,4 +2,5 @@
 texture:  junk
 scale:    0.3
 radius:   1
+mass:     1
 rotation: (0,0,0)

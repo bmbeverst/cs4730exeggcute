@@ -1,0 +1,6 @@
+﻿  BodyInfo: teapot0
+    Damage: 10
+ ShotSound: 0playershot0
+  Behavior: aimup
+Trajectory: fast
+     Spawn: demo

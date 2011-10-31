@@ -18,15 +18,15 @@ Orientation:    Outside
    Variance:    12
 
 @Lights:
-    Ambient:       0.5
+    Ambient:       0
 
     Dir:           on
     DirDirection:  (0,1,0)
-    DirLevel:      0.1
+    DirLevel:      0
 
     Point1:        on
     Point1Pos:     (0,10,0)
-    Point1Level:   0.5
+    Point1Level:   0
 
     Spot:          on
     SpotPos:       (0,0,0)

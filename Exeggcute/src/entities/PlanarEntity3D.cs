@@ -199,7 +199,7 @@ namespace Exeggcute.src.entities
         protected PlanarEntity3D()
             :base(Vector3.Zero)
         {
-
+            this.Mass = 1;
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace Exeggcute.src.loading
         public float? Scale;
         public float? Radius;
         public Vector3? Rotation;
+        public float? Mass;
 
         public BodyInfo(string filename)
             : base(filename)

@@ -30,6 +30,7 @@ namespace Exeggcute.src
             //graphicsManager.PreferMultiSampling = true;
             /*graphicsManager.SynchronizeWithVerticalRetrace = false;
             this.IsFixedTimeStep = false;*/
+            //graphicsManager.IsFullScreen = true;
             InactiveSleepTime = TimeSpan.Zero;
             Content.RootDirectory = Engine.ContentRoot;
             Window.Title = "Exeggcute";
@@ -58,10 +59,12 @@ namespace Exeggcute.src
             engine = new Engine(GraphicsDevice, Content, new InputManager(), name);
             World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
         }
+
         protected override void UnloadContent()
         {
 
         }
+
         protected override void Update(GameTime gameTime)
         {
             engine.Update();
@@ -95,7 +98,7 @@ namespace Exeggcute.src
             base.Initialize();
         }
 
-        public void Exit()
+        public new void Exit()
         {
             engine.Exit();
         }

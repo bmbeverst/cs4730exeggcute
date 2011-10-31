@@ -2,4 +2,5 @@
 texture:  sixteen0
 scale:    0.05
 radius:   2
+mass:     1
 rotation: (0,90,0)

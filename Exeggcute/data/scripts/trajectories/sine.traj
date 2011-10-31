@@ -1,0 +1,7 @@
+﻿#example command list
+setparam Speed 2
+setparam AngularVelocity 0.01
+wait 3
+setparam AngularVelocity -0.01
+wait 3
+loop 1

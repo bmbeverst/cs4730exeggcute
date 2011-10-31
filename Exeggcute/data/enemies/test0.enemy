@@ -6,11 +6,10 @@ deathScript: death0
  deathSound: shot0
   itembatch: test
    gibbatch: gibtest
-    arsenal: enemy,testoption
-
-
+    arsenal: enemy,testoption#,opt1,opt2,opt3
 
 @Behavior: 
+setparam Angle 270
 moverel (0,-30,0) 100
 shoot 0 1800
 wait 900

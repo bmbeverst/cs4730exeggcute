@@ -3,4 +3,5 @@ model:    tube
 texture:  rgsixteen
 scale:    0.05
 radius:   4
+mass:     1
 rotation: (90,0,0)
