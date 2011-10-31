@@ -21,7 +21,8 @@ def recurse_rename(directory, quiet):
     if len(filenames) > SAFETY:
         print("Number of files is greater than 150, are you sure you picked" +
               " the right directory? (y/n)")
-        response = input()
+        response = raw_input()
+        print "??"
         if not (response[0] == 'y' or response[0] == 'Y'):
             sys.exit("aborted")
     if len(filenames) == 0:
