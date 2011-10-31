@@ -20,7 +20,7 @@
       <Time>2011-10-21T08:20:25.7382812-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\arrow_0.xml</Key>
-        <Value>2011-10-21T20:59:11.7871093-04:00</Value>
+        <Value>2011-10-28T18:13:41.1816406-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -33,7 +33,7 @@
       <Time>2011-10-21T08:20:25.7294921-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\bullet0_0.xml</Key>
-        <Value>2011-10-21T20:59:11.8564453-04:00</Value>
+        <Value>2011-10-28T18:13:41.2822265-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -46,9 +46,135 @@
       <Time>2011-10-21T08:28:42.9394531-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\junk1_0.xml</Key>
-        <Value>2011-10-21T20:59:11.9257812-04:00</Value>
+        <Value>2011-10-28T18:13:41.3583984-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\sphere.FBX</Source>
+      <Name>models\sphere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\sphere.xnb</Output>
+      <Time>2011-10-28T17:08:11.0595703-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\sphere_0.xml</Key>
+        <Value>2011-10-28T18:13:42.3808593-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\diamond.FBX</Source>
+      <Name>models\diamond</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\diamond.xnb</Output>
+      <Time>2011-10-28T17:08:11.8037109-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\diamond_0.xml</Key>
+        <Value>2011-10-28T18:13:42.5195312-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\knot.FBX</Source>
+      <Name>models\knot</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\knot.xnb</Output>
+      <Time>2011-10-28T17:08:12.1005859-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\knot_0.xml</Key>
+        <Value>2011-10-28T18:13:42.8046875-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\pyramid.FBX</Source>
+      <Name>models\pyramid</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\pyramid.xnb</Output>
+      <Time>2011-10-28T17:08:12.3076171-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\pyramid_0.xml</Key>
+        <Value>2011-10-28T18:13:42.8740234-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\teapot.FBX</Source>
+      <Name>models\teapot</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\teapot.xnb</Output>
+      <Time>2011-10-28T17:08:11.3955078-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\teapot_0.xml</Key>
+        <Value>2011-10-28T18:13:43.0117187-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\tube.FBX</Source>
+      <Name>models\tube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\tube.xnb</Output>
+      <Time>2011-10-28T17:08:11.5878906-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\tube_0.xml</Key>
+        <Value>2011-10-28T18:13:43.1035156-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\hairpin.FBX</Source>
+      <Name>models\hairpin</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\hairpin.xnb</Output>
+      <Time>2011-10-28T17:08:11.8046875-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\hairpin_0.xml</Key>
+        <Value>2011-10-28T18:13:43.1699218-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\ring.FBX</Source>
+      <Name>models\ring</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\ring.xnb</Output>
+      <Time>2011-10-28T17:08:12.3085937-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\ring_0.xml</Key>
+        <Value>2011-10-28T18:13:43.2841796-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\torus.FBX</Source>
+      <Name>models\torus</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\models\torus.xnb</Output>
+      <Time>2011-10-28T17:08:11.3974609-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\torus_0.xml</Key>
+        <Value>2011-10-28T18:13:43.3935546-04:00</Value>
+      </Dependency>
+      <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Request>
     </Item>
     <Item>
       <Source>models\junk0.fbx</Source>
@@ -60,7 +186,7 @@
       <Time>2011-10-21T07:48:52.0371093-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\junk0_0.xml</Key>
-        <Value>2011-10-21T20:59:12.9033203-04:00</Value>
+        <Value>2011-10-28T18:13:43.5097656-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Request>
     </Item>
@@ -74,7 +200,7 @@
       <Time>2011-10-21T16:15:00.5107421-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\playerScene_0.xml</Key>
-        <Value>2011-10-21T20:59:12.9638671-04:00</Value>
+        <Value>2011-10-28T18:13:43.5761718-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Request>
     </Item>
@@ -88,7 +214,7 @@
       <Time>2011-10-21T07:49:53.4140625-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\testcube_0.xml</Key>
-        <Value>2011-10-21T20:59:13.6152343-04:00</Value>
+        <Value>2011-10-28T18:13:44.3466796-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\Bad_Hair_DayFin_0.xnb</Request>
     </Item>
@@ -102,7 +228,7 @@
       <Time>2011-10-21T07:49:18.828125-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\XNAface_0.xml</Key>
-        <Value>2011-10-21T20:59:13.8925781-04:00</Value>
+        <Value>2011-10-28T18:13:44.7089843-04:00</Value>
       </Dependency>
       <Request>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Request>
     </Item>
@@ -140,7 +266,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\cursor.xnb</Output>
-      <Time>2011-10-19T21:17:01.4492187-04:00</Time>
+      <Time>2011-10-29T01:10:53.3076171-04:00</Time>
     </Item>
     <Item>
       <Source>sprites\dot.png</Source>
@@ -188,138 +314,6 @@
       <Time>2011-10-19T21:26:13.0419921-04:00</Time>
     </Item>
     <Item>
-      <Source>sfx\shot0.wav</Source>
-      <Name>sfx\shot0</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\shot0.xnb</Output>
-      <Time>2011-10-27T02:24:50.3105468-04:00</Time>
-    </Item>
-    <Item>
-      <Source>songs\Mayhem_Some_Boss_Shit.mp3</Source>
-      <Name>songs\Mayhem_Some_Boss_Shit</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.wma</Extra>
-      <Time>2011-10-21T20:57:04.828125-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\arrow.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\arrow_0.xml</Output>
-      <Time>2011-10-21T08:20:25.7382812-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\bullet0.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\bullet0_0.xml</Output>
-      <Time>2011-10-21T08:20:25.7294921-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\junk1.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\junk1_0.xml</Output>
-      <Time>2011-10-21T08:28:42.9394531-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\junk.jpg</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.8886718-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\junk0.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\junk0_0.xml</Output>
-      <Time>2011-10-21T07:48:52.0371093-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\playerScene.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\playerScene_0.xml</Output>
-      <Time>2011-10-21T16:15:00.5107421-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\fractal.png</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.0566406-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\testcube.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\testcube_0.xml</Output>
-      <Time>2011-10-21T07:49:53.4140625-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\Bad_Hair_DayFin.jpg</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\Bad_Hair_DayFin_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.649414-04:00</Time>
-    </Item>
-    <Item>
-      <Source>models\XNAface.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\models\XNAface_0.xml</Output>
-      <Time>2011-10-21T07:49:18.828125-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\face.png</Source>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
-        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
-        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
-        <Data Key="GenerateMipmaps" Type="bool">true</Data>
-        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
-        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Output>
-      <Time>2011-10-21T07:47:57.3203125-04:00</Time>
-    </Item>
-    <Item>
       <Source>sprites\junk.jpg</Source>
       <Name>sprites\junk</Name>
       <Importer>TextureImporter</Importer>
@@ -329,124 +323,67 @@
       <Time>2011-10-24T16:28:49.2861328-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\RaidersOfTheLostArk.mp3</Source>
-      <Name>songs\RaidersOfTheLostArk</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>sprites\wang8_2.png</Source>
+      <Name>sprites\wang8_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\RaidersOfTheLostArk.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\RaidersOfTheLostArk.wma</Extra>
-      <Time>2011-10-26T16:56:46.5615234-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8_2.xnb</Output>
+      <Time>2011-10-29T01:11:06.9335937-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\PeachsCastleIsStolen.mp3</Source>
-      <Name>songs\PeachsCastleIsStolen</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>sprites\four.png</Source>
+      <Name>sprites\four</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\PeachsCastleIsStolen.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\PeachsCastleIsStolen.wma</Extra>
-      <Time>2011-10-26T17:17:26.5029296-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\four.xnb</Output>
+      <Time>2011-10-28T16:12:30.7158203-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\BattleForTheGrandStar.mp3</Source>
-      <Name>songs\BattleForTheGrandStar</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>textures\four.png</Source>
+      <Name>textures\fourtexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BattleForTheGrandStar.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BattleForTheGrandStar.wma</Extra>
-      <Time>2011-10-26T17:17:26.5078125-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fourtexture.xnb</Output>
+      <Time>2011-10-28T16:14:07.6933593-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\BowsersFleet.mp3</Source>
-      <Name>songs\BowsersFleet</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>sprites\rainbow.png</Source>
+      <Name>sprites\rainbow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BowsersFleet.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BowsersFleet.wma</Extra>
-      <Time>2011-10-26T17:17:26.5107421-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\rainbow.xnb</Output>
+      <Time>2011-10-28T17:22:25.0898437-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\EggPlanet.mp3</Source>
-      <Name>songs\EggPlanet</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>sprites\sixteen0.png</Source>
+      <Name>sprites\sixteen0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\EggPlanet.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\EggPlanet.wma</Extra>
-      <Time>2011-10-26T17:17:26.5146484-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\sixteen0.xnb</Output>
+      <Time>2011-10-28T17:16:27.9794921-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\GalaxyPlant.mp3</Source>
-      <Name>songs\GalaxyPlant</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>sprites\void.png</Source>
+      <Name>sprites\void</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\GalaxyPlant.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\GalaxyPlant.wma</Extra>
-      <Time>2011-10-26T17:17:24.8105468-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\void.xnb</Output>
+      <Time>2011-10-28T17:16:17.3134765-04:00</Time>
     </Item>
     <Item>
-      <Source>songs\HellProminence.mp3</Source>
-      <Name>songs\HellProminence</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Source>sfx\shot0.wav</Source>
+      <Name>sfx\shot0</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\HellProminence.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\HellProminence.wma</Extra>
-      <Time>2011-10-26T17:17:24.8173828-04:00</Time>
-    </Item>
-    <Item>
-      <Source>songs\jaws.mp3</Source>
-      <Name>songs\jaws</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\jaws.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\jaws.wma</Extra>
-      <Time>2011-10-26T17:17:24.821289-04:00</Time>
-    </Item>
-    <Item>
-      <Source>songs\JurassicPark.mp3</Source>
-      <Name>songs\JurassicPark</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\JurassicPark.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\JurassicPark.wma</Extra>
-      <Time>2011-10-26T17:38:13.1044921-04:00</Time>
-    </Item>
-    <Item>
-      <Source>songs\NemesisKingBowser.mp3</Source>
-      <Name>songs\NemesisKingBowser</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\NemesisKingBowser.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\NemesisKingBowser.wma</Extra>
-      <Time>2011-10-26T17:37:12.6689453-04:00</Time>
-    </Item>
-    <Item>
-      <Source>songs\IntoTheGalaxy.mp3</Source>
-      <Name>songs\IntoTheGalaxy</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\IntoTheGalaxy.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\IntoTheGalaxy.wma</Extra>
-      <Time>2011-10-26T17:40:03.7851562-04:00</Time>
-    </Item>
-    <Item>
-      <Source>songs\Birth.mp3</Source>
-      <Name>songs\Birth</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Birth.xnb</Output>
-      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Birth.wma</Extra>
-      <Time>2011-10-26T17:40:39.6552734-04:00</Time>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\shot0.xnb</Output>
+      <Time>2011-10-27T02:24:50.3105468-04:00</Time>
     </Item>
     <Item>
       <Source>sfx\testDialogue.wav</Source>
@@ -618,6 +555,409 @@
       <Options>None</Options>
       <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\0playershot0.xnb</Output>
       <Time>2011-10-27T05:29:00.1738281-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\Mayhem_Some_Boss_Shit.mp3</Source>
+      <Name>songs\Mayhem_Some_Boss_Shit</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Mayhem_Some_Boss_Shit.wma</Extra>
+      <Time>2011-10-21T20:57:04.828125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\RaidersOfTheLostArk.mp3</Source>
+      <Name>songs\RaidersOfTheLostArk</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\RaidersOfTheLostArk.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\RaidersOfTheLostArk.wma</Extra>
+      <Time>2011-10-26T16:56:46.5615234-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\PeachsCastleIsStolen.mp3</Source>
+      <Name>songs\PeachsCastleIsStolen</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\PeachsCastleIsStolen.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\PeachsCastleIsStolen.wma</Extra>
+      <Time>2011-10-26T17:17:26.5029296-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\BattleForTheGrandStar.mp3</Source>
+      <Name>songs\BattleForTheGrandStar</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BattleForTheGrandStar.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BattleForTheGrandStar.wma</Extra>
+      <Time>2011-10-26T17:17:26.5078125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\BowsersFleet.mp3</Source>
+      <Name>songs\BowsersFleet</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BowsersFleet.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\BowsersFleet.wma</Extra>
+      <Time>2011-10-26T17:17:26.5107421-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\EggPlanet.mp3</Source>
+      <Name>songs\EggPlanet</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\EggPlanet.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\EggPlanet.wma</Extra>
+      <Time>2011-10-26T17:17:26.5146484-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\GalaxyPlant.mp3</Source>
+      <Name>songs\GalaxyPlant</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\GalaxyPlant.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\GalaxyPlant.wma</Extra>
+      <Time>2011-10-26T17:17:24.8105468-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\HellProminence.mp3</Source>
+      <Name>songs\HellProminence</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\HellProminence.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\HellProminence.wma</Extra>
+      <Time>2011-10-26T17:17:24.8173828-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\jaws.mp3</Source>
+      <Name>songs\jaws</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\jaws.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\jaws.wma</Extra>
+      <Time>2011-10-26T17:17:24.821289-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\NemesisKingBowser.mp3</Source>
+      <Name>songs\NemesisKingBowser</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\NemesisKingBowser.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\NemesisKingBowser.wma</Extra>
+      <Time>2011-10-26T17:37:12.6689453-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\JurassicPark.mp3</Source>
+      <Name>songs\JurassicPark</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\JurassicPark.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\JurassicPark.wma</Extra>
+      <Time>2011-10-26T17:38:13.1044921-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\IntoTheGalaxy.mp3</Source>
+      <Name>songs\IntoTheGalaxy</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\IntoTheGalaxy.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\IntoTheGalaxy.wma</Extra>
+      <Time>2011-10-26T17:40:03.7851562-04:00</Time>
+    </Item>
+    <Item>
+      <Source>songs\Birth.mp3</Source>
+      <Name>songs\Birth</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Birth.xnb</Output>
+      <Extra>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\songs\Birth.wma</Extra>
+      <Time>2011-10-26T17:40:39.6552734-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\arrow.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\arrow_0.xml</Output>
+      <Time>2011-10-21T08:20:25.7382812-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\bullet0.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\bullet0_0.xml</Output>
+      <Time>2011-10-21T08:20:25.7294921-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\junk1.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\junk1_0.xml</Output>
+      <Time>2011-10-21T08:28:42.9394531-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\junk.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\junk_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.8886718-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\sphere.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\sphere_0.xml</Output>
+      <Time>2011-10-28T17:08:11.0595703-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\four.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\four_0.xnb</Output>
+      <Time>2011-10-28T16:14:07.6933593-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\diamond.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\diamond_0.xml</Output>
+      <Time>2011-10-28T17:08:11.8037109-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\knot.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\knot_0.xml</Output>
+      <Time>2011-10-28T17:08:12.1005859-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\pyramid.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\pyramid_0.xml</Output>
+      <Time>2011-10-28T17:08:12.3076171-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\teapot.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\teapot_0.xml</Output>
+      <Time>2011-10-28T17:08:11.3955078-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\tube.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\tube_0.xml</Output>
+      <Time>2011-10-28T17:08:11.5878906-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\hairpin.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\hairpin_0.xml</Output>
+      <Time>2011-10-28T17:08:11.8046875-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\ring.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\ring_0.xml</Output>
+      <Time>2011-10-28T17:08:12.3085937-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\torus.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\torus_0.xml</Output>
+      <Time>2011-10-28T17:08:11.3974609-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\junk0.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\junk0_0.xml</Output>
+      <Time>2011-10-21T07:48:52.0371093-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\playerScene.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\playerScene_0.xml</Output>
+      <Time>2011-10-21T16:15:00.5107421-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\fractal.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\fractal_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.0566406-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\testcube.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\testcube_0.xml</Output>
+      <Time>2011-10-21T07:49:53.4140625-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\Bad_Hair_DayFin.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\Bad_Hair_DayFin_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.649414-04:00</Time>
+    </Item>
+    <Item>
+      <Source>models\XNAface.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\XNAface_0.xml</Output>
+      <Time>2011-10-21T07:49:18.828125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\face.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\textures\face_0.xnb</Output>
+      <Time>2011-10-21T07:47:57.3203125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\wang8_3.png</Source>
+      <Name>sprites\wang8_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\wang8_3.xnb</Output>
+      <Time>2011-10-29T01:11:07.6982421-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\1pew.wav</Source>
+      <Name>sfx\1pew</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\1pew.xnb</Output>
+      <Time>2011-10-29T00:15:49.3408203-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\playerexplode.wav</Source>
+      <Name>sfx\playerexplode</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\playerexplode.xnb</Output>
+      <Time>2011-10-29T00:07:22.9560546-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\gulp.wav</Source>
+      <Name>sfx\gulp</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\gulp.xnb</Output>
+      <Time>2011-10-29T00:12:20.2314453-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\textbox.png</Source>
+      <Name>sprites\textbox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\textbox.xnb</Output>
+      <Time>2011-10-29T00:50:46.6279296-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\crash.wav</Source>
+      <Name>sfx\crash</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\crash.xnb</Output>
+      <Time>2011-10-29T03:05:05.90625-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\rgsixteen.png</Source>
+      <Name>sprites\rgsixteen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\rgsixteen.xnb</Output>
+      <Time>2011-10-29T03:26:08.6357421-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sprites\debug.png</Source>
+      <Name>sprites\debug</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sprites\debug.xnb</Output>
+      <Time>2011-10-30T05:39:53.3627266-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\powerup.wav</Source>
+      <Name>sfx\powerup</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\powerup.xnb</Output>
+      <Time>2011-10-30T02:01:09.8031563-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
