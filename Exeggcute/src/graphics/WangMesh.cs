@@ -137,7 +137,8 @@ namespace Exeggcute.src.graphics
 
             // account for concavity!
             int sign = getSign();
-            this.centerDepth = Depth + sign * Radius;
+            //oooooooooook?
+            this.centerDepth = 2 * Depth + sign * Radius;
 
             this.jOffset = 0; //*= sign;
             this.Depth   *= sign;
