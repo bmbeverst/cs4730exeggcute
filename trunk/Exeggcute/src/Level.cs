@@ -201,6 +201,7 @@ namespace Exeggcute.src
         public void Process(SpawnTask task)
         {
             Enemy toSpawn = roster.Clone(task.ID, task.Position, task.Angle);
+            Console.WriteLine("{0} {1}", task.Position, task.Angle);
             enemyList.Add(toSpawn);
             taskPtr += 1;
             Console.WriteLine("    SPAWN! {0} {1}", taskPtr, Name);

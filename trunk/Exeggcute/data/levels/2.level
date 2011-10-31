@@ -12,7 +12,7 @@ LevelTheme: HellProminence
        Rows:  200
    TileSize:    4
 ScrollSpeed:    0.0001
-    Texture:    wang8_2
+    Texture:    wang8_1
 Orientation:    Outside
        Type:    Pulse
 

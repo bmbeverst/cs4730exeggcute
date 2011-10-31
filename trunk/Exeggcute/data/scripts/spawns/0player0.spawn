@@ -1,5 +1,5 @@
 ﻿spawn rel 0
-spawn 1 10
+spawn rel 10
 spawn rel -10
 spawn rel 90
 spawn rel -90

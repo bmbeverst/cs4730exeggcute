@@ -1,7 +1,7 @@
 ﻿@Info:
   MiniBoss: guy2
   MainBoss: guy2
-LevelTheme: EggPlanet
+LevelTheme: Mayhem_Some_Boss_Shit
  BossTheme: BowsersFleet
     Roster: test0,test1
 
@@ -54,6 +54,7 @@ wait 600
 #spawn 1 (0,40,0) 0
 #wait 900
 killall
+wait 6000
 songfade 60
 wait 60
 boss
