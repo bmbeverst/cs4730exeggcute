@@ -7,35 +7,32 @@ using Exeggcute.src.scripting;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using Exeggcute.src.loading;
+using System.Reflection;
 
 namespace Exeggcute.src.assets
 {
-    class CustomBank<TAsset>
+    class Bank<TAsset>
     {
         protected Dictionary<string, TAsset> bank = new Dictionary<string, TAsset>();
-        protected Dictionary<string, int> seen = new Dictionary<string, int>();
-        public readonly string rootDir;
+        public string RootDir { get; protected set; }
         public ReadOnlyCollection<string> AllFiles;
 
-
-        public CustomBank(string root)
+        public string Ext { get; protected set; }
+        public Bank(string root, string ext)
         {
-            rootDir = root;
-            string[] files = Util.GetFiles(rootDir);
+            this.RootDir = root;
+            this.Ext = ext;
+            string[] files = GetFileList(RootDir);
             AllFiles = new ReadOnlyCollection<string>(files);
         }
 
-        public List<string> GetAllLoaded()
+        public string GetFilename(string name)
         {
-            return bank.Keys.ToList();
+            return string.Format("{0}/{1}.{2}", RootDir, name, Ext);
         }
 
-        public bool ContainsKey(string key)
-        {
-            return bank.ContainsKey(key);
-        }
-
-        public List<TAsset> GetAssets()
+        public virtual List<TAsset> GetAssets()
         {
             List<TAsset> result = new List<TAsset>();
             foreach (var pair in bank)
@@ -45,148 +42,44 @@ namespace Exeggcute.src.assets
             return result;
         }
 
-        public virtual TAsset this[string name]
+        public virtual bool ContainsKey(string key)
         {
-            get
-            {
-                if (seen.ContainsKey(name) && !bank.ContainsKey(name))
-                {
-                    throw new DeletedResourceError("Resource {0} was unloaded", name);
-                }
-                return bank[name];
-            }
+            return bank.ContainsKey(key);
         }
 
-        public string GetName(string filepath)
-        {
-            return Path.GetFileNameWithoutExtension(filepath);
-        }
-
-        /// <summary>
-        /// A hackish method of loading a non-XNA managed asset, such as a 
-        /// script or sprite.
-        /// </summary>
-        public virtual void Put(TAsset asset, string filepath)
-        {
-            string name = GetName(filepath);
-            seen[name] = 1;
-            bank[name] = asset;
-        }
-    }
-    /// <summary>
-    /// This is more or less a hack to allow static classes to subclass.
-    /// 
-    /// A Bank class which maps Enum names to Assets.
-    /// Used to create static containers for assets which can 
-    /// be accessed where needed.
-    /// </summary>
-    /// <typeparam name="TAsset">the asset type to hold</typeparam>
-    class Bank<TAsset> 
-    {
-        protected Dictionary<string, TAsset> bank = new Dictionary<string, TAsset>();
-        protected Dictionary<string, int> seen = new Dictionary<string, int>();
-        public readonly string rootDir;
-        public ReadOnlyCollection<string> AllFiles;
-        public Bank(string root, string[] exts)
-        {
-            rootDir = root;
-            init(exts);
-        }
-
-        public Bank(string root, string ext)
-        {
-            rootDir = root;
-            init(new string[] { ext });
-        }
-
-        public List<string> GetAllLoaded()
+        public virtual List<string> GetLoadedNames()
         {
             return bank.Keys.ToList();
         }
 
-        public bool Contains(string name)
-        {
-            return bank.ContainsKey(name);
-        }
-
-        private void init(string[] exts)
-        {
-            string[] files = Util.GetFiles(rootDir);
-            List<string> names = new List<string>();
-            for (int i = 0; i < files.Length; i += 1)
-            {
-                string raw = files[i];
-                foreach (string ext in exts)
-                {
-                    string replaced = Regex.Replace(raw, "[.]" + ext, "");
-                    if (!(replaced.Equals(raw)))
-                    {
-                        names.Add(replaced);
-                    }
-                }
-            }
-            AllFiles = new ReadOnlyCollection<string>(names);
-        }
-
         public virtual TAsset this[string name]
         {
-            get
-            {
-                if (seen.ContainsKey(name) && !bank.ContainsKey(name))
-                {
-                    throw new DeletedResourceError("Resource {0} was unloaded", name);
-                }
-                return bank[name];
-            }
+            get { return bank[name]; }
         }
 
-        public virtual void LoadAll(ContentManager content)
-        {
-            foreach (string file in AllFiles)
-            {
-                Load(content, file);
-            }
-        }
-
-        public string GetName(string filepath)
+        public virtual string GetName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);
         }
 
-        /// <summary>
-        /// Allows the ContentManager to handle the loading of an asset which
-        /// XNA already knows how to load.
-        /// </summary>
-        public virtual void Load(ContentManager content, string filepath)
+        public virtual string[] GetFileList(string filepath)
         {
-            string name = GetName(filepath);
-            // i am a terrible person
-            string relpath = Regex.Replace(filepath, "ExeggcuteContent/", "");
-
-            seen[name] = 1;
-            bank[name] = content.Load<TAsset>(relpath);
+            return Util.GetFiles(RootDir);
         }
 
-        /// <summary>
-        /// A hackish method of loading a non-XNA managed asset, such as a 
-        /// script or sprite.
-        /// </summary>
-        public virtual void PutWithName(TAsset asset, string name)
+        public virtual void PutByName(TAsset asset, string name)
         {
-            seen[name] = 1;
             bank[name] = asset;
         }
 
-        public virtual void PutWithFile(TAsset asset, string filename)
+        public virtual void PutByFile(TAsset asset, string filepath)
         {
-            string name = GetName(filename);
-            PutWithName(asset, name);
-        }
-
-        public virtual void Unload(ContentManager content, List<string> names)
-        {
-            names.ForEach(name => bank.Remove(name));
-            throw new Exception("Not implemented");
+            string name = GetName(filepath);
+            bank[name] = asset;
         }
     }
+
+ 
+
+    
 }

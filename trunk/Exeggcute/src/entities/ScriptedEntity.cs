@@ -77,6 +77,13 @@ namespace Exeggcute.src.entities
             this.script = trajectory;
         }
 
+        /// <summary>
+        /// Used to allow subclasses to implement ILoadable
+        /// </summary>
+        protected ScriptedEntity()
+        {
+
+        }
 
         public virtual void Reset()
         {

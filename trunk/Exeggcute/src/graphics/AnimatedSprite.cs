@@ -47,6 +47,11 @@ namespace Exeggcute.src.graphics
             Animations = anims;
         }
 
+        public static Sprite LoadFromFile(string filename)
+        {
+            return spriteLoader.LoadFromFile(filename);
+        }
+
         public void SetAnimation(int n)
         {
             AnimationPtr = n;

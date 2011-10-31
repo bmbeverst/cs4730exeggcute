@@ -31,7 +31,7 @@ namespace Exeggcute.src
         public LevelSummaryMenu(Level level)
         {
             this.Parent = level;
-            this.font = FontBank.Get("consolas");
+            this.font = Assets.Font["consolas"];
             this.validScore = level.ValidScore;
             this.Hud = level.Hud;
             this.Player = Level.player;

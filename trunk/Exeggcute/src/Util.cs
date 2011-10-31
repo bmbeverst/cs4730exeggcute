@@ -525,12 +525,12 @@ namespace Exeggcute.src
 
         public static Model ParseModel(string name)
         {
-            return ModelBank.Get(name);
+            return Assets.Model[name];
         }
 
         public static Song ParseSong(string name)
         {
-            return SongBank.Get(name);
+            return Assets.Song[name];
         }
 
         public static TEnum? ParseEnumNullable<TEnum>(string name) where TEnum : struct
@@ -541,12 +541,12 @@ namespace Exeggcute.src
 
         public static Texture2D ParseTexture2D(string name)
         {
-            return TextureBank.Get(name);
+            return Assets.Texture[name];
         }
 
         public static SoundEffectInstance ParseSoundEffectInstance(string s)
         {
-            return SfxBank.Get(s);
+            return Assets.Sfx[s].CreateInstance();
         }
 
         public static string ParseString(string s)

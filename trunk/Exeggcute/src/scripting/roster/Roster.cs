@@ -11,16 +11,17 @@ namespace Exeggcute.src.scripting.roster
     class Roster
     {
         protected List<Enemy> enemies = new List<Enemy>();
-        public Roster(string name)
+        /*public Roster(string name)
         {
+            Util.Warn("this usage of Roster is deprecated");
             string filename = string.Format("data/rosters/{0}.roster", name);
             List<string> lines = Util.ReadAndStrip(filename, true);
             foreach (string line in lines)
             {
-                Enemy enemy = EnemyLoader.Load(line);
+                Enemy enemy = EnemyLoader.LoadByName(line);
                 enemies.Add(enemy);
             }
-        }
+        }*/
 
         public Roster(List<Enemy> enemies)
         {
@@ -36,47 +37,12 @@ namespace Exeggcute.src.scripting.roster
         {
             string[] entries = s.Split(',');
             List<Enemy> result = new List<Enemy>();
-            foreach (string entry in entries)
+            foreach (string name in entries)
             {
-                Enemy enemy = EnemyLoader.Load(entry);
+                Enemy enemy = Assets.Enemy[name];
                 result.Add(enemy);
             }
             return new Roster(result);
         }
     }
-    /// <summary>
-    /// A roster is a list of enemies/entities available to the level to spawn.
-    /// </summary>
-    /*class Roster
-    {
-        protected static Dictionary<RosterEntry, Enemy> cache =
-            new Dictionary<RosterEntry, Enemy>();
-
-        protected List<Enemy> enemies = new List<Enemy>();
-
-        public int Count
-        {
-            get { return enemies.Count; }
-        }
-
-        public Roster(List<RosterEntry> entries)
-        {
-            foreach (var entry in entries)
-            {
-                if (false && cache.ContainsKey(entry))
-                {
-                    enemies.Add(cache[entry]);
-                }
-                Enemy enemy = new Enemy(entry, Enemy.GetDeathScript(), entry.HeldItems, World.EnemyShots, World.GibList, World.ItemList);
-                cache[entry] = enemy;
-                enemies.Add(enemy);
-            }
-        }
-
-
-        public Enemy Clone(int id, Float3 pos, FloatValue angle)
-        {
-            return enemies[id].Clone(pos, angle);
-        }
-    }*/
 }

@@ -143,59 +143,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="sprites\bomb.sprite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>bomb</Name>
-    </None>
     <Compile Include="models\junk0.fbx">
       <Name>junk0</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="sprites\textboxLower.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxLower</Name>
-    </None>
-    <None Include="sprites\textboxUL.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxUL</Name>
-    </None>
-    <None Include="sprites\textboxUR.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxUR</Name>
-    </None>
-    <None Include="sprites\textboxLL.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxLL</Name>
-    </None>
-    <None Include="sprites\textboxLR.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxLR</Name>
-    </None>
-    <None Include="sprites\textboxTop.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxTop</Name>
-    </None>
-    <None Include="sprites\textboxLeft.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxLeft</Name>
-    </None>
-    <None Include="sprites\textboxRight.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxRight</Name>
-    </None>
-    <None Include="sprites\textboxMiddle.sprite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>textboxMiddle</Name>
-    </None>
-    <None Include="sprites\life.sprite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>life</Name>
-    </None>
-    <None Include="sprites\cursor.sprite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>cursor</Name>
-    </None>
     <Compile Include="shaders\light0.fx">
       <Name>light0</Name>
       <Importer>EffectImporter</Importer>

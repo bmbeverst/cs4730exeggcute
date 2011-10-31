@@ -10,7 +10,7 @@ namespace Exeggcute.src.loading
 
     abstract class UnknownType
     {
-        protected static BindingFlags flags = BindingFlags.NonPublic |
+        public static BindingFlags Flags = BindingFlags.NonPublic |
                                               BindingFlags.InvokeMethod |
                                               BindingFlags.Static |
                                               BindingFlags.Public;
@@ -54,7 +54,7 @@ namespace Exeggcute.src.loading
 
         protected virtual MethodInfo getParserMethod()
         {
-            return parserType.GetMethod(parserName, flags, null, parserParamSignature, null);  
+            return parserType.GetMethod(parserName, Flags, null, parserParamSignature, null);  
         }
 
         public void SetField(object obj)

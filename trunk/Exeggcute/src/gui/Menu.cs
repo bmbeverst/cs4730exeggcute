@@ -35,7 +35,7 @@ namespace Exeggcute.src.gui
         public Menu(List<Button> buttons, Rectangle bounds, bool loops)
         {
             Color bgColor = new Color(0, 170, 0);
-            this.font = FontBank.Get("consolas");
+            this.font = Assets.Font["consolas"];
             this.fontColor = Color.White;
             this.buttonHeight = buttons[0].Height;
             this.cursor = 0;
@@ -50,7 +50,7 @@ namespace Exeggcute.src.gui
                                                     buttonBounds.Height + shadowOffset * 2);
             this.outlineShadow = new RectSprite(offsetOutline, Color.Black, true);
             this.drawPositions = new List<Vector2>();
-            Texture2D cursorTexture = TextureBank.Get("cursor");
+            Texture2D cursorTexture = Assets.Texture["cursor"];
             this.cursorSprite = new StaticSprite(cursorTexture, new Point(0, 0), 16, 16);
             int x = buttonBounds.X;
             int y = buttonBounds.Y;
@@ -61,8 +61,8 @@ namespace Exeggcute.src.gui
                 buttons[i].AttachParent(this);
             }
 
-            this.cancelSound = SfxBank.DeprecatedGetSound("back");
-            this.selectSound = SfxBank.DeprecatedGetSound("select");
+            this.cancelSound = Assets.Sfx["back"];
+            this.selectSound = Assets.Sfx["select"];
 
         }
 

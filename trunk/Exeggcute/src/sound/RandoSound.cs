@@ -26,10 +26,11 @@ namespace Exeggcute.src.sound
             List<SoundEffectInstance> all = new List<SoundEffectInstance>();
 
             int i = 0;
-            for (string current = name + i; SfxBank.Contains(current); current = name + i)
+            for (string current = name + i; Assets.Sfx.ContainsKey(current); current = name + i)
             {
-                maxDuration = Math.Max(maxDuration, SfxBank.GetDuration(current));
-                all.Add(SfxBank.Get(current));
+                int curDuration = GetDuration(current);
+                maxDuration = Math.Max(maxDuration, curDuration);
+                all.Add(Assets.Sfx[current].CreateInstance());
                 i += 1;
             }
             if (i < 4)

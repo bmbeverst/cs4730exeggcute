@@ -136,7 +136,7 @@ namespace Exeggcute.src.particles
             }
 
 
-            particleEffect = EffectBank.Get("particle");
+            particleEffect = Assets.Effect["particle"];
 
             EffectParameterCollection parameters = particleEffect.Parameters;
 

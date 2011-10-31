@@ -36,7 +36,7 @@ namespace Exeggcute.src.gui
         public HUD()
         {
             Resize(Engine.XRes, Engine.YRes);
-            scoreFont = FontBank.Get("consolas");
+            scoreFont = Assets.Font["consolas"];
         }
 
         public static Rectangle CalculateRect(int xres, int yres)

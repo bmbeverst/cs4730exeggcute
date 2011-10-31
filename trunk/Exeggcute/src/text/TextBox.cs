@@ -56,15 +56,15 @@ namespace Exeggcute.src.text
 
         public static void LoadSprites()
         {
-            UpperLeftSprite = SpriteBank.Get("textboxUL");
-            UpperRightSprite = SpriteBank.Get("textboxUR");
-            LowerLeftSprite = SpriteBank.Get("textboxLL");
-            LowerRightSprite = SpriteBank.Get("textboxLR");
-            LeftSprite = SpriteBank.Get("textboxLeft");
-            RightSprite = SpriteBank.Get("textboxRight");
-            TopSprite = SpriteBank.Get("textboxTop");
-            LowerSprite = SpriteBank.Get("textboxLower");
-            MiddleSprite = SpriteBank.Get("textboxMiddle");
+            UpperLeftSprite = Assets.Sprite["textboxUL"];
+            UpperRightSprite = Assets.Sprite["textboxUR"];
+            LowerLeftSprite = Assets.Sprite["textboxLL"];
+            LowerRightSprite = Assets.Sprite["textboxLR"];
+            LeftSprite = Assets.Sprite["textboxLeft"];
+            RightSprite = Assets.Sprite["textboxRight"];
+            TopSprite = Assets.Sprite["textboxTop"];
+            LowerSprite = Assets.Sprite["textboxLower"];
+            MiddleSprite = Assets.Sprite["textboxMiddle"];
         }
 
         public void Start()

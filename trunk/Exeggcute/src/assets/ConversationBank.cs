@@ -19,7 +19,7 @@ namespace Exeggcute.src.assets
         const float scrollSpeed = 0.3f;
         public static void LoadAll()
         {
-            SpriteFont font = FontBank.Get("consolas");
+            SpriteFont font = Assets.Font["consolas"];
             List<string> allLines = Util.ReadLines("data/msg_boxes.txt");
             string total = "";
             for (int i = 0; i < allLines.Count; i += 1)

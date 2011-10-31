@@ -88,9 +88,11 @@ namespace Exeggcute.src
             
         }
 
-        public static void MakeConsole()
+        public static DevConsole MakeConsole()
         {
-            console = new DevConsole();
+            if (console == null) console = new DevConsole();
+            consoleAttached = false;
+            return console;
         }
 
         private static VisualizationData soundData = new VisualizationData();
@@ -154,7 +156,7 @@ namespace Exeggcute.src
             difficulty = ent.Setting;
             
             Rectangle bounds = new Rectangle(100, 500, 100, 100);
-            SpriteFont font = FontBank.Get("consolas");
+            SpriteFont font = Assets.Font["consolas"];
             Color fontColor = Color.Black;
 
             bool isCustom = (gameType == GameType.Custom);
@@ -207,7 +209,7 @@ namespace Exeggcute.src
             gameType = ent.GameType;
             if (difficultyMenu == null)
             {
-                SpriteFont font = FontBank.Get("consolas");
+                SpriteFont font = Assets.Font["consolas"];
                 Color fontColor = Color.Black;
                 Rectangle bounds = new Rectangle(500, 500, 100, 116);
                 List<Button> buttons = new List<Button> {
@@ -246,7 +248,7 @@ namespace Exeggcute.src
             if (reallyQuitMenu == null)
             {
                 Color fontColor = Color.Black;
-                SpriteFont font = FontBank.Get("consolas");
+                SpriteFont font = Assets.Font["consolas"];
                 List<Button> buttons = new List<Button> {
                     new ListButton(null, new SpriteText(font, "Yes", fontColor)),
                     new ListButton(new BackEvent(), new SpriteText(font, "No", fontColor)),
@@ -282,7 +284,7 @@ namespace Exeggcute.src
             if (scoreMenu == null)
             {
                 Color fontColor = Color.Black;
-                SpriteFont font = FontBank.Get("consolas");
+                SpriteFont font = Assets.Font["consolas"];
                 List<Button> buttons = new List<Button> {
                     new ListButton(new ScoreEvent(ScoreEventType.SeeLocal), new SpriteText(font, "View Local", fontColor)),
                     new ListButton(new ScoreEvent(ScoreEventType.SeeNetwork), new SpriteText(font, "View Network", fontColor)),
@@ -452,7 +454,7 @@ namespace Exeggcute.src
             current.Move(dir);
             if (current.ResolveCursor())
             {
-                SfxBank.Get("menumove").Play();
+                Assets.Sfx["menumove"].Play();
             }
             
 
@@ -482,7 +484,7 @@ namespace Exeggcute.src
             songManager.Pause();
             if (pauseMenu == null)
             {
-                SpriteFont font = FontBank.Get("consolas");
+                SpriteFont font = Assets.Font["consolas"];
                 Color fontColor = Color.Black;
                 Rectangle bounds = new Rectangle(500, 500, 100, 100);
                 List<Button> buttons = new List<Button> {
@@ -562,12 +564,12 @@ namespace Exeggcute.src
 
         public static void InsertEnemy(string name)
         {
-
+            console.Write("TODO: not implemented");
         }
 
         public static void InsertBoss(string name)
         {
-
+            console.Write("TODO: not implemented");
         }
 
         public static void Begin()
@@ -578,7 +580,7 @@ namespace Exeggcute.src
             if (mainMenu == null)
             {
                 Color fontColor = Color.Black;
-                SpriteFont font = FontBank.Get("consolas");
+                SpriteFont font = Assets.Font["consolas"];
                 Rectangle bounds = new Rectangle(500, 500, 166, 150);
                 List<Button> buttons = new List<Button> {
                     new ListButton(new ToDifficultyMenuEvent(GameType.Campaign),
@@ -597,6 +599,19 @@ namespace Exeggcute.src
                 mainMenu = new MainMenu(buttons, bounds);
             }
             World.PushContext(mainMenu);
+        }
+
+        public static void ConsoleWrite(string message, params object[] args)
+        {
+            string formatted = string.Format(message, args);
+            if (console == null)
+            {
+                Console.WriteLine(formatted);
+            }
+            else
+            {
+                console.Write(formatted);
+            }
         }
     }
 }

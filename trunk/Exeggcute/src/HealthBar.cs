@@ -21,7 +21,7 @@ namespace Exeggcute.src
         protected SpriteFont font;
         public HealthBar(int maxHealth, float width, float height, Timer timer)
         {
-            this.font = FontBank.Get("consolas");
+            this.font = Assets.Font["consolas"];
             this.maxHealth = maxHealth;
             this.currentHealth = maxHealth;
             this.width = width;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting.action;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {
@@ -13,6 +14,8 @@ namespace Exeggcute.src
         protected List<ActionBase> actionList;
         protected int[] lineTable;
         public readonly int Count;
+
+        protected static ScriptLoader loader = new ScriptLoader();
         public ScriptBase(string name, List<List<ActionBase>> lists)
         {
             this.Name = name;
@@ -32,6 +35,11 @@ namespace Exeggcute.src
                 }
                 outerCtr += 1;
             }
+        }
+
+        public static ScriptBase LoadFromFile(string filename)
+        {
+            return new ScriptBase(filename, loader.RawFromFile(filename));
         }
 
         public ActionBase this[int i]

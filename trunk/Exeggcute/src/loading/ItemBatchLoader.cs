@@ -10,20 +10,14 @@ namespace Exeggcute.src.loading
 {
     class ItemBatchLoader
     {
-        public ItemBatch Make(string filepath)
+        public ItemBatch Load(string filepath)
         {
-            Float3 dispersion;
-            List<Item> items = Load(filepath, out dispersion);
-            return new ItemBatch(items, dispersion);
-        }
 
-        public List<Item> Load(string filepath, out Float3 dispersion)
-        {
             List<Item> items = new List<Item>();
 
             List<string> lines = Util.ReadAndStrip(filepath, true);
 
-            dispersion = Util.ParseFloat3(lines[0]);
+            Float3 dispersion = Util.ParseFloat3(lines[0]);
             for (int i = 1; i < lines.Count; i += 1)
             {
                 string cleaned = Util.FlattenSpace(lines[i]);
@@ -31,13 +25,14 @@ namespace Exeggcute.src.loading
                 string itemname = tokens[0];
                 int amount = int.Parse(tokens[1]);
                 //REALLY FIXME!!!!!!!!!!
-                Item nextItem = ItemBank.Get(itemname);
+                Item nextItem = Assets.Item[itemname].MakeItem();
                 for (int k = 0; k < amount; k += 1)
                 {
                     items.Add(nextItem);
                 }
             }
-            return items;
+            return new ItemBatch(items, dispersion);
         }
+
     }
 }

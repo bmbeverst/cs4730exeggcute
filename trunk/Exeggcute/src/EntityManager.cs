@@ -19,7 +19,7 @@ namespace Exeggcute.src
     /// </summary>
     class EntityManager
     {
-        public RepeatedSound collectSound = SfxBank.MakeRepeated("gulp", 5);
+        public RepeatedSound collectSound = Assets.MakeRepeated("gulp", 5);
         public bool Collide(Player player, HashList<Enemy> enemies)
         {
             if (!player.CanControl) return false;

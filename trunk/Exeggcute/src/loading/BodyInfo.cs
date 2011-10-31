@@ -24,9 +24,22 @@ namespace Exeggcute.src.loading
             
         }
 
+        /// <summary>
+        /// DO NOT USE
+        /// </summary>
+        public BodyInfo()
+        {
+
+        }
+
+        public static BodyInfo LoadFromFile(string filename)
+        {
+            return new BodyInfo(filename);
+        }
+
         public static BodyInfo Parse(string s)
         {
-            return BodyBank.Get(s);
+            return Assets.Body[s];
         }
     }
 }

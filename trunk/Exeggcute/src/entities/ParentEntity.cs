@@ -63,8 +63,15 @@ namespace Exeggcute.src.entities
             this.shotListHandle = shotListHandle;
             this.gibBatch = gibBatch;
         }
-                
-                            
+
+        /// <summary>
+        /// Used to allow subclasses to implement ILoadable
+        /// </summary>
+        protected ParentEntity()
+        {
+
+        }
+
 
         public override void Process(ShootAction shoot)
         {

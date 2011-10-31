@@ -13,6 +13,7 @@ using Exeggcute.src.text;
 using Exeggcute.src.contexts;
 using Exeggcute.src.sound;
 using System.Diagnostics;
+using Exeggcute.src.console;
 
 namespace Exeggcute.src
 {
@@ -53,25 +54,37 @@ namespace Exeggcute.src
         public ControlManager controls;
 
         public static ScoreSet scoreSet;
+        public static string ContentRoot = "ExeggcuteContent";
+        public static string DataRoot = "data";
 
-        public Engine(GraphicsDevice graphics, ContentManager content, InputManager input)
+        protected Manifest manifest;
+        protected DataSet dataSet;
+        public Engine(GraphicsDevice graphics, ContentManager content, InputManager input, string dataSetName)
         {
-            
             
             World.Initialize(this, content, graphics);
 
             loadXNAContent(content);
 
-            SpriteBank.LoadAll(content);
-            BodyBank.LoadAll();
+            World.MakeConsole();
 
-            ScriptBank.LoadAll();
+            manifest = new Manifest(dataSetName);
+            dataSet = new DataSet(manifest.DataFileName, manifest.ForceOverwrite);
+            Assets.Sprite.LoadAll();
+            Assets.Body.LoadAll();
 
-            ItemBank.LoadAll();
-            ItemBatchBank.LoadAll();
+            Assets.Behavior.LoadAll();
+            Assets.Trajectory.LoadAll();
+            Assets.Spawn.LoadAll();
+
+            Assets.Item.LoadAll();
+            Assets.ItemBatch.LoadAll();
+
+            Assets.Option.LoadAll();
 
             ConversationBank.LoadAll();
 
+            Assets.Enemy.LoadAll();
             PlayerBank.LoadAll();
 
             loadMenus();
@@ -81,20 +94,19 @@ namespace Exeggcute.src
             TextBox.LoadSprites();
             //World.LoadTerrain();
             AssetManager.Commit();
-            World.MakeConsole();
         }
 
         private void loadXNAContent(ContentManager content)
         {
-            
-            TextureBank.LoadAll(content);//must be first
 
-            FontBank.LoadAll(content);
-            EffectBank.LoadAll(content);
-            ModelBank.LoadAll(content);
-            SfxBank.LoadAll(content);
-            SongBank.LoadAll(content);
-            mySound = SfxBank.MakeRepeated("1pew");
+            Assets.Texture.LoadAll(content);//must be first
+
+            Assets.Font.LoadAll(content);
+            Assets.Effect.LoadAll(content);
+            Assets.Model.LoadAll(content);
+            Assets.Sfx.LoadAll(content);
+            Assets.Song.LoadAll(content);
+            mySound = Assets.MakeRepeated("1pew");
         }
 
         private void loadMenus()
@@ -106,7 +118,7 @@ namespace Exeggcute.src
         int frame = 0;
         public void Update()
         {
-            SfxBank.UpdateAll();
+            Assets.UpdateSfx();
             //mySound.Play();
             frame += 1;
             controls.Update();

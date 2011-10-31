@@ -160,6 +160,10 @@ namespace Exeggcute.src.console
                 }
                 cursor = buffer.Length;
             }
+            else if (key == Keys.Tab)
+            {
+                console.Resize();
+            }
             else if (kb.IsPrintable(key))
             {
                 char pressed = kb.GetPrintable(key);

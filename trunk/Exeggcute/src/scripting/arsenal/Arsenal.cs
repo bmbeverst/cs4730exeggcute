@@ -111,7 +111,7 @@ namespace Exeggcute.src.scripting.arsenal
             for (int i = 1; i < optionNames.Length; i += 1)
             {
                 string name = optionNames[i];
-                OptionInfo info = new OptionInfo(name);
+                OptionInfo info = Assets.Option[name];
                 options.Add(info);
             }
 

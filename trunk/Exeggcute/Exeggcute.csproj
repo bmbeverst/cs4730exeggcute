@@ -80,6 +80,14 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zlib, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Ionic.Zlib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553">
       <Private>False</Private>
     </Reference>
@@ -139,18 +147,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\assets\AssetManager.cs" />
-    <Compile Include="src\assets\OptionBank.cs" />
-    <Compile Include="src\assets\BodyBank.cs" />
-    <Compile Include="src\assets\SfxBank.cs" />
+    <Compile Include="src\assets\Assets.cs" />
+    <Compile Include="src\assets\DataBank.cs" />
+    <Compile Include="src\assets\XnaBank.cs" />
     <Compile Include="src\ConsoleContext.cs" />
     <Compile Include="src\console\CommandParser.cs" />
     <Compile Include="src\console\commands\ConsoleCommand.cs" />
+    <Compile Include="src\console\commands\LoadCommand.cs" />
     <Compile Include="src\console\commands\HelpCommand.cs" />
     <Compile Include="src\console\commands\ListCommand.cs" />
+    <Compile Include="src\console\commands\PackageCommand.cs" />
     <Compile Include="src\console\commands\SpawnCommand.cs" />
     <Compile Include="src\console\DevConsole.cs" />
     <Compile Include="src\console\KeyboardManager.cs" />
     <Compile Include="src\console\commands\ContextCommand.cs" />
+    <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\SoundAction.cs" />
     <Compile Include="src\GibBatch.cs" />
     <Compile Include="src\HealthBar.cs" />
@@ -162,6 +173,7 @@
     <Compile Include="src\loading\Loadable.cs" />
     <Compile Include="src\loading\LoaderError.cs" />
     <Compile Include="src\loading\MethodNotFoundError.cs" />
+    <Compile Include="src\Manifest.cs" />
     <Compile Include="src\Sandbox.cs" />
     <Compile Include="src\scripting\action\UpgradeAction.cs" />
     <Compile Include="src\scripting\task\BarrierTask.cs" />
@@ -170,8 +182,6 @@
     <Compile Include="src\scripting\ScriptBase.cs" />
     <Compile Include="src\Alignment.cs" />
     <Compile Include="src\assets\ConversationBank.cs" />
-    <Compile Include="src\assets\ItemBank.cs" />
-    <Compile Include="src\assets\ItemBatchBank.cs" />
     <Compile Include="src\assets\PlayerBank.cs" />
     <Compile Include="src\Campaign.cs" />
     <Compile Include="src\contexts\LevelOverEvent.cs" />
@@ -191,8 +201,6 @@
     <Compile Include="src\LevelSummaryMenu.cs" />
     <Compile Include="src\LightSettings.cs" />
     <Compile Include="src\loading\InfoLoader.cs" />
-    <Compile Include="src\assets\RosterBank.cs" />
-    <Compile Include="src\assets\SongBank.cs" />
     <Compile Include="src\loading\LevelLoader.cs" />
     <Compile Include="src\loading\PlayerWeaponLoader.cs" />
     <Compile Include="src\loading\specs\LevelInfo.cs" />
@@ -244,10 +252,6 @@
     <Compile Include="src\graphics\WangMesh.cs" />
     <Compile Include="src\scripting\arsenal\OptionInfo.cs" />
     <Compile Include="src\ScoreSet.cs" />
-    <Compile Include="src\assets\AssetNames.cs" />
-    <Compile Include="src\assets\ModelBank.cs" />
-    <Compile Include="src\assets\ScriptBank.cs" />
-    <Compile Include="src\assets\SpriteBank.cs" />
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\EntityManager.cs" />
     <Compile Include="src\assets\Bank.cs" />
@@ -289,14 +293,12 @@
     <Compile Include="src\entities\PlanarEntity3D.cs" />
     <Compile Include="src\FloatTimer.cs" />
     <Compile Include="src\graphics\Doodad.cs" />
-    <Compile Include="src\assets\EffectBank.cs" />
     <Compile Include="src\graphics\IAnimation.cs" />
     <Compile Include="src\graphics\Sprite.cs" />
     <Compile Include="src\gui\HUD.cs" />
     <Compile Include="src\Level.cs" />
     <Compile Include="src\graphics\StaticAnimation.cs" />
     <Compile Include="src\FastTrig.cs" />
-    <Compile Include="src\assets\TextureBank.cs" />
     <Compile Include="src\particles\TestParticleSystem.cs" />
     <Compile Include="src\particles\ParticleSettings.cs" />
     <Compile Include="src\particles\ParticleVertex.cs" />
@@ -310,7 +312,6 @@
     <Compile Include="src\text\TextBoxList.cs" />
     <Compile Include="src\text\TextLine.cs" />
     <Compile Include="src\scripting\ParseError.cs" />
-    <Compile Include="src\assets\FontBank.cs" />
     <Compile Include="src\graphics\IDrawable2D.cs" />
     <Compile Include="src\graphics\RectSprite.cs" />
     <Compile Include="src\graphics\SpriteLoader.cs" />
@@ -517,6 +518,7 @@
     <Content Include="data\scripts\spawns\0bomb0.spawn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -524,6 +526,42 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\bodies\debugplayer.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\bomb.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\cursor.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\life.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxLeft.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxLL.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxLower.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxLR.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxMiddle.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxRight.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxTop.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxUL.sprite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\sprites\textboxUR.sprite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="lib\Nuclex.Input.dll">
@@ -539,14 +577,15 @@
     <Content Include="data\msg_boxes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\score.dat">
+    <None Include="score.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="data\scripts\behaviors\death0.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="HOWTO.txt" />
     <Content Include="Exeggcute.ico" />
+    <Content Include="lib\Ionic.Zip.dll" />
     <Content Include="Thumbnail.png" />
     <Content Include="settings.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

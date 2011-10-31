@@ -45,7 +45,7 @@ namespace Exeggcute.src.text
             //FIXME
             this.Size = new Point(500, 200);
             // =C
-            this.arrow = SpriteBank.Get("cursor");
+            this.arrow = Assets.Sprite["cursor"];
             this.font = font;
             this.boxes = new List<TextBox>();
             this.timer = new FloatTimer(rate);

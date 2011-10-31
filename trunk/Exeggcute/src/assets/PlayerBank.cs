@@ -10,10 +10,10 @@ namespace Exeggcute.src.assets
 {
     class PlayerBank
     {
-        protected static CustomBank<Player> standardBank =
-            new CustomBank<Player>("data/players/standard");
-        protected static CustomBank<Player> customBank =
-            new CustomBank<Player>("data/players/custom");
+        protected static DataBank<Player> standardBank =
+            new DataBank<Player>("players/standard", "player");
+        protected static DataBank<Player> customBank =
+            new DataBank<Player>("players/custom", "player");
         public static bool IsLoaded { get; protected set; }
         protected static PlayerLoader loader = new PlayerLoader();
         public static Player Get(string name, bool isCustom)
@@ -86,7 +86,7 @@ namespace Exeggcute.src.assets
                 try
                 {
                     string name = standardBank.GetName(file);
-                    standardBank.Put(loader.Load(name, false), file);
+                    standardBank.PutByFile(loader.Load(name, false), file);
                 }
                 catch (Exception e)
                 {
@@ -99,7 +99,7 @@ namespace Exeggcute.src.assets
                 try
                 {
                     string name = customBank.GetName(file);
-                    customBank.Put(loader.Load(name, true), file);
+                    customBank.PutByFile(loader.Load(name, true), file);
                 }
                 catch (Exception e)
                 {

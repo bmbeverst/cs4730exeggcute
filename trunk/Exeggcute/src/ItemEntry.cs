@@ -10,16 +10,29 @@ using Exeggcute.src.loading;
 namespace Exeggcute.src
 {
 #pragma warning disable 0649
-    class ItemEntry : Loadable
+    class ItemInfo : Loadable
     {
         public BodyInfo Body;
         public BehaviorScript Behavior;
         public ItemType? Type;
 
-        public ItemEntry(string filename)
+        public ItemInfo(string filename)
             : base(filename)
         {
             loadFromFile(filename);
+        }
+
+        public static ItemInfo LoadFromFile(string filename)
+        {
+            return new ItemInfo(filename);
+        }
+
+        /// <summary>
+        /// DO NOT USE
+        /// </summary>
+        public ItemInfo()
+        {
+
         }
 
         public Item MakeItem()

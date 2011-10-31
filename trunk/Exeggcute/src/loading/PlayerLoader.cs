@@ -19,6 +19,15 @@ namespace Exeggcute.src.loading
         {
             return string.Format("data/players/{0}/{1}.player", folder, name);
         }
+
+        public Player LoadFromFile(string filename)
+        {
+            bool isCustom = Regex.IsMatch(filename, "/custom/");
+            string name = Path.GetFileNameWithoutExtension(filename);
+
+            return Load(name, isCustom);
+        }
+
         public Player Load(string name, bool isCustom)
         {
 

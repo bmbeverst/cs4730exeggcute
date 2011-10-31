@@ -17,7 +17,7 @@ namespace Exeggcute.src.scripting
 
         public static SpawnScript Parse(string name)
         {
-            return ScriptBank.GetSpawn(name);
+            return Assets.GetSpawn(name);
         }
     }
 }

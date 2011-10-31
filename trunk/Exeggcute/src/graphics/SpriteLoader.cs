@@ -30,15 +30,10 @@ namespace Exeggcute.src.graphics
         /// <summary>file extension for sprites</summary>
         private const string EXT = "sprite";
 
-        /// <summary>
-        /// Loads a sprite from a .sprite file.
-        /// </summary>
-        /// <typeparam name="TSprite">the type of sprite expected</typeparam>
-        /// <param name="name">the filename minus extension</param>
-        public static Sprite Load(string name)
+
+        public Sprite LoadFromFile(string filename)
         {
-            string filepath = String.Format("{0}.{1}", name, EXT);
-            List<string> lines = Util.ReadAndStrip(filepath, true);
+            List<string> lines = Util.ReadAndStrip(filename, true);
             lines.Reverse(); //???
             Stack<string> lineStack = new Stack<string>(lines);
             List<IAnimation> anims = new List<IAnimation>();
@@ -53,7 +48,8 @@ namespace Exeggcute.src.graphics
                 Point[] frames = parseFrames(framesString);
                 if (frames.Length == 1)
                 {
-                    anims.Add(new StaticAnimation(textureName, frames[0], width, height));
+                    Texture2D t = Assets.Texture[textureName];
+                    anims.Add(new StaticAnimation(t, frames[0], width, height));
                     continue;
                 }
                 //else, animated sprite
@@ -65,7 +61,7 @@ namespace Exeggcute.src.graphics
 
                 string speedString = lineStack.Pop();
                 int speed = int.Parse(speedString);
-                Texture2D texture = TextureBank.Get(textureName);
+                Texture2D texture = Assets.Texture[textureName];
                 anims.Add(new Animation(texture, width, height, frames, order, speed, loop, loopAt));
 
             }
@@ -83,12 +79,24 @@ namespace Exeggcute.src.graphics
         }
 
         /// <summary>
+        /// Loads a sprite from a .sprite file.
+        /// </summary>
+        /// <typeparam name="TSprite">the type of sprite expected</typeparam>
+        /// <param name="name">the filename minus extension</param>
+        public Sprite LoadFromName(string name)
+        {
+            string filename = String.Format("{0}.{1}", name, EXT);
+            return LoadFromFile(filename);
+            
+        }
+
+        /// <summary>
         /// This function assumes that the order line is a space separated
         /// list of integers, with the loop position (if specified) preceeded
         /// directly by LOOP_IND.
         /// Example: '0 1 2 L3 4' 
         /// </summary>
-        private static int[] parseOrder(string line, out bool loop, out int loopAt)
+        private int[] parseOrder(string line, out bool loop, out int loopAt)
         {
             loopAt = 0;
             loop = false;
@@ -115,7 +123,7 @@ namespace Exeggcute.src.graphics
             }
         }
 
-        private static Point[] parseFrames(string line)
+        private Point[] parseFrames(string line)
         {
             List<Point> result = new List<Point>();
             line = line.Replace(LDELIM, ' ').Replace(RDELIM, ' ');
@@ -133,7 +141,7 @@ namespace Exeggcute.src.graphics
             return result.ToArray();
         }
 
-        private static Point parsePoint(string input)
+        private Point parsePoint(string input)
         {
             try
             {

@@ -11,15 +11,20 @@ using Exeggcute.src.assets;
 
 namespace Exeggcute.src.loading
 {
-
     abstract class Loadable
     {
         protected char DELIM = ':';
         public string Filename { get; protected set; }
         public List<string> methodFails = new List<string>();
+
         public Loadable(string filename)
         {
             this.Filename = filename;
+        }
+
+        protected Loadable()
+        {
+
         }
 
         protected virtual void loadFromFile(string filepath)

@@ -17,7 +17,7 @@ namespace Exeggcute.src
             List<string> lines = Util.ReadAndStrip(filepath, true);
             foreach (string line in lines)
             {
-                BodyInfo body = BodyBank.Get(line);
+                BodyInfo body = Assets.Body[line];
                 Gib gib = new Gib(body.Model, body.Texture, body.Scale.Value, body.Radius.Value, body.Rotation.Value);
                 gibs.Add(gib);
             }
