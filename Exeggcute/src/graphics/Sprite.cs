@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.graphics
 {
@@ -17,9 +18,17 @@ namespace Exeggcute.src.graphics
             get { return new Vector2(Width / 2, Height / 2); }
         }
         public virtual Rectangle FrameRect { get; protected set; }
-        
+
+        protected static SpriteLoader spriteLoader = new SpriteLoader();
+
         public abstract void Update();
         public abstract void Draw(SpriteBatch batch, Vector2 pos);
         public abstract void Draw(SpriteBatch batch, Vector2 pos, float rotationRadians);
+
+        public static Sprite LoadFromFile(string filename)
+        {
+            return spriteLoader.LoadFromFile(filename);
+        }
+
     }
 }

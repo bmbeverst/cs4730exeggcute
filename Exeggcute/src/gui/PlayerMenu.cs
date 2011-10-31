@@ -18,7 +18,7 @@ namespace Exeggcute.src.gui
     {
         public static List<Button> MakeButtons(SpriteFont font, Color fontColor, bool isCustom)
         {
-            SpriteFont myfont = FontBank.Get("consolas");
+            SpriteFont myfont = Assets.Font["consolas"];
             Color color = Color.White;
             List<Button> buttons = new List<Button>();
             foreach (Player player in PlayerBank.GetAll(isCustom))

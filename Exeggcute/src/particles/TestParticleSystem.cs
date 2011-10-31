@@ -17,7 +17,7 @@ namespace Exeggcute.src.particles
 
         protected override void InitializeSettings(ParticleSettings settings)
         {
-            settings.Texture = TextureBank.Get("dot");
+            settings.Texture = Assets.Texture["dot"];
             settings.MaxParticles = 2400;
             settings.Duration = 1;
             settings.BlendState = BlendState.Additive;

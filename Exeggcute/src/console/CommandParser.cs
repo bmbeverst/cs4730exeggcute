@@ -12,15 +12,15 @@ namespace Exeggcute.src.console
         public ConsoleCommand Parse(DevConsole console, string input)
         {
             string[] tokens = input.Split(' ');
-            string typeName = tokens[0];
+            string commandTypeString = tokens[0];
             ConsoleCommandType type;
             try
             {
-                type = Util.ParseEnum<ConsoleCommandType>(typeName);
+                type = Util.ParseEnum<ConsoleCommandType>(commandTypeString);
             }
             catch
             {
-                return HelpCommand.MakeTypeFailure(console, typeName);
+                return HelpCommand.MakeTypeFailure(console, commandTypeString);
             }
 
             ConsoleCommand command;
@@ -67,6 +67,17 @@ namespace Exeggcute.src.console
                     }
                     command = new SpawnCommand(console, spawnType, name);
                 }
+                else if (type == ConsoleCommandType.Load)
+                {
+                    string name = tokens[1];
+                    
+                    command = new LoadCommand(console, name);
+                }
+                else if (type == ConsoleCommandType.Package)
+                {
+                    string name = tokens[1];
+                    command = new PackageCommand(console, name);
+                }
                 else
                 {
                     return HelpCommand.MakeUnhandled(console, type);
@@ -109,6 +120,14 @@ namespace Exeggcute.src.console
             else if (type == ConsoleCommandType.List)
             {
                 return ListCommand.Usage;
+            }
+            else if (type == ConsoleCommandType.Load)
+            {
+                return LoadCommand.Usage;
+            }
+            else if (type == ConsoleCommandType.Package)
+            {
+                return PackageCommand.Usage;
             }
             else
             {

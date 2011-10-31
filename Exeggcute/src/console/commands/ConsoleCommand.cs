@@ -14,6 +14,11 @@ namespace Exeggcute.src.console.commands
         Spawn,
 
         Music,
+
+        Load,
+
+        Package,
+
         List
 
 

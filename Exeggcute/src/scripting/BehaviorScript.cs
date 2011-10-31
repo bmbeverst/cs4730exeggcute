@@ -17,7 +17,7 @@ namespace Exeggcute.src.scripting
 
         public static BehaviorScript Parse(string name)
         {
-            return ScriptBank.GetBehavior(name);
+            return Assets.GetBehavior(name);
         }
     }
 }

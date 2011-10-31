@@ -6,6 +6,7 @@ using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using Exeggcute.src.entities.items;
 using Exeggcute.src.assets;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {
@@ -18,6 +19,17 @@ namespace Exeggcute.src
         {
             this.myItems = items;
             this.dispersion = dispersion;
+        }
+
+        public ItemBatch()
+        {
+
+        }
+
+        static ItemBatchLoader loader = new ItemBatchLoader();
+        public static ItemBatch LoadFromFile(string filename)
+        {
+            return loader.Load(filename);
         }
 
         public void Release(HashList<Item> itemList, Vector3 deathPos)
@@ -41,9 +53,9 @@ namespace Exeggcute.src
             return new ItemBatch(copy, dispersion);
         }
 
-        public static ItemBatch Parse(string name)
+        public static ItemBatch Parse(string s)
         {
-            return ItemBatchBank.Get(name);
+            return Assets.ItemBatch[s];
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Exeggcute.src.scripting
 
         public static TrajectoryScript Parse(string name)
         {
-            return ScriptBank.GetTrajectory(name);
+            return Assets.GetTrajectory(name);
         }
     }
 }

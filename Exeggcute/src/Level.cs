@@ -107,7 +107,7 @@ namespace Exeggcute.src
         {
             MediaPlayer.IsVisualizationEnabled = true;
             //HACK HARDCODED
-            Effect light = EffectBank.Get("light0");
+            Effect light = Assets.Effect["light0"];
             loadLights(lightSettings, light);
 
             World.Terrain    = terrain;

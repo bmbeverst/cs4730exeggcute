@@ -24,7 +24,7 @@ namespace Exeggcute.src.console
         protected CommandParser parser = new CommandParser();
 
         protected List<string> output = new List<string>();
-        protected int outputLines = 8;
+        protected int outputLines = 4;
         protected int outputPtr = 0;
         protected const string prompt = "|[console]|: ";
         protected Vector2 promptPos;
@@ -35,12 +35,31 @@ namespace Exeggcute.src.console
         public DevConsole() 
         {
             Write("Welcome! Enter 'help' to get a list of commands.");
-            this.font = FontBank.Get("consolas");
+            this.font = Assets.Font["consolas"];
             this.kbManager = new KeyboardManager();
             this.textBuffer = new ConsoleBuffer(this, prompt);
             this.lineSpacing = font.LineSpacing;
-            this.promptPos = new Vector2(2, lineSpacing * outputLines + 2);
+            Resize();
+            //this.promptPos = new Vector2(2, lineSpacing * outputLines + 2);
+            //this.bgRect = new RectSprite((int)Engine.XRes, (int)(lineSpacing * (outputLines + 1)), new Color(0, 0, 0, bgAlpha), true);
+        }
+
+        public void Resize()
+        {
+            if (outputLines == 8)
+            {
+                outputLines = 16;
+            }
+            else if (outputLines == 16)
+            {
+                outputLines = 4;
+            }
+            else
+            {
+                outputLines = 8;
+            }
             this.bgRect = new RectSprite((int)Engine.XRes, (int)(lineSpacing * (outputLines + 1)), new Color(0, 0, 0, bgAlpha), true);
+            this.promptPos = new Vector2(2, lineSpacing * outputLines + 2);
         }
 
         public void AttachParent(IContext parent)
@@ -137,6 +156,40 @@ namespace Exeggcute.src.console
         public override void AcceptCommand(ContextCommand command)
         {
             Write("Attempting to change contexts to {0}", command.Name);
+            World.ContextSwitch(command.Name);
+        }
+
+        public override void AcceptCommand(LoadCommand load)
+        {
+            string name = load.Name;
+            if (Manifest.VerifyExists(name))
+            {
+                Game.GameHandleDONTUSE.Reset(name);
+            }
+            else
+            {
+                List<String> validSets = Manifest.GetValidSets();
+                if (validSets.Count == 0)
+                {
+                    Write("No valid datasets found... You should probably redownload the game =[");
+                    return;
+                }
+                string message = "No data set named {0} exists. Valid values are:\n";
+                foreach (string valid in validSets)
+                {
+                    message += valid + '\n';
+                }
+                Write(message, name);
+            }
+            
+        }
+
+        public override void AcceptCommand(PackageCommand package)
+        {
+            string packageName = package.Name;
+            DataSet set = new DataSet(packageName);
+            set.Save();
+
         }
 
         // FIXME monstrosity
@@ -149,27 +202,23 @@ namespace Exeggcute.src.console
             List<string> notImplemented = new List<string> { "not implemented/dynamically loaded" };
             if (type == FileType.Behavior)
             {
-                names = ScriptBank.GetLoadedBehaviors();
+                names = Assets.Behavior.GetLoadedNames();
             }
             else if (type == FileType.Spawn)
             {
-                names = ScriptBank.GetLoadedSpawns();
+                names = Assets.Spawn.GetLoadedNames();
             }
             else if (type == FileType.Trajectory)
             {
-                names = ScriptBank.GetLoadedTrajectories();
+                names = Assets.Trajectory.GetLoadedNames();
             }
             else if (type == FileType.Body)
             {
-                names = BodyBank.GetLoaded();
+                names = Assets.Body.GetLoadedNames();
             }
             else if (type == FileType.Item)
             {
-                names = ItemBank.GetLoaded();
-            }
-            else if (type == FileType.ItemBatch)
-            {
-                names = ItemBatchBank.GetLoaded();
+                names = Assets.Item.GetLoadedNames();
             }
             else if (type == FileType.Boss)
             {
@@ -193,31 +242,31 @@ namespace Exeggcute.src.console
             }
             else if (type == FileType.Option)
             {
-                names = OptionBank.GetLoaded();
+                names = Assets.Option.GetLoadedNames();
             }
             else if (type == FileType.Font)
             {
-                names = FontBank.GetLoaded();
+                names = Assets.Font.GetLoadedNames();
             }
             else if (type == FileType.Model)
             {
-                names = ModelBank.GetLoaded();
+                names = Assets.Model.GetLoadedNames();
             }
             else if (type == FileType.Sfx)
             {
-                names = SfxBank.GetLoaded();
+                names = Assets.Sfx.GetLoadedNames();
             }
             else if (type == FileType.Song)
             {
-                names = SongBank.GetLoaded();
+                names = Assets.Song.GetLoadedNames();
             }
             else if (type == FileType.Texture)
             {
-                names = TextureBank.GetLoaded();
+                names = Assets.Texture.GetLoadedNames();
             }
             else if (type == FileType.Sprite)
             {
-                names = SpriteBank.GetLoaded();
+                names = Assets.Sprite.GetLoadedNames();
             }
             else if (type == FileType.Player)
             {

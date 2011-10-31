@@ -52,8 +52,8 @@ namespace Exeggcute.src.entities
             this.active = false;
             this.mover = new Mover(moverScript);
             this.Scale = 1.0f;
-            this.arrow = ModelBank.Get("arrow");
-            this.debugModel = ModelBank.Get("XNAface");
+            this.arrow = Assets.Model["arrow"];
+            this.debugModel = Assets.Model["XNAface"];
         }
 
         float debugAngle;

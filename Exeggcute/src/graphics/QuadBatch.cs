@@ -16,7 +16,7 @@ namespace Exeggcute.src.graphics
         public QuadBatch(GraphicsDevice graphics, Texture2D texture)
         {
             //Shader = EffectBank.Get(EffectName.terrain);
-            this.Shader = EffectBank.Get("light0");
+            this.Shader = Assets.Effect["light0"];
             this.Texture = texture;
             //Shader.EnableDefaultLighting();
             //Shader.World = Matrix.Identity;

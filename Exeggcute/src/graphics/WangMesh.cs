@@ -113,7 +113,7 @@ namespace Exeggcute.src.graphics
             //MUST be initialized first!
             this.Orientation = orientation;
             //fixme
-            this.collideSound = SfxBank.MakeRepeated("crash");
+            this.collideSound = Assets.MakeRepeated("crash");
             this.Type = type;
             this.heightVariance = heightVariance;
             Texture2D wangTexture = texture;

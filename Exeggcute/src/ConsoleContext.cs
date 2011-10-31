@@ -22,27 +22,42 @@ namespace Exeggcute.src
 
         public virtual void AcceptCommand(ConsoleCommand command)
         {
-            throw new SubclassShouldImplementError();
+            SubclassShouldImplement(command);
         }
 
         public virtual void AcceptCommand(ContextCommand context)
         {
-            throw new SubclassShouldImplementError();
+            SubclassShouldImplement(context);
         }
 
         public virtual void AcceptCommand(HelpCommand help)
         {
-            throw new SubclassShouldImplementError();
+            SubclassShouldImplement(help);
         }
 
         public virtual void AcceptCommand(SpawnCommand spawn)
         {
-            throw new SubclassShouldImplementError();
+            SubclassShouldImplement(spawn);
         }
 
         public virtual void AcceptCommand(ListCommand list)
         {
-            throw new SubclassShouldImplementError();
+            SubclassShouldImplement(list);
+        }
+
+        public virtual void AcceptCommand(LoadCommand restore)
+        {
+            SubclassShouldImplement(restore);
+        }
+
+        public virtual void AcceptCommand(PackageCommand package)
+        {
+            SubclassShouldImplement(package);
+        }
+
+        protected void SubclassShouldImplement(ConsoleCommand command)
+        {
+            command.devConsole.Write("A subclass should implement a handler for {0}", command.GetType().Name);
         }
     }
 }

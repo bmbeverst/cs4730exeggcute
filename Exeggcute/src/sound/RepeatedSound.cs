@@ -60,14 +60,19 @@ namespace Exeggcute.src.sound
             float volume = 0.0f;
             string[] tokens = s.Split(',');
             string name = tokens[0];
-            if (!SfxBank.Contains(name) && SfxBank.Contains(name + "0"))
+            if (!Assets.Sfx.ContainsKey(name) && Assets.Sfx.ContainsKey(name + "0"))
             {
                 return new RandoSound(name, volume);
             }
-            return SfxBank.MakeRepeated(name);
-            SoundEffect sound = SfxBank.DeprecatedGetSound(name);
-            int duration = SfxBank.GetDuration(name);
+            return Assets.MakeRepeated(name);
+            SoundEffect sound = Assets.Sfx[name];
+            int duration = GetDuration(name);
             return new RepeatedSound(sound, duration, volume);
+        }
+
+        public static int GetDuration(string name)
+        {
+            return (int)(Assets.Sfx[name].Duration.Milliseconds / 1000f) * Engine.FPS;
         }
     }
 }

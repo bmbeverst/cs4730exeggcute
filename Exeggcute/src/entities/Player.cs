@@ -13,6 +13,7 @@ using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.entities.items;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.entities
 {
@@ -120,8 +121,14 @@ namespace Exeggcute.src.entities
             this.deathScript = deathScript;
 
 
-            LifeSprite = SpriteBank.Get("life");
-            BombSprite = SpriteBank.Get("bomb");
+            LifeSprite = Assets.Sprite["life"];
+            BombSprite = Assets.Sprite["bomb"];
+        }
+
+        static PlayerLoader loader = new PlayerLoader();
+        public static Player LoadFromFile(string filename)
+        {
+            return loader.LoadFromFile(filename);
         }
 
         public void LockPosition(Rectangle gameArea)
@@ -297,7 +304,7 @@ namespace Exeggcute.src.entities
 
         public void DoDemo()
         {
-            BehaviorScript script = ScriptBank.GetBehavior("playerdemo0");
+            BehaviorScript script = Assets.GetBehavior("playerdemo0");
             this.script = script;
             actionPtr = 0;
         }
@@ -432,7 +439,7 @@ namespace Exeggcute.src.entities
                 if (attackPtr < arsenalList.Count - 1)
                 {
                     attackPtr += 1;
-                    SfxBank.Play("powerup");
+                    Assets.Sfx["powerup"].Play();
                     this.arsenal = CurrentAttack;
                 }
                 else

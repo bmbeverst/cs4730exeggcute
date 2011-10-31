@@ -31,6 +31,19 @@ namespace Exeggcute.src.graphics
             FrameRect = anim.GetFrameRect();
         }
 
+        /// <summary>
+        /// DO NOT USE
+        /// </summary>
+        public StaticSprite()
+        {
+
+        }
+
+        public static Sprite LoadFromFile(string filename)
+        {
+            return spriteLoader.LoadFromFile(filename);
+        }
+
         public override void Update()
         {
             //do nothing

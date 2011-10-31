@@ -1,16 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.graphics
 {
     class StaticAnimation : IAnimation
     {
-        public StaticAnimation(string texName, Point frame, int width, int height)
+        public StaticAnimation(Texture2D texture, Point frame, int width, int height)
         {
-            Texture = TextureBank.Get(texName);
-            CurrentFrame = frame;
-            Width = width;
-            Height = height;
+            this.Texture = texture;
+            this.CurrentFrame = frame;
+            this.Width = width;
+            this.Height = height;
         }
 
         public override void Update()

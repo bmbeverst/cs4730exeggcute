@@ -52,7 +52,7 @@ namespace Exeggcute.src.gui
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
-                SfxBank.Get("back").Play();
+                Assets.Sfx["back"].Play();
                 parent.Back();
             }
             base.Update(controls);

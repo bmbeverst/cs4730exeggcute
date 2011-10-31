@@ -15,7 +15,7 @@ namespace Exeggcute.src
         public const int LENGTH = 10;
         protected List<ScoreEntry> localScores = new List<ScoreEntry>(); //ScoreEntry[] localScores = new ScoreEntry[LENGTH];
         protected List<ScoreEntry> networkScores = new List<ScoreEntry>(); //ScoreEntry[] networkScores = new ScoreEntry[LENGTH];
-        private const string FILE = "data/score.dat";
+        private const string FILE = "score.bin";
         private const char DELIM = ',';
 
         private bool networkUpdated = false;

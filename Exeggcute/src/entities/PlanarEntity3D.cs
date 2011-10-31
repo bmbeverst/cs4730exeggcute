@@ -175,7 +175,7 @@ namespace Exeggcute.src.entities
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    part.Effect = EffectBank.Get("light0");
+                    part.Effect = Assets.Effect["light0"];
                 }
             }
 
@@ -191,6 +191,15 @@ namespace Exeggcute.src.entities
             : base (pos)
         {
             this.Mass = 1;
+        }
+
+        /// <summary>
+        /// Used to allow subclasses to implement ILoadable
+        /// </summary>
+        protected PlanarEntity3D()
+            :base(Vector3.Zero)
+        {
+
         }
 
         /// <summary>

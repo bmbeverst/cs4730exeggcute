@@ -49,7 +49,7 @@ namespace Exeggcute.src
 
                 if (lines.Count == 0)
                 {
-                    Util.Warn("Empty section found {0}", text);
+                    //Util.Warn("Empty section found {0}", text);
                     continue;
                 }
                 sections.Add(new DataSection(split[i], lines));

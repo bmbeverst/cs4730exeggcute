@@ -42,7 +42,7 @@ namespace Exeggcute.src.graphics
         private void init(Point size, Color color, bool filled)
         {
             //FIXME generate dot at initialization
-            DotTexture = TextureBank.Get("dot");
+            DotTexture = Assets.Texture["dot"];
             Size = size;
             FillColor = color;
             if (filled)

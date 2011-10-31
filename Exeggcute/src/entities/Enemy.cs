@@ -12,6 +12,7 @@ using Exeggcute.src.entities.items;
 using Exeggcute.src.scripting.arsenal;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.entities
 {
@@ -80,9 +81,16 @@ namespace Exeggcute.src.entities
             return cloned;
         }
 
+        protected static EnemyLoader loader = new EnemyLoader();
+
+        public static Enemy LoadFromFile(string filepath)
+        {
+            return loader.LoadByFile(filepath);
+        }
+
         public static BehaviorScript GetDeathScript()
         {
-            return ScriptBank.GetBehavior("death0"); 
+            return Assets.GetBehavior("death0"); 
         }
 
         public override void Update()
@@ -116,8 +124,8 @@ namespace Exeggcute.src.entities
         {
             IsTrash = true;
             Vector3 deathpos = new Vector3(X, Y, 0);
-            Model gibModel = ModelBank.Get("junk0");
-            Texture2D texture = TextureBank.Get("junk");
+            Model gibModel = Assets.Model["junk0"];
+            Texture2D texture = Assets.Texture["junk"];
             foreach (Gib gib in gibBatch.gibs)
             {
                 //FIXME double copying

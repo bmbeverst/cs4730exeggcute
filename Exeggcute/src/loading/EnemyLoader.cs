@@ -12,17 +12,16 @@ namespace Exeggcute.src.loading
 {
     class EnemyLoader
     {
-        private static string getFilename(string name)
+        private string getFilename(string name)
         {
             return string.Format("data/enemies/{0}.enemy", name);
             
         }
-        public static Enemy Load(string name)
+        public Enemy LoadByFile(string filename)
         {
-            string filename = getFilename(name);
             Data enemyData = new Data(filename);
             DataSection infoSection = enemyData[0];
-            if (!infoSection.Tag.Equals("info",  StringComparison.CurrentCultureIgnoreCase))
+            if (!infoSection.Tag.Equals("info", StringComparison.CurrentCultureIgnoreCase))
             {
                 throw new ParseError("info section must come first");
             }
@@ -55,5 +54,10 @@ namespace Exeggcute.src.loading
 
 
         }
+        /*public Enemy LoadByName(string name)
+        {
+            string filename = getFilename(name);
+            return LoadByName(filename);
+        }*/
     }
 }

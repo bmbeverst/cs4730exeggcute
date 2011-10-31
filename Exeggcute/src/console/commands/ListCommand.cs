@@ -15,7 +15,6 @@ namespace Exeggcute.src.console.commands
         Campaign,
         Enemy,
         GibBatch,
-        ItemBatch,
         Item,
         Level,
         Option,

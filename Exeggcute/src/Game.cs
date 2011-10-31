@@ -20,8 +20,10 @@ namespace Exeggcute.src
         private SpriteBatch batch;
         private Engine engine;
         public Point ScreenSize;
+        public static Game GameHandleDONTUSE;
         public Game()
         {
+            GameHandleDONTUSE = this;
             graphicsManager = new GraphicsDeviceManager(this);
             graphicsManager.PreferredBackBufferHeight = Engine.YRes;
             graphicsManager.PreferredBackBufferWidth = Engine.XRes;
@@ -29,7 +31,7 @@ namespace Exeggcute.src
             /*graphicsManager.SynchronizeWithVerticalRetrace = false;
             this.IsFixedTimeStep = false;*/
             InactiveSleepTime = TimeSpan.Zero;
-            Content.RootDirectory = "ExeggcuteContent"; 
+            Content.RootDirectory = Engine.ContentRoot;
             Window.Title = "Exeggcute";
         }
 
@@ -42,11 +44,15 @@ namespace Exeggcute.src
             // WARNING: if you're hacking around in Game, be warned
             // that the Banks are loaded in engine, so this must
             // be called before pretty much anything else
-            engine = new Engine(GraphicsDevice, Content, new InputManager());
+            engine = new Engine(GraphicsDevice, Content, new InputManager(), null);
 
             base.LoadContent();
         }
-
+        public void Reset(string name)
+        {
+            engine = new Engine(GraphicsDevice, Content, new InputManager(), name);
+            World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
+        }
         protected override void UnloadContent()
         {
 
