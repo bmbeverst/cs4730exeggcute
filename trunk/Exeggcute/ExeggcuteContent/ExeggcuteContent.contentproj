@@ -209,8 +209,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\wang8.png">
-      <Name>wang8</Name>
+    <Compile Include="sprites\wang8_1.png">
+      <Name>wang8_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -563,6 +563,13 @@
   <ItemGroup>
     <Compile Include="sprites\debug.png">
       <Name>debug</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\wang8_4.png">
+      <Name>wang8_4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
