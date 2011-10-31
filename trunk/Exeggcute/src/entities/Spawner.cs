@@ -118,7 +118,7 @@ namespace Exeggcute.src.entities
         public override void Process(SoundAction sound)
         {
             shotSound.Play();
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public override void Process(SpawnAction spawn)
@@ -144,7 +144,7 @@ namespace Exeggcute.src.entities
             }
             Shot cloned = shot.Clone(pos, angle);
             shotListHandle.Add(cloned);
-            actionPtr += 1;
+            ActionPtr += 1;
         }
 
         public void AttachShotHandle(HashList<Shot> shotListHandle)

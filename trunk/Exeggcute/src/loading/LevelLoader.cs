@@ -22,15 +22,16 @@ namespace Exeggcute.src.loading
     class LevelLoader : Loader
     {
         TaskListLoader taskLoader = new TaskListLoader();
-        public Level Load(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string name)
-        {
 
+        public Level LoadByFile(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string filename)
+        {
+            string name = Path.GetFileNameWithoutExtension(filename);
             LevelInfo levelInfo = null;
             WangMesh terrain = null;
             List<Task> taskList = new List<Task>();
             LightSettings lightSettings = null;
 
-            string filename = string.Format("data/levels/{0}.level", name);
+
             string[] sections = File.ReadAllText(filename).Split('@');
             for (int k = 0; k < sections.Length; k += 1)
             {
@@ -39,7 +40,7 @@ namespace Exeggcute.src.loading
                 string[] header = lines[0];
                 currentField = header[0];
                 //get rid of the header
-                
+
                 if (matches("info"))
                 {
                     lines.RemoveAt(0);
@@ -69,6 +70,7 @@ namespace Exeggcute.src.loading
                 }
             }
 
+            //fixme i solved this problem!
             if (levelInfo == null ||
                 taskList == null ||
                 terrain == null ||
@@ -77,8 +79,8 @@ namespace Exeggcute.src.loading
                 throw new ParseError("Not all fields were initialized");
             }
             currentField = null;
-            return new Level(graphics, 
-                             content, 
+            return new Level(graphics,
+                             content,
                              player,
                              hud,
                              difficulty,
@@ -89,9 +91,14 @@ namespace Exeggcute.src.loading
                              levelInfo.BossTheme,
                              levelInfo.MiniBoss,
                              levelInfo.MainBoss,
-                             taskList, 
+                             taskList,
                              terrain,
                              lightSettings);
+        }
+        public Level LoadByName(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string name)
+        {
+            string filename = string.Format("data/levels/{0}.level", name);
+            return LoadByFile(content, graphics, player, hud, difficulty, filename);
         }
     }
 }

@@ -69,12 +69,10 @@ namespace Exeggcute.src.entities
 
         public string RawData { get; protected set; }
         public string Name { get; protected set; }
-        public bool IsCustom { get; protected set; }
         protected float lightLevel;
 
         public Player(string data,
                       string name,
-                      bool isCustom,
                       Model model, 
                       Texture2D texture, 
                       float scale,
@@ -98,7 +96,6 @@ namespace Exeggcute.src.entities
         {
             this.RawData = data;
             this.Name = name;
-            this.IsCustom = isCustom;
             this.arsenalList = arsenalList;
             this.thresholds = thresholds;
             this.attackPtr = 0;
@@ -306,13 +303,13 @@ namespace Exeggcute.src.entities
         {
             BehaviorScript script = Assets.GetBehavior("playerdemo0");
             this.script = script;
-            actionPtr = 0;
+            ActionPtr = 0;
         }
 
         public void ResetFromDemo()
         {
             this.script = deathScript;
-            actionPtr = 0;
+            ActionPtr = 0;
             attackPtr = 0;
             power = 0;
         }
@@ -341,7 +338,7 @@ namespace Exeggcute.src.entities
             InvulnTimer.Increment();
             frames += 1;
             flashDraw = (IsInvulnerable && frames % 2 == 0);
-            if (!CanControl && actionPtr == script.Count)
+            if (!CanControl && ActionPtr == script.Count)
             {
                 script = null;
             }
@@ -402,7 +399,7 @@ namespace Exeggcute.src.entities
         public override void Kill()
         {
             script = deathScript;
-            actionPtr = 0;
+            ActionPtr = 0;
             lives -= 1;
             deathSound.Play();
             InvulnTimer.Reset();

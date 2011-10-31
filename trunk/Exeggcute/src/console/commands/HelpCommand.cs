@@ -11,13 +11,14 @@ namespace Exeggcute.src.console.commands
         static HelpCommand()
         {
             string baseDefaultUsage = 
-@"Usage: Help 
+@"
     Help COMMAND        Gets help about the COMMAND specified, or displays
-                        this message. 
+                        this message. If COMMAND is 'all' it will display
+                        the usage of all commands.
 
 Available commands are:
 ";
-            foreach (ConsoleCommandType type in Enum.GetValues(typeof(ConsoleCommandType)))
+            foreach (Keyword type in Enum.GetValues(typeof(Keyword)))
             {
                 baseDefaultUsage += type.ToString() + "\n";
             }
@@ -42,28 +43,16 @@ command. Thank you for helping us help you help us all.
 
         public string Output { get; protected set; }
 
-        public HelpCommand(DevConsole console, string otherUsage)
+        public HelpCommand(DevConsole console)
             : base(console)
         {
-            string msg;
-            if (otherUsage == null)
-            {
-                msg = DefaultUsage;
-                
-            }
-            else
-            {
-                msg = otherUsage;
-            }
-            string message = string.Format("{0}", msg);
-            Output = message;
-
+            Output = string.Format("Usage: {0}{1}", Keyword.Help, DefaultUsage);
         }
 
-        private HelpCommand(DevConsole devConsole)
-            : base(devConsole)
+        public HelpCommand(DevConsole console, Keyword word, string otherUsage)
+            : base(console)
         {
-
+            this.Output = string.Format("Usage: {0}{1}", word, otherUsage);
         }
 
         public static HelpCommand MakeTypeFailure(DevConsole devConsole, string name)
@@ -73,7 +62,7 @@ command. Thank you for helping us help you help us all.
             return result;
         }
 
-        public static HelpCommand MakeUnhandled(DevConsole devConsole, ConsoleCommandType type)
+        public static HelpCommand MakeUnhandled(DevConsole devConsole, Keyword type)
         {
             HelpCommand result = new HelpCommand(devConsole);
             result.Output = string.Format("The parser for the type \"{0}\" has not yet been implemented.", type);
@@ -84,6 +73,20 @@ command. Thank you for helping us help you help us all.
         {
             HelpCommand result = new HelpCommand(devConsole);
             result.Output = usage;
+            return result;
+        }
+
+        public static HelpCommand MakeAll(DevConsole devConsole)
+        {
+            HelpCommand result = new HelpCommand(devConsole);
+            string message = "All commands:\n";
+            foreach (var pair in CommandParser.Usages)
+            {
+                Keyword word = pair.Key;
+                if (word == Keyword.Help) continue;
+                message += pair.Value + '\n';
+            }
+            result.Output = message;
             return result;
         }
 

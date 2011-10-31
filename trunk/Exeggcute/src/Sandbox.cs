@@ -12,24 +12,25 @@ namespace Exeggcute.src
 {
     class Sandbox : ConsoleContext
     {
-
         public EntityManager collider;
         public Player Player;
         public Rectangle GameArea;
+        public Rectangle LiveArea;
+
+        protected float liveBuffer = 1f / 4f;
         public Sandbox()
         {
             collider = new EntityManager();
             GameArea = new Rectangle(-Level.HalfWidth, -Level.HalfHeight, Level.HalfWidth * 2, Level.HalfHeight * 2);
-
+            LiveArea = Util.GrowRect(GameArea, liveBuffer);
         }
-
 
         public override void AcceptCommand(ConsoleCommand command)
         {
 
         }
 
-        public override void AcceptCommand(ContextCommand context)
+        public override void AcceptCommand(GoCommand context)
         {
             //if (context.
         }
@@ -41,6 +42,7 @@ namespace Exeggcute.src
                 Player.Update(controls, true);
                 Player.LockPosition(GameArea);
             }
+            collider.UpdateAll(LiveArea);
         }
 
 
@@ -52,6 +54,8 @@ namespace Exeggcute.src
             {
                 Player.Draw(graphics, view, projection);
             }
+
+            collider.DrawAll(graphics, projection, view);
         }
 
 

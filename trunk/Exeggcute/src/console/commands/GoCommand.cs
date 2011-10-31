@@ -5,18 +5,18 @@ using System.Text;
 
 namespace Exeggcute.src.console.commands
 {
-    class ContextCommand : ConsoleCommand
+    class GoCommand : ConsoleCommand
     {
         
 
         public static string Usage = 
-@"Usage: Context
-    Context NAME        Change contexts either to the file named NAME or 
+@"
+    Go NAME             Change contexts either to the file named NAME or 
                         to the sandbox by specifying 'sandbox' as the name.";
 
         public string Name { get; protected set; }
 
-        public ContextCommand(DevConsole console, string name)
+        public GoCommand(DevConsole console, string name)
             : base(console)
         {
             this.Name = name;
@@ -24,7 +24,7 @@ namespace Exeggcute.src.console.commands
 
         public override void AcceptCommand(ConsoleContext context)
         {
-            context.AcceptCommand(this as ContextCommand);
+            context.AcceptCommand(this);
         }
     }
 }

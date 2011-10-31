@@ -2,21 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Exeggcute.src.text;
-using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.assets;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.console.commands;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework.Input;
-using Exeggcute.src.graphics;
+using Exeggcute.src.assets;
+using Exeggcute.src.console.commands;
 using Exeggcute.src.entities;
+using Exeggcute.src.graphics;
+using Exeggcute.src.text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Exeggcute.src.console
 {
 
     class DevConsole : ConsoleContext
     {
+        private static string welcomeMessage =
+@"Welcome! Enter 'help' to get a list of commands.
+
+Keyboard controls:
+    ~                   Open/close the dev console.
+
+    tab                 Resize console.
+
+    up/down             Scroll through history of commands.";
+        public Dictionary<string, bool> Keywords { get; protected set; }
+
         protected KeyboardManager kbManager;
         protected ConsoleBuffer textBuffer;
 
@@ -34,7 +45,12 @@ namespace Exeggcute.src.console
         protected int bgAlpha = 200;
         public DevConsole() 
         {
-            Write("Welcome! Enter 'help' to get a list of commands.");
+            Keywords = new Dictionary<string, bool>();
+            foreach (Keyword type in Enum.GetValues(typeof(Keyword)))
+            {
+                Keywords[type.ToString().ToLower()] = true;
+            }
+            Write(welcomeMessage);
             this.font = Assets.Font["consolas"];
             this.kbManager = new KeyboardManager();
             this.textBuffer = new ConsoleBuffer(this, prompt);
@@ -42,6 +58,11 @@ namespace Exeggcute.src.console
             Resize();
             //this.promptPos = new Vector2(2, lineSpacing * outputLines + 2);
             //this.bgRect = new RectSprite((int)Engine.XRes, (int)(lineSpacing * (outputLines + 1)), new Color(0, 0, 0, bgAlpha), true);
+        }
+
+        public bool IsKeyword(string type)
+        {
+            return Keywords.ContainsKey(type.ToLower());
         }
 
         public void Resize()
@@ -118,6 +139,14 @@ namespace Exeggcute.src.console
             }
         }
 
+        public void Write(IEnumerable<string> list)
+        {
+            foreach (string s in list)
+            {
+                Write(s);
+            }
+        }
+
         public void Write(string message, params object[] args)
         {
             Write(string.Format(message, args));
@@ -153,7 +182,17 @@ namespace Exeggcute.src.console
             Write("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
         }
 
-        public override void AcceptCommand(ContextCommand command)
+        public override void AcceptCommand(ExitCommand exit)
+        {
+            Game.GameHandleDONTUSE.Exit();
+        }
+
+        public override void AcceptCommand(ResetCommand reset)
+        {
+            Game.GameHandleDONTUSE.Reset(null);
+        }
+
+        public override void AcceptCommand(GoCommand command)
         {
             Write("Attempting to change contexts to {0}", command.Name);
             World.ContextSwitch(command.Name);
@@ -164,22 +203,19 @@ namespace Exeggcute.src.console
             string name = load.Name;
             if (Manifest.VerifyExists(name))
             {
+                //This is pretty much the only place you SHOULD use it
                 Game.GameHandleDONTUSE.Reset(name);
             }
             else
             {
-                List<String> validSets = Manifest.GetValidSets();
+                List<string> validSets = Manifest.GetValidSets();
                 if (validSets.Count == 0)
                 {
                     Write("No valid datasets found... You should probably redownload the game =[");
                     return;
                 }
-                string message = "No data set named {0} exists. Valid values are:\n";
-                foreach (string valid in validSets)
-                {
-                    message += valid + '\n';
-                }
-                Write(message, name);
+                Write("No data set named {0} exists. Valid values are:");
+                Write(validSets);
             }
             
         }
@@ -234,7 +270,7 @@ namespace Exeggcute.src.console
             }
             else if (type == FileType.Enemy)
             {
-                names = notImplemented;
+                names = Assets.Enemy.GetLoadedNames();
             }
             else if (type == FileType.GibBatch)
             {
@@ -270,28 +306,26 @@ namespace Exeggcute.src.console
             }
             else if (type == FileType.Player)
             {
-                List<Player> customs = PlayerBank.GetAll(true);
-                List<Player> standard = PlayerBank.GetAll(false);
-                names = new List<string>();
-                customs.ForEach(player => names.Add(string.Format("custom: {0}", player.Name)));
-                standard.ForEach(player => names.Add(string.Format("standard: {0}", player.Name)));
-
+                names = Assets.Player.GetLoadedNames();
             }
             else
             {
                 string msg = string.Format("Did not expect type {0}", type);
                 names = new List<string> { msg };
             }
-            
 
-            names.ForEach(name => message += name + "\n");
             Write(message);
+            Write(names);
+
+            
         }
 
         public override void AcceptCommand(SpawnCommand spawn)
         {
             SpawnType type = spawn.Type;
             string name = spawn.Name;
+            Float3 pos = spawn.Position;
+            FloatValue angle = spawn.Angle;
             if (type == SpawnType.Player)
             {
                 World.InsertPlayer(name);
@@ -302,11 +336,11 @@ namespace Exeggcute.src.console
             }
             else if (type == SpawnType.Enemy)
             {
-                World.InsertEnemy(name);
+                World.InsertEnemy(name, pos, angle);
             }
             else
             {
-                Write("Did not expect the type {0}", type);
+                Write("Did not expect the spawn type {0}.", type);
             }
         }
     }

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.assets
 {
-    class PlayerBank
+    /*class PlayerBank
     {
         protected static DataBank<Player> standardBank =
             new DataBank<Player>("players/standard", "player");
@@ -108,5 +108,5 @@ namespace Exeggcute.src.assets
             }
             IsLoaded = true;
         }
-    }
+    }*/
 }

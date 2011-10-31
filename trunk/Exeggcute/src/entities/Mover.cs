@@ -34,7 +34,7 @@ namespace Exeggcute.src.entities
             Vector3 start = ParentPosition + Position;
             Vector3 target = start + moveRel.Displacement.Vector3;
             doSmoothTransition(start, target, moveRel.Duration);
-            actionPtr += 1;
+            ActionPtr += 1;
         }
         public override void Process(AimPlayerAction aim)
         {

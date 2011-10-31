@@ -53,7 +53,11 @@ namespace Exeggcute.src.assets
         public static DataBank<Enemy> Enemy =
             new DataBank<Enemy>("enemies", "enemy");
 
+        public static DataBank<Level> Level =
+            new DataBank<Level>("levels", "level");
 
+        public static DataBank<Player> Player =
+            new DataBank<Player>("players", "player");
 
         public static DataBank<ScriptBase> Behavior =
             new DataBank<ScriptBase>("scripts/behaviors", "cl");

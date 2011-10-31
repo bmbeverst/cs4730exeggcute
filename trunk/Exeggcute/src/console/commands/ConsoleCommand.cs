@@ -5,25 +5,18 @@ using System.Text;
 
 namespace Exeggcute.src.console.commands
 {
-    enum ConsoleCommandType
+    enum Keyword
     {
         Help,
-
-        Context,
-
+        Go,
         Spawn,
-
-        Music,
-
         Load,
-
         Package,
-
-        List
-
-
-
+        List,
+        Reset,
+        Exit
     }
+
     abstract class ConsoleCommand
     {
         protected static string StaticUsage = 

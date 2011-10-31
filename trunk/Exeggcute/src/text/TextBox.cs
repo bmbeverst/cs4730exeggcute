@@ -111,7 +111,9 @@ namespace Exeggcute.src.text
             foreach (TextLine line in lines)
             {
                 line.Reset();
-            }
+            } 
+            speechStarted = false;
+            synth.SpeakAsyncCancelAll();
         }
     }
 }

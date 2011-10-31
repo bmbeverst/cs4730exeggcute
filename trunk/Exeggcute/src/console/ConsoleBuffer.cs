@@ -133,6 +133,7 @@ namespace Exeggcute.src.console
             }
             else if (key == Keys.Up)
             {
+                if (history.Count == 0) return;
                 if (history.Count > historyPtr)
                 {
                     historyPtr += 1;
@@ -148,6 +149,7 @@ namespace Exeggcute.src.console
             }
             else if (key == Keys.Down)
             {
+                if (history.Count == 0) return;
                 if (historyPtr > 0)
                 {
                     historyPtr -= 1;

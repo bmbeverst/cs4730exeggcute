@@ -15,7 +15,6 @@ namespace Exeggcute.src.gui
     {
         public string RawData { get; protected set; }
         public string Name { get; protected set; }
-        public bool IsCustom { get; protected set; }
 
         public override int Height
         {
@@ -34,8 +33,7 @@ namespace Exeggcute.src.gui
             this.Name = player.Name;
             this.font = font;
             this.fontColor = fontColor;
-            this.IsCustom = player.IsCustom;
-            this.onActivate = new LoadLevelEvent("0", Name, IsCustom);
+            this.onActivate = new LoadLevelEvent("0", Name);
             this.player = player;
         }
 

@@ -25,7 +25,7 @@ namespace Exeggcute.src
             SubclassShouldImplement(command);
         }
 
-        public virtual void AcceptCommand(ContextCommand context)
+        public virtual void AcceptCommand(GoCommand context)
         {
             SubclassShouldImplement(context);
         }
@@ -53,6 +53,16 @@ namespace Exeggcute.src
         public virtual void AcceptCommand(PackageCommand package)
         {
             SubclassShouldImplement(package);
+        }
+
+        public virtual void AcceptCommand(ResetCommand reset)
+        {
+            SubclassShouldImplement(reset);
+        }
+
+        public virtual void AcceptCommand(ExitCommand exit)
+        {
+            SubclassShouldImplement(exit);
         }
 
         protected void SubclassShouldImplement(ConsoleCommand command)

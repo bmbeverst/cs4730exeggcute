@@ -117,6 +117,8 @@ namespace Exeggcute.src.text
             {
                 box.Reset();
             }
+            shouldExit = false;
+            timer.Reset();
         }
 
         private List<TextLine> parseLines(string[] words, SpriteFont font)

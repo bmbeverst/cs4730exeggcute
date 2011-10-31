@@ -21,6 +21,7 @@ using Microsoft.Xna.Framework.Media;
 using Exeggcute.src.sound;
 using System.Speech.Synthesis;
 using Exeggcute.src.console.commands;
+using System.Diagnostics;
 
 namespace Exeggcute.src
 {
@@ -31,7 +32,7 @@ namespace Exeggcute.src
     /// </summary>
     class Level : ConsoleContext
     {
-        public HUD Hud { get; protected set; }
+        public static HUD Hud;
         public string Name { get; protected set; }
         public Difficulty Difficulty { get; protected set; }
 
@@ -87,7 +88,8 @@ namespace Exeggcute.src
         private static Song levelTheme;
         private static Song bossTheme;
 
-        public readonly int InitialScore;
+        public int initialScore;
+        public bool IsStarted { get; protected set; }
 
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
@@ -110,7 +112,6 @@ namespace Exeggcute.src
             Effect light = Assets.Effect["light0"];
             loadLights(lightSettings, light);
 
-            World.Terrain    = terrain;
             this.terrain     = terrain;
             this.Name        = name;
             this.Difficulty  = difficulty;
@@ -126,8 +127,7 @@ namespace Exeggcute.src
 
             this.miniBoss    = miniBoss;
             this.mainBoss    = mainBoss;
-            miniBoss.AttachConversations(this);
-            mainBoss.AttachConversations(this);
+            
 
 
             Level.levelTheme  = levelTheme;
@@ -135,9 +135,9 @@ namespace Exeggcute.src
 
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
-            this.Hud      = hud;
+            Level.Hud      = hud;
 
-            Hud.DoFade(FadeType.In);
+            
 
             //HARDCODED FIXME
             GameArea = new Rectangle(-HalfWidth, -HalfHeight, HalfWidth * 2, HalfHeight * 2);
@@ -146,14 +146,31 @@ namespace Exeggcute.src
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
             Level.player = player;
-            player.SetPosition(Engine.Jail);
-            player.ResetFromDemo();
-            this.InitialScore = player.Score;
-
-
-            World.RequestPlay(levelTheme);
+            
+            
         }
 
+        public void Start()
+        {
+            Console.WriteLine("START {0}", Name);
+            taskPtr = 0;
+            initialScore = player.Score;
+            Hud.DoFade(FadeType.In);
+            player.SetPosition(Engine.Jail);
+            player.ResetFromDemo();
+            World.RequestPlay(levelTheme);
+            World.Terrain = terrain;
+            miniBoss.AttachConversations(this);
+            mainBoss.AttachConversations(this);
+            IsStarted = true;
+
+        }
+
+
+        public static Level LoadFromFile(string filename)
+        {
+            return World.LoadLevelFromFile(filename);
+        }
 
         public override void AcceptCommand(ConsoleCommand command)
         {
@@ -186,6 +203,7 @@ namespace Exeggcute.src
             Enemy toSpawn = roster.Clone(task.ID, task.Position, task.Angle);
             enemyList.Add(toSpawn);
             taskPtr += 1;
+            Console.WriteLine("    SPAWN! {0} {1}", taskPtr, Name);
         }
 
         protected int waitCounter = 0;
@@ -231,7 +249,12 @@ namespace Exeggcute.src
 
         public void Update(ControlManager controls, bool playerCanShoot)
         {
-            
+            //Console.WriteLine("{0} by {1}", Name, new StackFrame(3).GetMethod().DeclaringType.Name);
+            if (!IsStarted) 
+            { 
+                Start(); 
+                IsStarted = true; 
+            }
             Hud.Update();
             //camera.Update(controls);
             ProcessTasks();
@@ -352,14 +375,19 @@ namespace Exeggcute.src
 
         public override void Unload()
         {
+            boss = null; 
+            shotEater = null;
             miniBoss.Reset();
             mainBoss.Reset();
-            
+            World.ClearLists();
+            World.ResetMusic();
+            taskPtr = 0;
+            IsStarted = false;
         }
 
         public override void Dispose()
         {
-
+            Unload();
         }
 
 

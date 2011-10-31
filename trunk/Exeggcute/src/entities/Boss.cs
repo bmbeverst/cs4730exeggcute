@@ -112,7 +112,7 @@ namespace Exeggcute.src.entities
                         //do whatever here
                         buffer.Reset();
                         script = deathScript;
-                        actionPtr = 0;
+                        ActionPtr = 0;
                     }
                     else
                     {
@@ -122,7 +122,7 @@ namespace Exeggcute.src.entities
             }
             else if (isDying)
             {
-                if (actionPtr == script.Count)
+                if (ActionPtr == script.Count)
                 {
                     World.CleanupLevel();
                 }
@@ -191,15 +191,15 @@ namespace Exeggcute.src.entities
             this.Health       = next.Health;
             this.HealthMeter  = new HealthBar(maxHealth, 500, 5, currentTimer);
             this.script       = next.Behavior;
-            actionPtr = 0;
-            waitCounter = 0;
+            ActionPtr = 0;
+            WaitCounter = 0;
         }
 
         protected void die()
         {
             script = defeatScript;
 
-            actionPtr = 0;
+            ActionPtr = 0;
             isDefeated = true;
             arsenal = Arsenal.None;
         }
@@ -217,11 +217,14 @@ namespace Exeggcute.src.entities
             {
                 attacks[i].Reset();
             }
-            actionPtr = 0;
-            waitCounter = 0;
+            ActionPtr = 0;
+            WaitCounter = 0;
             arsenal = Arsenal.None;
             intro.Reset();
             outro.Reset();
+            script = entryScript;
+            level = null;
+
         }
 
         public static Boss Parse(string name)

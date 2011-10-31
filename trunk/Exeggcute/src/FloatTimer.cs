@@ -33,5 +33,11 @@ namespace Exeggcute.src
         {
             return (int)Value - (int)PrevValue;
         }
+
+        public void Reset()
+        {
+            Value = 0;
+            PrevValue = 0;
+        }
     }
 }

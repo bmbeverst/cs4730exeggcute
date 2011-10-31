@@ -5,18 +5,18 @@ using System.Text;
 
 namespace Exeggcute.src.console.commands
 {
-    class PackageCommand : ConsoleCommand
+    class ResetCommand : ConsoleCommand
     {
         public static string Usage =
 @"    
-    Package NAME        Package the currently loaded data into a distributable
-                        .dat file with name NAME.dat";
+    Reset               Reset the entire game by reinstantiating the engine  
+                        object. This *should* clear all state and be otherwise
+                        identical to closing and rebooting the game.";
 
-        public string Name { get; protected set; }
-        public PackageCommand(DevConsole devConsole, string name)
-            :base(devConsole)
+        public ResetCommand(DevConsole devConsole)
+            : base(devConsole)
         {
-            this.Name = name;
+
         }
 
         public override void AcceptCommand(ConsoleContext context)

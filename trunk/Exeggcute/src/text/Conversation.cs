@@ -14,7 +14,7 @@ namespace Exeggcute.src.text
 {
     class Conversation : ConsoleContext
     {
-        public TextBoxList Box { get; protected set; }
+        public TextBoxList BoxList { get; protected set; }
 
         public bool IsDone { get; protected set; }
 
@@ -23,12 +23,12 @@ namespace Exeggcute.src.text
 
         public Conversation(TextBoxList box)
         {
-            this.Box = box;
-            float x = Engine.Center2D.X - Box.Size.X/2;
+            this.BoxList = box;
+            float x = Engine.Center2D.X - BoxList.Size.X/2;
             Rectangle gameRect = HUD.CalculateRect(Engine.XRes, Engine.YRes);
-            float buffer = (gameRect.Width - Box.Size.X) / 2;
+            float buffer = (gameRect.Width - BoxList.Size.X) / 2;
             float y = gameRect.Y + buffer;
-            this.Position = new Vector2(x, Engine.YRes - y - Box.Size.Y);
+            this.Position = new Vector2(x, Engine.YRes - y - BoxList.Size.Y);
         }
 
         public void AttachParent(IContext parent)
@@ -38,12 +38,12 @@ namespace Exeggcute.src.text
 
         public override void Update(ControlManager controls)
         {
-            Box.Update(controls);
+            BoxList.Update(controls);
             ((Level)Parent).Update(controls, false);
-            if (Box.IsDone)
+            if (BoxList.IsDone)
             {
                 IsDone = true;
-                Box.Reset();
+                BoxList.Reset();
                 World.Pop(/*this*/);
             }
         }
@@ -51,7 +51,7 @@ namespace Exeggcute.src.text
         public override void Draw2D(SpriteBatch batch)
         {
             Parent.Draw2D(batch);
-            Box.Draw(batch, Position, Color.White);
+            BoxList.Draw(batch, Position, Color.White);
         }
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
@@ -61,7 +61,8 @@ namespace Exeggcute.src.text
 
         public void Reset()
         {
-            Box.Reset();
+            BoxList.Reset();
+            Parent = null;
             IsDone = false;
         }
 

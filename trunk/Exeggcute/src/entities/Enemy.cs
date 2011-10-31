@@ -18,7 +18,6 @@ namespace Exeggcute.src.entities
 {
     class Enemy : ParentEntity
     {
-
         /// <summary>
         /// If the Enemy's health is zero, then they should process their
         /// OnDeath script until done, then set IsDestroyed to true.
@@ -55,8 +54,7 @@ namespace Exeggcute.src.entities
             this.heldItems = items;
             this.deathScript = deathScript;
             this.itemListHandle = itemHandle;
-        }
-                     
+        }           
 
         public Enemy Clone(Float3 pos, FloatValue angle)
         {
@@ -77,7 +75,8 @@ namespace Exeggcute.src.entities
                                      gibListHandle, 
                                      itemListHandle);
             cloned.Position = pos.Vector3;
-            cloned.Angle = angle.Value;//fixme this does nothing?
+            cloned.Angle = angle.Value;
+            Console.WriteLine("CLONE! {0} {1}", cloned.ActionPtr, cloned.WaitCounter);
             return cloned;
         }
 
@@ -109,16 +108,12 @@ namespace Exeggcute.src.entities
                 World.DyingList.Add(this);
                 IsDying = true;
                 script = deathScript;
-                actionPtr = 0;
+                ActionPtr = 0;
                 arsenal.StopAll();
                 //use giblist
                 //TODO make enemies transparent when dying
-                
             }
-
-
         }
-
 
         public override void Kill()
         {

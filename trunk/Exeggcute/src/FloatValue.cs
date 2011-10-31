@@ -123,6 +123,13 @@ namespace Exeggcute.src
             this.Z = z;
         }
 
+        public Float3(float x, float y, float z)
+        {
+            this.X = new FloatValue(x);
+            this.Y = new FloatValue(y);
+            this.Z = new FloatValue(z);
+        }
+
         public static Float3 Parse(string s)
         {
             s = Util.RemoveSpace(s);
