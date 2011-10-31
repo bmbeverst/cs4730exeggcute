@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,10 +23,10 @@ namespace Exeggcute.src.entities
         public EnemyInfo(string filename, List<string[]> tokenList)
             : base(filename)
         {
-            loadFromTokens(tokenList);
+            loadFromTokens(tokenList, true);
         }
 
 
 
     }
-}
+}*/

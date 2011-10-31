@@ -34,6 +34,10 @@ namespace Exeggcute.src.scripting
             return result;
         }
 
+        public List<List<TElement>> GetRaw(string filename, List<string> lines)
+        {
+            return GetRaw(filename, Util.Stackify(lines));
+        }
         public List<List<TElement>> GetRaw(string filename, Stack<string> lineStack)
         {
             List<string> failures = new List<string>();

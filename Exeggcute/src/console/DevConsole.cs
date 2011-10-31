@@ -17,7 +17,6 @@ namespace Exeggcute.src.console
     /// <summary>
     /// fixme: go with invalid name crashes game
     /// mouse scroll wheeel does nto scroll history when scroll history is 8 lines or less
-    /// make setparam case insensitive
     /// make alignment parameter for entities, not for arsenal
     /// in-line option definitions
     /// </summary>

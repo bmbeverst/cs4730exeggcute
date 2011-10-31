@@ -18,13 +18,14 @@ namespace Exeggcute.src.scripting.action
                 //HACK
                 if (name.Equals("AngularVelocity"))
                 {
+                    //whaaat? FIXME
                     value.FromDegrees();
                 }
-                this.ParamIndex = PlanarEntity3D.ParamMap[name];
+                this.ParamIndex = PlanarEntity3D.ParamMap[name.ToLower()];
             }
             catch (KeyNotFoundException knf)
             {
-                throw new ParseError("{0}\n{1} is not a settable parameter", knf.Message, name);
+                throw new ParseError("{0}\n{1} is not a settable parameter. Valid values are ({2})", knf.Message, name, Util.Join(PlanarEntity3D.validParameters, ','));
             }
             this.Value = value;
         }

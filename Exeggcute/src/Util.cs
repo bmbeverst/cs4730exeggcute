@@ -114,6 +114,11 @@ namespace Exeggcute.src
             }
         }
 
+        internal static string MangleName(string name, string extra)
+        {
+            return string.Format("{0}&{1}", name, extra);
+        }
+
         /// <summary>
         /// Splits a string based on newline characters and trims all 
         /// leading and trailing whitespace.

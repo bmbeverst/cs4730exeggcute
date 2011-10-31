@@ -16,27 +16,40 @@ namespace Exeggcute.src.entities
         public Vector3 PrevPosition { get; protected set; }
         protected float[] param = new float[16];
         public int ParamCount { get { return param.Length; } }
-        public static Dictionary<string, int> ParamMap = new Dictionary<string, int>
+        public static Dictionary<string, int> ParamMap;
+        public static List<string> validParameters = new List<string>();
+
+        static PlanarEntity3D()
         {
-            { "Position",          0 },
-            { "PositionX",         0 },
-            { "PositionY",         1 },
-            { "PositionZ",         2 },
-            { "Mass",              3 },
-            { "Angle",             4 },
-            { "Speed",             5 },
-            { "VelocityZ",         6 },
-            { "AngularVelocity",   7 },
-            { "LinearAccel",       8 },
-            { "AngularAccel",      9 },
-            { "Facing",           10 },
-            { "FacingX",          10 },
-            { "FacingY",          11 },
-            { "FacingZ",          12 },
-            { "AimAngle",         13 },
-            { "AimAngleVelocity", 14 },
-            { "AimAngleAccel",    15 }
-        };
+            Dictionary<string, int> temp = new  Dictionary<string, int> 
+            {
+                { "PositionX",         0 },
+                { "PositionY",         1 },
+                { "PositionZ",         2 },
+                { "Mass",              3 },
+                { "Angle",             4 },
+                { "Speed",             5 },
+                { "VelocityZ",         6 },
+                { "AngularVelocity",   7 },
+                { "LinearAccel",       8 },
+                { "AngularAccel",      9 },
+                { "FacingX",          10 },
+                { "FacingY",          11 },
+                { "FacingZ",          12 },
+                { "AimAngle",         13 },
+                { "AimAngleVelocity", 14 },
+                { "AimAngleAccel",    15 }
+            };
+
+            ParamMap = new Dictionary<string, int>();
+            foreach (var pair in temp)
+            {
+                string param = pair.Key;
+                ParamMap[param.ToLower()] = pair.Value;
+                validParameters.Add(param);
+            }
+    
+        }
 
         public override Vector3 Position
         {

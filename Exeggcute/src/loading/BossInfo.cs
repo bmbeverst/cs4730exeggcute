@@ -37,7 +37,7 @@ namespace Exeggcute.src.loading
             {
                 throw new ParseError("Boss info must come first");
             }
-            loadFromTokens(bossData[0].Tokens);
+            loadFromTokens(bossData[0].Tokens, true);
             for (int i = 1; i < bossData.Count; i += 1)
             {
                 List<string[]> tokenList = bossData[i].Tokens;
