@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.assets;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.scripting;
+﻿using System.Collections.Generic;
 using Exeggcute.src.entities;
-using System.Text.RegularExpressions;
-using System.IO;
 
 namespace Exeggcute.src.scripting.action
 {

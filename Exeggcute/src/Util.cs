@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework.Input;
+using Exeggcute.src.assets;
+using Exeggcute.src.scripting;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.entities;
-using Exeggcute.src.scripting;
-using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Audio;
-using System.IO.Compression;
 
 namespace Exeggcute.src
 {

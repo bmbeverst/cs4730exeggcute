@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Exeggcute.src.assets;
 using Exeggcute.src.entities;
-using Exeggcute.src.loading;
 
 namespace Exeggcute.src.scripting.roster
 {

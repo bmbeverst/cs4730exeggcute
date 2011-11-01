@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.graphics;
-using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.assets;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.gui;
-using Microsoft.Xna.Framework.Media;
 using System.Collections.ObjectModel;
-using Exeggcute.src.loading;
+using Exeggcute.src.assets;
 using Exeggcute.src.sound;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.graphics
 {

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.graphics;
-using Exeggcute.src.input;
-using Exeggcute.src.assets;
 
 namespace Exeggcute.src.entities
 {

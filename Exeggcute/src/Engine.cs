@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using Exeggcute.src.graphics;
-using Exeggcute.src.gui;
+using Exeggcute.src.assets;
 using Exeggcute.src.input;
+using Exeggcute.src.text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
-using Exeggcute.src.entities;
-using Exeggcute.src.assets;
-using Exeggcute.src.text;
-using Exeggcute.src.contexts;
-using Exeggcute.src.sound;
-using System.Diagnostics;
-using Exeggcute.src.console;
-using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {

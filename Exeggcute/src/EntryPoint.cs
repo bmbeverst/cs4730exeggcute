@@ -1,5 +1,4 @@
-﻿using System;
-namespace Exeggcute.src
+﻿namespace Exeggcute.src
 {
     /// <summary>
     /// Entry point for the XNA game. This class should not be modified except

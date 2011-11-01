@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
-using System.Collections.ObjectModel;
-using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting.action;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {

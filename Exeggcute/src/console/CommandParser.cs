@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Exeggcute.src.console.commands;
-using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.console
 {

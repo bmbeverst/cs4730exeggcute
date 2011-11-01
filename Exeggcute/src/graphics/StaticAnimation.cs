@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.graphics

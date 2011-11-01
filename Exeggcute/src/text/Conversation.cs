@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.assets;
+using Exeggcute.src.console.commands;
+using Exeggcute.src.gui;
+using Exeggcute.src.loading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Exeggcute.src.gui;
-using Exeggcute.src.assets;
-using Microsoft.Xna.Framework.Audio;
-using Exeggcute.src.console.commands;
-using Exeggcute.src.loading;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.text
 {

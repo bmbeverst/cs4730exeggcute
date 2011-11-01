@@ -1,8 +1,6 @@
 ﻿
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace Exeggcute.src.particles

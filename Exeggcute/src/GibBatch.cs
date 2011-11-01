@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Exeggcute.src.assets;
 using Exeggcute.src.entities;
 using Exeggcute.src.loading;
-using Exeggcute.src.assets;
 
 namespace Exeggcute.src
 {

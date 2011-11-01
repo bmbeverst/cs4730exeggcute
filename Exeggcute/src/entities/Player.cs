@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Exeggcute.src.input;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.assets;
+using Exeggcute.src.entities.items;
+using Exeggcute.src.graphics;
+using Exeggcute.src.input;
+using Exeggcute.src.loading;
 using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.action;
-using Exeggcute.src.graphics;
 using Exeggcute.src.scripting.arsenal;
-using Exeggcute.src.entities.items;
-using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.sound;
-using Exeggcute.src.loading;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {

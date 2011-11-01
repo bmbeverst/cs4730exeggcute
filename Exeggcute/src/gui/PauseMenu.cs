@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Exeggcute.src.input;
-using Exeggcute.src.graphics;
-using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.contexts;
 using Microsoft.Xna.Framework;
-using Exeggcute.src.assets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.gui
 {
