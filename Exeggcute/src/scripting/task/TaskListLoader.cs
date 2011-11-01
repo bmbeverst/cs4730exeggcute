@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Exeggcute.src.scripting.task
 {
@@ -7,7 +10,7 @@ namespace Exeggcute.src.scripting.task
 
 
 
-        protected override List<Task> parseElement(Stack<string> tokens)
+        public override List<Task> ParseElement(Stack<string> tokens)
         {
             TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());
             if (type == TaskType.Spawn)
@@ -47,6 +50,10 @@ namespace Exeggcute.src.scripting.task
                     new SongFadeTask(frames),
                     new BarrierTask(BarrierType.FadeOut)
                 };
+            }
+            else if (type == TaskType.Clear)
+            {
+                return new List<Task> { new ClearTask() };
             }
             else
             {

@@ -146,15 +146,6 @@ namespace Exeggcute.src.entities
             throw new SubclassShouldImplementError();
         }
 
-        public virtual void Process(MoveAction move)
-        {
-            Speed = move.Speed.Value;
-            LinearAccel = move.LinearAccel.Value;
-            AngularVelocity = move.AngularVelocity.Value;
-            AngularAccel = move.AngularAccel.Value;
-            ActionPtr += 1;
-        }
-
         public virtual void Process(ShootAction shoot)
         {
             throw new SubclassShouldImplementError();

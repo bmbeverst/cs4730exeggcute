@@ -7,5 +7,11 @@ namespace Exeggcute.src
 {
     class ResetException : ExeggcuteError
     {
+        public string Name { get; protected set; }
+
+        public ResetException(string name)
+        {
+            this.Name = name;
+        }
     }
 }

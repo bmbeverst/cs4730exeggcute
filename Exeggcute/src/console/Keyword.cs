@@ -10,10 +10,13 @@ namespace Exeggcute.src.console
         Help,
         Go,
         Spawn,
-        Load,
+        LoadSet,
+        Reload,
         Package,
         List,
         Reset,
-        Exit
+        Exit,
+        LevelTask,
+        Doc
     }
 }

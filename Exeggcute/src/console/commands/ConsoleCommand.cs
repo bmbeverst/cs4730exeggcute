@@ -19,5 +19,10 @@ too early in execution, or was not initialized properly.";
         {
             this.devConsole = devConsole;
         }
+
+        public static string MakeDocs(DevConsole console)
+        {
+            return HelpCommand.MakeAll(console).Output;
+        }
     }
 }

@@ -25,6 +25,21 @@ namespace Exeggcute.src
             SubclassShouldImplement(command);
         }
 
+        public virtual void AcceptCommand(WhatIsCommand whatis)
+        {
+            SubclassShouldImplement(whatis);
+        }
+
+        public virtual void AcceptCommand(DocCommand doc)
+        {
+            SubclassShouldImplement(doc);
+        }
+
+        public virtual void AcceptCommand(LevelTaskCommand task)
+        {
+            SubclassShouldImplement(task);
+        }
+
         public virtual void AcceptCommand(GoCommand context)
         {
             SubclassShouldImplement(context);
@@ -45,7 +60,7 @@ namespace Exeggcute.src
             SubclassShouldImplement(list);
         }
 
-        public virtual void AcceptCommand(LoadCommand restore)
+        public virtual void AcceptCommand(LoadSetCommand restore)
         {
             SubclassShouldImplement(restore);
         }

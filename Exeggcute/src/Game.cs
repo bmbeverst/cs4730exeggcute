@@ -61,7 +61,7 @@ namespace Exeggcute.src
             Content.RootDirectory = Engine.ContentRoot;
 
             engine = new Engine(GraphicsDevice, Content, new InputManager(), name);
-            World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
+            if (name != null) World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
         }
 
         protected override void UnloadContent()
@@ -77,7 +77,7 @@ namespace Exeggcute.src
             }
             catch (ResetException re)
             {
-                Reset(null);
+                Reset(re.Name);
             }
             
             base.Update(gameTime);
@@ -97,15 +97,6 @@ namespace Exeggcute.src
         /// </summary>
         protected override void Initialize()
         {
-            try
-            {
-                //ServerTest test = new ServerTest();
-                //test.Test();
-            }
-            catch (Exception error)
-            {
-                Console.WriteLine("{0}\nFailed to connect to server", error.Message); 
-            }
             base.Initialize();
         }
 

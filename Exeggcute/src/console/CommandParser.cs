@@ -16,11 +16,14 @@ namespace Exeggcute.src.console
                 { Keyword.Help, HelpCommand.Usage },
                 { Keyword.Go, GoCommand.Usage },
                 { Keyword.Spawn, SpawnCommand.Usage },
-                { Keyword.Load, LoadCommand.Usage },
+                { Keyword.LoadSet, LoadSetCommand.Usage },
+                { Keyword.Reload, ReloadCommand.Usage },
+                { Keyword.LevelTask, LevelTaskCommand.Usage },
                 { Keyword.Package, PackageCommand.Usage },
                 { Keyword.List, ListCommand.Usage },
                 { Keyword.Reset, ResetCommand.Usage },
-                { Keyword.Exit, ExitCommand.Usage }
+                { Keyword.Exit, ExitCommand.Usage },
+                { Keyword.Doc, DocCommand.Usage }
             };
         }
 
@@ -127,10 +130,10 @@ namespace Exeggcute.src.console
                     }
                     command = new SpawnCommand(console, spawnType, name, pos, angle);
                 }
-                else if (type == Keyword.Load)
+                else if (type == Keyword.LoadSet)
                 {
                     string name = tokens[1];
-                    command = new LoadCommand(console, name);
+                    command = new LoadSetCommand(console, name);
                 }
                 else if (type == Keyword.Package)
                 {
@@ -144,6 +147,20 @@ namespace Exeggcute.src.console
                 else if (type == Keyword.Exit)
                 {
                     command = new ExitCommand(console);
+                }
+                else if (type == Keyword.LevelTask)
+                {
+                    List<string> toks = tokens.ToList();
+                    toks.RemoveAt(0);
+                    string taskString = Util.Join(toks, ' ');
+                    command = new LevelTaskCommand(console, taskString);
+                }
+                else if (type == Keyword.Doc)
+                {
+                    string typeString = tokens[1];
+
+                    string filename = tokens.Length >= 3 ? tokens[2] : null;
+                    command = new DocCommand(console, typeString, filename);
                 }
                 else
                 {

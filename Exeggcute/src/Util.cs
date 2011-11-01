@@ -120,12 +120,22 @@ namespace Exeggcute.src
         /// Splits a string based on newline characters and trims all 
         /// leading and trailing whitespace.
         /// </summary>
-        internal static List<string> SplitLines(string allText)
+        internal static List<string> SplitLines(string allText, bool trimStart=true)
         {
-            string[] splitted = Regex.Split(allText, "(\n|\r\n)");
+            allText = Regex.Replace(allText, "\r\n", "\n");
+            string[] splitted = Regex.Split(allText, "\n");
             for (int i = 0; i < splitted.Length; i += 1)
             {
-                string trimmed = splitted[i].Trim(Whitespace);
+                string trimmed;
+                if (trimStart)
+                {
+                    trimmed = splitted[i].Trim(Whitespace);
+                }
+                else
+                {
+                    trimmed = splitted[i].TrimEnd(Whitespace);
+                }
+
                 splitted[i] = trimmed;
             }
             return splitted.ToList();
@@ -424,6 +434,17 @@ namespace Exeggcute.src
         internal static bool StrEq(string s0, string s1)
         {
             return Regex.IsMatch(s0, s1, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+        }
+
+        internal static string Indent(string input, int size)
+        {
+            List<string> lines = Util.SplitLines(input, false);
+            string result = "";
+            foreach (string line in lines)
+            {
+                result += "".PadLeft(size) + line + '\n';
+            }
+            return result;
         }
 
 

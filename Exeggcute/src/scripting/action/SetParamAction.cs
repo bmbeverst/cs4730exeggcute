@@ -1,10 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
 {
     class SetParamAction : ActionBase
     {
+        static SetParamAction()
+        {
+
+            docs[typeof(SetParamAction)] = new Dictionary<Info, string> 
+            {
+                { Info.Syntax, "setparam PARAM VALUE" },
+                { Info.Args, 
+string.Format(@"string PARAM
+    The parameter to be set. Valid values are
+    {0}
+FloatValue VALUE
+    The value to set it to.", Util.Join(PlanarEntity3D.validParameters, ',')) },
+                { Info.Description, 
+@"Sets the given parameter to the specified value."},
+                { Info.Example, 
+@"setparam angle 90.
+    Sets the entity's angle to 90 degrees."}
+            };
+        }
+
         public int ParamIndex { get; protected set; }
         public FloatValue Value { get; protected set; }
         

@@ -153,11 +153,15 @@
     <Compile Include="src\ConsoleContext.cs" />
     <Compile Include="src\console\CommandParser.cs" />
     <Compile Include="src\console\commands\ConsoleCommand.cs" />
+    <Compile Include="src\console\commands\DocCommand.cs" />
+    <Compile Include="src\console\commands\WhatIsCommand.cs" />
     <Compile Include="src\console\commands\ExitCommand.cs" />
+    <Compile Include="src\console\commands\LevelTaskCommand.cs" />
     <Compile Include="src\console\commands\LoadCommand.cs" />
     <Compile Include="src\console\commands\HelpCommand.cs" />
     <Compile Include="src\console\commands\ListCommand.cs" />
     <Compile Include="src\console\commands\PackageCommand.cs" />
+    <Compile Include="src\console\commands\ReloadCommand.cs" />
     <Compile Include="src\console\commands\ResetCommand.cs" />
     <Compile Include="src\console\commands\SpawnCommand.cs" />
     <Compile Include="src\console\DevConsole.cs" />
@@ -189,6 +193,7 @@
     <Compile Include="src\Sandbox.cs" />
     <Compile Include="src\scripting\action\UpgradeAction.cs" />
     <Compile Include="src\scripting\task\BarrierTask.cs" />
+    <Compile Include="src\scripting\task\ClearTask.cs" />
     <Compile Include="src\sound\RandoSound.cs" />
     <Compile Include="src\sound\RepeatedSound.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
@@ -285,7 +290,6 @@
     <Compile Include="src\Pair.cs" />
     <Compile Include="src\ScoreEntry.cs" />
     <Compile Include="src\scripting\action\ActionBase.cs" />
-    <Compile Include="src\scripting\action\MoveAction.cs" />
     <Compile Include="src\scripting\action\MoveRelAction.cs" />
     <Compile Include="src\scripting\action\MoveAbsAction.cs" />
     <Compile Include="src\scripting\roster\RosterEntry.cs" />

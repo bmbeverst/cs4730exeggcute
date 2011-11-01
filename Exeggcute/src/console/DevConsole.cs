@@ -8,6 +8,8 @@ using Exeggcute.src.console.commands;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading;
+using Exeggcute.src.scripting.task;
 
 namespace Exeggcute.src.console
 {
@@ -57,8 +59,7 @@ Keyboard controls:
             this.textBuffer = new ConsoleBuffer(this, prompt);
             this.lineSpacing = font.LineSpacing;
             Resize();
-            //this.promptPos = new Vector2(2, lineSpacing * outputLines + 2);
-            //this.bgRect = new RectSprite((int)Engine.XRes, (int)(lineSpacing * (outputLines + 1)), new Color(0, 0, 0, bgAlpha), true);
+            
         }
 
         public bool IsKeyword(string type)
@@ -183,6 +184,29 @@ Keyboard controls:
             Write("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
         }
 
+        public override void AcceptCommand(LevelTaskCommand task)
+        {
+            List<Task> tasks;
+            try
+            {
+                tasks = Loaders.TaskList.ParseElement(Util.Tokenize(task.TaskString, ' '));
+            }
+            catch
+            {
+                Write("Syntax error");
+                return;
+            }
+            try
+            {
+                World.SendTask(tasks);
+            }
+            catch
+            {
+                Write("Cannot send tasks to this context");
+                return;
+            }
+        }
+
         public override void AcceptCommand(ExitCommand exit)
         {
             Game.GameHandleDONTUSE.Exit();
@@ -190,16 +214,23 @@ Keyboard controls:
 
         public override void AcceptCommand(ResetCommand reset)
         {
-            Game.GameHandleDONTUSE.Reset(null);
+            throw new ResetException(null);
         }
 
         public override void AcceptCommand(GoCommand command)
         {
+            bool isSandbox = Sandbox.IsName(command.Name);
+            if (!isSandbox &&  !Assets.Level.ContainsKey(command.Name))
+            {
+                Write("No context called \"{0}\" could be found. Valid contexts are:\nsandbox", command.Name);
+                Write(Assets.Level.GetLoadedNames());
+                return;
+            }
             Write("Attempting to change contexts to {0}", command.Name);
-            World.ContextSwitch(command.Name);
+            World.ContextSwitch(command.Name, isSandbox);
         }
 
-        public override void AcceptCommand(LoadCommand load)
+        public override void AcceptCommand(LoadSetCommand load)
         {
             string name = load.Name;
             if (Manifest.VerifyExists(name))
