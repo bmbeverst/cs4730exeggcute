@@ -38,6 +38,11 @@ namespace Exeggcute.src.scripting.action
         public static Dictionary<Type, Dictionary<Info, string>> docs =
             new Dictionary<Type, Dictionary<Info, string>>();
 
+        public static string Header =
+@"An action is an instruction processed by a scripted entity.
+Available actions include:
+";
+
         public virtual void Process(ScriptedEntity entity)
         {
             entity.Process(this);
@@ -47,13 +52,13 @@ namespace Exeggcute.src.scripting.action
 
         public static string MakeDocs()
         {
-            string docString = "";
+            string docString = Header;
             foreach (var pair in docs)
             {
                 docString += pair.Key.Name + '\n';
                 Dictionary<Info, string> taskInfos = pair.Value;
                 int level = 8;
-                docString += makeDocSection(taskInfos, level);
+                docString += makeDocSection(taskInfos, level) + '\n';
 
             }
             return docString;
