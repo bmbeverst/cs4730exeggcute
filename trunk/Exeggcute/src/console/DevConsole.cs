@@ -95,13 +95,24 @@ Keyboard controls:
             this.Parent = null;
         }
 
-        public void InputCommand(string s)
+        public void InputCommand(string cmd)
         {
-            string logInput = string.Format("{0}{1}", prompt, s);
+            string logInput = string.Format("{0}{1}", prompt, cmd);
             Write(logInput);
-            ConsoleCommand command = parser.Parse(this, s);
+            ConsoleCommand command = parser.Parse(this, cmd);
             if (command == null) return;
-            command.AcceptCommand(this);
+            try
+            {
+                command.AcceptCommand(this);
+            }
+            catch (Exception e)
+            {
+                Write(
+@"Execution of the command '{0}' terminated unexpectedly.
+    Useless information follows:
+{1}", cmd, e.Message);
+
+            }
         }
 
 

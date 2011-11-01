@@ -23,7 +23,8 @@ namespace Exeggcute.src.console
                 { Keyword.List, ListCommand.Usage },
                 { Keyword.Reset, ResetCommand.Usage },
                 { Keyword.Exit, ExitCommand.Usage },
-                { Keyword.Doc, DocCommand.Usage }
+                { Keyword.Doc, DocCommand.Usage },
+                { Keyword.WhatIs, WhatIsCommand.Usage }
             };
         }
 
@@ -46,7 +47,7 @@ namespace Exeggcute.src.console
             {
                 if (type == Keyword.Go)
                 {
-                    command = new GoCommand(console, tokens[1]);
+                    return new GoCommand(console, tokens[1]);
                 }
                 else if (type == Keyword.Help)
                 {
@@ -85,7 +86,7 @@ namespace Exeggcute.src.console
                         string msg = string.Format("No FileType with name \"{0}\". Permissable values include:\n{1}", typeString, ListCommand.ValidTypes);
                         return HelpCommand.MakeGeneric(console, msg);
                     }
-                    command = new ListCommand(console, fileType);
+                    return new ListCommand(console, fileType);
                 }
                 else if (type == Keyword.Spawn)
                 {
@@ -128,39 +129,44 @@ namespace Exeggcute.src.console
                         string msg = string.Format("Syntax error on spawn arguments ({0} {1})", posString, angleString);
                         return HelpCommand.MakeGeneric(console, msg);
                     }
-                    command = new SpawnCommand(console, spawnType, name, pos, angle);
+                    return new SpawnCommand(console, spawnType, name, pos, angle);
                 }
                 else if (type == Keyword.LoadSet)
                 {
                     string name = tokens[1];
-                    command = new LoadSetCommand(console, name);
+                    return new LoadSetCommand(console, name);
                 }
                 else if (type == Keyword.Package)
                 {
                     string name = tokens[1];
-                    command = new PackageCommand(console, name);
+                    return new PackageCommand(console, name);
                 }
                 else if (type == Keyword.Reset)
                 {
-                    command = new ResetCommand(console);
+                    return new ResetCommand(console);
                 }
                 else if (type == Keyword.Exit)
                 {
-                    command = new ExitCommand(console);
+                    return new ExitCommand(console);
                 }
                 else if (type == Keyword.LevelTask)
                 {
                     List<string> toks = tokens.ToList();
                     toks.RemoveAt(0);
                     string taskString = Util.Join(toks, ' ');
-                    command = new LevelTaskCommand(console, taskString);
+                    return new LevelTaskCommand(console, taskString);
                 }
                 else if (type == Keyword.Doc)
                 {
                     string typeString = tokens[1];
 
                     string filename = tokens.Length >= 3 ? tokens[2] : null;
-                    command = new DocCommand(console, typeString, filename);
+                    return new DocCommand(console, typeString, filename);
+                }
+                else if (type == Keyword.WhatIs)
+                {
+                    string typeName = tokens[1];
+                    return new WhatIsCommand(console, typeName);
                 }
                 else
                 {
@@ -172,8 +178,6 @@ namespace Exeggcute.src.console
                 string msg = string.Format("Invalid arguments for type {0}.\nEnter 'help {0}' for details.", type);
                 return HelpCommand.MakeGeneric(console, msg);
             }
-
-            return command;
         }
 
         
