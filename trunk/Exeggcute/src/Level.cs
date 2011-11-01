@@ -25,7 +25,7 @@ namespace Exeggcute.src
     /// Base class for game "levels". If there is only one persistent
     /// level in our game, then that counts too.
     /// </summary>
-    class Level : ConsoleContext
+    class Level : Sandbox
     {
         public static HUD Hud;
         public string Name { get; protected set; }
@@ -43,16 +43,7 @@ namespace Exeggcute.src
         private PhysicsManager physics;
         private Roster roster;
         private WangMesh terrain;
-
-        private HashList<Enemy> enemyList;
-
-        private HashList<Shot> playerShots;
-        private HashList<Shot> enemyShots;
-        private HashList<Gib> gibList;
-        private HashList<Item> itemList;
-
-        private List<Task> taskList;
-        private int taskPtr;
+        
 
         public static readonly int HalfWidth = 30;
         public static readonly int HalfHeight = 37;
@@ -109,11 +100,6 @@ namespace Exeggcute.src
             this.Name        = name;
             this.Difficulty  = difficulty;
             this.ValidScore  = validScore;
-            this.playerShots = World.PlayerShots;
-            this.enemyShots  = World.EnemyShots;
-            this.enemyList   = World.EnemyList;
-            this.gibList     = World.GibList;
-            this.itemList    = World.ItemList;
             this.roster      = roster;
             this.taskList    = tasks;
 
@@ -170,70 +156,28 @@ namespace Exeggcute.src
             throw new NotImplementedException();
         }
 
-        public void Process(Task task)
-        {
-            throw new InvalidOperationException("Must call a subclass overload");
-        }
 
-        bool fadeStarted = false;
-        public void Process(SongFadeTask task)
+        public override void Process(SongFadeTask task)
         {
             World.DoFadeOut(task.NumFrames);
             taskPtr += 1;
-            
+
         }
 
-        public void Process(BarrierTask barrier)
-        {
-            if (World.CanPassBarrier(barrier))
-            {
-                taskPtr += 1;
-            }
-        }
-
-        public void Process(SpawnTask task)
+        public override void Process(SpawnTask task)
         {
             Enemy toSpawn = roster.Clone(task.ID, task.Position, task.Angle);
-            Console.WriteLine("{0} {1}", task.Position, task.Angle);
-            enemyList.Add(toSpawn);
-            taskPtr += 1;
-            Console.WriteLine("    SPAWN! {0} {1}", taskPtr, Name);
-        }
-
-        protected int waitCounter = 0;
-        public void Process(WaitTask task)
-        {
-            if (waitCounter >= task.Duration)
-            {
-                waitCounter = 0;
-                taskPtr += 1;
-            }
-            waitCounter += 1;
-        }
-
-        public void Process(KillAllTask kill)
-        {
-            foreach (Enemy enemy in enemyList.GetKeys())
-            {
-                enemy.Kill();
-            }
+            World.EnemyList.Add(toSpawn);
             taskPtr += 1;
         }
 
-        public void Process(BossTask bossTask)
+        public virtual void Process(BossTask bossTask)
         {
             if (boss == null)
             {
                 boss = miniBoss;
             }
             taskPtr += 1;
-        }
-
-        public void ProcessTasks()
-        {
-            if (taskPtr >= taskList.Count) return;
-            Task current = taskList[taskPtr];
-            current.Process(this);
         }
 
         public override void Update(ControlManager controls)
@@ -260,9 +204,9 @@ namespace Exeggcute.src
                 particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
-            physics.Affect(gibList, true);
+            physics.Affect(World.GibList, true);
             //physics.Affect(playerShots, false);
-            foreach (Gib gib in gibList.GetKeys())
+            foreach (Gib gib in World.GibList.GetKeys())
             {
                 collider.CollideTerrain(terrain, gib, GameArea);
             }
@@ -272,8 +216,8 @@ namespace Exeggcute.src
 
             processHit();
 
-            collider.Collide(playerShots, enemyList);
-            collider.CollideItems(itemList, player);
+            collider.Collide(World.PlayerShots, World.EnemyList);
+            collider.CollideItems(World.ItemList, player);
 
 
             collider.UpdateAll(LiveArea);
@@ -284,7 +228,7 @@ namespace Exeggcute.src
 
             if (boss != null)
             {
-                collider.CollideBoss(playerShots, boss);
+                collider.CollideBoss(World.PlayerShots, boss);
                 boss.Update();
             }
 
@@ -295,8 +239,8 @@ namespace Exeggcute.src
         /// </summary>
         private void processHit()
         {
-            bool hit = collider.Collide(player, enemyList) ||
-                       collider.HitPlayer(enemyShots, player);
+            bool hit = collider.Collide(player, World.EnemyList) ||
+                       collider.HitPlayer(World.EnemyShots, player);
             if (hit)
             {
                 player.Kill();
@@ -305,7 +249,7 @@ namespace Exeggcute.src
             if (shotEater != null)
             {
                 shotEater.Update();
-                collider.EatShots(enemyShots, shotEater.Rect);
+                collider.EatShots(World.EnemyShots, shotEater.Rect);
                 if (shotEater.Rect.Height > HalfHeight * 4)
                 {
                     shotEater = null;

@@ -131,7 +131,7 @@ namespace Exeggcute.src
                     bool duplicate = false;
                     foreach (ScoreEntry entry in networkScores)
                     {
-                        if (entry.Score == score && entry.Name == name && entry.Date == date)
+                        if (entry.IntScore == score && entry.Name == name && entry.Date == date)
                         {
                             duplicate = true;
                         }
@@ -188,7 +188,7 @@ namespace Exeggcute.src
                 foreach (ScoreEntry entry in networkScores)
                 {
                     counter = 0;
-                    if (entry.Score == listEntries.ElementAt(counter).Score && entry.Name == listEntries.ElementAt(counter).Name
+                    if (entry.IntScore == listEntries.ElementAt(counter).IntScore && entry.Name == listEntries.ElementAt(counter).Name
                         && entry.Date == listEntries.ElementAt(counter).Date)
                     {
                         duplicate = true;
@@ -213,7 +213,7 @@ namespace Exeggcute.src
                             return;
                         }
 
-                        String query = "InsertInto" + listEntries.ElementAt(i).Score + "&" +
+                        String query = "InsertInto" + listEntries.ElementAt(i).IntScore + "&" +
                                    listEntries.ElementAt(i).Name + "&" + listEntries.ElementAt(i).Date + "\r\n";
                         server.Send(Encoding.ASCII.GetBytes(query));
 

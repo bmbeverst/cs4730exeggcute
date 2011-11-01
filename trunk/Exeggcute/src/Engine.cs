@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
+using Exeggcute.src.scripting.task;
 
 namespace Exeggcute.src
 {
@@ -63,8 +64,6 @@ namespace Exeggcute.src
 
             manifest = new Manifest(dataSetName);
             dataSet = new DataSet(manifest.DataFileName, manifest.ForceOverwrite);
-
-
 
             World.Begin();
             

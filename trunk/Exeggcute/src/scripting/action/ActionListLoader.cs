@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Exeggcute.src.entities;
 
 namespace Exeggcute.src.scripting.action
@@ -13,7 +16,7 @@ namespace Exeggcute.src.scripting.action
         }
 
 
-        protected override List<ActionBase> parseElement(Stack<string> tokens)
+        public override List<ActionBase> ParseElement(Stack<string> tokens)
         {
             CommandType type = Util.ParseEnum<CommandType>(tokens.Pop());
 
@@ -45,17 +48,6 @@ namespace Exeggcute.src.scripting.action
                 int max = int.Parse(tokens.Pop());
                 return new List<ActionBase> {
                     new UpgradeAction(max)
-                };
-            }
-            else if (type == CommandType.Move)
-            {
-                FloatValue speed = Util.ParseFloatValue(tokens.Pop());
-                FloatValue angularVelocity = Util.ParseFloatValue(tokens.Pop());
-                FloatValue linearAccel = Util.ParseFloatValue(tokens.Pop());
-                FloatValue angularAccel = Util.ParseFloatValue(tokens.Pop());
-                FloatValue velocityZ = Util.ParseFloatValue(tokens.Pop());
-                return new List<ActionBase> {
-                    new MoveAction(speed, angularVelocity, linearAccel, angularAccel, velocityZ)
                 };
             }
             else if (type == CommandType.Wait)

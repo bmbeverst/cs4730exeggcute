@@ -5,28 +5,25 @@ using System.Text;
 
 namespace Exeggcute.src.console.commands
 {
-    class LoadSetCommand : ConsoleCommand
+    class LevelTaskCommand : ConsoleCommand
     {
-
         public static string Usage = 
 @"
-    LoadSet DATASET     Loads the primary dataset to be DATASET and saves this
-                        the the manifest and then restarts the engine. 
-";
+    LevelTask TASK      Sends TASK to be processed by the current context
+                        immediately.";
 
-                        
-        public string Name { get; protected set; }
+        public string TaskString { get; protected set; }
 
-        public LoadSetCommand(DevConsole console, string name)
+        public LevelTaskCommand(DevConsole console, string taskString)
             : base(console)
         {
-            this.Name = name;
+            this.TaskString = taskString;
         }
 
         public override void AcceptCommand(ConsoleContext context)
         {
             context.AcceptCommand(this);
         }
-
     }
+
 }

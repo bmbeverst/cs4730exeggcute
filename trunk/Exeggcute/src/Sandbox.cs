@@ -1,12 +1,22 @@
-﻿using Exeggcute.src.console.commands;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.console.commands;
 using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.scripting.task;
+
 
 namespace Exeggcute.src
 {
     class Sandbox : ConsoleContext
     {
+
+        protected List<Task> taskList;
+        protected int taskPtr;
+
         public EntityManager collider;
         public Player Player;
         public Rectangle GameArea;
@@ -28,6 +38,75 @@ namespace Exeggcute.src
         public override void AcceptCommand(GoCommand context)
         {
             //if (context.
+        }
+        public virtual void Process(Task task)
+        {
+            throw new InvalidOperationException("Must call a subclass overload");
+        }
+
+        
+        public virtual void Process(SongFadeTask task)
+        {
+            
+
+        }
+
+        public virtual void Process(BarrierTask barrier)
+        {
+            if (World.CanPassBarrier(barrier))
+            {
+                taskPtr += 1;
+            }
+        }
+
+        public virtual void Process(SpawnTask task)
+        {
+            
+        }
+
+        public virtual void Process(ClearTask task)
+        {
+            World.ClearLists();
+        }
+
+        protected int waitCounter = 0;
+        public virtual void Process(WaitTask task)
+        {
+            if (waitCounter >= task.Duration)
+            {
+                waitCounter = 0;
+                taskPtr += 1;
+            }
+            waitCounter += 1;
+        }
+
+        public virtual void Process(KillAllTask kill)
+        {
+            foreach (Enemy enemy in World.EnemyList.GetKeys())
+            {
+                enemy.Kill();
+            }
+            taskPtr += 1;
+        }
+
+        public virtual void Process(BossTask bossTask)
+        {
+
+        }
+
+        public virtual void ProcessTasks()
+        {
+            if (taskPtr >= taskList.Count) return;
+            Task current = taskList[taskPtr];
+            current.Process(this);
+        }
+
+        public virtual void AcceptTaskList(List<Task> tasks)
+        {
+            foreach (Task task in tasks)
+            {
+                task.Process(this);
+            }
         }
         
         public override void Update(ControlManager controls)
@@ -68,6 +147,11 @@ namespace Exeggcute.src
         public override void Dispose()
         {
 
+        }
+
+        public static bool IsName(string name)
+        {
+            return Util.StrEq("sandbox", name) || Util.StrEq("sb", name);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Exeggcute.src.assets;
 using Exeggcute.src.console;
 using Exeggcute.src.console.commands;
@@ -16,6 +18,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.text;
 
 namespace Exeggcute.src
 {
@@ -388,7 +391,9 @@ namespace Exeggcute.src
             }
         }
 
-        public static void ContextSwitch(string name)
+        //requires that name be a valid context to switch to
+        //or sandbox is true
+        public static void ContextSwitch(string name, bool isSandbox)
         {
 
             if (!(Top is DevConsole))
@@ -424,17 +429,10 @@ namespace Exeggcute.src
 
             IContext newContext;
             
-            if (Util.StrEq(name, "sandbox") || Util.StrEq(name, "sb"))
+            if (isSandbox)
             {
                 Terrain = menuTerrain;
                 newContext = new Sandbox();
-            }
-            else if (!Assets.Level.ContainsKey(name))
-            {
-                console.Write("No level named \"{0}\" found.", name);
-                console.Write("Available levels include:");
-                console.Write(Assets.Level.GetLoadedNames());
-                return;
             }
             else
             {
@@ -460,7 +458,7 @@ namespace Exeggcute.src
                 //FIXME go to main menu
                 Engine.scoreSet.TryInsert(player.Score);
                 Engine.scoreSet.WriteLocal();
-                throw new ResetException();
+                throw new ResetException(null);
                 
             }
 
@@ -614,7 +612,7 @@ namespace Exeggcute.src
                 console.Write(Assets.Enemy.GetLoadedNames());
                 return;
             }
-            if (!(getSecond() is Sandbox))
+            if (!(getSecond() is Sandbox) && false)
             {
                 console.Write("May only insert an enemy into a Level or Sandbox context. See 'help context'");
                 return;
@@ -684,6 +682,41 @@ namespace Exeggcute.src
             }
         }
 
+        public static void SendTask(List<Task> tasks)
+        {
+            IContext second = getSecond();
+            Sandbox valid = FindSandbox();
+            if (valid != null)
+            {
+                valid.AcceptTaskList(tasks);
+
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
+
+        }
+
+
+        public static Sandbox FindSandbox()
+        {
+            Dictionary<IContext, bool> seen = new Dictionary<IContext, bool>();
+            IContext current = Top;
+            while (current != null)
+            {
+                if (current is Sandbox)
+                {
+                    return current as Sandbox;
+                }
+                else
+                {
+                    current = current.Parent;
+                }
+            }
+            return null;
+        }
         public static Level LoadLevelFromFile(string filename)
         {
             if (!isInitialized) throw new ExeggcuteError("World not initialized yet!");

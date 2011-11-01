@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Speech.Synthesis;
 using Exeggcute.src.assets;
 using Exeggcute.src.graphics;

@@ -49,7 +49,7 @@ namespace Exeggcute.src.scripting
                 Stack<string> tokenStack = Util.Stackify<string>(tokens);
                 try
                 {
-                    List<TElement> parsed = parseElement(tokenStack);
+                    List<TElement> parsed = ParseElement(tokenStack);
                     result.Add(parsed);
                 }
                 catch (FormatException format)
@@ -88,7 +88,7 @@ namespace Exeggcute.src.scripting
             return GetRaw(filepath, lines);
         }
 
-        protected abstract List<TElement> parseElement(Stack<string> tokens);
+        public abstract List<TElement> ParseElement(Stack<string> tokens);
         protected virtual string getName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);
