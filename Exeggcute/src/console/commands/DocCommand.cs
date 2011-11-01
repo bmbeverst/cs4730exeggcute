@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.scripting.action;
+using System.IO;
 
 namespace Exeggcute.src.console.commands
 {
@@ -62,12 +63,12 @@ namespace Exeggcute.src.console.commands
             {
                 try
                 {
-                    Util.WriteFile(docs, Filename);
+                    Util.WriteFile(Filename, docs);
                     devConsole.Write("Wrote documentation to {0}", Filename);
                 }
-                catch
+                catch (IOException ioe)
                 {
-                    devConsole.Write("Unable to write to file \"{0}\"", Filename);
+                    devConsole.Write("{0}\nUnable to write to file \"{1}\"", ioe.Message, Filename);
                 }
             }
         }
