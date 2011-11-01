@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.scripting.arsenal;
-using Exeggcute.src.assets;
+﻿using System.Collections.Generic;
 using Exeggcute.src.scripting;
-using System.Text.RegularExpressions;
+using Exeggcute.src.scripting.arsenal;
 
 namespace Exeggcute.src.loading
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.scripting;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.entities;
+﻿using System.Collections.Generic;
 
 namespace Exeggcute.src.scripting.task
 {

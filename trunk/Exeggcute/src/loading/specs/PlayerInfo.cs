@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.scripting.arsenal;
+﻿using System.Collections.Generic;
 using Exeggcute.src.scripting;
-using Exeggcute.src.assets;
-using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.sound;
 
 namespace Exeggcute.src.loading.specs

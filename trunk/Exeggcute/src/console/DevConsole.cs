@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using Exeggcute.src.assets;
 using Exeggcute.src.console.commands;
-using Exeggcute.src.entities;
 using Exeggcute.src.graphics;
-using Exeggcute.src.text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Exeggcute.src.console
 {

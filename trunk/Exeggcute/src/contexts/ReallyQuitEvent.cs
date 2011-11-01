@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.gui;
+﻿using Exeggcute.src.gui;
 
 namespace Exeggcute.src.contexts
 {

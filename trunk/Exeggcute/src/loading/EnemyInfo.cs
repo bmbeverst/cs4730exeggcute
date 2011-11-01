@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
 using Exeggcute.src.scripting;
-using Microsoft.Xna.Framework.Audio;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.sound;
 

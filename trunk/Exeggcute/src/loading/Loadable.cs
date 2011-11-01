@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
-using Exeggcute.src.scripting;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.graphics;
 using Exeggcute.src.assets;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.loading
 {

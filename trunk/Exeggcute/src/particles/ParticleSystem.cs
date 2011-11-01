@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
-using Exeggcute.src.graphics;
-using Exeggcute.src.assets;
 
 
 namespace Exeggcute.src.particles

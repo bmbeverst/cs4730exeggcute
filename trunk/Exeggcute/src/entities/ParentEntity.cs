@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.scripting.arsenal;
-using Exeggcute.src.assets;
+﻿using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.action;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Exeggcute.src.scripting;
-using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.sound;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Exeggcute.src.entities
 {

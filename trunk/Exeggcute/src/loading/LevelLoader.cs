@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
-using Exeggcute.src.assets;
 using Exeggcute.src.entities;
 using Exeggcute.src.graphics;
 using Exeggcute.src.gui;
 using Exeggcute.src.loading.specs;
 using Exeggcute.src.scripting;
-using Exeggcute.src.scripting.roster;
 using Exeggcute.src.scripting.task;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src.loading
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exeggcute.src.entities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Exeggcute.src.entities;
 
 namespace Exeggcute.src.loading
 {

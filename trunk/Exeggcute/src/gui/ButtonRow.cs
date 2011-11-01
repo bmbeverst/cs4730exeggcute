@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Exeggcute.src.contexts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Exeggcute.src.contexts;
 
 namespace Exeggcute.src.gui
 {

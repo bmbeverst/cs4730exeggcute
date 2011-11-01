@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Media;
+﻿using System.Collections.Generic;
 using Exeggcute.src.entities;
 using Exeggcute.src.scripting.roster;
-using Exeggcute.src.assets;
-using Exeggcute.src.scripting;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src.loading.specs
 {
