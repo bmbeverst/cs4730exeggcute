@@ -1,4 +1,8 @@
-﻿using Exeggcute.src.graphics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.graphics;
 using Exeggcute.src.scripting.action;
 using Exeggcute.src.scripting.task;
 

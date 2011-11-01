@@ -1,4 +1,8 @@
-﻿using Exeggcute.src.entities.items;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.entities.items;
 using Exeggcute.src.loading;
 using Exeggcute.src.scripting;
 

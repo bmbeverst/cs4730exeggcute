@@ -163,6 +163,7 @@
     <Compile Include="src\console\DevConsole.cs" />
     <Compile Include="src\console\KeyboardManager.cs" />
     <Compile Include="src\console\commands\GoCommand.cs" />
+    <Compile Include="src\console\Keyword.cs" />
     <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\items\PointItem.cs" />
     <Compile Include="src\entities\items\ExtraBomb.cs" />
