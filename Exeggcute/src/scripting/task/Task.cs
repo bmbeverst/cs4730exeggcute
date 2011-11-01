@@ -17,17 +17,23 @@ namespace Exeggcute.src.scripting.task
         }
         public static Dictionary<Type, Dictionary<Info, string>> docs =
             new Dictionary<Type, Dictionary<Info, string>>();
+
+        public static string Header =
+@"A Task is an instruction which is processed by a level.
+Available tasks include:
+";
+
         public abstract void Process(Sandbox level);
 
         public static string MakeDocs()
         {
-            string docString = "";
+            string docString = Header;
             foreach (var pair in docs)
             {
                 docString += pair.Key.Name + '\n';
                 Dictionary<Info, string> taskInfos = pair.Value;
                 int level = 8;
-                docString += makeDocSection(taskInfos, level);
+                docString += makeDocSection(taskInfos, level) + '\n';
 
             }
             return docString;

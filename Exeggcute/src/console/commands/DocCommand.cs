@@ -43,6 +43,12 @@ namespace Exeggcute.src.console.commands
             {
                 docs = ConsoleCommand.MakeDocs(devConsole);
             }
+            else if (Util.StrEq(Type, "all"))
+            {
+                docs = Task.MakeDocs() + '\n' +
+                       ActionBase.MakeDocs() + '\n' +
+                       ConsoleCommand.MakeDocs(devConsole);
+            }
             else
             {
                 devConsole.Write("Dont know any type called \"{0}\".", Type);

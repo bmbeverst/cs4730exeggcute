@@ -12,6 +12,11 @@ namespace Exeggcute.src.console.commands
 This member is implemented in a static constructor and was either referenced
 too early in execution, or was not initialized properly.";
 
+        public static string Header =
+@"A console command is an instruction processed by the developer console.
+Available commands include:
+";
+
         public abstract void AcceptCommand(ConsoleContext context);
         public DevConsole devConsole;
 
@@ -22,7 +27,7 @@ too early in execution, or was not initialized properly.";
 
         public static string MakeDocs(DevConsole console)
         {
-            return HelpCommand.MakeAll(console).Output;
+            return Header + HelpCommand.MakeAll(console).Output;
         }
     }
 }
