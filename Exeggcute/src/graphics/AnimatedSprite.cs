@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.graphics
 {
@@ -49,7 +50,7 @@ namespace Exeggcute.src.graphics
 
         public static Sprite LoadFromFile(string filename)
         {
-            return spriteLoader.LoadFromFile(filename);
+            return Loaders.Sprite.LoadFromFile(filename);
         }
 
         public void SetAnimation(int n)

@@ -78,7 +78,7 @@ namespace Exeggcute.src.entities
             this.attacks = attacks;
             this.arsenal = Arsenal.None;
         }
-        bool songStarted = false;
+        
         public override void Update()
         {
             if (HealthMeter != null) HealthMeter.Update(Health);
@@ -229,8 +229,12 @@ namespace Exeggcute.src.entities
 
         public static Boss Parse(string name)
         {
-            BossInfo info = new BossInfo(name);
-            return info.MakeBoss();
+            return Assets.Boss[name];
+        }
+
+        public static Boss LoadFromFile(string filename)
+        {
+            return Loaders.Boss.Load(filename);
         }
 
         public void Draw2D(SpriteBatch batch)

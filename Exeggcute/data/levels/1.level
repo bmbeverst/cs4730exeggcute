@@ -54,7 +54,6 @@ wait 600
 #spawn 1 (0,40,0) 0
 #wait 900
 killall
-wait 6000
 songfade 60
 wait 60
 boss

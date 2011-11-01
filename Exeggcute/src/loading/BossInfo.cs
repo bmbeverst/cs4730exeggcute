@@ -13,62 +13,24 @@ using Exeggcute.src.sound;
 namespace Exeggcute.src.loading
 {
 #pragma warning disable 0649
+
     class BossInfo : Loadable
     {
-        protected List<Spellcard> spellcards;
-        protected string name;
-        protected BodyInfo body;
-        protected BehaviorScript entryScript;
-        protected BehaviorScript defeatScript;
-        protected BehaviorScript deathScript;
-        protected Conversation intro;
-        protected Conversation outro;
-        protected RepeatedSound hurtSound;
-        protected float? scale;
+        public List<Spellcard> spellcards;
+        public string name;
+        public BodyInfo body;
+        public BehaviorScript entryScript;
+        public BehaviorScript defeatScript;
+        public BehaviorScript deathScript;
+        public Conversation intro;
+        public Conversation outro;
+        public RepeatedSound hurtSound;
+        public float? scale;
 
-        public BossInfo(string name)
-            : base(getFilename(name))
+        public BossInfo(string filename, List<string[]> tokens)
+            : base(filename)
         {
-            spellcards = new List<Spellcard>();
-            string filename = getFilename(name);
-            Data bossData = new Data(filename);
-            DataSection info = bossData[0];
-            if (!info.Tag.Equals("info", StringComparison.CurrentCultureIgnoreCase))
-            {
-                throw new ParseError("Boss info must come first");
-            }
-            loadFromTokens(bossData[0].Tokens, true);
-            for (int i = 1; i < bossData.Count; i += 1)
-            {
-                List<string[]> tokenList = bossData[i].Tokens;
-
-                SpellcardInfo scInfo = new SpellcardInfo(filename, bossData[i].Tokens);
-                Spellcard next = scInfo.MakeSpellcard();
-                spellcards.Add(next);
-            }
-            
-        }
-
-        public Boss MakeBoss()
-        {
-            return new Boss(name, 
-                            body.Model, 
-                            body.Texture,
-                            body.Scale.Value, 
-                            body.Radius.Value,
-                            body.Rotation.Value,
-                            intro, 
-                            outro,
-                            hurtSound,
-                            entryScript, 
-                            defeatScript, 
-                            deathScript, 
-                            spellcards);
-        }
-
-        private static string getFilename(string name)
-        {
-            return string.Format("data/bosses/{0}.boss", name);
+            loadFromTokens(tokens, false);
         }
     }
 }

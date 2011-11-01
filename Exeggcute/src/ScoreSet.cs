@@ -228,7 +228,7 @@ namespace Exeggcute.src
 
         public void TryInsert(int score)
         {
-            string name = "dummy";
+            string name = Environment.UserName;
             DateTime now = DateTime.Now;
             int day = now.Day;
             int month = now.Month;

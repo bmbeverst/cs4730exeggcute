@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+This is placeholder text and will be filled in later. soi soi soi soi soi soi 

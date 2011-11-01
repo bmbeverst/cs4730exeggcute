@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.entities.items
 {
-    class ExtraLife : Item
+    class PointItem : Item
     {
-        public ExtraLife(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, BehaviorScript behavior)
+        public PointItem(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, BehaviorScript behavior)
             : base(model, texture, scale, radius, rotation, behavior)
         {
 
@@ -18,7 +18,7 @@ namespace Exeggcute.src.entities.items
 
         public override Item Clone()
         {
-            return new ExtraLife(Surface, Texture, Scale, Radius, DegRotation, (BehaviorScript)script);
+            return new PointItem(Surface, Texture, Scale, Radius, DegRotation, (BehaviorScript)script);
         }
 
         public override void Collect(Player player)

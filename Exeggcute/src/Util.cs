@@ -549,15 +549,27 @@ namespace Exeggcute.src
             return Assets.Texture[name];
         }
 
-        public static SoundEffectInstance ParseSoundEffectInstance(string s)
+        public static Texture2D LoadTexture2D(string filename)
+        {
+            World.AssertInitialized();
+            Stream stream = File.Open(filename, FileMode.Open);
+            return Texture2D.FromStream(World.Graphics, stream);
+        }
+
+        /*public static SoundEffectInstance ParseSoundEffectInstance(string s)
         {
             return Assets.Sfx[s].CreateInstance();
-        }
+        }*/
 
         public static string ParseString(string s)
         {
             // that was easy
             return s;
+        }
+
+        public static SpriteFont ParseSpriteFont(string s)
+        {
+            return Assets.Font[s];
         }
 
         public static T GetRandomFrom<T>(List<T> items, Random rng)
@@ -570,6 +582,8 @@ namespace Exeggcute.src
             string formatted = string.Format(message, args);
             log.Add(formatted);
         }
+
+
 
         private static List<string> log = new List<string>();
         public static void WriteLog()
@@ -587,8 +601,11 @@ namespace Exeggcute.src
                     using(GZipStream stream = new GZipStream(outFile, CompressionMode.Compress))
                         inFile.CopyTo(stream);
 
+        }
 
-            //Util.Die("was i useful?");
+        internal static float Time()
+        {
+            return Environment.TickCount / 1000f;
         }
     }
 }

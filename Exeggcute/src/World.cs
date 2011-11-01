@@ -41,18 +41,18 @@ namespace Exeggcute.src
     {
         private static DevConsole console;
 
-        private static Stack<IContext> stack = new Stack<IContext>();
-        private static bool isInitialized = false;
-        private static ContentManager content;
-        private static GraphicsDevice graphics;
+        private static Stack<IContext> stack;
+        private static bool isInitialized;
+        public static ContentManager Content;
+        public static GraphicsDevice Graphics;
         private static Engine engine;
 
-        public static HashList<Shot> PlayerShots = new HashList<Shot>("playershots");
-        public static HashList<Shot>  EnemyShots = new HashList<Shot>("enemyshots");
-        public static HashList<Gib>      GibList = new HashList<Gib>("giblist");
-        public static HashList<Enemy>  EnemyList = new HashList<Enemy>("enemylist");
-        public static HashList<Enemy>  DyingList = new HashList<Enemy>("dyinglist");
-        public static HashList<Item>    ItemList = new HashList<Item>("itemlist");
+        public static HashList<Shot> PlayerShots;
+        public static HashList<Shot> EnemyShots;
+        public static HashList<Gib> GibList;
+        public static HashList<Enemy> EnemyList;
+        public static HashList<Enemy> DyingList;
+        public static HashList<Item> ItemList;
 
         public static IContext Top { get { return stack.Peek(); } }
 
@@ -67,24 +67,63 @@ namespace Exeggcute.src
         private static DifficultyMenu difficultyMenu;
         private static PlayerMenu playerMenu;
 
-        private static SongManager songManager = new SongManager(0.1f);
-
-        private static LevelLoader levelLoader = new LevelLoader();
+        private static SongManager songManager;
 
         // As we traverse through the menus, we build settings which are 
         // sufficient for building a Level instance.
         private static Difficulty difficulty;
         private static GameType gameType;
 
-        public static Camera camera = new Camera(100, MathHelper.PiOver2, 0.1f);
+        public static Camera camera;
+
+        private static Campaign campaign;
 
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
-            World.content = content;
-            World.graphics = graphics;
+            World.Content = content;
+            World.Graphics = graphics;
             World.engine = engine;
             isInitialized = true;
             
+        }
+
+        public static void Reset()
+        {
+            PlayerShots = new HashList<Shot>("playershots");
+            EnemyShots = new HashList<Shot>("enemyshots");
+            GibList = new HashList<Gib>("giblist");
+            EnemyList = new HashList<Enemy>("enemylist");
+            DyingList = new HashList<Enemy>("dyinglist");
+            ItemList = new HashList<Item>("itemlist");
+
+            stack = new Stack<IContext>();
+
+            songManager = new SongManager(0.1f);
+
+            camera = new Camera(100, MathHelper.PiOver2, 0.1f);
+
+            campaign = new Campaign("default");
+
+            isInitialized = false;
+            Content = null;
+            Graphics = null;
+            engine = null; 
+            Terrain = null;
+            menuTerrain = null;
+            mainMenu = null; 
+            scoreMenu = null;
+            pauseMenu = null;
+            reallyQuitMenu = null;
+            difficultyMenu = null;
+            playerMenu = null;
+            savedTerrain = null;
+
+            levelPtr = 0;
+        }
+
+        public static void AssertInitialized()
+        {
+            if (!World.isInitialized) throw new InvalidOperationException();
         }
 
         public static DevConsole MakeConsole()
@@ -283,13 +322,22 @@ namespace Exeggcute.src
             stack.Push(scoreMenu);
         }
 
+        static int levelPtr = 0;
         public static void Process(LoadLevelEvent ent)
         {
             string levelName = ent.LevelName;
             string playerName = ent.PlayerName;
             Player player = Assets.Player[playerName];
             HUD hud = new HUD();
-            LoadNextLevel(hud, player, levelName, false);
+            if (gameType == GameType.Campaign)
+            {
+                LoadNextLevel(hud, player, false);
+            }
+            else
+            {
+                //FIXME hard code
+                LoadNextLevel(hud, player, false);
+            }
         }
 
         public static void DoFadeOut(int frames)
@@ -395,17 +443,11 @@ namespace Exeggcute.src
             else
             {
                 Level next = Assets.Level[name];
-                Console.WriteLine("pushing " + name);
                 newContext = next;
             }
 
 
-
-
-
-            
             console.AttachParent(newContext);
-            Console.WriteLine("Pushing new context");
             stack.Push(newContext);
             stack.Push(console);
         }
@@ -413,20 +455,30 @@ namespace Exeggcute.src
         /// <summary>
         /// doPop should be true iff we are loading a level directly from a LevelSummaryMenu
         /// </summary>
-        public static void LoadNextLevel(HUD hud, Player player, string name, bool doPop)
+        public static void LoadNextLevel(HUD hud, Player player, bool doPop)
         {
             ClearLists();
-            Level next = Assets.Level[name];
+
+            if (levelPtr == campaign.Count)
+            {
+                //FIXME go to main menu
+                Engine.scoreSet.TryInsert(player.Score);
+                Engine.scoreSet.WriteLocal();
+                throw new ResetException();
+                
+            }
+
+            Level next = Assets.Level[campaign[levelPtr]];
             Level.player = player;
             Level.Hud = hud;
-                //levelLoader.LoadByName(content, graphics, player, hud, difficulty, name);
-            
+
+            levelPtr += 1;
 
             if (doPop)
             {
                 stack.Pop();
             }
-            Console.WriteLine("pushing 429");
+
             stack.Push(next);
         }
 
@@ -455,8 +507,6 @@ namespace Exeggcute.src
             {
                 Assets.Sfx["menumove"].Play();
             }
-            
-
         }
 
         public static void Pop(/*IContext self*/)
@@ -584,7 +634,7 @@ namespace Exeggcute.src
         public static void Begin()
         {
             TerrainInfo info = new TerrainInfo("data/world/bg.terrain");
-            menuTerrain = info.MakeMesh(graphics);
+            menuTerrain = info.MakeMesh(Graphics);
             Terrain = menuTerrain;
             if (mainMenu == null)
             {
@@ -604,10 +654,25 @@ namespace Exeggcute.src
                                    new SpriteText(font, "High Scores", fontColor)),
                     new ListButton(new ExitGameEvent(),
                                    new SpriteText(font, "Quit", fontColor))
-            };
+                };
                 mainMenu = new MainMenu(buttons, bounds);
             }
             stack.Push(mainMenu);
+        }
+
+        public static void ConsoleWrite<T>(IEnumerable<T> lines)
+        {
+            if (console != null)
+            {
+                console.Write(lines);
+            }
+            else
+            {
+                foreach (T obj in lines)
+                {
+                    Console.WriteLine(obj);
+                }
+            }
         }
 
         public static void ConsoleWrite(string message, params object[] args)
@@ -635,7 +700,7 @@ namespace Exeggcute.src
             {
                 player = Level.player;
             }
-            return levelLoader.LoadByFile(content, graphics, player, new HUD(), Difficulty.Normal, filename);
+            return Loaders.Level.LoadByFile(Content, Graphics, player, new HUD(), Difficulty.Normal, filename);
         }
     }
 }

@@ -80,11 +80,11 @@ namespace Exeggcute.src.entities
             return cloned;
         }
 
-        protected static EnemyLoader loader = new EnemyLoader();
+
 
         public static Enemy LoadFromFile(string filepath)
         {
-            return loader.LoadByFile(filepath);
+            return Loaders.Enemy.LoadByFile(filepath);
         }
 
         public static BehaviorScript GetDeathScript()

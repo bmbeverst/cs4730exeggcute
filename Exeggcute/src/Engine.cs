@@ -14,6 +14,7 @@ using Exeggcute.src.contexts;
 using Exeggcute.src.sound;
 using System.Diagnostics;
 using Exeggcute.src.console;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src
 {
@@ -61,60 +62,26 @@ namespace Exeggcute.src
         protected DataSet dataSet;
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input, string dataSetName)
         {
-            
             World.Initialize(this, content, graphics);
-
-            loadXNAContent(content);
+            Assets.LoadAll(content);
 
             World.MakeConsole();
 
             manifest = new Manifest(dataSetName);
             dataSet = new DataSet(manifest.DataFileName, manifest.ForceOverwrite);
-            Assets.Sprite.LoadAll();
-            Assets.Body.LoadAll();
 
-            Assets.Behavior.LoadAll();
-            Assets.Trajectory.LoadAll();
-            Assets.Spawn.LoadAll();
 
-            Assets.Item.LoadAll();
-            Assets.ItemBatch.LoadAll();
 
-            Assets.Option.LoadAll();
-
-            ConversationBank.LoadAll();
-
-            Assets.Enemy.LoadAll();
-            Assets.Player.LoadAll();
-
-            loadMenus();
+            World.Begin();
             
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
+
             TextBox.LoadSprites();
-            //World.LoadTerrain();
-            Assets.Level.LoadAll();
+            
             AssetManager.Commit();
         }
 
-        private void loadXNAContent(ContentManager content)
-        {
-
-            Assets.Texture.LoadAll(content);//must be first
-
-            Assets.Font.LoadAll(content);
-            Assets.Effect.LoadAll(content);
-            Assets.Model.LoadAll(content);
-            Assets.Sfx.LoadAll(content);
-            Assets.Song.LoadAll(content);
-            mySound = Assets.MakeRepeated("1pew");
-        }
-
-        private void loadMenus()
-        {
-            World.Begin();
-        }
-        RepeatedSound mySound;
         
         int frame = 0;
         public void Update()

@@ -16,7 +16,7 @@ namespace Exeggcute.src.entities.items
         {
             
         }
-        public override Item Copy()
+        public override Item Clone()
         {
             return new PowerItem(Surface, Texture, Scale, Radius, DegRotation, (BehaviorScript)script);
         }

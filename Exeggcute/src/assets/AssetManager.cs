@@ -13,6 +13,7 @@ namespace Exeggcute.src.assets
         {
             seenFailure = true;
             message = string.Format(message, args);
+            Console.Error.WriteLine(message);
             log.Add(message);
         }
 

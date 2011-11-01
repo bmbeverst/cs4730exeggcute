@@ -350,13 +350,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sfx\testDialogue.wav">
-      <Name>testDialogue</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="sfx\dink0.wav">
       <Name>dink0</Name>
       <Importer>WavImporter</Importer>
@@ -502,6 +495,7 @@
       <Name>void</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>

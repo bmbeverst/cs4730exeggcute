@@ -16,7 +16,6 @@ namespace Exeggcute.src
 {
     class LevelSummaryMenu : ConsoleContext
     {
-        
         protected bool validScore;
         protected int scoreGained;
         protected Difficulty difficulty;
@@ -49,7 +48,7 @@ namespace Exeggcute.src
                 controls[Ctrl.Action].DoEatPress())
             {
                 IsDone = true;
-                World.LoadNextLevel(Hud, Player, nextName, true);
+                World.LoadNextLevel(Hud, Player, true);
             }
         }
 
@@ -72,13 +71,11 @@ namespace Exeggcute.src
         {
 
         }
+
         public override void Dispose()
         {
 
         }
-        public override void AcceptCommand(ConsoleCommand command)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

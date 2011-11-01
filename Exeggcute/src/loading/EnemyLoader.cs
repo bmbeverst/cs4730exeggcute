@@ -28,8 +28,7 @@ namespace Exeggcute.src.loading
             EnemyInfo info = new EnemyInfo(filename, infoSection.Tokens);
 
             DataSection behaviorSection = enemyData[1];
-            ScriptLoader scriptLoader = new ScriptLoader();
-            List<List<ActionBase>> actions = scriptLoader.RawFromLines(filename, behaviorSection.Lines);
+            List<List<ActionBase>> actions = Loaders.Script.RawFromLines(filename, behaviorSection.Lines);
             BehaviorScript behavior = new BehaviorScript(new ScriptBase(filename, actions));
             Enemy enemy = new Enemy(info.Body.Model,
                                     info.Body.Texture,

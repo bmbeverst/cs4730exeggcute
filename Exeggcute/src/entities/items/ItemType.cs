@@ -10,8 +10,6 @@ namespace Exeggcute.src.entities.items
         ExtraLife,
         ExtraBomb,
         Power,
-        Green,
-        Red,
-        Blue
+        Point
     }
 }
