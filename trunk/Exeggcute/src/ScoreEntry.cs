@@ -8,7 +8,7 @@ namespace Exeggcute.src
     {
         public string StringScore { get; protected set; }
         public int IntScore { get; protected set; }
-        public int Score { get; protected set; }
+        //public int Score { get; protected set; }
         public string Name { get; protected set; }
         public string Date { get; protected set; }
 
@@ -16,9 +16,8 @@ namespace Exeggcute.src
         {
             this.StringScore = IntToString(score);
             this.IntScore = score;
-            Score = score;
-            Name = name;
-            Date = date;
+            this.Name = name;
+            this.Date = date;
         }
 
         public ScoreEntry(int score, string name)
@@ -35,9 +34,8 @@ namespace Exeggcute.src
 
             this.StringScore = IntToString(score);
             this.IntScore = score;
-            Score = score;
-            Name = name;
-            Date = date;
+            this.Name = name;
+            this.Date = date;
         }
 
         public ScoreEntry()
@@ -61,12 +59,12 @@ namespace Exeggcute.src
         public int CompareTo(ScoreEntry other)
         {
             // Alphabetic sort by name if score is equal. [A to Z]
-            if (this.Score == other.Score)
+            if (this.IntScore == other.IntScore)
             {
                 return this.Name.CompareTo(other.Name);
             }
             // Default to score sort. [High to low]
-            return other.Score.CompareTo(this.Score);
+            return other.IntScore.CompareTo(this.IntScore);
         }
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)

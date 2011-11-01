@@ -1,4 +1,8 @@
-﻿using Exeggcute.src.scripting;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.action;
 using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.sound;

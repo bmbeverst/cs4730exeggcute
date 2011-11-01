@@ -1,18 +1,10 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 namespace Exeggcute.src.console.commands
 {
-    enum Keyword
-    {
-        Help,
-        Go,
-        Spawn,
-        Load,
-        Package,
-        List,
-        Reset,
-        Exit
-    }
-
     abstract class ConsoleCommand
     {
         protected static string StaticUsage = 
