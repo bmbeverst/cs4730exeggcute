@@ -17,6 +17,7 @@ namespace Exeggcute.src.console
         Reset,
         Exit,
         LevelTask,
-        Doc
+        Doc,
+        WhatIs
     }
 }

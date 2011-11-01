@@ -12,7 +12,7 @@ namespace Exeggcute.src.console.commands
 This member is implemented in a static constructor and was either referenced
 too early in execution, or was not initialized properly.";
 
-        public static string Header =
+        private static string Header =
 @"A console command is an instruction processed by the developer console.
 Available commands include:
 ";
