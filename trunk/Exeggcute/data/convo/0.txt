@@ -1,0 +1,6 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+But the bravery of the four young travellers prevailed. They grasped the forces that 
+filled the world with darkness, and used them to restore it to the light.No one will 

@@ -21,8 +21,6 @@ namespace Exeggcute.src.loading
 
     class LevelLoader : Loader
     {
-        TaskListLoader taskLoader = new TaskListLoader();
-
         public Level LoadByFile(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string filename)
         {
             string name = Path.GetFileNameWithoutExtension(filename);
@@ -56,7 +54,7 @@ namespace Exeggcute.src.loading
                 {
                     List<string> lineList = Util.StripComments(sections[k], true);
                     lineList.RemoveAt(0);
-                    taskList = taskLoader.ParseLines(filename, lineList);
+                    taskList = Loaders.TaskList.ParseLines(filename, lineList);
                 }
                 else if (matches("lights"))
                 {

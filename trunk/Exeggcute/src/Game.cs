@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.loading;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace Exeggcute.src
 {
@@ -32,7 +34,7 @@ namespace Exeggcute.src
             this.IsFixedTimeStep = false;*/
             //graphicsManager.IsFullScreen = true;
             InactiveSleepTime = TimeSpan.Zero;
-            Content.RootDirectory = Engine.ContentRoot;
+            
             Window.Title = "Exeggcute";
         }
 
@@ -41,11 +43,8 @@ namespace Exeggcute.src
         {
             ScreenSize = new Point(GraphicsDevice.DisplayMode.Width, GraphicsDevice.DisplayMode.Height);
             batch = new SpriteBatch(GraphicsDevice);
-            
-            // WARNING: if you're hacking around in Game, be warned
-            // that the Banks are loaded in engine, so this must
-            // be called before pretty much anything else
-            engine = new Engine(GraphicsDevice, Content, new InputManager(), null);
+
+            Reset(null);
 
             base.LoadContent();
         }
@@ -56,6 +55,15 @@ namespace Exeggcute.src
         /// <param name="name"></param>
         public void Reset(string name)
         {
+
+            Loaders.Reset();
+            World.Reset();
+            Assets.Reset();
+            
+            ContentManager newContent = new ContentManager(Content.ServiceProvider);
+            Content = newContent;
+            Content.RootDirectory = Engine.ContentRoot;
+
             engine = new Engine(GraphicsDevice, Content, new InputManager(), name);
             World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
         }
@@ -67,7 +75,14 @@ namespace Exeggcute.src
 
         protected override void Update(GameTime gameTime)
         {
-            engine.Update();
+            try
+            {
+                engine.Update();
+            }
+            catch (ResetException re)
+            {
+                Reset(null);
+            }
             
             base.Update(gameTime);
         }

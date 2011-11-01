@@ -15,7 +15,6 @@ namespace Exeggcute.src
         protected int[] lineTable;
         public readonly int Count;
 
-        protected static ScriptLoader loader = new ScriptLoader();
         public ScriptBase(string name, List<List<ActionBase>> lists)
         {
             this.Name = name;
@@ -39,7 +38,7 @@ namespace Exeggcute.src
 
         public static ScriptBase LoadFromFile(string filename)
         {
-            return new ScriptBase(filename, loader.RawFromFile(filename));
+            return new ScriptBase(filename, Loaders.Script.RawFromFile(filename));
         }
 
         public ActionBase this[int i]

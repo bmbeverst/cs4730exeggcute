@@ -40,6 +40,15 @@ namespace Exeggcute.src
                                      Body.Rotation.Value,
                                      Behavior);
             }
+            else if (type == ItemType.ExtraBomb)
+            {
+                return new ExtraBomb(Body.Model,
+                                     Body.Texture,
+                                     Body.Scale.Value,
+                                     Body.Radius.Value,
+                                     Body.Rotation.Value,
+                                     Behavior);
+            }
             else if (type == ItemType.Power)
             {
                 return new PowerItem(Body.Model,
@@ -49,8 +58,21 @@ namespace Exeggcute.src
                                      Body.Rotation.Value,
                                      Behavior);
             }
-            throw new NotImplementedException();
-            
+            else if (type == ItemType.Point)
+            {
+                return new PointItem(Body.Model,
+                                     Body.Texture,
+                                     Body.Scale.Value,
+                                     Body.Radius.Value,
+                                     Body.Rotation.Value,
+                                     Behavior);
+            }
+            else
+            {
+                World.ConsoleWrite("Item type \"{0}\" is not implemented", type);
+                //FIXME this will break things
+                return null;
+            }
         }
 
     }

@@ -83,8 +83,4 @@ namespace Exeggcute.src.assets
             bank[name] = asset;
         }
     }
-
- 
-
-    
 }

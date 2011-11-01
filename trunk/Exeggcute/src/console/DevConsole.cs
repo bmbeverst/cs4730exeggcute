@@ -18,7 +18,6 @@ namespace Exeggcute.src.console
     /// fixme: go with invalid name crashes game
     /// mouse scroll wheeel does nto scroll history when scroll history is 8 lines or less
     /// make alignment parameter for entities, not for arsenal
-    /// in-line option definitions
     /// </summary>
     class DevConsole : ConsoleContext
     {
@@ -144,11 +143,11 @@ Keyboard controls:
             }
         }
 
-        public void Write(IEnumerable<string> list)
+        public void Write<T>(IEnumerable<T> list)
         {
-            foreach (string s in list)
+            foreach (T obj in list)
             {
-                Write(s);
+                Write(obj.ToString());
             }
         }
 
@@ -241,88 +240,39 @@ Keyboard controls:
             List<string> names;
 
             List<string> notImplemented = new List<string> { "not implemented/dynamically loaded" };
-            if (type == FileType.Behavior)
+            Dictionary<FileType, List<string>> usages = new Dictionary<FileType, List<string>> 
             {
-                names = Assets.Behavior.GetLoadedNames();
-            }
-            else if (type == FileType.Spawn)
-            {
-                names = Assets.Spawn.GetLoadedNames();
-            }
-            else if (type == FileType.Trajectory)
-            {
-                names = Assets.Trajectory.GetLoadedNames();
-            }
-            else if (type == FileType.Body)
-            {
-                names = Assets.Body.GetLoadedNames();
-            }
-            else if (type == FileType.Item)
-            {
-                names = Assets.Item.GetLoadedNames();
-            }
-            else if (type == FileType.Boss)
-            {
-                names = notImplemented;
-            }
-            else if (type == FileType.Level)
-            {
-                names = notImplemented;
-            }
-            else if (type == FileType.Campaign)
-            {
-                names = notImplemented;
-            }
-            else if (type == FileType.Enemy)
-            {
-                names = Assets.Enemy.GetLoadedNames();
-            }
-            else if (type == FileType.GibBatch)
-            {
-                names = notImplemented;
-            }
-            else if (type == FileType.Option)
-            {
-                names = Assets.Option.GetLoadedNames();
-            }
-            else if (type == FileType.Font)
-            {
-                names = Assets.Font.GetLoadedNames();
-            }
-            else if (type == FileType.Model)
-            {
-                names = Assets.Model.GetLoadedNames();
-            }
-            else if (type == FileType.Sfx)
-            {
-                names = Assets.Sfx.GetLoadedNames();
-            }
-            else if (type == FileType.Song)
-            {
-                names = Assets.Song.GetLoadedNames();
-            }
-            else if (type == FileType.Texture)
-            {
-                names = Assets.Texture.GetLoadedNames();
-            }
-            else if (type == FileType.Sprite)
-            {
-                names = Assets.Sprite.GetLoadedNames();
-            }
-            else if (type == FileType.Player)
-            {
-                names = Assets.Player.GetLoadedNames();
-            }
-            else
+                { FileType.Behavior, Assets.Behavior.GetLoadedNames() },
+                { FileType.Spawn, Assets.Spawn.GetLoadedNames() },
+                { FileType.Trajectory, Assets.Trajectory.GetLoadedNames() },
+                { FileType.Body, Assets.Body.GetLoadedNames() },
+                { FileType.Item, Assets.Item.GetLoadedNames() },
+                { FileType.Boss, notImplemented },
+                { FileType.Level, Assets.Level.GetLoadedNames() },
+                { FileType.Enemy, Assets.Enemy.GetLoadedNames() },
+                { FileType.GibBatch, notImplemented },
+                { FileType.Option, Assets.Option.GetLoadedNames() },
+                { FileType.Font, Assets.Font.GetLoadedNames() },
+                { FileType.Model, Assets.Model.GetLoadedNames() },
+                { FileType.Sfx, Assets.Sfx.GetLoadedNames() },
+                { FileType.Song, Assets.Song.GetLoadedNames() },
+                { FileType.Texture, Assets.Texture.GetLoadedNames() },
+                { FileType.Sprite, Assets.Sprite.GetLoadedNames() },
+                { FileType.Player, Assets.Player.GetLoadedNames() }
+            };
+
+            if (!usages.ContainsKey(type))
             {
                 string msg = string.Format("Did not expect type {0}", type);
                 names = new List<string> { msg };
             }
+            else
+            {
+                names = usages[type];
+            }
 
             Write(message);
             Write(names);
-
-            
         }
 
         public override void AcceptCommand(SpawnCommand spawn)

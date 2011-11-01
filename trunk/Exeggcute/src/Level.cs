@@ -76,8 +76,6 @@ namespace Exeggcute.src
 
         public List<TextBoxList> boxes = new List<TextBoxList>();
 
-        private TaskListLoader loader = new TaskListLoader();
-
         private GrowBox shotEater;
 
         private Boss mainBoss;

@@ -36,7 +36,6 @@ namespace Exeggcute.src
             this.Filename = filename;
             string text = File.ReadAllText(filename);
             loadData(text, delim); 
-            
         }
 
         protected void loadData(string text, char delim)
@@ -62,6 +61,7 @@ namespace Exeggcute.src
         public string Tag { get; protected set; }
         public string TagValue { get; protected set; }
         public string RawText { get; protected set; }
+
         public List<string[]> Tokens { get; protected set; }
         public List<string> Lines { get; protected set; }
 
@@ -86,6 +86,17 @@ namespace Exeggcute.src
             lines.RemoveAt(0);
             this.Lines = lines;
             this.Tokens = MakeTokenList();
+        }
+
+        public string GetJoinedLines()
+        {
+
+            string result = "";
+            foreach (string line in Lines)
+            {
+                result += line.TrimEnd(' ') + ' ';
+            }
+            return result;
         }
 
         public List<string[]> MakeTokenList()

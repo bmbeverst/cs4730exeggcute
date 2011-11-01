@@ -9,6 +9,7 @@ using Exeggcute.src.gui;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Audio;
 using Exeggcute.src.console.commands;
+using Exeggcute.src.loading;
 
 namespace Exeggcute.src.text
 {
@@ -20,11 +21,21 @@ namespace Exeggcute.src.text
 
         public Vector2 Position { get; protected set; }
 
+        public Conversation(SpriteFont font, string text, float rate)
+        {
+            this.BoxList = new TextBoxList(font, text, rate);
+            init();
+        }
 
         public Conversation(TextBoxList box)
         {
             this.BoxList = box;
-            float x = Engine.Center2D.X - BoxList.Size.X/2;
+            init();
+        }
+
+        private void init()
+        {
+            float x = Engine.Center2D.X - BoxList.Size.X / 2;
             Rectangle gameRect = HUD.CalculateRect(Engine.XRes, Engine.YRes);
             float buffer = (gameRect.Width - BoxList.Size.X) / 2;
             float y = gameRect.Y + buffer;
@@ -88,7 +99,12 @@ namespace Exeggcute.src.text
 
         public static Conversation Parse(string s)
         {
-            return ConversationBank.Get(s);
+            return Assets.Conversation[s];
+        }
+
+        public static Conversation LoadFromFile(string filename)
+        {
+            return Loaders.Conversation.Load(filename);
         }
     }
 }

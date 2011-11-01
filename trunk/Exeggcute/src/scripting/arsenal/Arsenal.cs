@@ -8,6 +8,7 @@ using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.scripting.action;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.loading.specs;
 
 namespace Exeggcute.src.scripting.arsenal
 {

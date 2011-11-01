@@ -12,61 +12,33 @@ using Exeggcute.src.scripting;
 using Microsoft.Xna.Framework.Content;
 using Exeggcute.src.sound;
 using Exeggcute.src.entities;
+using Exeggcute.src.loading.specs;
+using Exeggcute.src.text;
 
 namespace Exeggcute.src.assets
 {
     static class Assets
     {
-        public static XnaBank<SoundEffect> Sfx =
-            new XnaBank<SoundEffect>("sfx", "xnb");
+        public static XnaBank<SoundEffect> Sfx;
+        public static XnaBank<SpriteFont> Font;
+        public static XnaBank<Model> Model;
+        public static XnaBank<Texture2D> Texture;
+        public static XnaBank<Song> Song;
+        public static XnaBank<Effect> Effect;
 
-        public static XnaBank<SpriteFont> Font =
-            new XnaBank<SpriteFont>("fonts", "xnb");
-
-        public static XnaBank<Model> Model =
-            new XnaBank<Model>("models", "xnb");
-
-        public static XnaBank<Texture2D> Texture =
-            new XnaBank<Texture2D>("sprites", "xnb");
-
-        public static XnaBank<Song> Song =
-            new XnaBank<Song>("songs", "xnb");
-
-        public static XnaBank<Effect> Effect =
-            new XnaBank<Effect>("shaders", "xnb");
-
-        public static DataBank<Sprite> Sprite = 
-            new DataBank<Sprite>("sprites", "sprite");
-
-        public static DataBank<OptionInfo> Option =
-            new DataBank<OptionInfo>("options", "option");
-
-        public static DataBank<BodyInfo> Body =
-            new DataBank<BodyInfo>("bodies", "body");
-
-        public static DataBank<ItemInfo> Item =
-            new DataBank<ItemInfo>("items", "item");
-
-        public static DataBank<ItemBatch> ItemBatch =
-            new DataBank<ItemBatch>("itembatches", "item");
-
-        public static DataBank<Enemy> Enemy =
-            new DataBank<Enemy>("enemies", "enemy");
-
-        public static DataBank<Level> Level =
-            new DataBank<Level>("levels", "level");
-
-        public static DataBank<Player> Player =
-            new DataBank<Player>("players", "player");
-
-        public static DataBank<ScriptBase> Behavior =
-            new DataBank<ScriptBase>("scripts/behaviors", "cl");
-
-        public static DataBank<ScriptBase> Trajectory =
-            new DataBank<ScriptBase>("scripts/trajectories", "traj");
-
-        public static DataBank<ScriptBase> Spawn =
-            new DataBank<ScriptBase>("scripts/spawns", "spawn");
+        public static DataBank<Sprite> Sprite;
+        public static DataBank<OptionInfo> Option;
+        public static DataBank<BodyInfo> Body;
+        public static DataBank<ItemInfo> Item;
+        public static DataBank<ItemBatch> ItemBatch;
+        public static DataBank<Enemy> Enemy;
+        public static DataBank<Level> Level;
+        public static DataBank<Boss> Boss;
+        public static DataBank<Player> Player;
+        public static DataBank<Conversation> Conversation;
+        public static DataBank<ScriptBase> Behavior;
+        public static DataBank<ScriptBase> Trajectory;
+        public static DataBank<ScriptBase> Spawn;
 
         
 
@@ -91,9 +63,6 @@ namespace Exeggcute.src.assets
                    Trajectory.ContainsKey(name) ||
                    Behavior.ContainsKey(name);
         }
-
-
-
 
         private static Dictionary<string, RepeatedSound> repeatedSoundCache =
             new Dictionary<string, RepeatedSound>();
@@ -125,14 +94,55 @@ namespace Exeggcute.src.assets
             }
         }
 
+        public static void Reset()
+        {
+            Sfx          = new XnaBank<SoundEffect>("sfx", "xnb");
+            Font         = new XnaBank<SpriteFont>("fonts", "xnb");
+            Model        = new XnaBank<Model>("models", "xnb");
+            Texture      = new XnaBank<Texture2D>("sprites", "xnb");
+            Song         = new XnaBank<Song>("songs", "xnb");
+            Effect       = new XnaBank<Effect>("shaders", "xnb");
+            Sprite       = new DataBank<Sprite>("sprites", "sprite");
+            Option       = new DataBank<OptionInfo>("options", "option");
+            Body         = new DataBank<BodyInfo>("bodies", "body");
+            Item         = new DataBank<ItemInfo>("items", "item");
+            ItemBatch    = new DataBank<ItemBatch>("itembatches", "item");
+            Enemy        = new DataBank<Enemy>("enemies", "enemy");
+            Level        = new DataBank<Level>("levels", "level");
+            Boss         = new DataBank<Boss>("bosses", "boss");
+            Player       = new DataBank<Player>("players", "player");
+            Conversation = new DataBank<Conversation>("convo", "txt");
+            Behavior     = new DataBank<ScriptBase>("scripts/behaviors", "cl");
+            Trajectory   = new DataBank<ScriptBase>("scripts/trajectories", "traj");
+            Spawn        = new DataBank<ScriptBase>("scripts/spawns", "spawn");
+        
+        }
+
         public static void LoadAll(ContentManager content)
         {
+            Texture.LoadAll(content);//must be first
+            Font.LoadAll(content);
+            Effect.LoadAll(content);
+            Model.LoadAll(content);
+            Sfx.LoadAll(content);
+            Song.LoadAll(content);
 
+            Sprite.LoadAll();
+            Body.LoadAll();
+            Behavior.LoadAll();
+            Trajectory.LoadAll();
+            Spawn.LoadAll();
+            Item.LoadAll();
+            ItemBatch.LoadAll();
+            Option.LoadAll();
+            Conversation.LoadAll();
+            Enemy.LoadAll();
+            Player.LoadAll();
+
+            Boss.LoadAll();
+            Level.LoadAll();
+            
         }
 
-        public static void UnloadAll(ContentManager content)
-        {
-
-        }
     }
 }

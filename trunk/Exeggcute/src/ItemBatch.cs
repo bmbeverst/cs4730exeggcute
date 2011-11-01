@@ -26,10 +26,9 @@ namespace Exeggcute.src
 
         }
 
-        static ItemBatchLoader loader = new ItemBatchLoader();
         public static ItemBatch LoadFromFile(string filename)
         {
-            return loader.Load(filename);
+            return Loaders.ItemBatch.Load(filename);
         }
 
         public void Release(HashList<Item> itemList, Vector3 deathPos)
@@ -48,7 +47,7 @@ namespace Exeggcute.src
             List<Item> copy = new List<Item>();
             foreach (Item item in myItems)
             {
-                copy.Add(item.Copy());
+                copy.Add(item.Clone());
             }
             return new ItemBatch(copy, dispersion);
         }

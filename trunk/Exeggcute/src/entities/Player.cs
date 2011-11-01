@@ -51,7 +51,7 @@ namespace Exeggcute.src.entities
 
         protected int graze;
         protected int power;
-        protected const int POWER_MAX = 128;
+        protected int powerMax;
         protected float rollAngle;
         protected float pitchAngle;
 
@@ -98,6 +98,9 @@ namespace Exeggcute.src.entities
             this.Name = name;
             this.arsenalList = arsenalList;
             this.thresholds = thresholds;
+
+            this.powerMax = thresholds[thresholds.Count - 1];
+
             this.attackPtr = 0;
             this.arsenal = arsenalList[attackPtr];
 
@@ -122,10 +125,9 @@ namespace Exeggcute.src.entities
             BombSprite = Assets.Sprite["bomb"];
         }
 
-        static PlayerLoader loader = new PlayerLoader();
         public static Player LoadFromFile(string filename)
         {
-            return loader.LoadFromFile(filename);
+            return Loaders.Player.LoadFromFile(filename);
         }
 
         public void LockPosition(Rectangle gameArea)
@@ -376,7 +378,7 @@ namespace Exeggcute.src.entities
             string grazeString = string.Format("Graze       {0:0,000}", graze);
             batch.DrawString(scoreFont, grazeString, new Vector2(10, 150), Color.White);
             string powerString = string.Format("Power         {0,3}", power);
-            if (power >= POWER_MAX)
+            if (power == powerMax)
             {
                 powerString = "Power       -MAX-";
             }
@@ -388,7 +390,7 @@ namespace Exeggcute.src.entities
         {
             power = thresholds[attackPtr] + 1;
             attackPtr += 1;
-            if (power > POWER_MAX || attackPtr == arsenalList.Count || attackPtr > upgrade.Max)
+            if (power > powerMax || attackPtr == arsenalList.Count || attackPtr > upgrade.Max)
             {
                 attackPtr = 0;
                 power = 0;
@@ -421,29 +423,45 @@ namespace Exeggcute.src.entities
             //throw new InvalidOperationException("can only collect types of items");
         }
 
+        public void Collect(ExtraBomb extraBomb)
+        {
+            bombs += 1;
+            
+        }
+
         public void Collect(ExtraLife life)
         {
             lives += 1;
-            
         }
 
         public void Collect(PowerItem pitem)
         {
+            World.ConsoleWrite(thresholds.ToList());
 
-            power += 1;
-            if (power > thresholds[attackPtr])
+            if (power < powerMax)
             {
-                if (attackPtr < arsenalList.Count - 1)
-                {
-                    attackPtr += 1;
-                    Assets.Sfx["powerup"].Play();
-                    this.arsenal = CurrentAttack;
-                }
-                else
-                {
-                    
-                }
+                power += 1;
             }
+            else
+            {
+                
+            }
+
+            if ((attackPtr < arsenalList.Count - 1 &&
+                power > thresholds[attackPtr+1]) || 
+                (power == powerMax &&
+                attackPtr < thresholds.Count - 1))
+            {
+                attackPtr += 1;
+                Assets.Sfx["powerup"].Play();
+                this.arsenal = CurrentAttack;
+            }
+            
+
+
+
+           
+            
             
         }
 

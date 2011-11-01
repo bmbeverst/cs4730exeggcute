@@ -12,7 +12,6 @@ namespace Exeggcute.src.console.commands
         Trajectory,
         Body,
         Boss,
-        Campaign,
         Enemy,
         GibBatch,
         Item,

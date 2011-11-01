@@ -19,15 +19,13 @@ namespace Exeggcute.src.graphics
         }
         public virtual Rectangle FrameRect { get; protected set; }
 
-        protected static SpriteLoader spriteLoader = new SpriteLoader();
-
         public abstract void Update();
         public abstract void Draw(SpriteBatch batch, Vector2 pos);
         public abstract void Draw(SpriteBatch batch, Vector2 pos, float rotationRadians);
 
         public static Sprite LoadFromFile(string filename)
         {
-            return spriteLoader.LoadFromFile(filename);
+            return Loaders.Sprite.LoadFromFile(filename);
         }
 
     }

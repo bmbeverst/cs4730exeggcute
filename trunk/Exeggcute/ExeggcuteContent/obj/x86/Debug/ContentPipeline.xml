@@ -377,15 +377,6 @@
       <Time>2011-10-27T02:24:50.3105468-04:00</Time>
     </Item>
     <Item>
-      <Source>sfx\testDialogue.wav</Source>
-      <Name>sfx\testDialogue</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\M\Desktop\Exeggcute\Exeggcute\bin\x86\Debug\ExeggcuteContent\sfx\testDialogue.xnb</Output>
-      <Time>2011-10-26T17:49:28.4257812-04:00</Time>
-    </Item>
-    <Item>
       <Source>sfx\dink0.wav</Source>
       <Name>sfx\dink0</Name>
       <Importer>WavImporter</Importer>

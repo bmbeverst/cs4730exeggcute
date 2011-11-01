@@ -164,17 +164,26 @@
     <Compile Include="src\console\KeyboardManager.cs" />
     <Compile Include="src\console\commands\GoCommand.cs" />
     <Compile Include="src\DataSet.cs" />
-    <Compile Include="src\entities\SoundAction.cs" />
+    <Compile Include="src\entities\items\PointItem.cs" />
+    <Compile Include="src\entities\items\ExtraBomb.cs" />
+    <Compile Include="src\ResetException.cs" />
+    <Compile Include="src\scripting\action\SoundAction.cs" />
     <Compile Include="src\GibBatch.cs" />
     <Compile Include="src\HealthBar.cs" />
     <Compile Include="src\loading\BodyInfo.cs" />
+    <Compile Include="src\loading\BossLoader.cs" />
+    <Compile Include="src\loading\ConversationInfo.cs" />
+    <Compile Include="src\loading\ConversationLoader.cs" />
     <Compile Include="src\loading\EnemyInfo.cs" />
     <Compile Include="src\loading\EnemyLoader.cs" />
     <Compile Include="src\loading\FieldSetter.cs" />
     <Compile Include="src\loading\GibInfo.cs" />
     <Compile Include="src\loading\Loadable.cs" />
+    <Compile Include="src\loading\Loader.cs" />
     <Compile Include="src\loading\LoaderError.cs" />
+    <Compile Include="src\loading\Loaders.cs" />
     <Compile Include="src\loading\MethodNotFoundError.cs" />
+    <Compile Include="src\loading\OptionLoader.cs" />
     <Compile Include="src\Manifest.cs" />
     <Compile Include="src\Sandbox.cs" />
     <Compile Include="src\scripting\action\UpgradeAction.cs" />
@@ -183,8 +192,6 @@
     <Compile Include="src\sound\RepeatedSound.cs" />
     <Compile Include="src\scripting\ScriptBase.cs" />
     <Compile Include="src\Alignment.cs" />
-    <Compile Include="src\assets\ConversationBank.cs" />
-    <Compile Include="src\assets\PlayerBank.cs" />
     <Compile Include="src\Campaign.cs" />
     <Compile Include="src\contexts\LevelOverEvent.cs" />
     <Compile Include="src\contexts\PauseEvent.cs" />
@@ -199,12 +206,11 @@
     <Compile Include="src\gui\PlayerButton.cs" />
     <Compile Include="src\gui\PlayerMenu.cs" />
     <Compile Include="src\gui\ReallyQuitMenu.cs" />
-    <Compile Include="src\ItemEntry.cs" />
+    <Compile Include="src\loading\ItemInfo.cs" />
     <Compile Include="src\LevelSummaryMenu.cs" />
     <Compile Include="src\LightSettings.cs" />
-    <Compile Include="src\loading\InfoLoader.cs" />
+    <Compile Include="src\loading\LoadedInfo.cs" />
     <Compile Include="src\loading\LevelLoader.cs" />
-    <Compile Include="src\loading\PlayerWeaponLoader.cs" />
     <Compile Include="src\loading\specs\LevelInfo.cs" />
     <Compile Include="src\loading\specs\PlayerInfo.cs" />
     <Compile Include="src\loading\TerrainInfo.cs" />
@@ -252,7 +258,7 @@
     <Compile Include="src\ServerTest.cs" />
     <Compile Include="src\SubclassShouldImplementError.cs" />
     <Compile Include="src\graphics\WangMesh.cs" />
-    <Compile Include="src\scripting\arsenal\OptionInfo.cs" />
+    <Compile Include="src\loading\specs\OptionInfo.cs" />
     <Compile Include="src\ScoreSet.cs" />
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\EntityManager.cs" />
@@ -270,7 +276,6 @@
     <Compile Include="src\Difficulty.cs" />
     <Compile Include="src\entities\items\Item.cs" />
     <Compile Include="src\entities\Enemy.cs" />
-    <Compile Include="src\entities\EnemyInfo.cs" />
     <Compile Include="src\entities\Entity.cs" />
     <Compile Include="src\HashList.cs" />
     <Compile Include="src\entities\Spawner.cs" />
@@ -349,6 +354,9 @@
     <Compile Include="src\graphics\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\convo\1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\players\0c.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -532,6 +540,9 @@
     <Content Include="data\scripts\trajectories\sine.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\convo\0.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -586,9 +597,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\gibs\gibtest.gib">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\msg_boxes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="score.bin">

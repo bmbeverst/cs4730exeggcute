@@ -18,7 +18,7 @@ namespace Exeggcute.src.entities.items
             
         }
 
-        public abstract Item Copy();
+        public abstract Item Clone();
         public abstract void Collect(Player player);
 
         public override void Update()
