@@ -11,8 +11,9 @@ namespace Exeggcute.src.console
     class CommandParser
     {
         public static Dictionary<Keyword, string> Usages { get; protected set; }
-
-        public CommandParser()
+        private static Dictionary<Keyword, string[]> aliasHelper;
+        public static Dictionary<string, Keyword> Aliases;
+        static CommandParser()
         {
             Usages = new Dictionary<Keyword, string> {
                 { Keyword.Help, HelpCommand.Usage },
@@ -27,10 +28,44 @@ namespace Exeggcute.src.console
                 { Keyword.Exit, ExitCommand.Usage },
                 { Keyword.Doc, DocCommand.Usage },
                 { Keyword.WhatIs, WhatIsCommand.Usage },
-                { Keyword.Set, SetCommand.Usage },
+                { Keyword.SetParam, SetParamCommand.Usage },
                 { Keyword.Track, TrackCommand.Usage },
-                { Keyword.Clear, ClearCommand.Usage }
+                { Keyword.Clear, ClearCommand.Usage },
+                { Keyword.SetGlobal, SetGlobalCommand.Usage },
             };
+
+            aliasHelper = new Dictionary<Keyword, string[]>
+            {
+                { Keyword.Help, new string[] { "h" }  },
+                { Keyword.Exit, new string[] { "quit" } },
+                { Keyword.LevelTask, new string[] { "task" } },
+                { Keyword.SetGlobal, new string[] { "setglob", "glob", "global"} },
+                { Keyword.SetParam, new string[] { "set" } }
+            };
+            Aliases = new Dictionary<string, Keyword>();
+            foreach (var pair in aliasHelper)
+            {
+                Keyword word = pair.Key;
+                foreach (string alias in pair.Value)
+                {
+                    Aliases[alias] = word;
+                }
+            }
+        }
+
+        public Keyword getKeyword(string name)
+        {
+            if (Aliases.ContainsKey(name))
+            {
+                return Aliases[name];
+            }
+            else
+            {
+                int dummy;
+                bool isInt = int.TryParse(name, out dummy);
+                if (isInt) throw new ParseError("invalid");
+                return Util.ParseEnum<Keyword>(name);
+            }
         }
 
         public ConsoleCommand Parse(DevConsole console, string input)
@@ -40,7 +75,7 @@ namespace Exeggcute.src.console
             Keyword type;
             try
             {
-                type = Util.ParseEnum<Keyword>(commandTypeString);
+                type = getKeyword(commandTypeString);
             }
             catch
             {
@@ -199,14 +234,14 @@ namespace Exeggcute.src.console
                     string typeName = tokens[1];
                     return new WhatIsCommand(console, typeName);
                 }
-                else if (type == Keyword.Set)
+                else if (type == Keyword.SetParam)
                 {
                     int id = int.Parse(tokens[1]);
                     string paramName = tokens[2];
                     int paramIndex = Entity3D.NameToIndex(paramName);
                     if (paramIndex == -1) throw new ParseError("{0} is not a settable parameter", paramName);
                     FloatValue value = FloatValue.Parse(tokens[3]);
-                    return new SetCommand(console, id, paramIndex, value);
+                    return new SetParamCommand(console, id, paramIndex, value);
 
                 }
                 else if (type == Keyword.Track)
@@ -248,9 +283,15 @@ namespace Exeggcute.src.console
                     string thing = tokens.Length == 1? null : tokens[1];
                     return new ClearCommand(console, thing);
                 }
+                else if (type == Keyword.SetGlobal)
+                {
+                    string param = tokens[1];
+                    string value = tokens[2];
+                    return new SetGlobalCommand(console, param, value);
+                }
                 else
                 {
-                    
+
                     return HelpCommand.MakeUnhandled(console, type);
                 }
             }

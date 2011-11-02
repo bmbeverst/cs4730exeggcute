@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Exeggcute.src.console.commands
 {
-    class SetCommand : ConsoleCommand
+    class SetParamCommand : ConsoleCommand
     {
         public static string Usage =
 @"    
-    Set ID PARAM VALUE  
+    SetParam ID PARAM VALUE  
                         Sets parameter PARAM to VALUE for the entity whose id 
                         is ID. Try 'whatis param' for a list of settable 
                         parameters.";
@@ -18,7 +18,7 @@ namespace Exeggcute.src.console.commands
         public int ParamIndex { get; protected set; }
         public FloatValue Value { get; protected set; }
 
-        public SetCommand(DevConsole console, int id, int paramIndex, FloatValue value)
+        public SetParamCommand(DevConsole console, int id, int paramIndex, FloatValue value)
             : base(console)
         {
             this.ID = id;

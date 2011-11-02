@@ -24,9 +24,16 @@ namespace Exeggcute.src
         protected VisualizationData soundData = new VisualizationData();
 
 
+
+
         public virtual void AcceptCommand(ConsoleCommand command)
         {
             SubclassShouldImplement(command);
+        }
+
+        public virtual void AcceptCommand(SetGlobalCommand global)
+        {
+            SubclassShouldImplement(global);
         }
 
         public virtual void AcceptCommand(BuiltinCommand cmd)
@@ -44,7 +51,7 @@ namespace Exeggcute.src
             SubclassShouldImplement(track);
         }
 
-        public virtual void AcceptCommand(SetCommand set)
+        public virtual void AcceptCommand(SetParamCommand set)
         {
             SubclassShouldImplement(set);
         }

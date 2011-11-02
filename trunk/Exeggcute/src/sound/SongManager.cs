@@ -57,8 +57,21 @@ namespace Exeggcute.src.sound
             MediaPlayer.Resume();
         }
 
-        public void Update()
+        public void Update(bool toggled)
         {
+            if (toggled)
+            {
+                if (isPaused)
+                {
+                    MediaPlayer.Resume();
+                    isPaused = false;
+                }
+                else
+                {
+                    MediaPlayer.Pause();
+                    isPaused = true;
+                }
+            }
             if (isPaused) return;
             if (State == SongState.FadeIn)
             {

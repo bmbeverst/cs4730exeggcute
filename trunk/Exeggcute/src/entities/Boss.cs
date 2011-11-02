@@ -238,9 +238,10 @@ namespace Exeggcute.src.entities
             return Loaders.Boss.Load(filename);
         }
 
-        public void Draw2D(SpriteBatch batch)
+        public override void Draw2D(SpriteBatch batch)
         {
             if (HealthMeter != null) HealthMeter.Draw(batch, new Vector2(0, 0));
+            base.Draw2D(batch);
         }
 
         

@@ -152,7 +152,9 @@
     <Compile Include="src\console\commands\ClearCommand.cs" />
     <Compile Include="src\console\commands\ConsoleCommand.cs" />
     <Compile Include="src\console\commands\DocCommand.cs" />
-    <Compile Include="src\console\commands\SetCommand.cs" />
+    <Compile Include="src\console\commands\MakeCommand.cs" />
+    <Compile Include="src\console\commands\SetParamCommand.cs" />
+    <Compile Include="src\console\commands\SetGlobalCommand.cs" />
     <Compile Include="src\console\commands\TrackCommand.cs" />
     <Compile Include="src\console\commands\WhatIsCommand.cs" />
     <Compile Include="src\console\commands\ExitCommand.cs" />
@@ -172,6 +174,7 @@
     <Compile Include="src\console\trackers\EntityTracker.cs" />
     <Compile Include="src\console\trackers\HudTracker.cs" />
     <Compile Include="src\console\trackers\Tracker.cs" />
+    <Compile Include="src\ContextStack.cs" />
     <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\items\PointItem.cs" />
     <Compile Include="src\entities\items\ExtraBomb.cs" />
@@ -605,7 +608,9 @@
     <None Include="lib\Nuclex.Input.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\SlimDX.DirectInput.dll" />
+    <None Include="lib\SlimDX.DirectInput.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="data\levels\0.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -621,7 +626,12 @@
     </Content>
     <Content Include="HOWTO.txt" />
     <Content Include="Exeggcute.ico" />
-    <Content Include="lib\Ionic.Zip.dll" />
+    <None Include="lib\Ionic.Zip.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="init">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Thumbnail.png" />
     <Content Include="settings.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -115,6 +115,16 @@ namespace Exeggcute.src
             }
         }
 
+        internal static void WriteFile(string filepath, List<string> lines)
+        {
+            string total = "";
+            foreach (string line in lines)
+            {
+                total += line + '\n';
+            }
+            WriteFile(filepath, total);
+        }
+
         internal static string MangleName(string name, string extra)
         {
             return string.Format("{0}&{1}", name, extra);
