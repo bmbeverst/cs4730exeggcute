@@ -70,14 +70,14 @@ namespace Exeggcute.src.gui
 
         protected override void moveUp()
         {
-            World.SendMove(Direction.Up);
+            parent.Move(Direction.Up);
             IsActive = false;
             player.ResetFromDemo();
         }
 
         protected override void moveDown()
         {
-            World.SendMove(Direction.Down);
+            parent.Move(Direction.Down);
             IsActive = false;
             player.ResetFromDemo();
         }

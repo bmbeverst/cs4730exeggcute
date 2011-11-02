@@ -7,11 +7,10 @@ namespace Exeggcute.src.scripting.task
 {
     class TaskListLoader : ScriptParser<Task>
     {
-
-
-
-        public override List<Task> ParseElement(Stack<string> tokens)
+        public override List<Task> ParseElement(string input)
         {
+            string[] split = input.Split(' ');
+            Stack<string> tokens = Util.Stackify<string>(split);
             TaskType type = Util.ParseEnum<TaskType>(tokens.Pop());
             if (type == TaskType.Spawn)
             {

@@ -15,14 +15,14 @@ namespace Exeggcute.src.console.commands
                         parameters.";
 
         public int ID { get; protected set; }
-        public string ParamName { get; protected set; }
-        public string Value { get; protected set; }
+        public int ParamIndex { get; protected set; }
+        public FloatValue Value { get; protected set; }
 
-        public SetCommand(DevConsole console, int id, string param, string value)
+        public SetCommand(DevConsole console, int id, int paramIndex, FloatValue value)
             : base(console)
         {
             this.ID = id;
-            this.ParamName = param;
+            this.ParamIndex = paramIndex;
             this.Value = value;
         }
 

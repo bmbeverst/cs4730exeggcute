@@ -85,7 +85,7 @@ namespace Exeggcute.src
                 }
                 catch (SocketException e)
                 {
-                    Console.WriteLine("Unable to connect to server.");
+                    Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
                     return;
                 }
 
@@ -179,9 +179,9 @@ namespace Exeggcute.src
 
             if (!networkAlreadyLoaded)
             {
-                byte[] data;
-                int receivedDataLength;
-                string stringData;
+                //byte[] data;
+                //int receivedDataLength;
+                //string stringData;
 
                 int counter = 0;
                 bool duplicate = false;
@@ -209,7 +209,7 @@ namespace Exeggcute.src
                         }
                         catch (SocketException e)
                         {
-                            Console.WriteLine("Unable to connect to server.");
+                            Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
                             return;
                         }
 

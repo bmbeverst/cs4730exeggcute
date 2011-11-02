@@ -99,6 +99,19 @@ namespace Exeggcute.src.entities
             throw new NotImplementedException(message);
         }
 
+        public virtual void Process(IfAction doIf)
+        {
+            float valueToCompare = param[doIf.ParamIndex];
+            if (doIf.Test(valueToCompare))
+            {
+                doIf.InnerAction.Process(this);
+            }
+            else
+            {
+                ActionPtr += 1;
+            }
+        }
+
         public virtual void Process(UpgradeAction upgrade)
         {
             throw new SubclassShouldImplementError("For player only");
@@ -130,9 +143,6 @@ namespace Exeggcute.src.entities
                     break;
                 }
             }
-            /////////////////////////////////////////////
-            //ActionBase current = actionList[cmdPtr];
-            //current.Process(this);
             
         }
         public virtual void Process(DeleteAction delete)
@@ -143,12 +153,12 @@ namespace Exeggcute.src.entities
 
         public virtual void Process(SoundAction sound)
         {
-            throw new SubclassShouldImplementError();
+            throw new SubclassShouldImplementError("Only for spawner");
         }
 
         public virtual void Process(ShootAction shoot)
         {
-            throw new SubclassShouldImplementError();
+            throw new SubclassShouldImplementError("Only for ParentEntity");
         }
 
         public virtual void Process(MoveAbsAction moveTo)
@@ -176,7 +186,7 @@ namespace Exeggcute.src.entities
 
         protected virtual void aimAtPlayer()
         {
-            Vector3? playerPos = World.GetPlayerPosition();
+            Vector3? playerPos = Worlds.World.GetPlayerPosition();
             if (playerPos != null)
             {
                 AimAngle = Util.AimAt(Position, playerPos.Value);

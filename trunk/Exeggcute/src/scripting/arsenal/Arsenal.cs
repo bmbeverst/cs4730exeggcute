@@ -35,6 +35,7 @@ namespace Exeggcute.src.scripting.arsenal
 
         public Arsenal Copy()
         {
+
             return new Arsenal(entries);
         }
 
@@ -78,11 +79,11 @@ namespace Exeggcute.src.scripting.arsenal
             spawners.ForEach(sp => sp.Stop());
         }
 
-        public void Draw(GraphicsDevice graphics, Matrix view, Matrix projection, Vector3 parentPos)
+        public void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             foreach (Spawner sp in spawners)
             {
-                sp.Draw(graphics, view, projection);
+                sp.Draw3D(graphics, view, projection);
             }
 
         }

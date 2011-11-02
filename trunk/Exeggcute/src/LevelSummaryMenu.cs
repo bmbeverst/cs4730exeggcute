@@ -45,7 +45,7 @@ namespace Exeggcute.src
                 controls[Ctrl.Action].DoEatPress())
             {
                 IsDone = true;
-                World.LoadNextLevel(Hud, Player, true);
+                Worlds.World.LoadNextLevel(Hud, Player, true);
             }
         }
 

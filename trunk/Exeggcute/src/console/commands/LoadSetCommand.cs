@@ -11,8 +11,7 @@ namespace Exeggcute.src.console.commands
         public static string Usage = 
 @"
     LoadSet DATASET     Loads the primary dataset to be DATASET and saves this
-                        the the manifest and then restarts the engine. 
-";
+                        the the manifest and then restarts the engine.";
 
                         
         public string Name { get; protected set; }

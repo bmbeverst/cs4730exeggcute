@@ -20,7 +20,6 @@ namespace Exeggcute.src
         {
             string filepath = string.Format("data/campaigns/{0}.campaign", name);
             levelNames = Util.ReadAndStrip(filepath, true);
-            World.ConsoleWrite(levelNames);
         }
     }
 }

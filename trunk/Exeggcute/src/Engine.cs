@@ -47,6 +47,8 @@ namespace Exeggcute.src
             YRes = 900;
             FPS = 60;
         }
+
+        public static readonly bool WRITE_LOG = false;
         public static readonly float FIELD_OF_VIEW = MathHelper.PiOver4;
         public ControlManager controls;
 
@@ -58,15 +60,15 @@ namespace Exeggcute.src
         protected DataSet dataSet;
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input, string dataSetName)
         {
-            World.Initialize(this, content, graphics);
+            Worlds.Reset(this, content, graphics);
             Assets.LoadAll(content);
 
-            World.MakeConsole();
+            Worlds.World.MakeOverlay();
 
             manifest = new Manifest(dataSetName);
             dataSet = new DataSet(manifest.DataFileName, manifest.ForceOverwrite);
 
-            World.Begin();
+            Worlds.World.Begin();
             
             scoreSet = new ScoreSet();
             controls = new ControlManager(input);
@@ -86,7 +88,7 @@ namespace Exeggcute.src
             frame += 1;
             controls.Update();
             //Console.WriteLine(controls.MousePosition);
-            World.Update(controls);
+            Worlds.World.Update(controls);
             
             if (controls[Ctrl.Quit].IsPressed)
             {
@@ -94,7 +96,7 @@ namespace Exeggcute.src
             }
             if (controls[Ctrl.Start].DoEatPress())
             {
-                World.Pause();
+                Worlds.World.Pause();
             }
             
         }
@@ -102,7 +104,7 @@ namespace Exeggcute.src
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
             graphics.Clear(ClearOptions.DepthBuffer, Color.HotPink, 1.0f, 0);//easy to notice bleeding!
-            World.Draw(graphics, batch);
+            Worlds.World.Draw(graphics, batch);
             resetRenderState(graphics);
         }
 

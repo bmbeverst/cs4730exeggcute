@@ -28,13 +28,14 @@ namespace Exeggcute.src.console
                 { Keyword.Doc, DocCommand.Usage },
                 { Keyword.WhatIs, WhatIsCommand.Usage },
                 { Keyword.Set, SetCommand.Usage },
-                { Keyword.Track, TrackCommand.Usage }
+                { Keyword.Track, TrackCommand.Usage },
+                { Keyword.Clear, ClearCommand.Usage }
             };
         }
 
         public ConsoleCommand Parse(DevConsole console, string input)
         {
-            string[] tokens = input.Split(' ');
+            string[] tokens = input.TrimStart(' ').Split(' ');
             string commandTypeString = tokens[0];
             Keyword type;
             try
@@ -43,10 +44,18 @@ namespace Exeggcute.src.console
             }
             catch
             {
-                return HelpCommand.MakeTypeFailure(console, commandTypeString);
+                Builtin cmd;
+                try
+                {
+                    cmd = Util.ParseEnum<Builtin>(tokens[0]);
+                    return parseBuiltin(console, cmd, tokens);
+                }
+                catch
+                {
+                    return HelpCommand.MakeTypeFailure(console, commandTypeString);
+                }
             }
 
-            ConsoleCommand command;
             try
             {
                 if (type == Keyword.Go)
@@ -68,7 +77,8 @@ namespace Exeggcute.src.console
                         }
                         catch
                         {
-                            return HelpCommand.MakeGeneric(console, "uh");
+                            string msg = string.Format("No known help topic named \"{0}\"", tokens[1]);
+                            return HelpCommand.MakeGeneric(console, msg);
                         }
                     }
                     else
@@ -193,8 +203,10 @@ namespace Exeggcute.src.console
                 {
                     int id = int.Parse(tokens[1]);
                     string paramName = tokens[2];
-                    string value = tokens[3];
-                    return new SetCommand(console, id, paramName, value);
+                    int paramIndex = Entity3D.NameToIndex(paramName);
+                    if (paramIndex == -1) throw new ParseError("{0} is not a settable parameter", paramName);
+                    FloatValue value = FloatValue.Parse(tokens[3]);
+                    return new SetCommand(console, id, paramIndex, value);
 
                 }
                 else if (type == Keyword.Track)
@@ -231,16 +243,28 @@ namespace Exeggcute.src.console
 
 
                 }
+                else if (type == Keyword.Clear)
+                {
+                    string thing = tokens.Length == 1? null : tokens[1];
+                    return new ClearCommand(console, thing);
+                }
                 else
                 {
+                    
                     return HelpCommand.MakeUnhandled(console, type);
                 }
             }
             catch
             {
+
                 string msg = string.Format("Invalid arguments for type {0}.\nEnter 'help {0}' for details.", type);
                 return HelpCommand.MakeGeneric(console, msg);
             }
+        }
+
+        protected ConsoleCommand parseBuiltin(DevConsole console, Builtin cmd, string[] tokens)
+        {
+            return new BuiltinCommand(console, cmd);
         }
 
         

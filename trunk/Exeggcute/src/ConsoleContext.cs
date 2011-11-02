@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.console.commands;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src
 {
@@ -20,9 +21,22 @@ namespace Exeggcute.src
         public abstract void Unload();
         public abstract void Dispose();
 
+        protected VisualizationData soundData = new VisualizationData();
+
+
         public virtual void AcceptCommand(ConsoleCommand command)
         {
             SubclassShouldImplement(command);
+        }
+
+        public virtual void AcceptCommand(BuiltinCommand cmd)
+        {
+            SubclassShouldImplement(cmd);
+        }
+
+        public virtual void AcceptCommand(ClearCommand clear)
+        {
+            SubclassShouldImplement(clear);
         }
 
         public virtual void AcceptCommand(TrackCommand track)

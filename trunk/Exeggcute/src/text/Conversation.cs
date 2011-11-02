@@ -54,7 +54,7 @@ namespace Exeggcute.src.text
             {
                 IsDone = true;
                 BoxList.Reset();
-                World.Pop(/*this*/);
+                Worlds.World.Pop(/*this*/);
             }
         }
 

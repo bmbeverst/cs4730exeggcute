@@ -24,7 +24,7 @@ namespace Exeggcute.src
                 }
                 catch (IOException ioe)
                 {
-                    World.ConsoleWrite("{0}\nNo manifest found! Creating default.", ioe.Message);
+                    Worlds.World.ConsoleWrite("{0}\nNo manifest found! Creating default.", ioe.Message);
 
                     Util.WriteFile(manifestPath, defaultText);
                     lines = new List<string> { defaultText };

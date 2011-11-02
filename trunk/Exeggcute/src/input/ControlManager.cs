@@ -60,6 +60,9 @@ namespace Exeggcute.src
         public int MouseWheelDelta { get; protected set; }
         public Vector2 MousePosition { get; protected set; }
 
+        private Keyflag none = new Keyflag();
+        private bool allEaten = false;
+
         /// <summary>
         /// Creates a new control manager wrapper around an InputManager object.
         /// </summary>
@@ -155,7 +158,11 @@ namespace Exeggcute.src
         /// <param name="ctrl">the ctrl to be queried</param>
         public Keyflag this[Ctrl ctrl]
         {
-            get { return keyFlags[ctrl]; }
+            get 
+            {
+                if (allEaten) return none;
+                return keyFlags[ctrl]; 
+            }
         }
 
 
@@ -168,6 +175,7 @@ namespace Exeggcute.src
         /// </summary>
         public void Update()
         {
+            allEaten = false;
             UpdateInput();
             var kbState = Input.GetKeyboard(PlayerIndex.One).GetState();
             var gpState = Input.GetGamePad(ExtendedPlayerIndex.Five).GetState();
@@ -194,6 +202,11 @@ namespace Exeggcute.src
             nowLeftClicked = (mouseState.LeftButton == ButtonState.Pressed);
             IsLeftClicking = ( nowLeftClicked && !prevLeftClicked);
             prevLeftClicked = nowLeftClicked;
+        }
+
+        public void EatAll()
+        {
+            allEaten = true;
         }
 
         public void UpdateInput()

@@ -57,7 +57,7 @@ namespace Exeggcute.src.entities
                                      ModelRotation,
                                      Health, 
                                      Defence, 
-                                     arsenal,
+                                     arsenal.Copy(),
                                      (BehaviorScript)script,
                                      deathScript,
                                      deathSound,
@@ -94,7 +94,7 @@ namespace Exeggcute.src.entities
 
             if (Health <= 0 && !IsDying)
             {
-                World.AddDying(this);
+                Worlds.World.AddDying(this);
                 IsDying = true;
                 script = deathScript;
                 ActionPtr = 0;
@@ -114,14 +114,15 @@ namespace Exeggcute.src.entities
             {
                 //FIXME double copying
                 Gib newGib = new Gib(gib.Surface, gib.Texture, gib.Scale, gib.Radius, gib.ModelRotation, Position2D, Speed, Angle);
-                World.AddGib(newGib);
+                Worlds.World.AddGib(newGib);
             }
-            World.ReleaseItems(heldItems, deathpos);
+            Worlds.World.ReleaseItems(heldItems, deathpos);
         }
 
-        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        public override void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            base.Draw(graphics, view, projection);
+            base.Draw3D(graphics, view, projection);
+            arsenal.Draw3D(graphics, view, projection);
         }
 
     }

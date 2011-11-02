@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
+using Microsoft.Xna.Framework;
+using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.scripting.action
 {
@@ -16,8 +18,10 @@ namespace Exeggcute.src.scripting.action
         }
 
 
-        public override List<ActionBase> ParseElement(Stack<string> tokens)
+        public override List<ActionBase> ParseElement(string input)
         {
+            string[] split = input.Split(' ');
+            Stack<string> tokens = Util.Stackify<string>(split);
             CommandType type = Util.ParseEnum<CommandType>(tokens.Pop());
 
             if (type == CommandType.MoveAbs)
@@ -128,6 +132,52 @@ namespace Exeggcute.src.scripting.action
             {
                 return new List<ActionBase>{
                     new SoundAction()
+                };
+            }
+            else if (type == CommandType.For)
+            {
+                string varName = "&";
+                Point3 bounds = Point3.Parse(tokens.Pop());
+                List<ActionBase> list = new List<ActionBase>();
+                string loopCommand = "";
+                int iMax = tokens.Count;
+                for (int i = 0; i < iMax; i += 1)
+                {
+                    loopCommand += tokens.Pop() + ' ';
+                }
+
+                for (int i = bounds.X; i < bounds.Y; i += bounds.Z)
+                {
+                    string newCommand = Regex.Replace(loopCommand, varName, i + "");
+                    List<ActionBase> looped = ParseElement(newCommand);
+                    list.AddRange(looped);
+
+                }
+
+                return list;
+
+            }
+            else if (type == CommandType.If)
+            {
+                string paramName = tokens.Pop();
+                string op = tokens.Pop();
+                FloatValue value = FloatValue.Parse(tokens.Pop());
+               
+
+                int paramIndex = Entity3D.NameToIndex(paramName);
+                if (paramIndex == -1)
+                {
+                    throw new ParseError("{0} is not a settable parameter", paramName);
+                }
+                string toDoString = Util.JoinStack(tokens, " ");
+
+                List<ActionBase> toDo = ParseElement(toDoString);
+                if (toDo.Count > 1)
+                {
+                    throw new NotImplementedException("If block not implemented, single actions only");
+                }
+                return new List<ActionBase> {
+                    new IfAction(paramIndex, op, value, toDo[0])
                 };
             }
             else

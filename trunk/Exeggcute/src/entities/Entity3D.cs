@@ -5,6 +5,7 @@ using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.console.trackers;
 
 namespace Exeggcute.src.entities
 {
@@ -18,6 +19,8 @@ namespace Exeggcute.src.entities
         
         public static Dictionary<string, int> ParamMap;
         public static List<string> validParameters = new List<string>();
+
+        protected List<Tracker> trackers = new List<Tracker>();
 
         static Entity3D()
         {
@@ -289,13 +292,7 @@ namespace Exeggcute.src.entities
 
             adjustMatrix();
 
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (ModelMeshPart part in mesh.MeshParts)
-                {
-                    part.Effect = Assets.Effect["light0"];
-                }
-            }
+            Util.SetEffect(Surface, Assets.Effect["light0"]);
 
         }
 
@@ -324,6 +321,16 @@ namespace Exeggcute.src.entities
             this.Position = Vector3.Zero;
             this.Radius = 0;
             this.Mass = 1;
+        }
+
+        public void AddTracker(Tracker tracker)
+        {
+            trackers.Add(tracker);
+        }
+
+        public void SurrenderTrackers()
+        {
+            trackers = new List<Tracker>();
         }
 
         public void SetPosition(Vector3 newpos)
@@ -369,6 +376,7 @@ namespace Exeggcute.src.entities
             ProcessPhysics();
             Hitbox = new BoundingSphere(Position, Radius);
             ModelHitbox = new BoundingSphere(Position, Scale * BaseModelRadius);
+            trackers.ForEach(tr => tr.Update());
         }
 
         protected virtual void ProcessPhysics()
@@ -385,7 +393,21 @@ namespace Exeggcute.src.entities
             Z += VelocityZ;
             ModelHitbox = new BoundingSphere(Position, ModelHitbox.Radius);
         }
-        public virtual void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+
+        public virtual void Draw2D(SpriteBatch batch)
+        {
+            if (trackers.Count > 0)
+            {
+                float scaleRadius = Scale * BaseModelRadius;
+                Vector2 adjustedBase = Position2D + new Vector2(-scaleRadius, 3*scaleRadius);
+                for (int i = 0; i < trackers.Count; i += 1)
+                {
+                    trackers[i].Draw2D(batch, Util.GameToScreen(adjustedBase) + new Vector2(0, -12 * i));
+                }
+            }
+        }
+
+        public virtual void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
             //FIXME subclass!
             if (Surface == null) return;
@@ -395,27 +417,15 @@ namespace Exeggcute.src.entities
             {
                 foreach (Effect currentEffect in mesh.Effects)
                 {
-                    //FIXME: absolutely no reason to do this every frame
-                    /*currentEffect.World = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationZ(Angle + MathHelper.PiOver2) *
-                        Matrix.CreateTranslation(Position);
-                    currentEffect.View = view;
-                    currentEffect.Projection = projection;*/
-
                     Matrix world = transforms[mesh.ParentBone.Index] *
-                        /*Matrix.CreateScale(Scale) *
-                        Matrix.CreateRotationX(ModelRotation.X) *
-                        Matrix.CreateRotationY(ModelRotation.Y) **/
                         BaseMatrix *
-                        Matrix.CreateRotationZ(Angle /*+ ModelRotation.Z*/) *
+                        Matrix.CreateRotationZ(Angle) *
                         Matrix.CreateTranslation(Position);
                     currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                     currentEffect.Parameters["xWorld"].SetValue(world);
                     currentEffect.Parameters["xView"].SetValue(view);
                     currentEffect.Parameters["xProjection"].SetValue(projection);
                     currentEffect.Parameters["xTexture"].SetValue(Texture);
-                  
                 }
                 mesh.Draw();
             }

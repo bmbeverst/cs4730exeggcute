@@ -3,51 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.entities;
+using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.assets;
+using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src.console.commands
 {
-    abstract class Tracker
-    {
-        protected Entity3D entity;
-        protected string format;
-        protected int[] indices;
-        protected int frequency;
-        protected int frame;
-
-        public Tracker(Entity3D entity, string format, int[] indices, int frequency)
-        {
-            this.entity = entity;
-            this.format = format;
-            this.indices = indices;
-            this.frequency = frequency;
-        }
-
-        public virtual void Update()
-        {
-            frame += 1;
-            if (frame % frequency == 0)
-            {
-                Emit();
-            }
-        }
-
-        public abstract void Emit();
-    }
-
-    class ConsoleTracker : Tracker
-    {
-        public ConsoleTracker(Entity3D entity, string format, int[] indices, int frequency)
-            : base(entity, format, indices, frequency)
-        {
-
-        }
-        public override void Emit()
-        {
-
-            Console.WriteLine(entity.FormattedQuery(format, indices));
-        }
-    }
-
     class TrackCommand : ConsoleCommand
     {
         public static string Usage =

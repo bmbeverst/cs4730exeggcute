@@ -52,9 +52,7 @@ namespace Exeggcute.src
         /// <param name="name"></param>
         public void Reset(string name)
         {
-
             Loaders.Reset();
-            World.Reset();
             Assets.Reset();
             
             ContentManager newContent = new ContentManager(Content.ServiceProvider);
@@ -62,7 +60,7 @@ namespace Exeggcute.src
             Content.RootDirectory = Engine.ContentRoot;
 
             engine = new Engine(GraphicsDevice, Content, new InputManager(), name);
-            if (name != null) World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
+            if (name != null) Worlds.World.ConsoleWrite("Reloaded to dataset \"{0}\"", name);
         }
 
         protected override void UnloadContent()

@@ -53,6 +53,11 @@ namespace Exeggcute.src.input
             return false;
         }
 
+        public bool CheckZip(int zipSpeed)
+        {
+            return JustPressed || Value >= zipSpeed;
+        }
+
 
         public void Incr()
         {

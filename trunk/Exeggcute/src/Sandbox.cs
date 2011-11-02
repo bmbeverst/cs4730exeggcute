@@ -7,6 +7,8 @@ using Exeggcute.src.entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.scripting.task;
+using Exeggcute.src.graphics;
+using Microsoft.Xna.Framework.Media;
 
 
 namespace Exeggcute.src
@@ -14,11 +16,13 @@ namespace Exeggcute.src
     class Sandbox : ConsoleContext
     {
 
+        protected WangMesh terrain;
+
         protected List<Task> taskList;
         protected int taskPtr;
 
         public EntityManager collider;
-        public Player Player;
+
         public Rectangle GameArea;
         public Rectangle LiveArea;
 
@@ -26,11 +30,17 @@ namespace Exeggcute.src
 
         protected Player player;
 
-        public Sandbox()
+        public Sandbox(WangMesh terrain)
         {
-            collider = new EntityManager();
-            GameArea = new Rectangle(-Level.HalfWidth, -Level.HalfHeight, Level.HalfWidth * 2, Level.HalfHeight * 2);
-            LiveArea = Util.GrowRect(GameArea, liveBuffer);
+            this.collider = new EntityManager();
+            this.GameArea = new Rectangle(-Level.HalfWidth, -Level.HalfHeight, Level.HalfWidth * 2, Level.HalfHeight * 2);
+            this.LiveArea = Util.GrowRect(GameArea, liveBuffer);
+            this.terrain = terrain;
+        }
+
+        public void AttachPlayer(Player player)
+        {
+            this.player = player;
         }
 
         public override void AcceptCommand(ConsoleCommand command)
@@ -56,7 +66,7 @@ namespace Exeggcute.src
 
         public virtual void Process(BarrierTask barrier)
         {
-            if (World.CanPassBarrier(barrier))
+            if (Worlds.World.CanPassBarrier(barrier))
             {
                 taskPtr += 1;
             }
@@ -69,7 +79,7 @@ namespace Exeggcute.src
 
         public virtual void Process(ClearTask task)
         {
-            World.ClearLists();
+            Worlds.World.ClearLists();
         }
 
         protected int waitCounter = 0;
@@ -85,7 +95,7 @@ namespace Exeggcute.src
 
         public virtual void Process(KillAllTask kill)
         {
-            World.KillEnemies();
+            Worlds.World.KillEnemies();
             taskPtr += 1;
         }
 
@@ -112,13 +122,14 @@ namespace Exeggcute.src
         public override void Update(ControlManager controls)
         {
             
-            if (Player != null)
+            if (player != null)
             {
-                Player.Update(controls, true);
-                //Player.LockPosition(GameArea);
-
+                player.Update(controls, true);
             }
             collider.UpdateAll(LiveArea);
+
+            MediaPlayer.GetVisualizationData(soundData);
+            terrain.Update(soundData.Frequencies);
         }
 
 
@@ -126,18 +137,19 @@ namespace Exeggcute.src
         {
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
-            if (Player != null)
+            if (player != null)
             {
-                Player.Draw(graphics, view, projection);
+                player.Draw3D(graphics, view, projection);
             }
 
-            collider.DrawAll(graphics, projection, view);
+            collider.DrawAll3D(graphics, view, projection);
+            terrain.Draw(graphics, view, projection);
         }
 
 
         public override void Draw2D(SpriteBatch batch)
         {
-
+            if (player != null) player.Draw2D(batch);
         }
 
         public override void Unload()

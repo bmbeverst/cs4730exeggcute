@@ -44,15 +44,14 @@ namespace Exeggcute.src.scripting
             List<List<TElement>> result = new List<List<TElement>>();
             for (int i = 0; i < size; i += 1)
             {
-                string line = lineStack.Pop();
-                string[] tokens = line.Split(DELIM);
-                Stack<string> tokenStack = Util.Stackify<string>(tokens);
+                string line = Util.FlattenSpace(lineStack.Pop());
+                
                 try
                 {
-                    List<TElement> parsed = ParseElement(tokenStack);
+                    List<TElement> parsed = ParseElement(line);
                     result.Add(parsed);
                 }
-                catch (FormatException format)
+                catch (FormatException)
                 {
                     failures.Add(string.Format("Improper data format for line \n    \"{0}\"", line));
                 }
@@ -88,7 +87,7 @@ namespace Exeggcute.src.scripting
             return GetRaw(filepath, lines);
         }
 
-        public abstract List<TElement> ParseElement(Stack<string> tokens);
+        public abstract List<TElement> ParseElement(string tokens);
         protected virtual string getName(string filepath)
         {
             return Path.GetFileNameWithoutExtension(filepath);

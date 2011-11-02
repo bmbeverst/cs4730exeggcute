@@ -7,6 +7,7 @@ using Exeggcute.src.text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Exeggcute.src.gui
 {
@@ -27,7 +28,9 @@ namespace Exeggcute.src.gui
         protected SoundEffect selectSound;
         protected SoundEffect cancelSound;
 
-        public Menu(List<Button> buttons, Rectangle bounds, bool loops)
+        protected WangMesh terrain;
+
+        public Menu(List<Button> buttons, Rectangle bounds, WangMesh terrain, bool loops)
         {
             Color bgColor = new Color(0, 170, 0);
             this.font = Assets.Font["consolas"];
@@ -35,6 +38,7 @@ namespace Exeggcute.src.gui
             this.buttonHeight = buttons[0].Height;
             this.cursor = 0;
             this.buttons = buttons;
+            this.terrain = terrain;
             this.loops = loops;
             this.buttonBounds = Util.NearestMult(bounds, 16);
             this.outline = new RectSprite(buttonBounds, bgColor, true);
@@ -86,6 +90,9 @@ namespace Exeggcute.src.gui
             ResolveCursor();
             buttons[cursor].Update(controls);
             ResolveCursor();
+
+            MediaPlayer.GetVisualizationData(soundData);
+            terrain.Update(soundData.Frequencies);
         }
 
         public override void Draw2D(SpriteBatch batch)
@@ -118,7 +125,7 @@ namespace Exeggcute.src.gui
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
-
+            terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
         }
 
 

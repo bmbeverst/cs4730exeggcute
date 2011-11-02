@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.loading;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.entities;
+using Exeggcute.src.console.trackers;
 
 namespace Exeggcute.src.console
 {
@@ -48,7 +49,8 @@ Keyboard controls:
         protected RectSprite bgRect;
         protected int bgAlpha = 200;
 
-        protected List<Tracker> trackers = new List<Tracker>();
+        protected bool inBackground;
+
         public DevConsole() 
         {
             Keywords = new Dictionary<string, bool>();
@@ -124,16 +126,20 @@ Keyboard controls:
             textBuffer.Update(kbManager);
             if (controls.IsLeftClicking)
             {
-                Entity3D clicked = World.GetUnderMouse(controls.MousePosition);
+                Entity3D clicked = Worlds.World.GetUnderMouse(controls.MousePosition);
                 Console.WriteLine(clicked);
                 if (clicked != null)
                 {
                     textBuffer.AddToBuffer(clicked.ID + " ");
                 }
             }
-            trackers.ForEach(tr => tr.Update());
             int delta = controls.MouseWheelDelta;
             outputPtr = Util.Clamp(outputPtr - delta, 0, output.Count - 8);
+            if (inBackground)
+            {
+                controls.EatAll();
+                Parent.Update(controls);
+            }
         }
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
@@ -248,20 +254,80 @@ Keyboard controls:
             WriteLine("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
         }
 
+        public override void AcceptCommand(BuiltinCommand cmd)
+        {
+            if (cmd.Command == Builtin.bg)
+            {
+                inBackground = true;
+            }
+            else if (cmd.Command == Builtin.fg)
+            {
+                inBackground = false;
+            }
+            else
+            {
+                WriteLine("Do not know how to handle {0}", cmd.Command);
+            }
+        }
+
         public override void AcceptCommand(TrackCommand track)
         {
-            if (!World.Entities.ContainsKey(track.ID))
+            if (!Worlds.World.Entities.ContainsKey(track.ID))
             {
                 WriteLine("No entity found with ID {0}", track.ID);
                 return;
             }
-            Entity3D entity = World.Entities[track.ID];
-            trackers.Add(new ConsoleTracker(entity, track.Format, track.Indices, track.Frequency));
+            Entity3D entity = Worlds.World.Entities[track.ID];
+            Tracker tracker;
+            if (Util.StrEq(track.Type, "console"))
+            {
+                tracker = new ConsoleTracker(entity, track.Format, track.Indices, track.Frequency);
+            }
+            else if (Util.StrEq(track.Type, "hud"))
+            {
+                tracker = new HudTracker(entity, track.Format, track.Indices, track.Frequency);
+            }
+            else if (Util.StrEq(track.Type, "entity"))
+            {
+                tracker = new EntityTracker(entity, track.Format, track.Indices, track.Frequency);
+                Worlds.World.AttachTracker(entity, tracker);
+                return;
+            }
+            else
+            {
+                WriteLine("Don't know any tracker called {0}", track.Type);
+                return;
+            }
+            Worlds.World.AddTracker(tracker);
+        }
+
+        public override void AcceptCommand(ClearCommand clear)
+        {
+            string thing = clear.Thing;
+            if (thing == null || Util.StrEq(thing, "console"))
+            {
+                output = new List<string>();
+            }
+            else if (Util.StrEq(thing, "trackers"))
+            {
+                Worlds.World.ClearTrackers();
+            }
+            else if (Util.StrEq(thing, "all"))
+            {
+                //fixme code clones
+                output = new List<string>();
+                Worlds.World.ClearTrackers();
+                
+            }
+            else
+            {
+                WriteLine("Don't know how to clear \"{0}\".", thing);
+            }
         }
 
         public override void AcceptCommand(SetCommand set)
         {
-            World.SetParameter(set);
+            Worlds.World.SetParameter(set);
         }
 
         public override void AcceptCommand(LevelTaskCommand task)
@@ -269,7 +335,7 @@ Keyboard controls:
             List<Task> tasks;
             try
             {
-                tasks = Loaders.TaskList.ParseElement(Util.Tokenize(task.TaskString, ' '));
+                tasks = Loaders.TaskList.ParseElement(task.TaskString);
             }
             catch
             {
@@ -278,7 +344,7 @@ Keyboard controls:
             }
             try
             {
-                World.SendTask(tasks);
+                Worlds.World.SendTask(tasks);
             }
             catch
             {
@@ -300,14 +366,14 @@ Keyboard controls:
         public override void AcceptCommand(GoCommand command)
         {
             bool isSandbox = Sandbox.IsName(command.Name);
-            if (!isSandbox &&  !Assets.Level.ContainsKey(command.Name))
+            if (!isSandbox && !Assets.Level.ContainsKey(command.Name))
             {
                 WriteLine("No context called \"{0}\" could be found. Valid contexts are:\nsandbox", command.Name);
                 WriteLines(Assets.Level.GetLoadedNames());
                 return;
             }
             WriteLine("Attempting to change contexts to {0}", command.Name);
-            World.ContextSwitch(command.Name, isSandbox);
+            Worlds.World.ContextSwitch(command.Name, isSandbox);
         }
 
         public override void AcceptCommand(LoadSetCommand load)
@@ -337,7 +403,6 @@ Keyboard controls:
             string packageName = package.Name;
             DataSet set = new DataSet(packageName);
             set.Save();
-
         }
 
         // FIXME monstrosity
@@ -391,15 +456,15 @@ Keyboard controls:
             FloatValue angle = spawn.Angle;
             if (type == SpawnType.Player)
             {
-                World.InsertPlayer(name);
+                Worlds.World.InsertPlayer(name);
             }
             else if (type == SpawnType.Boss)
             {
-                World.InsertBoss(name);
+                Worlds.World.InsertBoss(name);
             }
             else if (type == SpawnType.Enemy)
             {
-                World.InsertEnemy(name, pos, angle);
+                Worlds.World.InsertEnemy(name, pos, angle);
             }
             else
             {

@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.graphics;
 
 namespace Exeggcute.src.gui
 {
     class ScoreMenu : Menu
     {
         protected ScoreSet scores;
-        public ScoreMenu(List<Button> buttons, Rectangle bounds)
-            : base(buttons, bounds, false)
+        public ScoreMenu(List<Button> buttons, WangMesh terrain, Rectangle bounds)
+            : base(buttons, bounds, terrain, false)
         {
             this.scores = new ScoreSet();
             loadScores();
@@ -77,7 +81,7 @@ namespace Exeggcute.src.gui
         public override void Back()
         {
             cursor = 0;
-            World.Back();
+            Worlds.World.Back();
         }
     }
 
