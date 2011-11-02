@@ -11,7 +11,8 @@ namespace Exeggcute.src
     /// </summary>
     enum Alignment
     {
-        Enemy,
-        Player
+        None=0,
+        Enemy=1,
+        Player=2
     }
 }

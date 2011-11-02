@@ -1,31 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 
 namespace Exeggcute.src
 {
-    class HashList<T>
+    class HashList<T> : IEnumerable<T>
     {
-        private Dictionary<T, bool> container;
-        public int Count
-        {
-            get { return container.Count; } 
-        }
+        private Dictionary<T, bool> list;
+
+        public int Count { get { return list.Count; } }
+
         public string Name;
 
         public HashList(string name)
         {
-            container = new Dictionary<T, bool>();
+            list = new Dictionary<T, bool>();
             Name = name;
         }
 
         public HashList(int capacity)
         {
-            container = new Dictionary<T, bool>(capacity);
+            list = new Dictionary<T, bool>(capacity);
         }
 
 
         public HashList()
         {
-            container = new Dictionary<T, bool>();
+            list = new Dictionary<T, bool>();
         }
 
 
@@ -34,7 +34,7 @@ namespace Exeggcute.src
         {
             foreach (T thing in collection)
             {
-                container[thing] = true;
+                list[thing] = true;
             }
         }
 
@@ -42,32 +42,37 @@ namespace Exeggcute.src
 
         public void Add(T entity)
         {
-            container[entity] = true;
+            list[entity] = true;
         }
 
         public bool Contains(T entity)
         {
-            return container.ContainsKey(entity);
+            return list.ContainsKey(entity);
         }
 
         public void Remove(T entity)
         {
-            container.Remove(entity);
+            list.Remove(entity);
         }
 
         public void Clear()
         {
-            container.Clear();
+            list.Clear();
         }
 
-        public Dictionary<T, bool>.KeyCollection GetKeys()
+        /*public Dictionary<T, bool>.KeyCollection GetKeys()
         {
-            return container.Keys;
+            return list.Keys;
+        }*/
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return list.Keys.GetEnumerator();
         }
 
-        public IEnumerator<KeyValuePair<T, bool>> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return container.GetEnumerator();
+            return list.Keys.GetEnumerator();
         }
     }
 }

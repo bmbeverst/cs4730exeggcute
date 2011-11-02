@@ -25,9 +25,9 @@ namespace Exeggcute.src.scripting.roster
             this.arsenal = arsenal;
         }
 
-        public Arsenal GetArsenal(HashList<Shot> shotHandle)
+        /*public Arsenal GetArsenal(HashList<Shot> shotHandle)
         {
             return arsenal.Copy(shotHandle);
-        }
+        }*/
     }
 }

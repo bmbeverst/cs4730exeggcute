@@ -52,23 +52,23 @@ namespace Exeggcute.src.console.commands
             }
             else
             {
-                devConsole.Write("Dont know any type called \"{0}\".", Type);
+                devConsole.WriteLine("Dont know any type called \"{0}\".", Type);
                 return;
             }
             if (Filename == null)
             {
-                devConsole.Write(docs);
+                devConsole.WriteLine(docs);
             }
             else
             {
                 try
                 {
                     Util.WriteFile(Filename, docs);
-                    devConsole.Write("Wrote documentation to {0}", Filename);
+                    devConsole.WriteLine("Wrote documentation to {0}", Filename);
                 }
                 catch (IOException ioe)
                 {
-                    devConsole.Write("{0}\nUnable to write to file \"{1}\"", ioe.Message, Filename);
+                    devConsole.WriteLine("{0}\nUnable to write to file \"{1}\"", ioe.Message, Filename);
                 }
             }
         }

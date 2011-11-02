@@ -19,7 +19,7 @@ string.Format(@"string PARAM
     The parameter to be set. Valid values are
     {0}
 FloatValue VALUE
-    The value to set it to.", Util.Join(PlanarEntity3D.validParameters, ',')) },
+    The value to set it to.", Util.Join(Entity3D.validParameters, ',')) },
                 { Info.Description, 
 @"Sets the given parameter to the specified value."},
                 { Info.Example, 
@@ -41,11 +41,11 @@ FloatValue VALUE
                     //whaaat? FIXME
                     value.FromDegrees();
                 }
-                this.ParamIndex = PlanarEntity3D.ParamMap[name.ToLower()];
+                this.ParamIndex = Entity3D.ParamMap[name.ToLower()];
             }
             catch (KeyNotFoundException knf)
             {
-                throw new ParseError("{0}\n{1} is not a settable parameter. Valid values are ({2})", knf.Message, name, Util.Join(PlanarEntity3D.validParameters, ','));
+                throw new ParseError("{0}\n{1} is not a settable parameter. Valid values are ({2})", knf.Message, name, Util.Join(Entity3D.validParameters, ','));
             }
             this.Value = value;
         }

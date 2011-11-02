@@ -58,6 +58,7 @@ namespace Exeggcute.src
 
         protected int prevMouseWheel;
         public int MouseWheelDelta { get; protected set; }
+        public Vector2 MousePosition { get; protected set; }
 
         /// <summary>
         /// Creates a new control manager wrapper around an InputManager object.
@@ -157,6 +158,10 @@ namespace Exeggcute.src
             get { return keyFlags[ctrl]; }
         }
 
+
+        private bool prevLeftClicked;
+        private bool nowLeftClicked;
+        public bool IsLeftClicking { get; protected set; }
         /// <summary>
         /// Must be called once per frame to ensure that the state of
         /// this object is up to date.
@@ -180,6 +185,15 @@ namespace Exeggcute.src
             int mouseWheelValue = mouseState.ScrollWheelValue;
             MouseWheelDelta = Math.Sign(mouseWheelValue - prevMouseWheel);
             prevMouseWheel = mouseWheelValue;
+
+            float xScale = 55.0f / (Engine.XRes / 2);
+            float yScale = -41.0f / (Engine.YRes / 2);
+            MousePosition = new Vector2(xScale * (mouseState.X - Engine.XRes/2), 
+                                        yScale * (mouseState.Y - Engine.YRes/2));
+
+            nowLeftClicked = (mouseState.LeftButton == ButtonState.Pressed);
+            IsLeftClicking = ( nowLeftClicked && !prevLeftClicked);
+            prevLeftClicked = nowLeftClicked;
         }
 
         public void UpdateInput()

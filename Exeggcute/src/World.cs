@@ -19,9 +19,15 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Exeggcute.src.text;
+using Microsoft.Xna.Framework.Input;
+using System.Collections.ObjectModel;
 
 namespace Exeggcute.src
 {
+    static class Universe
+    {
+
+    }
     /// <summary>
     /// The world is modeled as a stack of "Contexts" which can be pushed on
     /// top of one another. For instance, the "Level" context may be pushed 
@@ -36,7 +42,7 @@ namespace Exeggcute.src
     /// a specification language for them (and its beyond the scope of 
     /// the project anyhow)
     /// </summary>
-    static class World 
+    class World 
     {
         private static DevConsole console;
 
@@ -46,13 +52,16 @@ namespace Exeggcute.src
         public static GraphicsDevice Graphics;
         private static Engine engine;
 
-        public static HashList<Shot> PlayerShots;
-        public static HashList<Shot> EnemyShots;
-        public static HashList<Gib> GibList;
-        public static HashList<Enemy> EnemyList;
-        public static HashList<Enemy> DyingList;
-        public static HashList<Item> ItemList;
+        private static HashList<Shot> playerShots;
+        private static HashList<Shot> enemyShots;
+        private static HashList<Gib> gibList;
+        private static HashList<Enemy> enemyList;
+        private static HashList<Enemy> dyingList;
+        private static HashList<Item> itemList;
 
+        private static Dictionary<Alignment, HashList<Shot>> shotDict;
+
+        public static Dictionary <int, Entity3D> Entities;
         public static IContext Top { get { return stack.Peek(); } }
 
         public static WangMesh Terrain;
@@ -77,6 +86,11 @@ namespace Exeggcute.src
 
         private static Campaign campaign;
 
+        private static VisualizationData soundData;
+
+        private static Player player;
+        private static HUD hud;
+
         public static void Initialize(Engine engine, ContentManager content, GraphicsDevice graphics)
         {
             World.Content = content;
@@ -88,12 +102,20 @@ namespace Exeggcute.src
 
         public static void Reset()
         {
-            PlayerShots = new HashList<Shot>("playershots");
-            EnemyShots = new HashList<Shot>("enemyshots");
-            GibList = new HashList<Gib>("giblist");
-            EnemyList = new HashList<Enemy>("enemylist");
-            DyingList = new HashList<Enemy>("dyinglist");
-            ItemList = new HashList<Item>("itemlist");
+            playerShots = new HashList<Shot>("playershots");
+            enemyShots = new HashList<Shot>("enemyshots");
+            gibList = new HashList<Gib>("giblist");
+            enemyList = new HashList<Enemy>("enemylist");
+            dyingList = new HashList<Enemy>("dyinglist");
+            itemList = new HashList<Item>("itemlist");
+
+            Entities = new Dictionary<int, Entity3D>();
+
+            shotDict = new Dictionary<Alignment, HashList<Shot>>
+            { 
+                { Alignment.Player, playerShots },
+                { Alignment.Enemy, enemyShots }
+            };
 
             stack = new Stack<IContext>();
 
@@ -102,6 +124,9 @@ namespace Exeggcute.src
             camera = new Camera(100, MathHelper.PiOver2, 0.1f);
 
             campaign = new Campaign("default");
+            
+
+            soundData = new VisualizationData();
 
             isInitialized = false;
             Content = null;
@@ -120,6 +145,11 @@ namespace Exeggcute.src
             levelPtr = 0;
         }
 
+        public static void PostInit()
+        {
+            hud = new HUD();
+        }
+
         public static void AssertInitialized()
         {
             if (!World.isInitialized) throw new InvalidOperationException();
@@ -132,8 +162,70 @@ namespace Exeggcute.src
             return console;
         }
 
-        private static VisualizationData soundData = new VisualizationData();
+        public static IEnumerable<Enemy> GetDying()
+        {
+            return dyingList;
+        }
 
+        public static void AddDying(Enemy entity)
+        {
+            dyingList.Add(entity);
+        }
+
+        public static IEnumerable<Enemy> GetEnemies()
+        {
+            return enemyList;
+        }
+
+        public static void AddEnemy(Enemy enemy)
+        {
+            enemyList.Add(enemy);
+            Entities[enemy.ID] = enemy;
+        }
+
+        public static void AddShot(Shot shot, Alignment alignment)
+        {
+            shotDict[alignment].Add(shot);
+            Entities[shot.ID] = shot;
+        }
+
+        public static IEnumerable<Shot> GetPlayerShots()
+        {
+            return playerShots;
+        }
+
+        public static IEnumerable<Shot> GetEnemyShots()
+        {
+            return enemyShots;
+        }
+
+        public static IEnumerable<Gib> GetGibList()
+        {
+            return gibList;
+        }
+
+        public static void AddGib(Gib gib)
+        {
+            gibList.Add(gib);
+            Entities[gib.ID] = gib;
+        }
+
+        public static void ReleaseItems(ItemBatch items, Vector3 deathPos)
+        {
+            Float3 dispersion = new Float3(new FloatRange(0, 5), new FloatRange(0, 5), new FloatValue(0));
+            foreach (Item item in items.myItems)
+            {
+                Vector3 pos = dispersion.Vector3;
+                item.SetPosition(deathPos + pos);
+                itemList.Add(item);
+                Entities[item.ID] = item;
+            }
+        }
+
+        public static IEnumerable<Item> GetItemList()
+        {
+            return itemList;
+        }
 
 
         static bool consoleAttached = false;
@@ -325,8 +417,12 @@ namespace Exeggcute.src
         public static void Process(LoadLevelEvent ent)
         {
             string levelName = ent.LevelName;
+
+            //fixme - why reload between levels? i know its cached but...
             string playerName = ent.PlayerName;
-            Player player = Assets.Player[playerName];
+
+            setPlayer(playerName);
+           
             HUD hud = new HUD();
             if (gameType == GameType.Campaign)
             {
@@ -387,7 +483,7 @@ namespace Exeggcute.src
             {
                 level.Unload();
                 stack.Pop();
-                stack.Push(new LevelSummaryMenu(level));
+                stack.Push(new LevelSummaryMenu(level, player, hud));
             }
         }
 
@@ -395,7 +491,6 @@ namespace Exeggcute.src
         //or sandbox is true
         public static void ContextSwitch(string name, bool isSandbox)
         {
-
             if (!(Top is DevConsole))
             {
                 throw new ExeggcuteError("impossible");
@@ -404,8 +499,6 @@ namespace Exeggcute.src
             {
                 stack.Pop();
             }
-            Player player = null;
-            HUD hud = null;
             while (!(Top is MainMenu))
             {
                 if (stack.Count == 0) throw new ExeggcuteError("main menu expected on top!");
@@ -413,8 +506,6 @@ namespace Exeggcute.src
                 {
                     //unload level
                     Level level = (Level)Top;
-                    player = Level.player;
-                    hud = Level.Hud;
                     ClearLists();
                     level.Unload();
                 }
@@ -423,7 +514,7 @@ namespace Exeggcute.src
 
             if (player == null || hud == null)
             {
-                player = Assets.Player["debug"];
+                setPlayer(Player.DebugName);
                 hud = new HUD();
             }
 
@@ -463,8 +554,8 @@ namespace Exeggcute.src
             }
 
             Level next = Assets.Level[campaign[levelPtr]];
-            Level.player = player;
-            Level.Hud = hud;
+
+            next.Attach(player, hud);
 
             levelPtr += 1;
 
@@ -478,12 +569,24 @@ namespace Exeggcute.src
 
         public static void ClearLists()
         {
-            PlayerShots.Clear();
-            EnemyShots.Clear();
-            EnemyList.Clear();
-            GibList.Clear();
-            DyingList.Clear();
-            ItemList.Clear();
+            playerShots.Clear();
+            enemyShots.Clear();
+            enemyList.Clear();
+            gibList.Clear();
+            dyingList.Clear();
+            itemList.Clear();
+        }
+
+        private static Player setPlayer(string name)
+        {
+            if (player != null)
+            {
+                Entities.Remove(player.ID);
+            }
+            player = Assets.Player[name];
+            Entities[player.ID] = player;
+
+            return player;
         }
 
         public static void Process(ExitGameEvent ent)
@@ -514,6 +617,7 @@ namespace Exeggcute.src
                 throw new InvalidOperationException("Can only pop yourself");
             }
         }
+
         private static WangMesh savedTerrain;
         public static void Pause()
         {
@@ -588,7 +692,7 @@ namespace Exeggcute.src
         {
             if (!Assets.Player.ContainsKey(name))
             {
-                console.Write("No player named {0} found. Valid choices are:", name);
+                console.WriteLine("No player named {0} found. Valid choices are:", name);
                 console.AcceptCommand(new ListCommand(console, FileType.Player));
                 return;
             }
@@ -596,11 +700,11 @@ namespace Exeggcute.src
             if (second is Sandbox)
             {
                 Sandbox sandbox = (Sandbox)second;
-                sandbox.Player = Assets.Player[name];
+                sandbox.Player = setPlayer(name);
             }
             else
             {
-                console.Write("May only insert a player into a Level or Sandbox context. See 'help context'");
+                console.WriteLine("May only insert a player into a Level or Sandbox context. See 'help context'");
             }
         }
 
@@ -608,21 +712,21 @@ namespace Exeggcute.src
         {
             if (!Assets.Enemy.ContainsKey(name))
             {
-                console.Write("No enemy exists with that name. Valid enemies are:");
-                console.Write(Assets.Enemy.GetLoadedNames());
+                console.WriteLine("No enemy exists with that name. Valid enemies are:");
+                console.WriteLines(Assets.Enemy.GetLoadedNames());
                 return;
             }
             if (!(getSecond() is Sandbox) && false)
             {
-                console.Write("May only insert an enemy into a Level or Sandbox context. See 'help context'");
+                console.WriteLine("May only insert an enemy into a Level or Sandbox context. See 'help context'");
                 return;
             }
-            EnemyList.Add(Assets.Enemy[name].Clone(pos, angle));
+            enemyList.Add(Assets.Enemy[name].Clone(pos, angle));
         }
 
         public static void InsertBoss(string name)
         {
-            console.Write("TODO: not implemented");
+            console.WriteLine("TODO: not implemented");
         }
 
         public static void Begin()
@@ -658,7 +762,7 @@ namespace Exeggcute.src
         {
             if (console != null)
             {
-                console.Write(lines);
+                console.WriteLines(lines);
             }
             else
             {
@@ -678,7 +782,7 @@ namespace Exeggcute.src
             }
             else
             {
-                console.Write(formatted);
+                console.WriteLine(formatted);
             }
         }
 
@@ -695,8 +799,6 @@ namespace Exeggcute.src
             {
                 throw new InvalidOperationException();
             }
-
-
         }
 
 
@@ -719,17 +821,132 @@ namespace Exeggcute.src
         }
         public static Level LoadLevelFromFile(string filename)
         {
+
             if (!isInitialized) throw new ExeggcuteError("World not initialized yet!");
-            Player player = null;
-            if (Level.player == null)
+
+            if (player == null)
             {
-                player = Assets.Player["debug"];
+                setPlayer(Player.DebugName);
+            }
+
+            return Loaders.Level.LoadByFile(Content, Graphics, new HUD(), Difficulty.Normal, filename);
+        }
+
+        public static List<Entity3D> FindPointedTo<T>(Vector2 mouseConverted, params IEnumerable<T>[] lists)
+            where T : Entity3D
+        {
+            List<Entity3D> result = new List<Entity3D>();
+            foreach (IEnumerable<T> list in lists)
+            {
+                foreach (T entity in list)
+                {
+                    if (entity == null) continue;
+                    if (IsPointedTo(entity, mouseConverted))
+                    {
+                        result.Add(entity);
+                    }
+                }
+            }
+            return result;
+        }
+
+        /*public static Entity3D ExpensiveFindPointedTo<T>(Point mousePos, params IEnumerable<T>[] lists)
+            where T : Entity3D
+        {
+            Entity3D min = null;
+            float minDist = float.MaxValue;
+            foreach (IEnumerable<T> list in lists)
+            {
+                foreach (T entity in list)
+                {
+                    if (min == null)
+                    {
+                        min = entity;
+                        continue;
+                    }
+                    float curDist = Util.PointDistance(entity.Position, mousePos);
+                    if (curDist < minDist)
+                    {
+                        curDist = minDist;
+                        min = entity;
+                    }
+                }
+            }
+        }*/
+
+        public static bool IsPointedTo(Entity3D entity, Vector2 mouseConverted)
+        {
+            return Util.SphereContains(entity.Position, entity.BaseModelRadius, mouseConverted);
+        }
+
+        public static Entity3D GetUnderMouse(Vector2 mousePos)
+        {
+
+            List<Entity3D> found =
+                FindPointedTo<Entity3D>(mousePos, 
+                    playerShots, 
+                    enemyShots, 
+                    gibList, 
+                    enemyList, 
+                    itemList,
+                    new List<Entity3D> { player });
+
+            Entity3D selected = found.OrderBy(entity => Util.PointDistance(entity.ModelHitbox.Center, mousePos)).FirstOrDefault();
+            return selected;
+
+        }
+
+        public static void SetParameter(SetCommand set)
+        {
+            int index = Entity3D.NameToIndex(set.ParamName);
+            if (index == -1)
+            {
+                Util.Die("This should be checked beforehand, right?");
             }
             else
             {
-                player = Level.player;
+                Entity3D toSet = Entities[set.ID];
+                toSet.RawSetParam(index, float.Parse(set.Value));
             }
-            return Loaders.Level.LoadByFile(Content, Graphics, player, new HUD(), Difficulty.Normal, filename);
+
+        }
+
+        public static void FilterDead(EntityManager manager)
+        {
+            manager.FilterDead(playerShots, Entities);
+            manager.FilterDead(enemyShots, Entities);
+            manager.FilterDead(enemyList, Entities);
+            manager.FilterDead(itemList, Entities);
+            manager.FilterDead(gibList, Entities);
+            manager.FilterDead(dyingList, Entities);
+        }
+
+        public static void FilterOffscreen(EntityManager manager, Rectangle liveArea)
+        {
+            manager.FilterOffscreen(World.playerShots, liveArea, Entities);
+            manager.FilterOffscreen(World.enemyShots, liveArea, Entities);
+            manager.FilterOffscreen(World.itemList, liveArea, Entities);
+            manager.FilterOffscreen(World.gibList, liveArea, Entities);
+        }
+
+        public static void KillEnemies()
+        {
+            foreach (Enemy enemy in enemyList)
+            {
+                enemy.Kill();
+            }
+        }
+
+        public static Vector3? GetPlayerPosition()
+        {
+            if (player == null)
+            {
+                return null;
+            }
+            else
+            {
+                return player.Position;
+            }
         }
     }
 }

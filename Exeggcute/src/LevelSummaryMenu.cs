@@ -24,13 +24,13 @@ namespace Exeggcute.src
         protected string nextName;
         protected SpriteFont font;
 
-        public LevelSummaryMenu(Level level)
+        public LevelSummaryMenu(Level level, Player player, HUD hud)
         {
             this.Parent = level;
             this.font = Assets.Font["consolas"];
             this.validScore = level.ValidScore;
-            this.Hud = Level.Hud;
-            this.Player = Level.player;
+            this.Hud = hud;
+            this.Player = player;
             this.nextName = (int.Parse(level.Name) + 1).ToString();
             this.difficulty = level.Difficulty;
             this.scoreGained = Player.Score - level.initialScore;

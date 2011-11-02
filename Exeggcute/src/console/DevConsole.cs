@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.loading;
 using Exeggcute.src.scripting.task;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src.console
 {
@@ -32,7 +33,7 @@ Keyboard controls:
         public Dictionary<string, bool> Keywords { get; protected set; }
 
         protected KeyboardManager kbManager;
-        protected ConsoleBuffer textBuffer;
+        protected PromptBuffer textBuffer;
 
         protected SpriteFont font;
         protected CommandParser parser = new CommandParser();
@@ -46,6 +47,8 @@ Keyboard controls:
 
         protected RectSprite bgRect;
         protected int bgAlpha = 200;
+
+        protected List<Tracker> trackers = new List<Tracker>();
         public DevConsole() 
         {
             Keywords = new Dictionary<string, bool>();
@@ -53,10 +56,10 @@ Keyboard controls:
             {
                 Keywords[type.ToString().ToLower()] = true;
             }
-            Write(welcomeMessage);
+            WriteLine(welcomeMessage);
             this.font = Assets.Font["consolas"];
             this.kbManager = new KeyboardManager();
-            this.textBuffer = new ConsoleBuffer(this, prompt);
+            this.textBuffer = new PromptBuffer(this, prompt);
             this.lineSpacing = font.LineSpacing;
             Resize();
             
@@ -98,7 +101,7 @@ Keyboard controls:
         public void InputCommand(string cmd)
         {
             string logInput = string.Format("{0}{1}", prompt, cmd);
-            Write(logInput);
+            WriteLine(logInput);
             ConsoleCommand command = parser.Parse(this, cmd);
             if (command == null) return;
             try
@@ -107,7 +110,7 @@ Keyboard controls:
             }
             catch (Exception e)
             {
-                Write(
+               WriteLine(
 @"Execution of the command '{0}' terminated unexpectedly.
     Useless information follows:
 {1}", cmd, e.Message);
@@ -115,11 +118,20 @@ Keyboard controls:
             }
         }
 
-
         public override void Update(ControlManager controls)
         {
             kbManager.Update();
             textBuffer.Update(kbManager);
+            if (controls.IsLeftClicking)
+            {
+                Entity3D clicked = World.GetUnderMouse(controls.MousePosition);
+                Console.WriteLine(clicked);
+                if (clicked != null)
+                {
+                    textBuffer.AddToBuffer(clicked.ID + " ");
+                }
+            }
+            trackers.ForEach(tr => tr.Update());
             int delta = controls.MouseWheelDelta;
             outputPtr = Util.Clamp(outputPtr - delta, 0, output.Count - 8);
         }
@@ -152,32 +164,71 @@ Keyboard controls:
             }
         }
 
-        public void Write<T>(IEnumerable<T> list)
+        public void WriteLines<T>(IEnumerable<T> list)
         {
             foreach (T obj in list)
             {
-                Write(obj.ToString());
+                addLine(obj.ToString());
             }
         }
 
-        public void Write(string message, params object[] args)
+        public void WriteLine(string message, params object[] args)
         {
-            Write(string.Format(message, args));
+            string formatted = string.Format(message, args);
+            addLine(formatted);
+        }
+
+        public void WriteLine(string message)
+        {
+            addLine(message);
         }
 
         public void Write(string message)
         {
+            if (message.Contains('\n'))
+            {
+                string replaces = Regex.Replace(message, "\r\n", "\n");
+                string[] lines = Regex.Split(message, "\n");
+                if (lines.Length == 0)
+                {
+                    appendToLine(string.Format("failure to write {0}", message));
+                    return;
+                }
+                appendToLine(lines[0]);
+                for (int i = 1; i < lines.Length; i += 1)
+                {
+                    addLine(lines[i]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("here");
+                appendToLine(message);
+            }
+        }
+
+        public void WriteToBuffer(string message, params object[] args)
+        {
+            string formatted = string.Format(message, args);
+            textBuffer.AddToBuffer(formatted);
+        }
+
+        protected void appendToLine(string message)
+        {
+            output[output.Count - 1] += message;
+        }
+
+        protected void addLine(string message)
+        {
+
             string replaces = Regex.Replace(message, "\r\n", "\n");
             string[] lines = Regex.Split(message, "\n");
-            foreach (string msg in lines)
+            foreach (string line in lines)
             {
-                output.Add(msg);
+                output.Add(line);
             }
 
-            if (lines.Length > 0)
-            {
-                outputPtr = output.Count;
-            }
+            outputPtr = output.Count;
         }
 
         public override void Unload()
@@ -190,9 +241,27 @@ Keyboard controls:
 
         }
 
+
+
         public override void AcceptCommand(ConsoleCommand command)
         {
-            Write("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
+            WriteLine("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
+        }
+
+        public override void AcceptCommand(TrackCommand track)
+        {
+            if (!World.Entities.ContainsKey(track.ID))
+            {
+                WriteLine("No entity found with ID {0}", track.ID);
+                return;
+            }
+            Entity3D entity = World.Entities[track.ID];
+            trackers.Add(new ConsoleTracker(entity, track.Format, track.Indices, track.Frequency));
+        }
+
+        public override void AcceptCommand(SetCommand set)
+        {
+            World.SetParameter(set);
         }
 
         public override void AcceptCommand(LevelTaskCommand task)
@@ -204,7 +273,7 @@ Keyboard controls:
             }
             catch
             {
-                Write("Syntax error");
+                WriteLine("Syntax error.");
                 return;
             }
             try
@@ -213,7 +282,7 @@ Keyboard controls:
             }
             catch
             {
-                Write("Cannot send tasks to this context");
+                WriteLine("Cannot send tasks to this context.");
                 return;
             }
         }
@@ -233,11 +302,11 @@ Keyboard controls:
             bool isSandbox = Sandbox.IsName(command.Name);
             if (!isSandbox &&  !Assets.Level.ContainsKey(command.Name))
             {
-                Write("No context called \"{0}\" could be found. Valid contexts are:\nsandbox", command.Name);
-                Write(Assets.Level.GetLoadedNames());
+                WriteLine("No context called \"{0}\" could be found. Valid contexts are:\nsandbox", command.Name);
+                WriteLines(Assets.Level.GetLoadedNames());
                 return;
             }
-            Write("Attempting to change contexts to {0}", command.Name);
+            WriteLine("Attempting to change contexts to {0}", command.Name);
             World.ContextSwitch(command.Name, isSandbox);
         }
 
@@ -254,11 +323,11 @@ Keyboard controls:
                 List<string> validSets = Manifest.GetValidSets();
                 if (validSets.Count == 0)
                 {
-                    Write("No valid datasets found... You should probably redownload the game =[");
+                    WriteLine("No valid datasets found... You should probably redownload the game =[");
                     return;
                 }
-                Write("No data set named {0} exists. Valid values are:");
-                Write(validSets);
+                WriteLine("No data set named {0} exists. Valid values are:");
+                WriteLines(validSets);
             }
             
         }
@@ -310,8 +379,8 @@ Keyboard controls:
                 names = usages[type];
             }
 
-            Write(message);
-            Write(names);
+            WriteLine(message);
+            WriteLines(names);
         }
 
         public override void AcceptCommand(SpawnCommand spawn)
@@ -334,7 +403,7 @@ Keyboard controls:
             }
             else
             {
-                Write("Did not expect the spawn type {0}.", type);
+                WriteLine("Did not expect the spawn type {0}.", type);
             }
         }
     }

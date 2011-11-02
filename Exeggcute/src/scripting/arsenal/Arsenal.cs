@@ -13,12 +13,10 @@ namespace Exeggcute.src.scripting.arsenal
     {
         List<Spawner> spawners = new List<Spawner>();
         public List<OptionInfo> entries;
-        public HashList<Shot> shotListHandle;
-        public static Arsenal None = new Arsenal(new List<OptionInfo>(), new HashList<Shot>());
-        public Arsenal(List<OptionInfo> entries, HashList<Shot> shotListHandle)
+        public static Arsenal None = new Arsenal(new List<OptionInfo>());
+        public Arsenal(List<OptionInfo> entries)
         {
             this.entries = entries;
-            this.shotListHandle = shotListHandle;
             foreach (OptionInfo entry in entries)
             {
                 Spawner next = new Spawner(entry.Body.Model, 
@@ -30,20 +28,14 @@ namespace Exeggcute.src.scripting.arsenal
                                            entry.Trajectory, 
                                            entry.Spawn, 
                                            entry.Behavior,
-                                           entry.ShotSound,
-                                           shotListHandle);
+                                           entry.ShotSound);
                 spawners.Add(next);
             }
         }
 
-        public Arsenal Copy(Alignment alignment)
+        public Arsenal Copy()
         {
-            return new Arsenal(entries, GetShotHandle(alignment));
-        }
-
-        public Arsenal Copy(HashList<Shot> newShotHandle)
-        {
-            return new Arsenal(entries, newShotHandle);
+            return new Arsenal(entries);
         }
 
         public void Update(Vector3 parentPos, float parentAngle)
@@ -95,18 +87,19 @@ namespace Exeggcute.src.scripting.arsenal
 
         }
 
-        public void AttachShotHandle(HashList<Shot> shotListHandle)
+        public void CheckAlignment(Alignment alignment)
         {
-            this.shotListHandle = shotListHandle;
+            foreach (Spawner spawn in spawners)
+            {
+                spawn.SetAlignment(alignment);
+            }
         }
 
         public static Arsenal Parse(string data)
         {
             string[] optionNames = data.Split(',');
             List<OptionInfo> options = new List<OptionInfo>();
-            string alignmentString = optionNames[0];
-            Alignment alignment = Util.ParseEnum<Alignment>(alignmentString);
-            for (int i = 1; i < optionNames.Length; i += 1)
+            for (int i = 0; i < optionNames.Length; i += 1)
             {
                 string name = optionNames[i];
                 OptionInfo info = Assets.Option[name];
@@ -115,27 +108,7 @@ namespace Exeggcute.src.scripting.arsenal
 
 
 
-            return new Arsenal(options, GetShotHandle(alignment));
-
-
-        }
-
-        public static HashList<Shot> GetShotHandle(Alignment alignment)
-        {
-            HashList<Shot> shotHandle;
-            if (alignment == Alignment.Enemy)
-            {
-                shotHandle = World.EnemyShots;
-            }
-            else if (alignment == Alignment.Player)
-            {
-                shotHandle = World.PlayerShots;
-            }
-            else
-            {
-                throw new ExeggcuteError("Unexpected alignment type \"{0}\"", alignment);
-            }
-            return shotHandle;
+            return new Arsenal(options);
         }
     }
 }

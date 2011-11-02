@@ -91,7 +91,7 @@ command. Thank you for helping us help you help us all.
 
         public override void AcceptCommand(ConsoleContext context)
         {
-            devConsole.Write(Output);
+            devConsole.WriteLine(Output);
         }
 
         

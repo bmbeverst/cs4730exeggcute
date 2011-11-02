@@ -18,6 +18,8 @@ namespace Exeggcute.src.console
         Exit,
         LevelTask,
         Doc,
-        WhatIs
+        WhatIs,
+        Set,
+        Track
     }
 }

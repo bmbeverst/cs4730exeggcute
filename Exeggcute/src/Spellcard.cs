@@ -27,7 +27,7 @@ namespace Exeggcute.src
         public void Reset()
         {
             TimeLimit.Reset();
-            Attack = Attack.Copy(Attack.shotListHandle);
+            Attack = Attack.Copy();
         }
     }
 }

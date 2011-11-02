@@ -6,7 +6,8 @@ deathScript: death0
  deathSound: shot0
   itembatch: test
    gibbatch: gibtest
-    arsenal: enemy,testoption#,opt1,opt2,opt3
+    arsenal: testoption#,opt1,opt2,opt3
+  alignment: enemy
 
 @Behavior: 
 setparam Angle 270

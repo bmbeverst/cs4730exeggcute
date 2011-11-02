@@ -12,7 +12,7 @@ namespace Exeggcute.src.entities
     /// <summary>
     /// TODO: process commands until a wait command is found
     /// </summary>
-    abstract class ScriptedEntity : PlanarEntity3D
+    abstract class ScriptedEntity : Entity3D
     {
         protected ScriptInstance script;
 
@@ -169,9 +169,18 @@ namespace Exeggcute.src.entities
 
         public virtual void Process(AimPlayerAction aim)
         {
-            AimAngle = Util.AimAt(Position, Level.player.Position);
+            aimAtPlayer();
             IsAiming = true;
             ActionPtr += 1;
+        }
+
+        protected virtual void aimAtPlayer()
+        {
+            Vector3? playerPos = World.GetPlayerPosition();
+            if (playerPos != null)
+            {
+                AimAngle = Util.AimAt(Position, playerPos.Value);
+            }
         }
 
         protected void doSmoothTransition(Vector3 start, Vector3 target, int duration)

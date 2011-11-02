@@ -18,6 +18,7 @@ namespace Exeggcute.src.entities
 {
     class Player : ParentEntity
     {
+        public static readonly string DebugName = "debug";
 
         public float MoveSpeed { get; protected set; }
         public float FocusSpeed { get; protected set; }
@@ -54,9 +55,6 @@ namespace Exeggcute.src.entities
         protected float rollAngle;
         protected float pitchAngle;
 
-        public float HitRadius { get; protected set; }
-        public BoundingSphere InnerHitbox { get; protected set; }
-
         protected List<Arsenal> arsenalList;
         protected List<int> thresholds;
         protected int attackPtr;
@@ -89,9 +87,8 @@ namespace Exeggcute.src.entities
                       float focusSpeed,
                       float hitRadius,
                       float lightLevel,
-                      HashList<Shot> shotList, 
-                      HashList<Gib> gibList)
-            : base(model, texture, scale, radius, rotation, deathScript, dieSFX, null, gibBatch, shotList, gibList)
+                      Alignment alignment)
+            : base(model, texture, scale, radius, rotation, deathScript, dieSFX, null, gibBatch, alignment)
         {
             this.RawData = data;
             this.Name = name;
@@ -115,13 +112,13 @@ namespace Exeggcute.src.entities
             this.FocusSpeed = focusSpeed;
             this.InvulnTimer = new Timer(120);
             this.bomb = bomb;
-            this.HitRadius = hitRadius;
-            this.InnerHitbox = new BoundingSphere(Position, HitRadius);
             this.deathScript = deathScript;
 
 
             LifeSprite = Assets.Sprite["life"];
             BombSprite = Assets.Sprite["bomb"];
+
+            chooseAlignment(Alignment);
         }
 
         public static Player LoadFromFile(string filename)
@@ -184,32 +181,23 @@ namespace Exeggcute.src.entities
             if (controls[Ctrl.Left].IsPressed)
             {
                 dx = -1;
-                ModelRotation.X = 1;
             }
             else if (controls[Ctrl.Right].IsPressed)
             {
                 dx = 1;
-                ModelRotation.X = -1;
             }
-            else
-            {
-                ModelRotation.X = 0;
-            }
+
 
             //This makes it so we dont overwrite the angle if our speed is 0
             if ((dx | dy) == 0)
             {
                 Speed = 0;
-                //Angle = 0;
             }
             else
             {
                 Speed = speed;
                 Angle = FastTrig.Atan2(dy, dx);
             }
-
-           
-
 
             //FIXME: temporary, just for debugging
             if (controls[Ctrl.RShoulder].IsPressed)
@@ -353,10 +341,8 @@ namespace Exeggcute.src.entities
                 arsenal.StopAll();
                 base.UpdateMovers();
             }
-            InnerHitbox = new BoundingSphere(Position, InnerHitbox.Radius);
+
         }
-
-
 
         Sprite LifeSprite;
         Sprite BombSprite;
@@ -441,10 +427,6 @@ namespace Exeggcute.src.entities
             {
                 power += 1;
             }
-            else
-            {
-                
-            }
 
             if ((attackPtr < arsenalList.Count - 1 &&
                 power > thresholds[attackPtr+1]) || 
@@ -454,14 +436,8 @@ namespace Exeggcute.src.entities
                 attackPtr += 1;
                 Assets.Sfx["powerup"].Play();
                 this.arsenal = CurrentAttack;
+                chooseAlignment(Alignment);
             }
-            
-
-
-
-           
-            
-            
         }
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)

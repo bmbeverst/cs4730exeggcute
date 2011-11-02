@@ -70,7 +70,7 @@ namespace Exeggcute.src.scripting.action
                 int index;
                 try
                 {
-                    index = PlanarEntity3D.ParamMap[paramName.ToLower()];
+                    index = Entity3D.ParamMap[paramName.ToLower()];
                 }
                 catch (KeyNotFoundException knf)
                 {

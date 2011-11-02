@@ -62,7 +62,11 @@ namespace Exeggcute.src
         internal static void Die(object message, params object[] args)
         {
             string msg;
-            if (args.Length == 0)
+            if (message == null)
+            {
+                msg = "null";
+            }
+            else if (args.Length == 0)
             {
                 msg = message.ToString();
             }
@@ -624,6 +628,103 @@ namespace Exeggcute.src
         internal static float Time()
         {
             return Environment.TickCount / 1000f;
+        }
+
+
+        internal static bool SphereContains(Vector3 center, float radius, Vector2 point)
+        {
+            radius = Math.Min(2, radius);
+            if (PointDistance(center, point) < radius)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal static float PointDistance(Vector3 position, Vector2 point)
+        {
+            float x = point.X;
+            float y = point.Y;
+            float z = 0;
+            float dx = position.X - point.X;
+            float dy = position.Y - point.Y;
+            float dz = position.Z - z;
+            return (float)Math.Sqrt(dx * dx + dy * dy);
+
+        }
+
+        internal static string[] SplitQuoteTokens(string input)
+        {
+            List<string> tokens = new List<string>();
+            string current = "";
+            bool inQuote = false;
+            char prevChar = '\0';
+            int backslashSeen = 0;
+            int count = 0;
+            foreach (char c in input)
+            {
+                if (c == '\'' && prevChar != '\'')
+                {
+                    backslashSeen = 1;
+                }
+                else if (c == '\'')
+                {
+                    backslashSeen += 1;
+                }
+                else
+                {
+                    backslashSeen = 0;
+                }
+                if (!inQuote)
+                {
+                    if (prevChar == '"')
+                    {
+
+                    }
+                    else if (c == ' ' && prevChar != ' ')
+                    {
+                        tokens.Add(current);
+                        current = "";
+                    }
+                    else if (c == '"' && prevChar != ' ' && count != 0)
+                    {
+                        throw new ParseError("If a string literal is not the first token, it must be preceeded by a space.");
+                    }
+                    else if (c == '"')
+                    {
+                        inQuote = true;
+                        current = "";
+                    }
+                    else
+                    {
+                        current += c;
+                    }
+                }
+                else
+                {
+                    if (c == '"' && backslashSeen % 2 == 0)
+                    {
+                        inQuote = false;
+                        tokens.Add(current);
+                        count += 1;
+                        current = "";
+                    }
+                    else
+                    {
+                        current += c;
+                    }
+
+                }
+                prevChar = c;
+            }
+
+            if (current.Length > 0 && !Util.IsWhitespace(current))
+            {
+                tokens.Add(current);
+            }
+
+
+            return tokens.ToArray();
         }
     }
 }

@@ -140,6 +140,8 @@ namespace Exeggcute.src.assets
 
             Boss.LoadAll();
             Level.LoadAll();
+
+            World.PostInit();
             
         }
 

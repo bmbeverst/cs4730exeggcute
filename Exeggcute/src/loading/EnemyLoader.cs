@@ -41,9 +41,7 @@ namespace Exeggcute.src.loading
                                     info.deathSound,
                                     info.itembatch,
                                     info.gibbatch,
-                                    World.EnemyShots,
-                                    World.GibList,
-                                    World.ItemList);
+                                    info.alignment.Value);
             //fixme cache!
             return enemy;
 

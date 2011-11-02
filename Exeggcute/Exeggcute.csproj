@@ -154,6 +154,8 @@
     <Compile Include="src\console\CommandParser.cs" />
     <Compile Include="src\console\commands\ConsoleCommand.cs" />
     <Compile Include="src\console\commands\DocCommand.cs" />
+    <Compile Include="src\console\commands\SetCommand.cs" />
+    <Compile Include="src\console\commands\TrackCommand.cs" />
     <Compile Include="src\console\commands\WhatIsCommand.cs" />
     <Compile Include="src\console\commands\ExitCommand.cs" />
     <Compile Include="src\console\commands\LevelTaskCommand.cs" />
@@ -235,7 +237,7 @@
     <Compile Include="src\scripting\task\KillAllTask.cs" />
     <Compile Include="src\scripting\task\SongFadeTask.cs" />
     <Compile Include="src\sound\SongManager.cs" />
-    <Compile Include="src\console\ConsoleBuffer.cs" />
+    <Compile Include="src\console\PromptBuffer.cs" />
     <Compile Include="src\Wrapped2DArray.cs" />
     <Compile Include="src\scripting\action\AimPlayerAction.cs" />
     <Compile Include="src\scripting\EntryListParser.cs" />
@@ -302,7 +304,6 @@
     <Compile Include="src\entities\ScriptedEntity.cs" />
     <Compile Include="src\scripting\action\ActionListLoader.cs" />
     <Compile Include="src\entities\Entity3D.cs" />
-    <Compile Include="src\entities\PlanarEntity3D.cs" />
     <Compile Include="src\FloatTimer.cs" />
     <Compile Include="src\graphics\Doodad.cs" />
     <Compile Include="src\graphics\IAnimation.cs" />

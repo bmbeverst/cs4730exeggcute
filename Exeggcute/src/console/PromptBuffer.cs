@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Exeggcute.src.console
 {
-    class ConsoleBuffer
+    class PromptBuffer
     {
         public bool HasFocus { get; protected set; }
 
@@ -24,7 +24,7 @@ namespace Exeggcute.src.console
         protected DevConsole console;
 
         protected string prompt;
-        public ConsoleBuffer(DevConsole console, string prompt)
+        public PromptBuffer(DevConsole console, string prompt)
         {
             this.console = console;
             this.prompt = prompt;
@@ -171,6 +171,12 @@ namespace Exeggcute.src.console
                 buffer = buffer.Insert(cursor, pressed + "");
                 cursor += 1;
             }
+        }
+
+        public void AddToBuffer(string message)
+        {
+            buffer += message;
+            cursor += message.Length;
         }
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos)

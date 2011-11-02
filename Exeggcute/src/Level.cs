@@ -27,7 +27,7 @@ namespace Exeggcute.src
     /// </summary>
     class Level : Sandbox
     {
-        public static HUD Hud;
+        protected HUD hud;
         public string Name { get; protected set; }
         public Difficulty Difficulty { get; protected set; }
 
@@ -38,7 +38,6 @@ namespace Exeggcute.src
         public bool ValidScore { get; protected set; }
         private ParticleSystem particles;
 
-        public static Player player;
         private EntityManager collider;
         private PhysicsManager physics;
         private Roster roster;
@@ -77,7 +76,6 @@ namespace Exeggcute.src
 
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
-                     Player player, 
                      HUD hud,
                      Difficulty difficulty,
                      bool validScore,
@@ -114,7 +112,6 @@ namespace Exeggcute.src
 
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
-            Level.Hud      = hud;
 
             
 
@@ -124,9 +121,14 @@ namespace Exeggcute.src
             LiveArea = Util.GrowRect(GameArea, liveBuffer);
             particles = new TestParticleSystem(graphics, content);
             //TODO parse the player file here
-            Level.player = player;
             
             
+        }
+
+        public void Attach(Player player, HUD hud)
+        {
+            this.player = player;
+            this.hud = hud;
         }
 
         public void Start()
@@ -134,7 +136,7 @@ namespace Exeggcute.src
             Console.WriteLine("START {0}", Name);
             taskPtr = 0;
             initialScore = player.Score;
-            Hud.DoFade(FadeType.In);
+            hud.DoFade(FadeType.In);
             player.SetPosition(Engine.Jail);
             player.ResetFromDemo();
             World.RequestPlay(levelTheme);
@@ -167,7 +169,7 @@ namespace Exeggcute.src
         public override void Process(SpawnTask task)
         {
             Enemy toSpawn = roster.Clone(task.ID, task.Position, task.Angle);
-            World.EnemyList.Add(toSpawn);
+            World.AddEnemy(toSpawn);
             taskPtr += 1;
         }
 
@@ -193,7 +195,7 @@ namespace Exeggcute.src
                 Start(); 
                 IsStarted = true; 
             }
-            Hud.Update();
+            hud.Update();
             //camera.Update(controls);
             ProcessTasks();
             particles.Update();
@@ -204,20 +206,20 @@ namespace Exeggcute.src
                 particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
-            physics.Affect(World.GibList, true);
+            physics.Affect(World.GetGibList(), true);
             //physics.Affect(playerShots, false);
-            foreach (Gib gib in World.GibList.GetKeys())
+            foreach (Gib gib in World.GetGibList())
             {
                 collider.CollideTerrain(terrain, gib, GameArea);
             }
 
-            physics.Affect(World.DyingList, true);
+            physics.Affect(World.GetDying(), true);
             collider.CollideDying(terrain);
 
             processHit();
 
-            collider.Collide(World.PlayerShots, World.EnemyList);
-            collider.CollideItems(World.ItemList, player);
+            collider.Collide(World.GetPlayerShots(), World.GetEnemies());
+            collider.CollideItems(World.GetItemList(), player);
 
 
             collider.UpdateAll(LiveArea);
@@ -228,7 +230,7 @@ namespace Exeggcute.src
 
             if (boss != null)
             {
-                collider.CollideBoss(World.PlayerShots, boss);
+                collider.CollideBoss(World.GetPlayerShots(), boss);
                 boss.Update();
             }
 
@@ -239,8 +241,8 @@ namespace Exeggcute.src
         /// </summary>
         private void processHit()
         {
-            bool hit = collider.Collide(player, World.EnemyList) ||
-                       collider.HitPlayer(World.EnemyShots, player);
+            bool hit = collider.CollidePlayer(player, World.GetEnemies()) ||
+                       collider.HitPlayer(World.GetEnemyShots(), player);
             if (hit)
             {
                 player.Kill();
@@ -249,7 +251,7 @@ namespace Exeggcute.src
             if (shotEater != null)
             {
                 shotEater.Update();
-                collider.EatShots(World.EnemyShots, shotEater.Rect);
+                collider.EatShots(World.GetEnemyShots(), shotEater.Rect);
                 if (shotEater.Rect.Height > HalfHeight * 4)
                 {
                     shotEater = null;
@@ -278,7 +280,7 @@ namespace Exeggcute.src
 
         public override void Draw2D(SpriteBatch batch)
         {
-            Hud.Draw(batch, player);
+            hud.Draw(batch, player);
             if (boss != null) boss.Draw2D(batch);
         }
 
@@ -287,10 +289,10 @@ namespace Exeggcute.src
         {
             if (!cleanupStarted)
             {
-                Hud.DoFade(FadeType.Out);
+                hud.DoFade(FadeType.Out);
                 cleanupStarted = true;
             }
-            if (!Hud.IsFading())
+            if (!hud.IsFading())
             {
                 return true;
             }

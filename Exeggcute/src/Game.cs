@@ -30,6 +30,7 @@ namespace Exeggcute.src
             this.IsFixedTimeStep = false;*/
             //graphicsManager.IsFullScreen = true;
             InactiveSleepTime = TimeSpan.Zero;
+            IsMouseVisible = true;
             
             Window.Title = "Exeggcute";
         }

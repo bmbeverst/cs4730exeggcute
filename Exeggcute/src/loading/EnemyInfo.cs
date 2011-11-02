@@ -19,6 +19,7 @@ namespace Exeggcute.src.loading
         public ItemBatch itembatch;
         public GibBatch gibbatch;
         public Arsenal arsenal;
+        public Alignment? alignment;
 
         public EnemyInfo(string filename, List<string[]> tokenList)
             : base(filename)

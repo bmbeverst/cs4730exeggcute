@@ -19,7 +19,7 @@ namespace Exeggcute.src.entities
         {
             this.ParentPosition = parentPos;
             this.ParentAngle = parentAngle;
-            if (IsAiming) AimAtPlayer();
+            if (IsAiming) aimAtPlayer();
             base.Update();
         }
 
@@ -29,16 +29,6 @@ namespace Exeggcute.src.entities
             Vector3 target = start + moveRel.Displacement.Vector3;
             doSmoothTransition(start, target, moveRel.Duration);
             ActionPtr += 1;
-        }
-        public override void Process(AimPlayerAction aim)
-        {
-            AimAngle = Util.AimAt(Position, Level.player.Position);
-            IsAiming = true;
-        }
-
-        public void AimAtPlayer()
-        {
-            AimAngle = Util.AimAt(Position, Level.player.Position);
         }
     }
 }

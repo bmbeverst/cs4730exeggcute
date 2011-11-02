@@ -54,13 +54,12 @@ namespace Exeggcute.src.gui
         }
         public override void Update(ControlManager controls)
         {
-            manager.FilterOffscreen(World.PlayerShots, new Rectangle(-55, -40, 110, 80));
+            Rectangle liveArea = new Rectangle(-55, -40, 110, 80);
+            World.FilterOffscreen(manager, liveArea);
             base.Update(controls);
             playerCopies[cursor].Update();
-            foreach (Shot shot in World.PlayerShots.GetKeys())
-            {
-                shot.Update();
-            }
+
+            manager.UpdateAll(liveArea);
         }
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
@@ -70,10 +69,9 @@ namespace Exeggcute.src.gui
             Matrix projection = camera.GetProjection();
             //playerCopies[cursor].SetPosition(new Vector3(0, 0, 0));
             playerCopies[cursor].Draw(graphics, view, projection);
-            foreach (Shot shot in World.PlayerShots.GetKeys())
-            {
-                shot.Draw(graphics, view, projection);
-            }
+
+            manager.DrawAll(graphics, projection, view);
+
             base.Draw3D(graphics, camera);
         }
 

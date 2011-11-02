@@ -75,11 +75,9 @@ namespace Exeggcute.src.loading
                               info.bombs.Value,
                               info.moveSpeed.Value,
                               info.focusSpeed.Value,
-                              
                               info.hitRadius.Value,
                               info.lightLevel.Value,
-                              World.PlayerShots, 
-                              World.GibList);
+                              info.alignment.Value);
         }
     }
 
