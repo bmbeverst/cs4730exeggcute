@@ -1,4 +1,8 @@
-﻿using Exeggcute.src.contexts;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.contexts;
 using Exeggcute.src.graphics;
 using Exeggcute.src.input;
 using Microsoft.Xna.Framework;
@@ -32,14 +36,11 @@ namespace Exeggcute.src.gui
             IsActive = true;
             if (controls[Ctrl.Action].DoEatPress())
             {
-                
                 parent.Select();
                 onActivate.Process();
-                
             }
             else if (controls[Ctrl.Cancel].DoEatPress())
             {
-                
                 parent.Back();
             }
             base.Update(controls);
@@ -65,13 +66,13 @@ namespace Exeggcute.src.gui
 
         protected override void moveUp()
         {
-            World.SendMove(Direction.Up);
+            parent.Move(Direction.Up);
             IsActive = false;
         }
         
         protected override void moveDown()
         {
-            World.SendMove(Direction.Down);
+            parent.Move(Direction.Down);
             IsActive = false;
         }
 

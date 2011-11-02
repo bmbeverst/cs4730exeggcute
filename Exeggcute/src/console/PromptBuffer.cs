@@ -21,6 +21,7 @@ namespace Exeggcute.src.console
         protected Keyflag backFlag = new Keyflag();
         protected Keyflag leftFlag = new Keyflag();
         protected Keyflag rightFlag = new Keyflag();
+        protected Keyflag deleteFlag = new Keyflag();
         protected DevConsole console;
 
         protected string prompt;
@@ -30,85 +31,67 @@ namespace Exeggcute.src.console
             this.prompt = prompt;
         }
 
-
-        public void GiveFocus()
-        {
-
-        }
-
-        public void TakeFocus()
-        {
-
-        }
-
         public void Update(ControlManager controls)
         {
 
         }
-        private string deleteAt(string s, int i)
+        private string tryDeleteAt(string s, int i)
         {
             return s.Remove(i, 1);
         }
 
         protected void processBack(KeyboardManager kb)
         {
-            if (kb.IsKeyPressed(Keys.Back))
-            {
-                backFlag.Incr();
-            }
-            else
-            {
-                backFlag.Reset();
-            }
+            backFlag.Update(kb.IsKeyPressed(Keys.Back));
+            leftFlag.Update(kb.IsKeyPressed(Keys.Left));
+            rightFlag.Update(kb.IsKeyPressed(Keys.Right));
+            deleteFlag.Update(kb.IsKeyPressed(Keys.Delete));
 
-            if (kb.IsKeyPressed(Keys.Left))
-            {
-                leftFlag.Incr();
-            }
-            else
-            {
-                leftFlag.Reset();
-            }
-
-            if (kb.IsKeyPressed(Keys.Right))
-            {
-                rightFlag.Incr();
-            }
-            else
-            {
-                rightFlag.Reset();
-            }
         }
 
         private void moveCursor()
         {
-            if (backFlag.JustPressed || backFlag.Value >= zipSpeed)
+            isZipping = true;
+            if (backFlag.CheckZip(zipSpeed))
             {
                 if (buffer.Length != 0)
                 {
                     cursor -= 1;
-                    buffer = deleteAt(buffer, cursor);
+                    buffer = tryDeleteAt(buffer, cursor);
                 }
             }
-            else if (rightFlag.JustPressed || rightFlag.Value >= zipSpeed)
+            else if (deleteFlag.CheckZip(zipSpeed))
+            {
+                if (cursor < buffer.Length)
+                {
+                    buffer = tryDeleteAt(buffer, cursor);
+                }
+            }
+            else if (rightFlag.CheckZip(zipSpeed))
             {
                 cursor += 1;
                 if (cursor > buffer.Length) cursor = buffer.Length;
             }
-            else if (leftFlag.JustPressed || leftFlag.Value >= zipSpeed)
+            else if (leftFlag.CheckZip(zipSpeed))
             {
                 cursor -= 1;
                 if (cursor < 0) cursor = 0;
+            }
+            else
+            {
+                isZipping = false;
             }
 
         }
         int cursorBlink = 0;
         bool drawCursor;
         int zipSpeed = 30;
+        bool isZipping;
         public void Update(KeyboardManager kb)
         {
             cursorBlink += 1;
-            drawCursor = (cursorBlink % 60) > 30;
+            if (isZipping) cursorBlink = 0;
+            drawCursor = (cursorBlink % 60) < 30;
             processBack(kb);
             moveCursor();
             if (kb.PressedThisFrame.Length <= 0) return;

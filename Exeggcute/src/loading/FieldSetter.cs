@@ -16,8 +16,6 @@ namespace Exeggcute.src.loading
         protected Type fieldType;
         protected Type[] innerTypes;
 
-        protected object convertedValue;
-
         protected virtual string parserName 
         {
             get { return "Parse"; }

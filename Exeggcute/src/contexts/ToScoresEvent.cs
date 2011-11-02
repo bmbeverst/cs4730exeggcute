@@ -5,7 +5,7 @@ namespace Exeggcute.src.contexts
     {
         public override void Process()
         {
-            World.Process(this);
+            Worlds.World.Process(this);
         }
     }
 }

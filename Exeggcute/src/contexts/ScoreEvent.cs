@@ -14,13 +14,15 @@ namespace Exeggcute.src.contexts
     class ScoreEvent : ContextEvent
     {
         public ScoreEventType Type { get; protected set; }
+
         public ScoreEvent(ScoreEventType type)
         {
             Type = type;
         }
+
         public override void Process()
         {
-            World.Process(this);
+            Worlds.World.Process(this);
         }
     }
 }

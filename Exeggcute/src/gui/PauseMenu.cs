@@ -5,13 +5,14 @@ using System.Text;
 using Exeggcute.src.input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.graphics;
 
 namespace Exeggcute.src.gui
 {
     class PauseMenu : Menu
     {
-        public PauseMenu(List<Button> buttons, Rectangle bounds)
-            : base(buttons, bounds, false)
+        public PauseMenu(List<Button> buttons, WangMesh terrain, Rectangle bounds)
+            : base(buttons, bounds, terrain, false)
         {
             
         }
@@ -20,7 +21,7 @@ namespace Exeggcute.src.gui
         {
             if (controls[Ctrl.Start].DoEatPress())
             {
-                World.Unpause();
+                Back();
             }
             base.Update(controls);
         }
@@ -38,7 +39,7 @@ namespace Exeggcute.src.gui
         public override void Back()
         {
             cursor = 0;
-            World.Unpause();
+            Worlds.World.Unpause();
         }
 
     }

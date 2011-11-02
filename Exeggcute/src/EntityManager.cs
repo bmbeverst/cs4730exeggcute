@@ -142,7 +142,7 @@ namespace Exeggcute.src
 
         public void CollideDying(WangMesh terrain)
         {
-            foreach (Enemy enemy in World.GetDying())
+            foreach (Enemy enemy in Worlds.World.GetDying())
             {
                 if (Math.Abs(enemy.Position.Z - terrain.Depth) < 2)
                 {
@@ -182,33 +182,48 @@ namespace Exeggcute.src
 
         public void UpdateAll(Rectangle liveArea)
         {
-            World.FilterOffscreen(this, liveArea);
-            World.FilterDead(this);
-            updateEntityLists<Entity3D>(World.GetGibList(),
-                                       World.GetEnemies(),
-                                       World.GetItemList(),
-                                       World.GetEnemyShots(),
-                                       World.GetPlayerShots()); 
+            World world = Worlds.World;
+            world.FilterOffscreen(this, liveArea);
+            world.FilterDead(this);
+            updateEntityLists<Entity3D>(world.GetGibList(),
+                                        world.GetEnemies(),
+                                        world.GetItemList(),
+                                        world.GetEnemyShots(),
+                                        world.GetPlayerShots()); 
         }
 
-        public void DrawAll(GraphicsDevice graphics, Matrix projection, Matrix view)
+
+
+        public void DrawAll3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            drawEntityLists<Entity3D>(graphics, view, projection, World.GetGibList(), 
-                                                                  World.GetEnemies(),
-                                                                  World.GetItemList(),
-                                                                  World.GetEnemyShots(),
-                                                                  World.GetPlayerShots());
+            World world = Worlds.World;
+            drawEntityLists3D<Entity3D>(graphics, view, projection, world.GetGibList(),
+                                                                  world.GetEnemies(),
+                                                                  world.GetItemList(),
+                                                                  world.GetEnemyShots(),
+                                                                  world.GetPlayerShots());
         }
 
-
-        private void drawEntityLists<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, params IEnumerable<TEntity>[] entityLists)
+        private void drawEntityLists2D<TEntity>(SpriteBatch batch, params IEnumerable<TEntity>[] entityLists)
             where TEntity : Entity3D
         {
             foreach (IEnumerable<TEntity> entities in entityLists)
             {
                 foreach (TEntity entity in entities)
                 {
-                    entity.Draw(graphics, view, projection);
+                    entity.Draw2D(batch);
+                }
+            }
+        }
+
+        private void drawEntityLists3D<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, params IEnumerable<TEntity>[] entityLists)
+            where TEntity : Entity3D
+        {
+            foreach (IEnumerable<TEntity> entities in entityLists)
+            {
+                foreach (TEntity entity in entities)
+                {
+                    entity.Draw3D(graphics, view, projection);
                 }
             }
         }

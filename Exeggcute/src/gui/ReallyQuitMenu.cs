@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Exeggcute.src.contexts;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
@@ -17,8 +20,8 @@ namespace Exeggcute.src.gui
         protected SpriteText question;
         protected Vector2 questionPos;
 
-        public ReallyQuitMenu(List<Button> buttons, Rectangle bounds)
-            : base(buttons, bounds, false)
+        public ReallyQuitMenu(List<Button> buttons, WangMesh terrain, Rectangle bounds)
+            : base(buttons, bounds, terrain, false)
         {
             this.question = new SpriteText(font, "Really exit?", Color.White);
             this.questionPos = new Vector2(buttonBounds.Left - 12, buttonBounds.Top - buttonHeight - 2);
@@ -58,7 +61,7 @@ namespace Exeggcute.src.gui
         public override void Back()
         {
             cursor = 0;
-            World.Back();
+            Worlds.World.Back();
         }
     }
 }

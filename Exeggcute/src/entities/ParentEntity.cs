@@ -91,13 +91,16 @@ namespace Exeggcute.src.entities
         public void UpdateMovers()
         {
             arsenal.UpdateMovers(Position, Angle);
+
+
             base.Update();
         }
 
-        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+
+        public override void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            base.Draw(graphics, view, projection);
-            arsenal.Draw(graphics, view, projection, Position);
+            base.Draw3D(graphics, view, projection);
+            arsenal.Draw3D(graphics, view, projection);
         }
 
         public virtual void Kill()

@@ -1,6 +1,20 @@
-﻿  BodyInfo: teapot0
-    Damage: 10
- ShotSound: 0playershot0
-  Behavior: aimup
-Trajectory: fast
-     Spawn: demo
+﻿@Info
+BodyInfo:  teapot0
+Damage:    10
+ShotSound: 0playershot0
+
+@Behavior: 
+setparam Angle 90
+moverel (0,6,0) 10
+
+@Trajectory: fast
+
+@Spawn: 
+spawn rel 10
+spawn rel -10
+wait 5
+spawn rel -50
+spawn rel 50
+wait 5
+if positionx < 0 loop 3
+loop

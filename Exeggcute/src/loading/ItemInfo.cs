@@ -68,9 +68,7 @@ namespace Exeggcute.src
             }
             else
             {
-                World.ConsoleWrite("Item type \"{0}\" is not implemented", type);
-                //FIXME this will break things
-                return null;
+                throw new ParseError("Item type \"{0}\" is not implemented", type);
             }
         }
 

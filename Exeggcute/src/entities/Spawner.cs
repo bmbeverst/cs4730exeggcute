@@ -1,4 +1,8 @@
-﻿using Exeggcute.src.assets;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Exeggcute.src.assets;
 using Exeggcute.src.scripting;
 using Exeggcute.src.scripting.action;
 using Exeggcute.src.sound;
@@ -28,8 +32,6 @@ namespace Exeggcute.src.entities
 
         protected RepeatedSound shotSound;
 
-
-
         public Spawner(Model model, 
                        Texture2D texture, 
                        float scale, 
@@ -47,15 +49,22 @@ namespace Exeggcute.src.entities
             this.active = false;
             this.mover = new Mover(moverScript);
             this.Scale = 1.0f;
-            this.arrow = Assets.Model["arrow"];
+            this.arrow = Assets.Model["XNAface"];
             this.debugModel = Assets.Model["XNAface"];
+            initDebugModels();
+        }
+
+        protected void initDebugModels()
+        {
+            Effect effect = Assets.Effect["light0"];
+            Util.SetEffect(arrow, effect);
+            Util.SetEffect(debugModel, effect);
         }
 
         public void SetAlignment(Alignment alignment)
         {
             this.Alignment = alignment;
         }
-
 
         float debugAngle;
         Vector3 debugPosition;
@@ -71,10 +80,11 @@ namespace Exeggcute.src.entities
 
             Vector3 moverPos = mover.Position + mover.ParentPosition;
             Vector3 difference = ParentPos - moverPos;
-            if (difference.Equals(Vector3.Zero)) return;
-            debugAngle = FastTrig.Atan2(difference.Y, difference.X);
+            
+            debugAngle = FastTrig.Atan2(difference.Y, difference.X + 0.00000001f);
             debugPosition = moverPos;
             arrowPosition = Util.AngleToVector3(debugAngle) + debugPosition;
+            Console.WriteLine(debugPosition);
         }
         /*
          * TODO/FIXME: make spawners Move and MoveRel and MoveTo commands relative to parent!!!
@@ -82,7 +92,6 @@ namespace Exeggcute.src.entities
          */
         public void Update(Vector3 parentPos, float parentAngle)
         {
-
             UpdateMover(parentPos, parentAngle);
             if (active)
             {
@@ -96,7 +105,6 @@ namespace Exeggcute.src.entities
                     active = false;
                 }
             }
-            
         }
 
         public void SpawnFor(int duration)
@@ -144,45 +152,55 @@ namespace Exeggcute.src.entities
                 
             }
             Shot cloned = shot.Clone(pos, angle);
-            World.AddShot(cloned, Alignment);
+            Worlds.World.AddShot(cloned, Alignment);
             ActionPtr += 1;
         }
 
         /// <summary>
         /// FOR DEBUG ONLY
         /// </summary>
-        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        public override void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
-            base.Draw(graphics, view, projection);
-            return;
+            //base.Draw3D(graphics, view, projection);
             Matrix[] transforms = new Matrix[arrow.Bones.Count];
             arrow.CopyAbsoluteBoneTransformsTo(transforms);
+            Texture2D debug = Assets.Texture["debug"];
+            Console.WriteLine(arrowPosition);
             foreach (ModelMesh mesh in arrow.Meshes)
             {
-                foreach (BasicEffect currentEffect in mesh.Effects)
+                foreach (Effect currentEffect in mesh.Effects)
                 {
-                    //FIXME: absolutely no reason to do this every frame
-                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+                    Matrix world = transforms[mesh.ParentBone.Index] *
+                        //BaseMatrix *
                         Matrix.CreateScale(0.5f, 0.1f, 0.1f) *
                         Matrix.CreateRotationZ(debugAngle) *
                         Matrix.CreateTranslation(arrowPosition);
-                    currentEffect.View = view;
-                    currentEffect.Projection = projection;
+                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                    currentEffect.Parameters["xWorld"].SetValue(world);
+                    currentEffect.Parameters["xView"].SetValue(view);
+                    currentEffect.Parameters["xProjection"].SetValue(projection);
+                    currentEffect.Parameters["xTexture"].SetValue(debug);
                 }
                 mesh.Draw();
             }
+            transforms = new Matrix[debugModel.Bones.Count];
 
+            debugModel.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in debugModel.Meshes)
             {
-                foreach (BasicEffect currentEffect in mesh.Effects)
+                foreach (Effect currentEffect in mesh.Effects)
                 {
-                    //FIXME: absolutely no reason to do this every frame
-                    currentEffect.World = transforms[mesh.ParentBone.Index] *
+
+                    Matrix world = transforms[mesh.ParentBone.Index] *
+                        //BaseMatrix *
                         Matrix.CreateScale(0.5f, 0.5f, 0.5f) *
                         Matrix.CreateRotationZ(debugAngle) *
                         Matrix.CreateTranslation(debugPosition);
-                    currentEffect.View = view;
-                    currentEffect.Projection = projection;
+                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                    currentEffect.Parameters["xWorld"].SetValue(world);
+                    currentEffect.Parameters["xView"].SetValue(view);
+                    currentEffect.Parameters["xProjection"].SetValue(projection);
+                    currentEffect.Parameters["xTexture"].SetValue(debug);
                 }
                 mesh.Draw();
             }

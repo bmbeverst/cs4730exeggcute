@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,8 +11,8 @@ namespace Exeggcute.src.gui
     class MainMenu : Menu
     {
         Doodad buttonBoxOutline;
-        public MainMenu(List<Button> buttons, Rectangle bounds)
-            : base(buttons, bounds, false)
+        public MainMenu(List<Button> buttons, WangMesh terrain, Rectangle bounds)
+            : base(buttons, bounds, terrain, false)
         {
             this.buttonBoxOutline = new Doodad(buttonBounds, Color.Black, false);
         }

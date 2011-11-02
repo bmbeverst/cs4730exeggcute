@@ -112,13 +112,14 @@ namespace Exeggcute.src.entities
             this.FocusSpeed = focusSpeed;
             this.InvulnTimer = new Timer(120);
             this.bomb = bomb;
+            
             this.deathScript = deathScript;
-
 
             LifeSprite = Assets.Sprite["life"];
             BombSprite = Assets.Sprite["bomb"];
 
             chooseAlignment(Alignment);
+            bomb.CheckAlignment(Alignment);
         }
 
         public static Player LoadFromFile(string filename)
@@ -151,8 +152,8 @@ namespace Exeggcute.src.entities
             {
                 Y = -gameArea.Top;
             }
-
         }
+
         protected void processControls(ControlManager controls, bool canShoot)
         {
             float speed;
@@ -421,7 +422,6 @@ namespace Exeggcute.src.entities
 
         public void Collect(PowerItem pitem)
         {
-            World.ConsoleWrite(thresholds.ToList());
 
             if (power < powerMax)
             {
@@ -440,8 +440,9 @@ namespace Exeggcute.src.entities
             }
         }
 
-        public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)
+        public override void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            //arsenal.Draw(graphics, view, projection, Position);
             foreach (ModelMesh mesh in Surface.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)

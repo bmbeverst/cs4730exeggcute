@@ -97,8 +97,10 @@ namespace Exeggcute.src.entities
             {
                 if (!outroStarted)
                 {
-                    World.PushContext(outro);
-                    World.DoFadeOut(120);
+                    //fixme
+                    Worlds.World.PushContext(outro);
+                    //fixme
+                    Worlds.World.DoFadeOut(120);
                     outroStarted = true;
                 }
                 if (outro.IsDone)
@@ -121,15 +123,16 @@ namespace Exeggcute.src.entities
             {
                 if (ActionPtr == script.Count)
                 {
-                    World.CleanupLevel();
+                    //fixme
+                    Worlds.World.CleanupLevel();
                 }
             }
             else
             {
                 if (!introStarted)
                 {
-                    
-                    World.PushContext(intro);
+                    //fixme
+                    Worlds.World.PushContext(intro);
                     introStarted = true;
                 }
                 if (intro.IsDone)

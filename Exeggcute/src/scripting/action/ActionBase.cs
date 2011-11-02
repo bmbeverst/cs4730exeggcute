@@ -22,7 +22,9 @@ namespace Exeggcute.src.scripting.action
         Spawn,
         AimPlayer,
         Sound,
-        Upgrade
+        Upgrade,
+        For,
+        If
     }
 
 

@@ -38,8 +38,8 @@ namespace Exeggcute.src.gui
         SpriteText menuTitle;
         EntityManager manager = new EntityManager();
 
-        public PlayerMenu(List<Player> players, List<Button> buttons, Rectangle bounds)
-            : base(buttons, bounds, false)
+        public PlayerMenu(List<Player> players, List<Button> buttons, WangMesh terrain, Rectangle bounds)
+            : base(buttons, bounds, terrain, false)
         {
 
             menuTitle = new SpriteText(font, "Player select", Color.White);
@@ -55,7 +55,7 @@ namespace Exeggcute.src.gui
         public override void Update(ControlManager controls)
         {
             Rectangle liveArea = new Rectangle(-55, -40, 110, 80);
-            World.FilterOffscreen(manager, liveArea);
+
             base.Update(controls);
             playerCopies[cursor].Update();
 
@@ -68,9 +68,9 @@ namespace Exeggcute.src.gui
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
             //playerCopies[cursor].SetPosition(new Vector3(0, 0, 0));
-            playerCopies[cursor].Draw(graphics, view, projection);
+            playerCopies[cursor].Draw3D(graphics, view, projection);
 
-            manager.DrawAll(graphics, projection, view);
+            manager.DrawAll3D(graphics, view, projection);
 
             base.Draw3D(graphics, camera);
         }
@@ -83,7 +83,7 @@ namespace Exeggcute.src.gui
 
         public override void Back()
         {
-            World.Back();
+            Worlds.World.Back();
         }
     }
 }

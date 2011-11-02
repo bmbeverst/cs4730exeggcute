@@ -293,7 +293,12 @@ namespace Exeggcute.src
         internal static string FlattenSpace(string input)
         {
             input = Trim(input);
-            return Regex.Replace(input, "( |\t)+", " ");
+            if (input.Contains('@'))
+            {
+                Console.WriteLine("ok");
+            }
+            string result = Regex.Replace(input, "( |\t)+", " ");
+            return result;
         }
 
         /// <summary>
@@ -364,8 +369,8 @@ namespace Exeggcute.src
         {
             try
             {
-                vec = vec.Replace("(", "").Replace(")", "").Replace(" ", "");
-                string[] nums = vec.Split(',');
+                string cleaned = vec.Replace("(", "").Replace(")", "").Replace(" ", "");
+                string[] nums = cleaned.Split(',');
                 float x = float.Parse(nums[0]);
                 float y = float.Parse(nums[1]);
                 float z = float.Parse(nums[2]);
@@ -571,17 +576,6 @@ namespace Exeggcute.src
             return Assets.Texture[name];
         }
 
-        public static Texture2D LoadTexture2D(string filename)
-        {
-            World.AssertInitialized();
-            Stream stream = File.Open(filename, FileMode.Open);
-            return Texture2D.FromStream(World.Graphics, stream);
-        }
-
-        /*public static SoundEffectInstance ParseSoundEffectInstance(string s)
-        {
-            return Assets.Sfx[s].CreateInstance();
-        }*/
 
         public static string ParseString(string s)
         {
@@ -611,17 +605,19 @@ namespace Exeggcute.src
         public static void WriteLog()
         {
             if (log == null || log.Count == 0) return;
-            return;
-            TimeSpan secs = DateTime.UtcNow - new DateTime(1970, 1, 1);
-            string logName = string.Format("Exeggcute-debug-{0}.txt", secs.Seconds);
-            string outName = string.Format("Exeggcute-debug-{0}.gz", secs.Seconds);
-            File.WriteAllLines(logName, log);
-            FileInfo info = new FileInfo(logName);
+            if (Engine.WRITE_LOG)
+            {
+                TimeSpan secs = DateTime.UtcNow - new DateTime(1970, 1, 1);
+                string logName = string.Format("Exeggcute-debug-{0}.txt", secs.Seconds);
+                string outName = string.Format("Exeggcute-debug-{0}.gz", secs.Seconds);
+                File.WriteAllLines(logName, log);
+                FileInfo info = new FileInfo(logName);
 
-            using (FileStream inFile = info.OpenRead())
-                using(FileStream outFile = File.Create(outName))
-                    using(GZipStream stream = new GZipStream(outFile, CompressionMode.Compress))
-                        inFile.CopyTo(stream);
+                using (FileStream inFile = info.OpenRead())
+                    using (FileStream outFile = File.Create(outName))
+                        using (GZipStream stream = new GZipStream(outFile, CompressionMode.Compress))
+                            inFile.CopyTo(stream);
+            }
 
         }
 
@@ -725,6 +721,41 @@ namespace Exeggcute.src
 
 
             return tokens.ToArray();
+        }
+
+        internal static Vector2 GameToScreen(Vector2 vec)
+        {
+            //float xScale = 55.0f / (Engine.XRes / 2);
+            //float yScale = -41.0f / (Engine.YRes / 2);
+            //return new Vector2(xScale * (vec.X - Engine.XRes / 2),
+            //                   yScale * (vec.Y - Engine.YRes / 2));
+
+            float xScale =  (Engine.XRes / 2) / 55.0f;
+            float yScale =  (Engine.YRes / 2) / -41.0f;
+            return new Vector2(xScale * (vec.X) + Engine.XRes / 2,
+                               yScale * (vec.Y) + Engine.YRes / 2);
+        }
+
+        internal static string JoinStack<T>(Stack<T> stack, string delim)
+        {
+            int iMax = stack.Count;
+            string result = "";
+            for (int i = 0; i < iMax; i += 1)
+            {
+                result += stack.Pop() + delim;
+            }
+            return result;
+        }
+
+        internal static void SetEffect(Model model, Effect effect)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    part.Effect = effect;
+                }
+            }
         }
     }
 }

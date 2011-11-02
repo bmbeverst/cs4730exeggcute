@@ -20,6 +20,7 @@ namespace Exeggcute.src.console
         Doc,
         WhatIs,
         Set,
-        Track
+        Track,
+        Clear
     }
 }

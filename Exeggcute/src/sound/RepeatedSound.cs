@@ -65,9 +65,6 @@ namespace Exeggcute.src.sound
                 return new RandoSound(name, volume);
             }
             return Assets.MakeRepeated(name);
-            SoundEffect sound = Assets.Sfx[name];
-            int duration = GetDuration(name);
-            return new RepeatedSound(sound, duration, volume);
         }
 
         public static int GetDuration(string name)

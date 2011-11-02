@@ -84,10 +84,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zlib, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Ionic.Zlib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553">
       <Private>False</Private>
     </Reference>
@@ -152,6 +148,8 @@
     <Compile Include="src\assets\XnaBank.cs" />
     <Compile Include="src\ConsoleContext.cs" />
     <Compile Include="src\console\CommandParser.cs" />
+    <Compile Include="src\console\commands\BuiltinCommand.cs" />
+    <Compile Include="src\console\commands\ClearCommand.cs" />
     <Compile Include="src\console\commands\ConsoleCommand.cs" />
     <Compile Include="src\console\commands\DocCommand.cs" />
     <Compile Include="src\console\commands\SetCommand.cs" />
@@ -159,7 +157,7 @@
     <Compile Include="src\console\commands\WhatIsCommand.cs" />
     <Compile Include="src\console\commands\ExitCommand.cs" />
     <Compile Include="src\console\commands\LevelTaskCommand.cs" />
-    <Compile Include="src\console\commands\LoadCommand.cs" />
+    <Compile Include="src\console\commands\LoadSetCommand.cs" />
     <Compile Include="src\console\commands\HelpCommand.cs" />
     <Compile Include="src\console\commands\ListCommand.cs" />
     <Compile Include="src\console\commands\PackageCommand.cs" />
@@ -170,10 +168,16 @@
     <Compile Include="src\console\KeyboardManager.cs" />
     <Compile Include="src\console\commands\GoCommand.cs" />
     <Compile Include="src\console\Keyword.cs" />
+    <Compile Include="src\console\trackers\ConsoleTracker.cs" />
+    <Compile Include="src\console\trackers\EntityTracker.cs" />
+    <Compile Include="src\console\trackers\HudTracker.cs" />
+    <Compile Include="src\console\trackers\Tracker.cs" />
     <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\items\PointItem.cs" />
     <Compile Include="src\entities\items\ExtraBomb.cs" />
+    <Compile Include="src\Point3.cs" />
     <Compile Include="src\ResetException.cs" />
+    <Compile Include="src\scripting\action\IfAction.cs" />
     <Compile Include="src\scripting\action\SoundAction.cs" />
     <Compile Include="src\GibBatch.cs" />
     <Compile Include="src\HealthBar.cs" />
@@ -547,6 +551,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\convo\0.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\fortest.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="manifest" />

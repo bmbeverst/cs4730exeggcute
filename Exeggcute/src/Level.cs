@@ -38,26 +38,11 @@ namespace Exeggcute.src
         public bool ValidScore { get; protected set; }
         private ParticleSystem particles;
 
-        private EntityManager collider;
         private PhysicsManager physics;
         private Roster roster;
-        private WangMesh terrain;
-        
 
         public static readonly int HalfWidth = 30;
         public static readonly int HalfHeight = 37;
-        public Rectangle GameArea { get; protected set; }
-
-
-
-        ///<summary>
-        /// The percentage the LiveArea is increased to accomodate
-        /// off-screen objects. 
-        /// </summary>
-        private float liveBuffer = 1f/4f;
-
-        ///<summary> Outside of this area, enemies and shots are destroyed. </summary>
-        public Rectangle LiveArea { get; protected set; }
 
         public List<TextBoxList> boxes = new List<TextBoxList>();
 
@@ -88,13 +73,12 @@ namespace Exeggcute.src
                      List<Task> tasks, 
                      WangMesh terrain,
                      LightSettings lightSettings)
+            : base(terrain)
         {
             MediaPlayer.IsVisualizationEnabled = true;
             //HACK HARDCODED
             Effect light = Assets.Effect["light0"];
             loadLights(lightSettings, light);
-
-            this.terrain     = terrain;
             this.Name        = name;
             this.Difficulty  = difficulty;
             this.ValidScore  = validScore;
@@ -139,8 +123,7 @@ namespace Exeggcute.src
             hud.DoFade(FadeType.In);
             player.SetPosition(Engine.Jail);
             player.ResetFromDemo();
-            World.RequestPlay(levelTheme);
-            World.Terrain = terrain;
+            Worlds.World.RequestPlay(levelTheme);
             miniBoss.AttachConversations(this);
             mainBoss.AttachConversations(this);
             IsStarted = true;
@@ -150,7 +133,7 @@ namespace Exeggcute.src
 
         public static Level LoadFromFile(string filename)
         {
-            return World.LoadLevelFromFile(filename);
+            return Worlds.World.LoadLevelFromFile(filename);
         }
 
         public override void AcceptCommand(ConsoleCommand command)
@@ -161,7 +144,7 @@ namespace Exeggcute.src
 
         public override void Process(SongFadeTask task)
         {
-            World.DoFadeOut(task.NumFrames);
+            Worlds.World.DoFadeOut(task.NumFrames);
             taskPtr += 1;
 
         }
@@ -169,11 +152,11 @@ namespace Exeggcute.src
         public override void Process(SpawnTask task)
         {
             Enemy toSpawn = roster.Clone(task.ID, task.Position, task.Angle);
-            World.AddEnemy(toSpawn);
+            Worlds.World.AddEnemy(toSpawn);
             taskPtr += 1;
         }
 
-        public virtual void Process(BossTask bossTask)
+        public override void Process(BossTask bossTask)
         {
             if (boss == null)
             {
@@ -206,20 +189,20 @@ namespace Exeggcute.src
                 particles.AddParticle(player.Position, -10*player.Velocity);
             }
 
-            physics.Affect(World.GetGibList(), true);
+            physics.Affect(Worlds.World.GetGibList(), true);
             //physics.Affect(playerShots, false);
-            foreach (Gib gib in World.GetGibList())
+            foreach (Gib gib in Worlds.World.GetGibList())
             {
                 collider.CollideTerrain(terrain, gib, GameArea);
             }
 
-            physics.Affect(World.GetDying(), true);
+            physics.Affect(Worlds.World.GetDying(), true);
             collider.CollideDying(terrain);
 
             processHit();
 
-            collider.Collide(World.GetPlayerShots(), World.GetEnemies());
-            collider.CollideItems(World.GetItemList(), player);
+            collider.Collide(Worlds.World.GetPlayerShots(), Worlds.World.GetEnemies());
+            collider.CollideItems(Worlds.World.GetItemList(), player);
 
 
             collider.UpdateAll(LiveArea);
@@ -230,7 +213,7 @@ namespace Exeggcute.src
 
             if (boss != null)
             {
-                collider.CollideBoss(World.GetPlayerShots(), boss);
+                collider.CollideBoss(Worlds.World.GetPlayerShots(), boss);
                 boss.Update();
             }
 
@@ -241,8 +224,8 @@ namespace Exeggcute.src
         /// </summary>
         private void processHit()
         {
-            bool hit = collider.CollidePlayer(player, World.GetEnemies()) ||
-                       collider.HitPlayer(World.GetEnemyShots(), player);
+            bool hit = collider.CollidePlayer(player, Worlds.World.GetEnemies()) ||
+                       collider.HitPlayer(Worlds.World.GetEnemyShots(), player);
             if (hit)
             {
                 player.Kill();
@@ -251,7 +234,7 @@ namespace Exeggcute.src
             if (shotEater != null)
             {
                 shotEater.Update();
-                collider.EatShots(World.GetEnemyShots(), shotEater.Rect);
+                collider.EatShots(Worlds.World.GetEnemyShots(), shotEater.Rect);
                 if (shotEater.Rect.Height > HalfHeight * 4)
                 {
                     shotEater = null;
@@ -264,24 +247,22 @@ namespace Exeggcute.src
             Matrix view = camera.GetView();
             Matrix projection = camera.GetProjection();
 
-            player.Draw(graphics, view, projection);
-
-            collider.DrawAll(graphics, projection, view);
-
             if (boss != null)
             {
-                boss.Draw(graphics, view, projection);
+                boss.Draw3D(graphics, view, projection);
             }
+
+            base.Draw3D(graphics, camera);
 
             particles.SetCamera(view, projection);
             particles.Draw(graphics);
-            
         }
 
         public override void Draw2D(SpriteBatch batch)
         {
             hud.Draw(batch, player);
             if (boss != null) boss.Draw2D(batch);
+            base.Draw2D(batch);
         }
 
         bool cleanupStarted;
@@ -305,12 +286,11 @@ namespace Exeggcute.src
         public void StartBoss()
         {
             this.boss = mainBoss;
-
         }
 
         public void EndBossIntro(Boss boss)
         {
-            World.RequestPlay(bossTheme);
+            Worlds.World.RequestPlay(bossTheme);
         }
 
         public override void Unload()
@@ -319,8 +299,6 @@ namespace Exeggcute.src
             shotEater = null;
             miniBoss.Reset();
             mainBoss.Reset();
-            World.ClearLists();
-            World.ResetMusic();
             taskPtr = 0;
             IsStarted = false;
         }

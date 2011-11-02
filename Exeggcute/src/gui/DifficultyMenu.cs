@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,8 +12,8 @@ namespace Exeggcute.src.gui
     {
         public SpriteText heading;
         public Vector2 headingPos;
-        public DifficultyMenu(List<Button> buttons, Rectangle bounds)
-            : base(buttons, bounds, false)
+        public DifficultyMenu(List<Button> buttons, WangMesh terrain, Rectangle bounds)
+            : base(buttons, bounds, terrain, false)
         {
             this.heading = new SpriteText(font, "Select difficulty", fontColor);
             this.headingPos = new Vector2(bounds.X - 50, bounds.Y - buttonHeight - 12);
@@ -30,7 +33,7 @@ namespace Exeggcute.src.gui
 
         public override void Back()
         {
-            World.Back();
+            Worlds.World.Back();
         }
     }
 }

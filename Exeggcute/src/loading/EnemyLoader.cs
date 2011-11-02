@@ -35,7 +35,7 @@ namespace Exeggcute.src.loading
                                     info.Body.Rotation.Value,
                                     info.Health.Value,
                                     info.Defence.Value,
-                                    info.arsenal,
+                                    info.arsenal.Copy(),
                                     behavior,
                                     info.deathScript,
                                     info.deathSound,
