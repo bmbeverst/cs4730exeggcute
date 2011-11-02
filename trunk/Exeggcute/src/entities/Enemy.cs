@@ -21,8 +21,6 @@ namespace Exeggcute.src.entities
         /// </summary>
         public bool IsDying { get; protected set; }
 
-        protected HashList<Item> itemListHandle;
-
         protected BehaviorScript deathScript;
 
         protected ItemBatch heldItems;
@@ -40,17 +38,14 @@ namespace Exeggcute.src.entities
                      RepeatedSound deathSound,
                      ItemBatch items,
                      GibBatch gibBatch,
-                     HashList<Shot> shotHandle,
-                     HashList<Gib> gibHandle,
-                     HashList<Item> itemHandle)
-            : base(model, texture, scale, radius, rotation, behavior, deathSound, arsenal, gibBatch, shotHandle, gibHandle)
+                     Alignment alignment)
+            : base(model, texture, scale, radius, rotation, behavior, deathSound, arsenal, gibBatch, alignment)
         {
             this.Health = health;
             this.Defence = defence;
-            this.arsenal = arsenal;
             this.heldItems = items;
             this.deathScript = deathScript;
-            this.itemListHandle = itemHandle;
+            chooseAlignment(Alignment);
         }           
 
         public Enemy Clone(Float3 pos, FloatValue angle)
@@ -68,12 +63,9 @@ namespace Exeggcute.src.entities
                                      deathSound,
                                      heldItems.Clone(),
                                      gibBatch,
-                                     shotListHandle, 
-                                     gibListHandle, 
-                                     itemListHandle);
+                                     Alignment);
             cloned.Position = pos.Vector3;
             cloned.Angle = angle.Value;
-            Console.WriteLine("CLONE! {0} {1}", cloned.ActionPtr, cloned.WaitCounter);
             return cloned;
         }
 
@@ -102,7 +94,7 @@ namespace Exeggcute.src.entities
 
             if (Health <= 0 && !IsDying)
             {
-                World.DyingList.Add(this);
+                World.AddDying(this);
                 IsDying = true;
                 script = deathScript;
                 ActionPtr = 0;
@@ -121,10 +113,10 @@ namespace Exeggcute.src.entities
             foreach (Gib gib in gibBatch.gibs)
             {
                 //FIXME double copying
-                Gib newGib = new Gib(gib.Surface, gib.Texture, gib.Scale,gib.Radius, gib.ModelRotation, Position2D, Speed, Angle);
-                gibListHandle.Add(newGib);
+                Gib newGib = new Gib(gib.Surface, gib.Texture, gib.Scale, gib.Radius, gib.ModelRotation, Position2D, Speed, Angle);
+                World.AddGib(newGib);
             }
-            heldItems.Release(itemListHandle, deathpos);
+            World.ReleaseItems(heldItems, deathpos);
         }
 
         public override void Draw(GraphicsDevice graphics, Matrix view, Matrix projection)

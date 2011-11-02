@@ -23,6 +23,9 @@ namespace Exeggcute.src
         public Rectangle LiveArea;
 
         protected float liveBuffer = 1f / 4f;
+
+        protected Player player;
+
         public Sandbox()
         {
             collider = new EntityManager();
@@ -82,10 +85,7 @@ namespace Exeggcute.src
 
         public virtual void Process(KillAllTask kill)
         {
-            foreach (Enemy enemy in World.EnemyList.GetKeys())
-            {
-                enemy.Kill();
-            }
+            World.KillEnemies();
             taskPtr += 1;
         }
 
@@ -111,10 +111,12 @@ namespace Exeggcute.src
         
         public override void Update(ControlManager controls)
         {
+            
             if (Player != null)
             {
                 Player.Update(controls, true);
-                Player.LockPosition(GameArea);
+                //Player.LockPosition(GameArea);
+
             }
             collider.UpdateAll(LiveArea);
         }

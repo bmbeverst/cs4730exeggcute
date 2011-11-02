@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exeggcute.src.console.commands;
+using Exeggcute.src.entities;
+using Exeggcute.src.scripting;
 
 namespace Exeggcute.src.console
 {
@@ -24,7 +26,9 @@ namespace Exeggcute.src.console
                 { Keyword.Reset, ResetCommand.Usage },
                 { Keyword.Exit, ExitCommand.Usage },
                 { Keyword.Doc, DocCommand.Usage },
-                { Keyword.WhatIs, WhatIsCommand.Usage }
+                { Keyword.WhatIs, WhatIsCommand.Usage },
+                { Keyword.Set, SetCommand.Usage },
+                { Keyword.Track, TrackCommand.Usage }
             };
         }
 
@@ -92,9 +96,38 @@ namespace Exeggcute.src.console
                 {
                     SpawnType spawnType;
                     string typeString = tokens[1];
-                    string name = tokens[2];
+                    string name;
                     string posString;
                     string angleString;
+                    if (tokens.Length >= 3)
+                    {
+                        name = tokens[2];
+                    }
+                    else
+                    {
+                        name = "debug";
+                    }
+
+                    if (tokens.Length >= 4)
+                    {
+                        posString = tokens[3];
+                    }
+                    else
+                    {
+                        posString = "(0,0,0)";
+                    }
+
+                    if (tokens.Length >= 5)
+                    {
+                        angleString = tokens[4];
+                    }
+                    else
+                    {
+                        angleString = "0";
+                    }
+                    
+                    
+                    
                     try
                     {
                         spawnType = Util.ParseEnum<SpawnType>(typeString);
@@ -103,18 +136,6 @@ namespace Exeggcute.src.console
                     {
                         string msg = string.Format("No SpawnType with name \"{0}\"\n{1}", typeString, SpawnCommand.Usage);
                         return HelpCommand.MakeGeneric(console, msg);
-                    }
-
-                    try
-                    {
-                        posString = tokens[3];
-                        angleString = tokens[4];
-                    }
-                    catch
-                    {
-                        console.Write("Got incomplete enemy arguments, using defaults");
-                        posString = "(0,0,0)";
-                        angleString = "0";
                     }
 
                     Float3 pos;
@@ -167,6 +188,48 @@ namespace Exeggcute.src.console
                 {
                     string typeName = tokens[1];
                     return new WhatIsCommand(console, typeName);
+                }
+                else if (type == Keyword.Set)
+                {
+                    int id = int.Parse(tokens[1]);
+                    string paramName = tokens[2];
+                    string value = tokens[3];
+                    return new SetCommand(console, id, paramName, value);
+
+                }
+                else if (type == Keyword.Track)
+                {
+                    string[] specTokens = Util.SplitQuoteTokens(input);
+
+                    int id = int.Parse(specTokens[1]);
+                    string format = specTokens[2];
+                    List<int> indices = new List<int>();
+                    int i;
+                    for (i = 3; i < specTokens.Length; i += 1)
+                    {
+                        int index = Entity3D.NameToIndex(specTokens[i]);
+                        if (index == -1) break;
+                        indices.Add(index);
+                    }
+                    if (indices.Count == 0)
+                    {
+                        throw new ParseError("Must specify at least one parameter to track");
+                    }
+                    int frequency;
+                    if (i < specTokens.Length)
+                    {
+                        frequency = int.Parse(specTokens[i++]);
+                    }
+                    else
+                    {
+                        frequency = 0;
+                    }
+
+                    string trackType = specTokens[i++];
+
+                    return new TrackCommand(console, id, format, indices, frequency, trackType);
+
+
                 }
                 else
                 {

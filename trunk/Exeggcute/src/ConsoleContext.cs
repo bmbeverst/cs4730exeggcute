@@ -25,6 +25,16 @@ namespace Exeggcute.src
             SubclassShouldImplement(command);
         }
 
+        public virtual void AcceptCommand(TrackCommand track)
+        {
+            SubclassShouldImplement(track);
+        }
+
+        public virtual void AcceptCommand(SetCommand set)
+        {
+            SubclassShouldImplement(set);
+        }
+
         public virtual void AcceptCommand(WhatIsCommand whatis)
         {
             SubclassShouldImplement(whatis);
@@ -82,7 +92,7 @@ namespace Exeggcute.src
 
         protected void SubclassShouldImplement(ConsoleCommand command)
         {
-            command.devConsole.Write("A subclass should implement a handler for {0}", command.GetType().Name);
+            command.devConsole.WriteLine("A subclass should implement a handler for {0}", command.GetType().Name);
         }
     }
 }

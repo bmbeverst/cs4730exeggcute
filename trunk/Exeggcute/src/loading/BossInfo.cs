@@ -22,6 +22,7 @@ namespace Exeggcute.src.loading
         public Conversation outro;
         public RepeatedSound hurtSound;
         public float? scale;
+        public Alignment? alignment;
 
         public BossInfo(string filename, List<string[]> tokens)
             : base(filename)

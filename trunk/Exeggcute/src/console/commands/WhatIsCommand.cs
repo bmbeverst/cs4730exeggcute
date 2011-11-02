@@ -41,7 +41,7 @@ Example: (0,0,[0|99])" }
 
         public override void AcceptCommand(ConsoleContext context)
         {
-            devConsole.Write(documentation[Type.ToLower()]);
+            devConsole.WriteLine(documentation[Type.ToLower()]);
         }
     }
 }

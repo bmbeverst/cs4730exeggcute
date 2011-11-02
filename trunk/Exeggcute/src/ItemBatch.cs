@@ -11,7 +11,7 @@ namespace Exeggcute.src
 {
     class ItemBatch
     {
-        private List<Item> myItems;
+        public List<Item> myItems;
         private Float3 dispersion;
 
         public ItemBatch(List<Item> items, Float3 dispersion)
@@ -30,16 +30,7 @@ namespace Exeggcute.src
             return Loaders.ItemBatch.Load(filename);
         }
 
-        public void Release(HashList<Item> itemList, Vector3 deathPos)
-        {
-            dispersion = new Float3(new FloatRange(0, 5), new FloatRange(0, 5), new FloatValue(0));
-            foreach (Item item in myItems)
-            {
-                Vector3 pos = dispersion.Vector3;
-                item.SetPosition(deathPos + pos);
-                itemList.Add(item);
-            }
-        }
+     
 
         public ItemBatch Clone()
         {

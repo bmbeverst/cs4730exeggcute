@@ -17,7 +17,7 @@ namespace Exeggcute.src.loading
 
     class LevelLoader : Loader
     {
-        public Level LoadByFile(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string filename)
+        public Level LoadByFile(ContentManager content, GraphicsDevice graphics, HUD hud, Difficulty difficulty, string filename)
         {
             string name = Path.GetFileNameWithoutExtension(filename);
             LevelInfo levelInfo = null;
@@ -75,7 +75,6 @@ namespace Exeggcute.src.loading
             currentField = null;
             return new Level(graphics,
                              content,
-                             player,
                              hud,
                              difficulty,
                              false,//FIXME
@@ -89,10 +88,10 @@ namespace Exeggcute.src.loading
                              terrain,
                              lightSettings);
         }
-        public Level LoadByName(ContentManager content, GraphicsDevice graphics, Player player, HUD hud, Difficulty difficulty, string name)
+        public Level LoadByName(ContentManager content, GraphicsDevice graphics, HUD hud, Difficulty difficulty, string name)
         {
             string filename = string.Format("data/levels/{0}.level", name);
-            return LoadByFile(content, graphics, player, hud, difficulty, filename);
+            return LoadByFile(content, graphics, hud, difficulty, filename);
         }
     }
 }

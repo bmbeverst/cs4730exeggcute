@@ -18,7 +18,7 @@ namespace Exeggcute.src.entities
         protected bool active;
         protected int shotActionPtr = 0;
         protected Shot shot;
-        protected HashList<Shot> shotListHandle;
+
         protected Model arrow;
         protected Model debugModel;
 
@@ -27,6 +27,8 @@ namespace Exeggcute.src.entities
         public float ParentAngle { get; protected set; }
 
         protected RepeatedSound shotSound;
+
+
 
         public Spawner(Model model, 
                        Texture2D texture, 
@@ -37,12 +39,10 @@ namespace Exeggcute.src.entities
                        TrajectoryScript shotTrajectory, 
                        SpawnScript spawnScript, 
                        BehaviorScript moverScript, 
-                       RepeatedSound shotSound,
-                       HashList<Shot> shotListHandle)
+                       RepeatedSound shotSound)
             : base(spawnScript)
         {
             this.shot = new Shot(model, texture, scale, radius, rotation, shotTrajectory, damage);
-            this.shotListHandle = shotListHandle;
             this.shotSound = shotSound;
             this.active = false;
             this.mover = new Mover(moverScript);
@@ -50,6 +50,12 @@ namespace Exeggcute.src.entities
             this.arrow = Assets.Model["arrow"];
             this.debugModel = Assets.Model["XNAface"];
         }
+
+        public void SetAlignment(Alignment alignment)
+        {
+            this.Alignment = alignment;
+        }
+
 
         float debugAngle;
         Vector3 debugPosition;
@@ -138,13 +144,8 @@ namespace Exeggcute.src.entities
                 
             }
             Shot cloned = shot.Clone(pos, angle);
-            shotListHandle.Add(cloned);
+            World.AddShot(cloned, Alignment);
             ActionPtr += 1;
-        }
-
-        public void AttachShotHandle(HashList<Shot> shotListHandle)
-        {
-            this.shotListHandle = shotListHandle;
         }
 
         /// <summary>

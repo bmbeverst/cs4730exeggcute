@@ -8,11 +8,12 @@ deathScript:  bossdeath0
 hurtSound:    bosshurt4
 intro:        0
 outro:        1
+alignment:    enemy
 
 @spellcard:
 name:         Test1
 behavior:     boss0
-attack:       enemy,testoption
+attack:       testoption
 duration:     3000
 health:       1000
 items:        test
@@ -20,7 +21,7 @@ items:        test
 @spellcard:
 name:         Test2
 behavior:     boss0
-attack:       enemy,testoption
+attack:       testoption
 duration:     3000
 health:       1000
 items:        test

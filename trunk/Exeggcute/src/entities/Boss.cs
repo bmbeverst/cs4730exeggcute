@@ -58,8 +58,9 @@ namespace Exeggcute.src.entities
                     BehaviorScript entryScript, 
                     BehaviorScript defeatScript, 
                     BehaviorScript deathScript, 
+                    Alignment alignment,
                     List<Spellcard> attacks)
-            : base(model, texture, scale, radius, rotation, null, World.EnemyShots, World.GibList)
+            : base(model, texture, scale, radius, rotation, null, alignment)
         {
             
             this.hurtSound = hurtSound;
@@ -181,6 +182,7 @@ namespace Exeggcute.src.entities
             Console.WriteLine("Starting {0}", spellPtr);
             Spellcard next = attacks[spellPtr];
             this.arsenal      = next.Attack;
+            chooseAlignment(Alignment);
             this.currentTimer = next.TimeLimit;
             this.currentName  = next.Name;
             this.maxHealth    = next.Health;

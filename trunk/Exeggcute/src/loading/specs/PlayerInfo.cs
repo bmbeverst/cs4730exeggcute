@@ -22,6 +22,7 @@ namespace Exeggcute.src.loading.specs
         public float? focusSpeed;
         public float? hitRadius;
         public float? lightLevel;
+        public Alignment? alignment;
 
         public PlayerInfo(string filename, List<string[]> tokenList)
             : base(filename)

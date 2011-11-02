@@ -6,7 +6,8 @@ deathScript: death0
  deathSound: shot0
   itembatch: test
    gibbatch: gibtest
-    arsenal: enemy,testoption
+    arsenal: testoption
+  alignment: enemy
 
 
 @Behavior: 

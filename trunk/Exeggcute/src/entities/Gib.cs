@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Exeggcute.src.entities
 {
 
-    class Gib : PlanarEntity3D
+    class Gib : Entity3D
     {
         protected const float GIBSPEED = 1;
         protected const float speedFactor = 0.1f;

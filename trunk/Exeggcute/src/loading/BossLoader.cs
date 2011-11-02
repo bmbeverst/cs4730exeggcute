@@ -42,6 +42,7 @@ namespace Exeggcute.src.loading
                             info.entryScript,
                             info.defeatScript,
                             info.deathScript,
+                            info.alignment.Value,
                             info.spellcards);
         }
     }

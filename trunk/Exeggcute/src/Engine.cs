@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
 using Exeggcute.src.scripting.task;
+using Exeggcute.src.entities;
 
 namespace Exeggcute.src
 {
@@ -79,11 +80,14 @@ namespace Exeggcute.src
         int frame = 0;
         public void Update()
         {
+            
             Assets.UpdateSfx();
             //mySound.Play();
             frame += 1;
             controls.Update();
+            //Console.WriteLine(controls.MousePosition);
             World.Update(controls);
+            
             if (controls[Ctrl.Quit].IsPressed)
             {
                 Exit();

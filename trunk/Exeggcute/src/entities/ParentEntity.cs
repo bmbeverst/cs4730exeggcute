@@ -17,8 +17,6 @@ namespace Exeggcute.src.entities
     class ParentEntity : ScriptedEntity
     {
         protected Arsenal arsenal;
-        protected HashList<Gib> gibListHandle;
-        protected HashList<Shot> shotListHandle;
 
         protected GibBatch gibBatch;
 
@@ -33,15 +31,14 @@ namespace Exeggcute.src.entities
                             RepeatedSound deathSound,
                             Arsenal arsenal,
                             GibBatch gibBatch,
-                            HashList<Shot> shotListHandle,
-                            HashList<Gib> gibListHandle)
+                            Alignment alignment)
             : base(model, texture, scale, radius, rotation, behavior)
         {
             this.deathSound = deathSound;
-            this.gibListHandle = gibListHandle;
-            this.shotListHandle = shotListHandle;
             this.arsenal = arsenal;
             this.gibBatch = gibBatch;
+            this.Alignment = alignment;
+            
         }
 
         /// <summary>
@@ -53,14 +50,23 @@ namespace Exeggcute.src.entities
                             float radius,
                             Vector3 rotation,
                             GibBatch gibBatch,
-                            HashList<Shot> shotListHandle,
-                            HashList<Gib> gibListHandle)
+                            Alignment alignment)
             : base(model, texture, scale, radius, rotation, (BehaviorScript)null)//HACK LOLMAO
         {
-            this.gibListHandle = gibListHandle;
-            this.shotListHandle = shotListHandle;
             this.gibBatch = gibBatch;
+            this.Alignment = alignment;
         }
+
+        //fixme code clone in spawner
+        protected void chooseAlignment(Alignment alignment)
+        {
+            if (alignment == src.Alignment.None)
+            {
+                throw new ExeggcuteError("this is an invalid alignment");
+            }
+            arsenal.CheckAlignment(alignment);
+        }
+
 
         /// <summary>
         /// Used to allow subclasses to implement ILoadable

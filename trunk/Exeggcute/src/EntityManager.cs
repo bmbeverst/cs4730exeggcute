@@ -19,13 +19,12 @@ namespace Exeggcute.src
     class EntityManager
     {
         public RepeatedSound collectSound = Assets.MakeRepeated("gulp", 5);
-        public bool Collide(Player player, HashList<Enemy> enemies)
+        public bool CollidePlayer(Player player, IEnumerable<Enemy> enemies)
         {
             if (!player.CanControl) return false;
-            var keys = enemies.GetKeys();
-            foreach (Enemy enemy in keys)
+            foreach (Enemy enemy in enemies)
             {
-                if (enemy.OuterHitbox.Intersects(player.InnerHitbox))
+                if (enemy.Hitbox.Intersects(player.ModelHitbox))
                 {
                     return true;
                 }
@@ -33,16 +32,16 @@ namespace Exeggcute.src
             return false;
         }
 
-        public bool HitPlayer(HashList<Shot> enemyShots, Player player)
+        public bool HitPlayer(IEnumerable<Shot> enemyShots, Player player)
         {
             if (player.IsInvulnerable) return false;
-            foreach (Shot shot in enemyShots.GetKeys())
+            foreach (Shot shot in enemyShots)
             {
-                if (shot.OuterHitbox.Intersects(player.InnerHitbox))
+                if (shot.Hitbox.Intersects(player.Hitbox))
                 {
                     return true;
                 }
-                else if (!shot.HasGrazed && shot.OuterHitbox.Intersects(player.OuterHitbox))
+                else if (!shot.HasGrazed && shot.Hitbox.Intersects(player.Hitbox))
                 {
                     player.Graze(shot);
                     shot.Graze(player);
@@ -51,11 +50,11 @@ namespace Exeggcute.src
             return false;
         }
 
-        public void CollideItems(HashList<Item> itemList, Player player)
+        public void CollideItems(IEnumerable<Item> itemList, Player player)
         {
-            foreach (Item item in itemList.GetKeys())
+            foreach (Item item in itemList)
             {
-                if (item.OuterHitbox.Intersects(player.OuterHitbox))
+                if (item.Hitbox.Intersects(player.ModelHitbox))
                 {
                     // this will call player.Collect. 
                     // do not call it here (double dispatch!)
@@ -65,13 +64,13 @@ namespace Exeggcute.src
             }
         }
 
-        public void Collide(HashList<Shot> playerShots, HashList<Enemy> enemies)
+        public void Collide(IEnumerable<Shot> playerShots, IEnumerable<Enemy> enemies)
         {
-            foreach (Shot shot in playerShots.GetKeys())
+            foreach (Shot shot in playerShots)
             {
-                foreach (Enemy enemy in enemies.GetKeys())
+                foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.OuterHitbox.Intersects(shot.OuterHitbox))
+                    if (enemy.Hitbox.Intersects(shot.Hitbox))
                     {
                         enemy.Collide(shot);
                         shot.Collide(enemy);
@@ -84,51 +83,36 @@ namespace Exeggcute.src
         /// Removes all entities in worldspace that are outside the given 
         /// rectangle.
         /// </summary>
-        public void FilterOffscreen<TEntity>(HashList<TEntity> entities, Rectangle rect)
-            where TEntity : PlanarEntity3D
+        public void FilterOffscreen<TEntity>(HashList<TEntity> entities, Rectangle rect, Dictionary<int, Entity3D> allEntities)
+            where TEntity : Entity3D
         {
             List<TEntity> toRemove = new List<TEntity>();
-            foreach (TEntity entity in entities.GetKeys())
+            foreach (TEntity entity in entities)
             {
                 if (!entity.ContainedIn(rect))
                 {
+                    allEntities.Remove(entity.ID);
                     toRemove.Add(entity);
                 }
             }
             toRemove.ForEach(e => entities.Remove(e));
         }
-        public void FilterDead<TEntity>(HashList<TEntity> entities) where TEntity : Entity
+        public void FilterDead<TEntity>(HashList<TEntity> entities, Dictionary<int, Entity3D> allEntities) 
+            where TEntity : Entity
         {
             List<TEntity> removed = new List<TEntity>();
-            foreach (TEntity entity in entities.GetKeys())
+            foreach (TEntity entity in entities)
             {
                 if (entity.IsTrash)
                 {
+                    allEntities.Remove(entity.ID);
                     removed.Add(entity);
                 }
             }
             removed.ForEach(entity => entities.Remove(entity));
         }
 
-        /// <summary>
-        /// For handling enemy-enemy collisions
-        /// </summary>
-        /// <param name="entities"></param>
-        public void Collide(List<Entity3D> entities)
-        {
-            for (int i = 0; i < entities.Count; i += 1)
-            {
-                for (int j = i + 1; j < entities.Count; j += 1)
-                {
-                    if (entities[i].OuterHitbox.Intersects(entities[j].OuterHitbox))
-                    {
-
-                    }
-                }
-            }
-        }
-
-        public void CollideTerrain<TEntity>(WangMesh terrain, TEntity entity, Rectangle gameArea) where TEntity : PlanarEntity3D
+        public void CollideTerrain<TEntity>(WangMesh terrain, TEntity entity, Rectangle gameArea) where TEntity : Entity3D
         {
             if (Math.Abs(entity.Position.Z - (terrain.Depth)) < 2)
             {
@@ -143,12 +127,12 @@ namespace Exeggcute.src
             }
         }
 
-        public void CollideBoss(HashList<Shot> playerShots, Boss boss)
+        public void CollideBoss(IEnumerable<Shot> playerShots, Boss boss)
         {
-            BoundingSphere bossBox = boss.OuterHitbox;
-            foreach (Shot shot in playerShots.GetKeys())
+            BoundingSphere bossBox = boss.Hitbox;
+            foreach (Shot shot in playerShots)
             {
-                if (shot.OuterHitbox.Intersects(bossBox))
+                if (shot.Hitbox.Intersects(bossBox))
                 {
                     shot.Collide(boss);
                     boss.Collide(shot);
@@ -158,8 +142,7 @@ namespace Exeggcute.src
 
         public void CollideDying(WangMesh terrain)
         {
-            HashList<Enemy> enemies = World.DyingList;
-            foreach (Enemy enemy in enemies.GetKeys())
+            foreach (Enemy enemy in World.GetDying())
             {
                 if (Math.Abs(enemy.Position.Z - terrain.Depth) < 2)
                 {
@@ -174,9 +157,9 @@ namespace Exeggcute.src
 
 
 
-        internal void EatShots(HashList<Shot> enemyShots, Rectangle rectangle)
+        internal void EatShots(IEnumerable<Shot> enemyShots, Rectangle rectangle)
         {
-            foreach (Shot shot in enemyShots.GetKeys())
+            foreach (Shot shot in enemyShots)
             {
                 if (rectangle.Contains((int)shot.X, (int)shot.Y))
                 {
@@ -185,52 +168,48 @@ namespace Exeggcute.src
             }
         }
 
-        private void updateEntityList<TEntity>(HashList<TEntity> entities)
+        private void updateEntityLists<TEntity>(params IEnumerable<TEntity>[] entityLists)
             where TEntity : Entity3D
         {
-            foreach (TEntity entity in entities.GetKeys())
+            foreach (IEnumerable<TEntity> entities in entityLists)
             {
-                entity.Update();
+                foreach (TEntity entity in entities)
+                {
+                    entity.Update();
+                }
             }
         }
 
         public void UpdateAll(Rectangle liveArea)
         {
-            FilterDead(World.PlayerShots);
-            FilterDead(World.EnemyShots);
-            FilterDead(World.EnemyList);
-            FilterDead(World.ItemList);
-            FilterDead(World.GibList);
-            FilterDead(World.DyingList);
-
-            FilterOffscreen(World.PlayerShots, liveArea);
-            FilterOffscreen(World.EnemyShots, liveArea);
-            FilterOffscreen(World.ItemList, liveArea);
-            FilterOffscreen(World.GibList, liveArea);
-
-            updateEntityList(World.PlayerShots);
-            updateEntityList(World.EnemyShots);
-            updateEntityList(World.EnemyList);
-            updateEntityList(World.ItemList);
-            updateEntityList(World.GibList);   
+            World.FilterOffscreen(this, liveArea);
+            World.FilterDead(this);
+            updateEntityLists<Entity3D>(World.GetGibList(),
+                                       World.GetEnemies(),
+                                       World.GetItemList(),
+                                       World.GetEnemyShots(),
+                                       World.GetPlayerShots()); 
         }
 
         public void DrawAll(GraphicsDevice graphics, Matrix projection, Matrix view)
         {
-            drawEntityList(graphics, view, projection, World.GibList);
-            drawEntityList(graphics, view, projection, World.EnemyList);
-            drawEntityList(graphics, view, projection, World.ItemList);
-            drawEntityList(graphics, view, projection, World.EnemyShots);
-            drawEntityList(graphics, view, projection, World.PlayerShots);
+            drawEntityLists<Entity3D>(graphics, view, projection, World.GetGibList(), 
+                                                                  World.GetEnemies(),
+                                                                  World.GetItemList(),
+                                                                  World.GetEnemyShots(),
+                                                                  World.GetPlayerShots());
         }
 
 
-        private void drawEntityList<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, HashList<TEntity> entities)
+        private void drawEntityLists<TEntity>(GraphicsDevice graphics, Matrix view, Matrix projection, params IEnumerable<TEntity>[] entityLists)
             where TEntity : Entity3D
         {
-            foreach (TEntity entity in entities.GetKeys())
+            foreach (IEnumerable<TEntity> entities in entityLists)
             {
-                entity.Draw(graphics, view, projection);
+                foreach (TEntity entity in entities)
+                {
+                    entity.Draw(graphics, view, projection);
+                }
             }
         }
     }

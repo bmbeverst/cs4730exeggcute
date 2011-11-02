@@ -8,8 +8,7 @@ namespace Exeggcute.src.console.commands
     abstract class ConsoleCommand
     {
         protected static string StaticUsage = 
-@"
-This member is implemented in a static constructor and was either referenced
+@"This member is implemented in a static constructor and was either referenced
 too early in execution, or was not initialized properly.";
 
         private static string Header =
