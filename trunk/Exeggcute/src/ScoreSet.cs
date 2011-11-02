@@ -52,8 +52,19 @@ namespace Exeggcute.src
                 {
                     throw new ParseError("{0}\nFailed to parse line {1}", error.Message, line);
                 }
-                //localScores[i] = entry;
-                localScores.Add(entry);
+
+                bool duplicate = false;
+                foreach (ScoreEntry currentEntry in localScores)
+                {
+                    if (currentEntry.IntScore == entry.IntScore && currentEntry.Name == entry.Name && currentEntry.Date == entry.Date)
+                    {
+                        duplicate = true;
+                    }
+                }
+                if (!duplicate)
+                {
+                   localScores.Add(entry);
+                }
             }
         }
 
@@ -223,7 +234,31 @@ namespace Exeggcute.src
                 }
             }
 
+            Clean();
             ViewingNetwork = true;
+        }
+
+        private void Clean()
+        {
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("128.143.69.241"), 9030);
+
+            Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {
+                server.Connect(ip);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("{0}\nUnable to connect to server.", e.Message);
+                return;
+            }
+
+            String query = "Clean\r\n";
+            server.Send(Encoding.ASCII.GetBytes(query));
+
+            server.Shutdown(SocketShutdown.Both);
+            server.Close();
         }
 
         public void TryInsert(int score)
