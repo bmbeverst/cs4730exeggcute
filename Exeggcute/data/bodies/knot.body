@@ -1,5 +1,5 @@
-﻿model:    playerScene
-texture:  debug
+﻿model:    knot
+texture:  fractalSwirl1
 scale:    0.2
 radius:   1
 mass:     1

@@ -12,7 +12,7 @@ namespace Exeggcute.src.scripting.action
         {
             docs[typeof(IfAction)] = new Dictionary<Info, string> 
             {
-                { Info.Syntax, "if PARAM OP VALUE then ACTION" },
+                { Info.Syntax, "if PARAM OP VALUE ACTION" },
                 { Info.Args, 
 @"string PARAM
     The entity's parameter to query.

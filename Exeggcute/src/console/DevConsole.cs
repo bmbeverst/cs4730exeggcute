@@ -147,6 +147,8 @@ Keyboard controls:
             }
             catch (Exception e)
             {
+                //fixme
+                if (e is ResetException) throw e;
                WriteLine(
 @"Execution of the command '{0}' terminated unexpectedly.
     Useless information follows:
@@ -306,7 +308,7 @@ Keyboard controls:
             WriteLine("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
         }
 
-        public virtual void AcceptCommand(SetGlobalCommand global)
+        public override void AcceptCommand(SetGlobalCommand global)
         {
             WriteLine("First implement global settings, then you can set them!");
         }
@@ -356,6 +358,14 @@ Keyboard controls:
                 return;
             }
             Worlds.World.AddTracker(tracker);
+        }
+
+        public override void AcceptCommand(ReloadCommand reload)
+        {
+            float sec = Util.Time();
+            Assets.ResetData();
+            Assets.LoadData();
+            WriteLine("{0:0.00}", Util.Time() - sec);
         }
 
         public override void AcceptCommand(ClearCommand clear)

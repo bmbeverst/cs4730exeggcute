@@ -95,29 +95,44 @@ namespace Exeggcute.src.assets
 
         public static void Reset()
         {
-            Sfx          = new XnaBank<SoundEffect>("sfx", "xnb");
-            Font         = new XnaBank<SpriteFont>("fonts", "xnb");
-            Model        = new XnaBank<Model>("models", "xnb");
-            Texture      = new XnaBank<Texture2D>("sprites", "xnb");
-            Song         = new XnaBank<Song>("songs", "xnb");
-            Effect       = new XnaBank<Effect>("shaders", "xnb");
-            Sprite       = new DataBank<Sprite>("sprites", "sprite");
-            Option       = new DataBank<OptionInfo>("options", "option");
-            Body         = new DataBank<BodyInfo>("bodies", "body");
-            Item         = new DataBank<ItemInfo>("items", "item");
-            ItemBatch    = new DataBank<ItemBatch>("itembatches", "item");
-            Enemy        = new DataBank<Enemy>("enemies", "enemy");
-            Level        = new DataBank<Level>("levels", "level");
-            Boss         = new DataBank<Boss>("bosses", "boss");
-            Player       = new DataBank<Player>("players", "player");
+            ResetXna();
+            ResetData();
+        }
+
+        public static void ResetXna()
+        {
+            Sfx = new XnaBank<SoundEffect>("sfx", "xnb");
+            Font = new XnaBank<SpriteFont>("fonts", "xnb");
+            Model = new XnaBank<Model>("models", "xnb");
+            Texture = new XnaBank<Texture2D>("sprites", "xnb");
+            Song = new XnaBank<Song>("songs", "xnb");
+            Effect = new XnaBank<Effect>("shaders", "xnb");
+        }
+
+        public static void ResetData()
+        {
+            Sprite = new DataBank<Sprite>("sprites", "sprite");
+            Option = new DataBank<OptionInfo>("options", "option");
+            Body = new DataBank<BodyInfo>("bodies", "body");
+            Item = new DataBank<ItemInfo>("items", "item");
+            ItemBatch = new DataBank<ItemBatch>("itembatches", "item");
+            Enemy = new DataBank<Enemy>("enemies", "enemy");
+            Level = new DataBank<Level>("levels", "level");
+            Boss = new DataBank<Boss>("bosses", "boss");
+            Player = new DataBank<Player>("players", "player");
             Conversation = new DataBank<Conversation>("convo", "txt");
-            Behavior     = new DataBank<ScriptBase>("scripts/behaviors", "cl");
-            Trajectory   = new DataBank<ScriptBase>("scripts/trajectories", "traj");
-            Spawn        = new DataBank<ScriptBase>("scripts/spawns", "spawn");
-        
+            Behavior = new DataBank<ScriptBase>("scripts/behaviors", "cl");
+            Trajectory = new DataBank<ScriptBase>("scripts/trajectories", "traj");
+            Spawn = new DataBank<ScriptBase>("scripts/spawns", "spawn");
         }
 
         public static void LoadAll(ContentManager content)
+        {
+            LoadXna(content);
+            LoadData();     
+        }
+
+        public static void LoadXna(ContentManager content)
         {
             Texture.LoadAll(content);//must be first
             Font.LoadAll(content);
@@ -125,12 +140,24 @@ namespace Exeggcute.src.assets
             Model.LoadAll(content);
             Sfx.LoadAll(content);
             Song.LoadAll(content);
+        }
 
+        public static void LoadData()
+        {
+            //depends texture
             Sprite.LoadAll();
+
+            //model, texture
             Body.LoadAll();
+            
+            //none
             Behavior.LoadAll();
+            //none
             Trajectory.LoadAll();
             Spawn.LoadAll();
+
+            
+
             Item.LoadAll();
             ItemBatch.LoadAll();
             Option.LoadAll();
@@ -140,8 +167,10 @@ namespace Exeggcute.src.assets
 
             Boss.LoadAll();
             Level.LoadAll();
-            
         }
+
+
+
 
     }
 }

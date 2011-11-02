@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.entities;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src
 {
@@ -20,8 +21,15 @@ namespace Exeggcute.src
     /// </summary>
     class Engine
     {
-        public static int XRes { get; protected set; }
-        public static int YRes { get; protected set; }
+        public static int XRes
+        {
+            get { return Settings.Global.Video.XRes; }
+        }
+
+        public static int YRes 
+        { 
+            get { return Settings.Global.Video.YRes; }
+        }
         public static int FPS { get; protected set; }
         public static Vector2 Center2D
         {
@@ -43,8 +51,6 @@ namespace Exeggcute.src
 
         static Engine()
         {
-            XRes = 1200;
-            YRes = 900;
             FPS = 60;
         }
 
@@ -61,6 +67,7 @@ namespace Exeggcute.src
 
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input, string dataSetName)
         {
+            Settings.Reset();
             Worlds.Reset(this, content, graphics);
             Assets.LoadAll(content);
 

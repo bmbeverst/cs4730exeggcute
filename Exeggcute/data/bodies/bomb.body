@@ -1,0 +1,6 @@
+﻿model:    boss0
+texture:  fractalSwiss
+scale:    2
+radius:   12
+mass:     1
+rotation: (0,0,90)

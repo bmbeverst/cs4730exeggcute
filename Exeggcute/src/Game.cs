@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nuclex.Input;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src
 {
@@ -21,6 +22,7 @@ namespace Exeggcute.src
         public static Game GameHandleDONTUSE;
         public Game()
         {
+            Settings.Reset();
             GameHandleDONTUSE = this;
             graphicsManager = new GraphicsDeviceManager(this);
             graphicsManager.PreferredBackBufferHeight = Engine.YRes;
@@ -52,6 +54,7 @@ namespace Exeggcute.src
         /// <param name="name"></param>
         public void Reset(string name)
         {
+            Settings.Reset();
             Loaders.Reset();
             Assets.Reset();
             
@@ -76,7 +79,9 @@ namespace Exeggcute.src
             }
             catch (ResetException re)
             {
+                float ticks = Util.Time();
                 Reset(re.Name);
+                Worlds.World.ConsoleWrite("Reset took {0:0.00} seconds", Util.Time() - ticks);
             }
             
             base.Update(gameTime);
