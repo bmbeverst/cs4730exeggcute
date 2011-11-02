@@ -27,7 +27,6 @@ namespace Exeggcute.src
     /// </summary>
     class Level : Sandbox
     {
-        protected HUD hud;
         public string Name { get; protected set; }
         public Difficulty Difficulty { get; protected set; }
 
@@ -109,11 +108,7 @@ namespace Exeggcute.src
             
         }
 
-        public void Attach(Player player, HUD hud)
-        {
-            this.player = player;
-            this.hud = hud;
-        }
+
 
         public void Start()
         {

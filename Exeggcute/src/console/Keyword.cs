@@ -19,8 +19,12 @@ namespace Exeggcute.src.console
         LevelTask,
         Doc,
         WhatIs,
-        Set,
+        SetParam,
         Track,
-        Clear
+        Clear,
+        SetGlobal,
+        Make
     }
+
+
 }

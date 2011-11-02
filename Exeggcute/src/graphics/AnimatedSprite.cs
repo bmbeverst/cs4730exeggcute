@@ -48,7 +48,7 @@ namespace Exeggcute.src.graphics
             Animations = anims;
         }
 
-        public static Sprite LoadFromFile(string filename)
+        public static new Sprite LoadFromFile(string filename)
         {
             return Loaders.Sprite.LoadFromFile(filename);
         }

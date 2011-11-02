@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.graphics;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.gui;
 
 
 namespace Exeggcute.src
@@ -29,6 +30,7 @@ namespace Exeggcute.src
         protected float liveBuffer = 1f / 4f;
 
         protected Player player;
+        protected HUD hud;
 
         public Sandbox(WangMesh terrain)
         {
@@ -36,6 +38,13 @@ namespace Exeggcute.src
             this.GameArea = new Rectangle(-Level.HalfWidth, -Level.HalfHeight, Level.HalfWidth * 2, Level.HalfHeight * 2);
             this.LiveArea = Util.GrowRect(GameArea, liveBuffer);
             this.terrain = terrain;
+        }
+
+        public void Attach(Player player, HUD hud)
+        {
+            
+            this.hud = hud;
+            AttachPlayer(player);
         }
 
         public void AttachPlayer(Player player)

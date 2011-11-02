@@ -25,16 +25,30 @@ namespace Exeggcute.src.console
         protected DevConsole console;
 
         protected string prompt;
-        public PromptBuffer(DevConsole console, string prompt)
+        public PromptBuffer(DevConsole console, string prompt, List<string> history)
         {
             this.console = console;
             this.prompt = prompt;
+            this.history = history;
         }
 
         public void Update(ControlManager controls)
         {
 
         }
+
+        public List<string> GetHistory(int length)
+        {
+            List<string> result = new List<string>();
+
+            int iMax = Math.Min(length, history.Count);
+            for (int i = 0; i < iMax; i += 1)
+            {
+                result.Add(history[i]);
+            }
+            return result;
+        }
+
         private string tryDeleteAt(string s, int i)
         {
             return s.Remove(i, 1);
@@ -48,6 +62,8 @@ namespace Exeggcute.src.console
             deleteFlag.Update(kb.IsKeyPressed(Keys.Delete));
 
         }
+
+
 
         private void moveCursor()
         {

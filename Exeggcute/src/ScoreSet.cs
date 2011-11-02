@@ -18,7 +18,7 @@ namespace Exeggcute.src
         private const string FILE = "score.bin";
         private const char DELIM = ',';
 
-        private bool networkUpdated = false;
+        //private bool networkUpdated = false;
 
         private bool networkAlreadyLoaded = false;
         public bool ViewingNetwork = false;

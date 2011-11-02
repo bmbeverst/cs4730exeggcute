@@ -58,6 +58,7 @@ namespace Exeggcute.src
 
         protected Manifest manifest;
         protected DataSet dataSet;
+
         public Engine(GraphicsDevice graphics, ContentManager content, InputManager input, string dataSetName)
         {
             Worlds.Reset(this, content, graphics);
@@ -76,6 +77,8 @@ namespace Exeggcute.src
             TextBox.LoadSprites();
             
             AssetManager.Commit();
+
+            Worlds.World.RunInit();
         }
 
         
@@ -87,13 +90,17 @@ namespace Exeggcute.src
             //mySound.Play();
             frame += 1;
             controls.Update();
-            //Console.WriteLine(controls.MousePosition);
-            Worlds.World.Update(controls);
-            
+
+
             if (controls[Ctrl.Quit].IsPressed)
             {
                 Exit();
             }
+
+            Worlds.World.Update(controls);
+            //after this point if the console is in front, 
+            // no key presses may be eaten
+            
             if (controls[Ctrl.Start].DoEatPress())
             {
                 Worlds.World.Pause();
@@ -119,6 +126,7 @@ namespace Exeggcute.src
             controls.WriteToFile();
             scoreSet.WriteLocal();
             Util.WriteLog();
+            Worlds.World.Unload();
             Environment.Exit(1);
         }
     }

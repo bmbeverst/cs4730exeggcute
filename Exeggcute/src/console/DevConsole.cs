@@ -12,6 +12,7 @@ using Exeggcute.src.loading;
 using Exeggcute.src.scripting.task;
 using Exeggcute.src.entities;
 using Exeggcute.src.console.trackers;
+using System.IO;
 
 namespace Exeggcute.src.console
 {
@@ -32,6 +33,14 @@ Keyboard controls:
 
     up/down             Scroll through history of commands.";
         public Dictionary<string, bool> Keywords { get; protected set; }
+        
+        public const string HistoryFile = "history";
+        public const int HistoryRemembered = 8;
+
+        public const string LogFile = "log";
+        public const int LogRemembered = 8;
+
+        public const string InitFile = "init";
 
         protected KeyboardManager kbManager;
         protected PromptBuffer textBuffer;
@@ -53,6 +62,8 @@ Keyboard controls:
 
         public DevConsole() 
         {
+            List<string> history = getHistory();
+
             Keywords = new Dictionary<string, bool>();
             foreach (Keyword type in Enum.GetValues(typeof(Keyword)))
             {
@@ -61,10 +72,34 @@ Keyboard controls:
             WriteLine(welcomeMessage);
             this.font = Assets.Font["consolas"];
             this.kbManager = new KeyboardManager();
-            this.textBuffer = new PromptBuffer(this, prompt);
+            this.textBuffer = new PromptBuffer(this, prompt, history);
             this.lineSpacing = font.LineSpacing;
             Resize();
             
+        }
+        private List<string> getHistory()
+        {
+            List<string> history = new List<string>();
+            if (File.Exists(HistoryFile))
+            {
+                history = Util.ReadLines(HistoryFile);
+            }
+            return history;
+        }
+
+
+        public void RunInit()
+        {
+            string filepath = InitFile;
+            List<string> lines = new List<string>();
+            if (File.Exists(filepath))
+            {
+                lines = Util.ReadAndStrip(filepath);
+            }
+            foreach (string line in lines)
+            {
+                InputCommand(line);
+            }
         }
 
         public bool IsKeyword(string type)
@@ -135,9 +170,10 @@ Keyboard controls:
             }
             int delta = controls.MouseWheelDelta;
             outputPtr = Util.Clamp(outputPtr - delta, 0, output.Count - 8);
+            controls.EatAll();
             if (inBackground)
             {
-                controls.EatAll();
+                
                 Parent.Update(controls);
             }
         }
@@ -244,14 +280,35 @@ Keyboard controls:
 
         public override void Dispose()
         {
-
+            WriteHistory();
         }
 
+        public void WriteHistory()
+        {
+            Util.WriteFile(HistoryFile, textBuffer.GetHistory(HistoryRemembered));
+            Util.WriteFile(LogFile, GetOutput(LogRemembered));
+        }
 
+        public List<string> GetOutput(int count)
+        {
+            List<string> result = new List<string>();
+            int written = 0;
+            for (int i = output.Count - 1; i >= 0 && written < count; i -= 1)
+            {
+                result.Insert(0, output[i]);
+            }
+
+            return result;
+        }
 
         public override void AcceptCommand(ConsoleCommand command)
         {
             WriteLine("There is no overloaded method to accept a command of type {0}, i.e. it has\n not yet been implemented", command.GetType().Name);
+        }
+
+        public virtual void AcceptCommand(SetGlobalCommand global)
+        {
+            WriteLine("First implement global settings, then you can set them!");
         }
 
         public override void AcceptCommand(BuiltinCommand cmd)
@@ -325,7 +382,7 @@ Keyboard controls:
             }
         }
 
-        public override void AcceptCommand(SetCommand set)
+        public override void AcceptCommand(SetParamCommand set)
         {
             Worlds.World.SetParameter(set);
         }

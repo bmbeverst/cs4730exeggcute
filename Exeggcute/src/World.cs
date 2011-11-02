@@ -52,7 +52,7 @@ namespace Exeggcute.src
     {
         private DevConsole console;
 
-        private Stack<IContext> stack = new Stack<IContext>();
+        private ContextStack stack = new ContextStack();
         private bool isInitialized;
         public ContentManager Content;
         public GraphicsDevice Graphics;
@@ -71,7 +71,9 @@ namespace Exeggcute.src
         private Dictionary<Alignment, HashList<Shot>> shotDict;
 
         public Dictionary<int, Entity3D> Entities = new Dictionary<int, Entity3D>();
-        public IContext Top { get { return stack.Peek(); } }
+
+        public IContext Top { get { return stack.Top; } }
+        public IContext Front { get { return stack.Front; } }
 
         //public WangMesh Terrain;
         //private WangMesh menuTerrain;
@@ -102,9 +104,6 @@ namespace Exeggcute.src
         private HUD hud;
 
         private WangMesh menuTerrain;
-        
-
-        private bool consoleAttached = false;
 
         private List<Tracker> trackers = new List<Tracker>();
 
@@ -136,12 +135,20 @@ namespace Exeggcute.src
 
         public DevConsole MakeOverlay()
         {
-            if (console == null) console = new DevConsole();
-            consoleAttached = false;
+            if (console == null)
+            {
+                console = new DevConsole();
+                stack.AttachConsole(console);
+            }
             hud = new HUD();
             TerrainInfo info = new TerrainInfo("data/world/bg.terrain");
             menuTerrain = info.MakeMesh(Graphics);
             return console;
+        }
+
+        public void RunInit()
+        {
+            console.RunInit();
         }
 
         public IEnumerable<Enemy> GetDying()
@@ -213,38 +220,26 @@ namespace Exeggcute.src
         
         public void Update(ControlManager controls)
         {
+            bool toggled = false;
             if (controls[Ctrl.Console].DoEatPress())
             {
-                if (consoleAttached)
-                {
-                    pop();
-                    console.DetachParent();
-                    consoleAttached = false;
-                    MediaPlayer.Resume();
-                    
-                }
-                else
-                {
-                    console.AttachParent(Top);
-                    push(console);
-                    consoleAttached = true;
-                    MediaPlayer.Pause();
-                }
+                toggled = true;
+                stack.ToggleConsole();
             }
 
             trackers.ForEach(track => track.Update());
-            songManager.Update();
-            
-            
-            Top.Update(controls);
+            songManager.Update(toggled);
+
+
+            Front.Update(controls);
         }
         
         public void Draw(GraphicsDevice graphics, SpriteBatch batch)
         {
-            Top.Draw3D(graphics, camera);
+            Front.Draw3D(graphics, camera);
 
             batch.Begin();
-            Top.Draw2D(batch);
+            Front.Draw2D(batch);
             for (int i = 0; i < trackers.Count; i += 1)
             {
                 trackers[i].Draw2D(batch, new Vector2(0, i * 12));
@@ -327,6 +322,11 @@ namespace Exeggcute.src
                 difficultyMenu = new DifficultyMenu(buttons, menuTerrain, bounds);
             }
             push(difficultyMenu);
+        }
+
+        public void Unload()
+        {
+            console.Dispose();
         }
 
         /// <summary>
@@ -468,7 +468,7 @@ namespace Exeggcute.src
         //fixme oh so gross
         public void CleanupLevel()
         {
-            Level level = (Level)stack.Peek();
+            Level level = (Level)Top;
 
             if (level.DoneCleanup())
             {
@@ -484,25 +484,11 @@ namespace Exeggcute.src
         //or sandbox is true
         public void ContextSwitch(string name, bool isSandbox)
         {
-            if (!(Top is DevConsole))
-            {
-                throw new ExeggcuteError("impossible");
-            }
-            else
-            {
-                stack.Pop();
-            }
+            ClearLists();
             while (!(Top is MainMenu))
             {
-                if (stack.Count == 0) throw new ExeggcuteError("main menu expected on top!");
-                if (Top is Level)
-                {
-                    //unload level
-                    Level level = (Level)Top;
-                    ClearLists();
-                    level.Unload();
-                }
-                stack.Pop();
+                
+                Pop().Unload();
             }
 
             if (player == null || hud == null)
@@ -515,18 +501,20 @@ namespace Exeggcute.src
             
             if (isSandbox)
             {
-                newContext = new Sandbox(menuTerrain);
+                Sandbox box = new Sandbox(menuTerrain);
+                box.Attach(player, hud);
+                newContext = box;
             }
             else
             {
                 Level next = Assets.Level[name];
+                next.Attach(player, hud);
                 newContext = next;
             }
 
 
-            console.AttachParent(newContext);
             push(newContext);
-            push(console);
+
         }
 
         /// <summary>
@@ -590,7 +578,7 @@ namespace Exeggcute.src
         public void SendMove(Direction dir)
         {
             //fixme this is ugly
-            Menu current = (Menu)stack.Peek();
+            Menu current = (Menu)Top;
             current.Move(dir);
             if (current.ResolveCursor())
             {
@@ -598,11 +586,11 @@ namespace Exeggcute.src
             }
         }
 
-        public void Pop(/*IContext self*/)
+        public IContext Pop(/*IContext self*/)
         {
             if (true /*|| self == stack.Peek()*/)
             {
-                stack.Pop();
+                return stack.Pop();
             }
             else
             {
@@ -658,7 +646,7 @@ namespace Exeggcute.src
 
         public void Unpause()
         {
-            if (!(stack.Peek() is PauseMenu))
+            if (!(Top is PauseMenu))
             {
                 throw new InvalidOperationException("Only can unpause from the pause menu");
             }
@@ -677,10 +665,7 @@ namespace Exeggcute.src
         /// </summary>
         public void Cleanup(ContentManager content)
         {
-            for (int i = 0; i < stack.Count; i += 1)
-            {
-                pop().Unload();
-            }
+            stack.Empty();
         }
 
         public void Back()
@@ -692,7 +677,7 @@ namespace Exeggcute.src
         public IContext getSecond()
         {
             IContext temp = stack.Pop();
-            IContext result = stack.Peek();
+            IContext result = Top;
             push(temp);
             return result;
         }
@@ -878,7 +863,7 @@ namespace Exeggcute.src
 
         }
 
-        public void SetParameter(SetCommand set)
+        public void SetParameter(SetParamCommand set)
         {
             Entity3D toSet = Entities[set.ID];
             toSet.RawSetParam(set.ParamIndex, set.Value.Value);
