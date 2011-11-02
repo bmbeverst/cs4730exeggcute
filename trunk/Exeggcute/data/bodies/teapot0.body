@@ -1,6 +1,6 @@
 ﻿model:    teapot
-texture:  sixteen0
+texture:  fractalStar
 scale:    0.1
-radius:   1
+radius:   2
 mass:     1
 rotation: (0,0,0)

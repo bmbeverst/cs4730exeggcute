@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src.sound
 {
@@ -19,8 +20,10 @@ namespace Exeggcute.src.sound
         public SongState State { get; protected set; }
         protected SongState nextState = SongState.Off;
         protected Timer fadeTimer;
-        protected float maxVolume;
-
+        protected float maxVolume
+        {
+            get { return Settings.Global.Audio.MusicVolume; }
+        }
         protected float volume
         {
             get { return MediaPlayer.Volume; }
@@ -29,15 +32,9 @@ namespace Exeggcute.src.sound
 
         protected bool isPaused;
 
-        public SongManager(float maxVolume)
+        public SongManager()
         {
-            this.maxVolume = maxVolume;
             this.volume = maxVolume;
-        }
-
-        public void SetMaxVolume(float vol)
-        {
-            this.maxVolume = vol;
         }
 
 

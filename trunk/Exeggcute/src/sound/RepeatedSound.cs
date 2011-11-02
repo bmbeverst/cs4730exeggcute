@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exeggcute.src.assets;
 using Microsoft.Xna.Framework.Audio;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src.sound
 {
@@ -17,28 +18,31 @@ namespace Exeggcute.src.sound
         protected SoundEffect sound;
         protected int framesSincePlayed;
         protected int duration;
-        protected float volume;
+        protected float myVolume;
+        protected float volume
+        {
+            get { return myVolume * Settings.Global.Audio.SfxVolume; }
+        }
 
         public RepeatedSound(SoundEffect sound, int duration, float volume)
         {
             this.sound = sound;
             this.duration = duration/2;
-            this.volume = volume;
+            this.myVolume = volume;
         }
 
         protected RepeatedSound(float volume)
         {
-            this.volume = volume;
+            this.myVolume = volume;
         }
 
         public virtual void Play()
         {
             if (canPlay())
             {
-                sound.Play();
+                sound.Play(volume, 0, 0);
             }
         }
-
 
         public virtual bool canPlay()
         {
@@ -57,12 +61,11 @@ namespace Exeggcute.src.sound
 
         public static RepeatedSound Parse(string s)
         {
-            float volume = 0.0f;
             string[] tokens = s.Split(',');
             string name = tokens[0];
             if (!Assets.Sfx.ContainsKey(name) && Assets.Sfx.ContainsKey(name + "0"))
             {
-                return new RandoSound(name, volume);
+                return new RandoSound(name, 1.0f);
             }
             return Assets.MakeRepeated(name);
         }

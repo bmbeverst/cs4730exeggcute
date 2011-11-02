@@ -86,7 +86,7 @@ namespace Exeggcute.src
         private DifficultyMenu difficultyMenu;
         private PlayerMenu playerMenu;
 
-        private SongManager songManager = new SongManager(0.1f);
+        private SongManager songManager = new SongManager();
 
         // As we traverse through the menus, we build settings which are 
         // sufficient for building a Level instance.
@@ -690,10 +690,9 @@ namespace Exeggcute.src
                 console.AcceptCommand(new ListCommand(console, FileType.Player));
                 return;
             }
-            IContext second = getSecond();
-            if (second is Sandbox)
+            if (Top is Sandbox)
             {
-                Sandbox sandbox = (Sandbox)second;
+                Sandbox sandbox = (Sandbox)Top;
                 sandbox.AttachPlayer(setPlayer(name));
             }
             else

@@ -40,8 +40,10 @@ namespace Exeggcute.src.console
                 { Keyword.Exit, new string[] { "quit" } },
                 { Keyword.LevelTask, new string[] { "task" } },
                 { Keyword.SetGlobal, new string[] { "setglob", "glob", "global"} },
-                { Keyword.SetParam, new string[] { "set" } }
+                { Keyword.SetParam, new string[] { "set" } },
+
             };
+
             Aliases = new Dictionary<string, Keyword>();
             foreach (var pair in aliasHelper)
             {
@@ -119,8 +121,7 @@ namespace Exeggcute.src.console
                     else
                     {
                         return new HelpCommand(console);
-                    }
-                    
+                    } 
                 }
                 else if (type == Keyword.List)
                 {
@@ -288,6 +289,10 @@ namespace Exeggcute.src.console
                     string param = tokens[1];
                     string value = tokens[2];
                     return new SetGlobalCommand(console, param, value);
+                }
+                else if (type == Keyword.Reload)
+                {
+                    return new ReloadCommand(console);
                 }
                 else
                 {

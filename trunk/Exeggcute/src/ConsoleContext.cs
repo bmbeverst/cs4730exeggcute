@@ -23,12 +23,15 @@ namespace Exeggcute.src
 
         protected VisualizationData soundData = new VisualizationData();
 
-
-
-
         public virtual void AcceptCommand(ConsoleCommand command)
         {
             SubclassShouldImplement(command);
+        }
+
+
+        public virtual void AcceptCommand(ReloadCommand reload)
+        {
+            SubclassShouldImplement(reload);
         }
 
         public virtual void AcceptCommand(SetGlobalCommand global)

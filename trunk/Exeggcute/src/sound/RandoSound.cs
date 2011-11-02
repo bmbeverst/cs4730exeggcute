@@ -19,6 +19,7 @@ namespace Exeggcute.src.sound
         protected int ptr = 0;
 
         protected int maxDuration;
+ 
 
         public RandoSound(string name, float volume)
             : base(volume)
@@ -92,7 +93,5 @@ namespace Exeggcute.src.sound
             }
             return result;
         }
-
-
     }
 }

@@ -372,6 +372,7 @@ namespace Exeggcute.src.entities
 
         public virtual void Update()
         {
+            adjustMatrix();
             PrevPosition = Position;
             ProcessPhysics();
             Hitbox = new BoundingSphere(Position, Radius);

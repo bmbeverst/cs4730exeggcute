@@ -98,6 +98,7 @@ namespace Exeggcute.src.gui
         public override void Draw2D(SpriteBatch batch)
         {
             int xOffset = -16;
+            
             outlineShadow.Draw(batch, drawPositions[0] + new Vector2(xOffset + 16, 16));
             outline.Draw(batch, drawPositions[0] + new Vector2(xOffset, 0));
             TextBox.UpperLeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Top - 16));
@@ -120,6 +121,9 @@ namespace Exeggcute.src.gui
             {
                 buttons[i].Draw(batch, drawPositions[i]);
             }
+
+            Texture2D logo = Assets.Texture["gamelogo"];
+            batch.Draw(logo, Vector2.Zero, null,  Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0.9f);
             
         }
 

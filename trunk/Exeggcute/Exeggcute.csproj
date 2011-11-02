@@ -146,6 +146,12 @@
     <Compile Include="src\assets\Assets.cs" />
     <Compile Include="src\assets\DataBank.cs" />
     <Compile Include="src\assets\XnaBank.cs" />
+    <Compile Include="src\config\AudioConfig.cs" />
+    <Compile Include="src\config\Config.cs" />
+    <Compile Include="src\config\GlobalConfigs.cs" />
+    <Compile Include="src\config\ControlConfig.cs" />
+    <Compile Include="src\config\Settings.cs" />
+    <Compile Include="src\config\VideoConfig.cs" />
     <Compile Include="src\ConsoleContext.cs" />
     <Compile Include="src\console\CommandParser.cs" />
     <Compile Include="src\console\commands\BuiltinCommand.cs" />
@@ -178,6 +184,7 @@
     <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\items\PointItem.cs" />
     <Compile Include="src\entities\items\ExtraBomb.cs" />
+    <Compile Include="src\Matcher.cs" />
     <Compile Include="src\Point3.cs" />
     <Compile Include="src\ResetException.cs" />
     <Compile Include="src\scripting\action\IfAction.cs" />
@@ -359,8 +366,8 @@
     <Compile Include="src\input\Keyflag.cs" />
     <Compile Include="src\gui\ListButton.cs" />
     <Compile Include="src\gui\ContextName.cs" />
-    <Compile Include="src\config\ConfigItem.cs" />
-    <Compile Include="src\config\Configuration.cs" />
+    <Compile Include="src\config\old\ConfigItem.cs" />
+    <Compile Include="src\config\old\Configuration.cs" />
     <Compile Include="src\Random.cs" />
     <Compile Include="src\Timer.cs" />
     <Compile Include="src\Util.cs" />
@@ -559,6 +566,12 @@
     <Content Include="data\scripts\behaviors\fortest.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\bodies\bomb.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\bodies\knot.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -633,9 +646,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Thumbnail.png" />
-    <Content Include="settings.cfg">
+    <None Include="config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="ExeggcuteContent\Content.contentproj">

@@ -196,6 +196,13 @@ namespace Exeggcute.src
             else return val;
         }
 
+        internal static float Clamp(float val, float min, float max)
+        {
+            if (val < min) return min;
+            else if (val > max) return max;
+            else return val;
+        }
+
         internal static bool IsWhitespace(string s)
         {
             string stripped = Util.RemoveSpace(s);
@@ -766,6 +773,11 @@ namespace Exeggcute.src
                     part.Effect = effect;
                 }
             }
+        }
+
+        internal static string MakeFieldPair(string lhs, string rhs)
+        {
+            return string.Format("{0}:{1}", lhs, rhs);
         }
     }
 }
