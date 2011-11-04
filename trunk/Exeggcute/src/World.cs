@@ -307,7 +307,9 @@ namespace Exeggcute.src
         /// </summary>
         public void Process(ToDifficultyMenuEvent ent)
         {
-            gameType = ent.GameType;
+            Process(new ToPlayerMenuEvent(Difficulty.Normal));
+            return;
+            /*gameType = ent.GameType;
             if (difficultyMenu == null)
             {
                 SpriteFont font = Assets.Font["consolas"];
@@ -321,7 +323,7 @@ namespace Exeggcute.src
                 };
                 difficultyMenu = new DifficultyMenu(buttons, menuTerrain, bounds);
             }
-            push(difficultyMenu);
+            push(difficultyMenu);*/
         }
 
         public void Unload()
@@ -397,7 +399,7 @@ namespace Exeggcute.src
                     new ListButton(new ScoreEvent(ScoreEventType.Submit), new SpriteText(font, "Submit", fontColor)),
                     new ListButton(new BackEvent(), new SpriteText(font, "Back", fontColor)),
                 };
-                Rectangle bounds = new Rectangle(500, 500, 190, 190);
+                Rectangle bounds = new Rectangle(500, 600, 190, 120);
                 scoreMenu = new ScoreMenu(buttons, menuTerrain, bounds);
             }
             push(scoreMenu);
@@ -588,14 +590,7 @@ namespace Exeggcute.src
 
         public IContext Pop(/*IContext self*/)
         {
-            if (true /*|| self == stack.Peek()*/)
-            {
-                return stack.Pop();
-            }
-            else
-            {
-                throw new InvalidOperationException("Can only pop yourself");
-            }
+            return stack.Pop();
         }
 
         public void Pause()
@@ -728,16 +723,10 @@ namespace Exeggcute.src
             {
                 Color fontColor = Color.Black;
                 SpriteFont font = Assets.Font["consolas"];
-                Rectangle bounds = new Rectangle(500, 500, 166, 150);
+                Rectangle bounds = new Rectangle(500, 600, 166, 100);
                 List<Button> buttons = new List<Button> {
                     new ListButton(new ToDifficultyMenuEvent(GameType.Campaign),
                                    new SpriteText(font, "Campaign", fontColor)),
-                    new ListButton(new ToDifficultyMenuEvent(GameType.Arcade),
-                                   new SpriteText(font, "Arcade", fontColor)),
-
-                    new ListButton(new ToDifficultyMenuEvent(GameType.Custom),
-                                   new SpriteText(font, "Custom", fontColor)),
-
                     new ListButton(new ToScoresEvent(),
                                    new SpriteText(font, "High Scores", fontColor)),
                     new ListButton(new ExitGameEvent(),

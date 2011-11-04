@@ -247,7 +247,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "face.png"
-		RelativeFilename: "../textures/face.png"
+		RelativeFilename: "../sprites/four.png"
 	}
 	Texture: "Texture::face_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -272,7 +272,7 @@ Objects:  {
 		}
 		Media: "Video::face_png"
 		FileName: "face.png"
-		RelativeFilename: "../textures/face.png"
+		RelativeFilename: "../sprites/four.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

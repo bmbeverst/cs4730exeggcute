@@ -293,9 +293,11 @@ namespace Exeggcute.src
             float height = font.MeasureString("A").Y;
             List<ScoreEntry> /*ScoreEntry[]*/ toDraw = ViewingNetwork ? networkScores : localScores;
             SortScores(toDraw);
+            string headings = string.Format("   Score              {0,4}             {1}", "Name", "Date");
+            batch.DrawString(font, headings, new Vector2(260, 120 - height), color);
             for (int i = 0; i < LENGTH; i += 1)
             {
-                toDraw[i].Draw(batch, font, pos + new Vector2(0, height * i), color);
+                toDraw[i].Draw(batch, font, pos + new Vector2(260, 150+height * i), color);
             }
         }
     }

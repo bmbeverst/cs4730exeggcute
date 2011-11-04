@@ -13,9 +13,41 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.assets
 {
+    enum Asset
+    {
+        Alignment,
+        Arsenal,
+        Behavior,
+        BehaviorScript,
+        Body,
+        BodyInfo,
+        Boss,
+        Conversation,
+        Enemy,
+        Font,
+        GibBatch,
+        HUD,
+        Item,
+        ItemBatch,
+        Model,
+        Option,
+        Player,
+        RepeatedSound,
+        Roster,
+        Sfx,
+        Song,
+        Spawn,
+        Spellcard,
+        Sprite,
+        Texture2D,
+        Trajectory,
+        WangMesh
+    }
     static class Assets
     {
         public static XnaBank<SoundEffect> Sfx;
@@ -39,7 +71,21 @@ namespace Exeggcute.src.assets
         public static DataBank<ScriptBase> Trajectory;
         public static DataBank<ScriptBase> Spawn;
 
-        
+        public static void CreateOrdering()
+        {
+            List<GraphNode> nodes = new List<GraphNode>();
+
+            Assembly assembly = Assembly.GetAssembly(typeof(ScriptBase));
+            GraphNode master = new GraphNode(assembly, assembly.GetTypes().ToList());
+
+            foreach (GraphNode node in nodes)
+            {
+                //Console.WriteLine(node);
+            }
+            Console.WriteLine(master);
+                
+        }
+
 
         public static BehaviorScript GetBehavior(string name)
         {
@@ -65,6 +111,7 @@ namespace Exeggcute.src.assets
 
         private static Dictionary<string, RepeatedSound> repeatedSoundCache =
             new Dictionary<string, RepeatedSound>();
+
         public static RepeatedSound MakeRepeated(string name, int duration=-1)
         {
             if (repeatedSoundCache.ContainsKey(name))
@@ -141,7 +188,7 @@ namespace Exeggcute.src.assets
             Sfx.LoadAll(content);
             Song.LoadAll(content);
         }
-
+        
         public static void LoadData()
         {
             //depends texture
@@ -152,20 +199,59 @@ namespace Exeggcute.src.assets
             
             //none
             Behavior.LoadAll();
+
             //none
             Trajectory.LoadAll();
+
+            //none            
             Spawn.LoadAll();
 
             
-
+            //body, behavior
             Item.LoadAll();
+
+            //item
             ItemBatch.LoadAll();
+
+            //BodyInfo
+            //Sfx
+            //Behavior
+            //Trajectory
+            //Spawn
             Option.LoadAll();
+
+            //Font
             Conversation.LoadAll();
+
+            //BehaviorScript, ItemBatch
+            //Model Texture2D Arsenal BehaviorScript
+            //RepeatedSound ItemBatch GibBatch Alignment
             Enemy.LoadAll();
+
+            //Model
+            //Texture2D
+            //BehaviorScript
+            //Arsenal
+            //GibBatch
+            //RepeatedSound
+            //Arsenal
             Player.LoadAll();
 
+            //Model model, 
+            //Texture2D texture, 
+            //Conversation intro, 
+            //Conversation outro, 
+            //RepeatedSound hurtSound,
+            //BehaviorScript entryScript, 
+            //Spellcard
             Boss.LoadAll();
+
+
+            //HUD
+            //Roster
+            //Song bossTheme,
+            //Boss mainBoss,
+            //WangMesh
             Level.LoadAll();
         }
 

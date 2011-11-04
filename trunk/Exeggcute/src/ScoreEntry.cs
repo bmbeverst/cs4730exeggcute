@@ -69,7 +69,8 @@ namespace Exeggcute.src
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
         {
-            batch.DrawString(font, ToString(), pos, color);
+            string scoreString = string.Format("{0:000,000,000}    {1,18}    {2}", IntScore, Name, Date);
+            batch.DrawString(font, scoreString, pos, color);
         }
 
     }

@@ -26,7 +26,8 @@ namespace Exeggcute.src.gui
         {
             buttonBoxOutline.Draw(batch);
             base.Draw2D(batch);
-        }
+            DrawLogo(batch);
+;        }
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
