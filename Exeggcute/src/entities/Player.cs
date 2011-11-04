@@ -349,26 +349,33 @@ namespace Exeggcute.src.entities
         Sprite BombSprite;
         public void DrawHUD(SpriteBatch batch, SpriteFont scoreFont)
         {
-            for (int i = 0; i < lives; i += 1)
-            {
-                LifeSprite.Draw(batch, new Vector2(50, i * 40));
-            }
+            Texture2D gamelogo = Assets.Texture["gamelogo"];
+            batch.Draw(gamelogo, new Vector2(0,10), null, Color.White, 0, Vector2.Zero, 0.16f, SpriteEffects.None, 0.9f);
+            float yStart = 210;
+            float xStart = 20;
+            
 
-            for (int i = 0; i < bombs; i += 1)
-            {
-                BombSprite.Draw(batch, new Vector2(100, i * 40));
-            }
             //9 decimal places
             string scoreString = string.Format("Score {0:000,000,000}", Score);
-            batch.DrawString(scoreFont, scoreString, new Vector2(10, 120), Color.White);
+            batch.DrawString(scoreFont, scoreString, new Vector2(xStart, yStart), Color.White);
             string grazeString = string.Format("Graze       {0:0,000}", graze);
-            batch.DrawString(scoreFont, grazeString, new Vector2(10, 150), Color.White);
+            batch.DrawString(scoreFont, grazeString, new Vector2(xStart, yStart + 30), Color.White);
             string powerString = string.Format("Power         {0,3}", power);
             if (power == powerMax)
             {
                 powerString = "Power       -MAX-";
             }
-            batch.DrawString(scoreFont, powerString, new Vector2(10, 180), Color.White);
+            batch.DrawString(scoreFont, powerString, new Vector2(xStart, yStart + 60), Color.White);
+
+            for (int i = 0; i < lives; i += 1)
+            {
+                LifeSprite.Draw(batch, new Vector2(86, i * 40 + yStart + 120));
+            }
+
+            for (int i = 0; i < bombs; i += 1)
+            {
+                BombSprite.Draw(batch, new Vector2(136, i * 40 + yStart + 120));
+            }
             
         }
 

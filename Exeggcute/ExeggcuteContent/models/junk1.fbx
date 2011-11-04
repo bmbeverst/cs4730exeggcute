@@ -309,7 +309,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "junk.jpg"
-		RelativeFilename: "../textures/junk.jpg"
+		RelativeFilename: "../sprites/four.png"
 	}
 	Texture: "Texture::junk_jpg", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -334,7 +334,7 @@ Objects:  {
 		}
 		Media: "Video::junk_jpg"
 		FileName: "junk.jpg"
-		RelativeFilename: "../textures/junk.jpg"
+		RelativeFilename: "../sprites/four.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

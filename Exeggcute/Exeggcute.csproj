@@ -184,8 +184,10 @@
     <Compile Include="src\DataSet.cs" />
     <Compile Include="src\entities\items\PointItem.cs" />
     <Compile Include="src\entities\items\ExtraBomb.cs" />
+    <Compile Include="src\GraphNode.cs" />
     <Compile Include="src\Matcher.cs" />
     <Compile Include="src\Point3.cs" />
+    <Compile Include="src\Ref.cs" />
     <Compile Include="src\ResetException.cs" />
     <Compile Include="src\scripting\action\IfAction.cs" />
     <Compile Include="src\scripting\action\SoundAction.cs" />
@@ -377,9 +379,6 @@
     <Content Include="data\convo\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\players\0c.player">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="data\scripts\behaviors\option1.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -537,9 +536,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\behaviors\playerdemo0.cl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\players\1.player">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\scripts\spawns\0player1.spawn">

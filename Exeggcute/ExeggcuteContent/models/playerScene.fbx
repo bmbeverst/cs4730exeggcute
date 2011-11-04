@@ -263,7 +263,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "fractal.png"
-		RelativeFilename: "../textures/fractal.png"
+		RelativeFilename: "../sprites/four.png"
 	}
 	Texture: "Texture::fractal_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -288,7 +288,7 @@ Objects:  {
 		}
 		Media: "Video::fractal_png"
 		FileName: "fractal.png"
-		RelativeFilename: "../textures/fractal.png"
+		RelativeFilename: "../sprites/four.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

@@ -949,7 +949,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "bomb.png"
-		RelativeFilename: "../textures/bomb.png"
+		RelativeFilename: "../sprites/four.png"
 	}
 	Texture: "Texture::bomb_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -974,7 +974,7 @@ Objects:  {
 		}
 		Media: "Video::bomb_png"
 		FileName: "bomb.png"
-		RelativeFilename: "../textures/bomb.png"
+		RelativeFilename: "../sprites/four.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

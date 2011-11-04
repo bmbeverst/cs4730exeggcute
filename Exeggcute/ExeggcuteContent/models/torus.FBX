@@ -486,8 +486,8 @@ a: 0
             P: "Path", "KString", "XRefUrl", "", "C:\Users\M\Documents\3dsMax\sceneassets\images\BARK5.jpg"
         }
         UseMipMap: 0
-        Filename: "../textures/four.png"
-        RelativeFilename: "../textures/four.png"
+        Filename: "../sprites/four.png"
+        RelativeFilename: "../sprites/four.png"
     }
     Texture: 1482000624, "Texture::Map #1", "" {
         Type: "TextureVideoClip"
@@ -499,7 +499,7 @@ a: 0
         }
         Media: "Video::Map #1"
         FileName: "C:\Users\M\Documents\3dsMax\sceneassets\images\BARK5.jpg"
-        RelativeFilename: "../textures/four.png"
+        RelativeFilename: "../sprites/four.png"
         ModelUVTranslation: 0,0
         ModelUVScaling: 1,1
         Texture_Alpha_Source: "None"
