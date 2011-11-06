@@ -57,6 +57,7 @@ namespace Exeggcute.src
 
         public int initialScore;
         public bool IsStarted { get; protected set; }
+        protected LightSettings lightSettings;
 
         public Level(GraphicsDevice graphics, 
                      ContentManager content, 
@@ -96,7 +97,7 @@ namespace Exeggcute.src
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
 
-            
+            this.lightSettings = lightSettings;
 
             //HARDCODED FIXME
             GameArea = new Rectangle(-HalfWidth, -HalfHeight, HalfWidth * 2, HalfHeight * 2);
@@ -122,6 +123,7 @@ namespace Exeggcute.src
             miniBoss.AttachConversations(this);
             mainBoss.AttachConversations(this);
             IsStarted = true;
+            loadLights(lightSettings, Assets.Effect["light0"]);
 
         }
 
@@ -331,7 +333,7 @@ namespace Exeggcute.src
                 effect.Parameters["xSpotIntensity"].SetValue(settings.SpotLevel.Value);
             }
 
-            effect.Parameters["xAmbient"].SetValue(settings.AmbientLevel.Value);
+            effect.Parameters["xAmbient"].SetValue(settings.Ambient.Value);
 
         }
     }

@@ -13,16 +13,23 @@ namespace Exeggcute.src.loading
     {
         protected char DELIM = ':';
         public string Filename { get; protected set; }
-        public List<string> methodFails = new List<string>();
+        public List<string> methodFails { get; protected set; }
 
         public Loadable(string filename)
         {
             this.Filename = filename;
+            this.methodFails = new List<string>();
+        }
+
+        protected virtual List<string[]> linesFromFile(string filepath)
+        {
+            string allText = Util.ReadAllText(filepath);
+            return Util.CleanData(allText);
         }
 
         protected virtual void loadFromFile(string filepath, bool verify)
         {
-            List<string[]> lines = LinesFromFile(filepath);
+            List<string[]> lines = linesFromFile(filepath);
             loadFromTokens(lines, verify);
         }
 
@@ -30,7 +37,6 @@ namespace Exeggcute.src.loading
         {
             List<Pair<FieldInfo, string>> pairs = loadPairs(tokenList);
             loadFields(pairs, verify);
-
         }
 
         protected virtual List<Pair<FieldInfo, string>> loadPairs(List<string[]> tokenList)
@@ -39,7 +45,7 @@ namespace Exeggcute.src.loading
             PropertyInfo[] properties = thisType.GetProperties();
             if (properties.Length > 0 && properties[0].Name != "Filename")
             {
-                throw new ParseError("No implemented for properties, sorry");
+                throw new ParseError("Not implemented for properties, sorry");
             }
             FieldInfo[] fields = thisType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             List<Pair<FieldInfo, string>> pairs = new List<Pair<FieldInfo, string>>();
@@ -120,29 +126,19 @@ namespace Exeggcute.src.loading
             return missing;
         }
 
-        protected virtual List<string[]> LinesFromFile(string filepath)
-        {
-            string allText = Util.ReadAllText(filepath);
-            return Util.CleanData(allText);
-        }
+
         protected virtual Pair<FieldInfo, string> parse(string[] tokens, FieldInfo[] fields)
         {
             string name = tokens[0];
-            FieldInfo info = null;
-            foreach (FieldInfo field in fields)
-            {
-                if (equals(name, field.Name))
-                {
-                    info = field;
-                }
-            }
+            string stringValue = tokens[1];
+            FieldInfo info = fields.FirstOrDefault(field => equals(name, field.Name));
+
             if (info == null)
             {
                 throw new ParseError("No field with name \"{0}\"", name);
             }
-            string stringValue = tokens[1];
-            Pair<FieldInfo, string> value = new Pair<FieldInfo, string>(info, stringValue);
-            return value;
+            
+            return new Pair<FieldInfo, string>(info, stringValue);
         }
         protected bool equals(string s0, string s1)
         {
@@ -151,65 +147,3 @@ namespace Exeggcute.src.loading
 
     }
 }
-/*LoadableType loadableType = helper.LoadType;
-Type fieldType = info.FieldType;
-string typeName = fieldType.Name;
-
-BindingFlags flags = BindingFlags.NonPublic |
-                     BindingFlags.InvokeMethod |
-                     BindingFlags.Static |
-                     BindingFlags.Public;
-
-string value = helper.StringValue;
-                
-Type parserType;
-object invoker = null;
-object[] parameters = new object[] { value };
-object parsedValue;
-
-if (fieldType.IsGenericType)
-{
-    //HACK, for now we only look at the first type!
-    Type innerType = fieldType.GetGenericArguments()[0];
-    if (innerType.IsEnum)
-    {
-        parserName = "ParseEnumNullable";
-        MethodInfo enumParser = utilType.GetMethod(parserName, typeSignature);
-        method = enumParser.MakeGenericMethod(innerType);
-        parserType = null;
-        parsedValue = method.Invoke(invoker, parameters);
-        info.SetValue(this, parsedValue);
-        continue;
-    }
-    else if (innerType.IsPrimitive)
-    {
-        parserName = "Parse";
-        parserType = innerType;
-    }
-    else if (!innerType.IsClass) // its a struct!
-    {
-        parserName = "Parse" + innerType.Name;
-        parserType = utilType;
-    }
-    else
-    {
-        throw new ParseError("How do I {0} without magic?", innerType);
-    }
-
-
-}
-else if (hasParserMethod)
-{
-    parserName = string.Format("Parse{0}", typeName);
-    parserType = utilType;
-}
-else
-{
-    parserName = "Parse";
-    parserType = fieldType;
-}
-
-method = parserType.GetMethod(parserName, flags, null, typeSignature, null);
-parsedValue = method.Invoke(invoker, parameters);
-info.SetValue(this, parsedValue);
-}*/

@@ -17,5 +17,10 @@ namespace Exeggcute.src
         {
             return refr.held;
         }
+
+        public Ref<T> Give()
+        {
+            return new Ref<T>(held);
+        }
     }
 }
