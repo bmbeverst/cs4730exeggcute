@@ -105,6 +105,8 @@ namespace Exeggcute.src
 
         private WangMesh menuTerrain;
 
+        //protected ResourceBatcher batcher = new ResourceBatcher();
+
         private List<Tracker> trackers = new List<Tracker>();
 
         public World(Engine engine, ContentManager content, GraphicsDevice graphics)
@@ -126,6 +128,12 @@ namespace Exeggcute.src
         public void AssertInitialized()
         {
             if (!this.isInitialized) throw new InvalidOperationException();
+        }
+
+        public void Register(Entity3D entity)
+        {
+            
+
         }
 
         public void AddTracker(Tracker tracker)

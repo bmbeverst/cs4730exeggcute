@@ -18,36 +18,6 @@ using System.Text.RegularExpressions;
 
 namespace Exeggcute.src.assets
 {
-    enum Asset
-    {
-        Alignment,
-        Arsenal,
-        Behavior,
-        BehaviorScript,
-        Body,
-        BodyInfo,
-        Boss,
-        Conversation,
-        Enemy,
-        Font,
-        GibBatch,
-        HUD,
-        Item,
-        ItemBatch,
-        Model,
-        Option,
-        Player,
-        RepeatedSound,
-        Roster,
-        Sfx,
-        Song,
-        Spawn,
-        Spellcard,
-        Sprite,
-        Texture2D,
-        Trajectory,
-        WangMesh
-    }
     static class Assets
     {
         public static XnaBank<SoundEffect> Sfx;
@@ -70,21 +40,6 @@ namespace Exeggcute.src.assets
         public static DataBank<ScriptBase> Behavior;
         public static DataBank<ScriptBase> Trajectory;
         public static DataBank<ScriptBase> Spawn;
-
-        public static void CreateOrdering()
-        {
-            List<GraphNode> nodes = new List<GraphNode>();
-
-            Assembly assembly = Assembly.GetAssembly(typeof(ScriptBase));
-            GraphNode master = new GraphNode(assembly, assembly.GetTypes().ToList());
-
-            foreach (GraphNode node in nodes)
-            {
-                //Console.WriteLine(node);
-            }
-            Console.WriteLine(master);
-                
-        }
 
 
         public static BehaviorScript GetBehavior(string name)

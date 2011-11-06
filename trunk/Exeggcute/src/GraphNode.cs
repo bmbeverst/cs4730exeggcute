@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Exeggcute.src
 {
+
+    //Assembly assembly = Assembly.GetAssembly(typeof(ScriptBase));
+    //GraphNode master = new GraphNode(assembly, assembly.GetTypes().ToList());
     class GraphNode : IComparable<GraphNode>
     {
         private const int MAX_DEPTH = 4;

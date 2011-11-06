@@ -17,17 +17,17 @@ Orientation:    Outside
        Type:    Pulse
 
 @Lights:
-    Ambient:       0.5
+    Ambient:       0
 
-    Dir:           on
+    DirOn:         true
     DirDirection:  (0,1,0)
-    DirLevel:      0.1
+    DirLevel:      0
 
-    Point1:        on
+    Point1On:      true
     Point1Pos:     (0,10,0)
-    Point1Level:   0.5
+    Point1Level:   0
 
-    Spot:          on
+    SpotOn:        true
     SpotPos:       (0,0,0)
     SpotDir:       (0, -1, 0)
     SpotInner:     0.3490

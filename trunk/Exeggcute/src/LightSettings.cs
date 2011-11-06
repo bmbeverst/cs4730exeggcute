@@ -5,36 +5,38 @@ using Microsoft.Xna.Framework;
 
 namespace Exeggcute.src
 {
-    class LightSettings : LoadedInfo
+    class LightSettings : Loadable
     {
-        public float? AmbientLevel { get; protected set; }
+        public float? Ambient;
 
-        public bool? DirOn { get; protected set; }
-        public Vector3? DirDirection { get; protected set; }
-        public float? DirLevel { get; protected set; }
+        public bool? DirOn;
+        public Vector3? DirDirection;
+        public float? DirLevel;
 
-        public bool? Point1On { get; protected set; }
-        public Vector3? Point1Pos { get; protected set; }
-        public float? Point1Level { get; protected set; }
+        public bool? Point1On;
+        public Vector3? Point1Pos;
+        public float? Point1Level;
 
-        public bool? SpotOn { get; protected set; }
-        public Vector3? SpotPos { get; protected set; }
-        public Vector3? SpotDir { get; protected set; }
-        public float? SpotInner { get; protected set; }
-        public float? SpotOuter { get; protected set; }
-        public float? SpotRange { get; protected set; }
-        public float? SpotLevel { get; protected set; }
+        public bool? SpotOn;
+        public Vector3? SpotPos;
+        public Vector3? SpotDir;
+        public float? SpotInner;
+        public float? SpotOuter;
+        public float? SpotRange;
+        public float? SpotLevel;
 
-        public LightSettings(List<string> lines)
+        public LightSettings(string filename, List<string[]> tokens)
+            : base(filename)
         {
-            for (int i = 0; i < lines.Count; i += 1)
+            loadFromTokens(tokens, false);
+            /*for (int i = 0; i < lines.Count; i += 1)
             {
                 string[] tokens = Util.CleanEntry(lines[i]);
                 currentField = tokens[0];
                 string value = tokens[1];
                 if (matches("ambient"))
                 {
-                    AmbientLevel = float.Parse(value);
+                    Ambient = float.Parse(value);
                 }
                 else if (matches("dir"))
                 {
@@ -141,7 +143,7 @@ namespace Exeggcute.src
             }
 
 
-            AssertInitialized(this);
+            AssertInitialized(this);*/
         }
     }
 }

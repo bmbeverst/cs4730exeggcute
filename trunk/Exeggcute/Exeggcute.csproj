@@ -188,6 +188,7 @@
     <Compile Include="src\Matcher.cs" />
     <Compile Include="src\Point3.cs" />
     <Compile Include="src\Ref.cs" />
+    <Compile Include="src\ResourceBatcher.cs" />
     <Compile Include="src\ResetException.cs" />
     <Compile Include="src\scripting\action\IfAction.cs" />
     <Compile Include="src\scripting\action\SoundAction.cs" />
@@ -697,7 +698,7 @@
   <ItemGroup>
     <ProjectReference Include="ExeggcuteContent\ExeggcuteContent.contentproj">
       <Project>{13366C8D-1A2C-4D0D-BCFE-5A7F4CDB0914}</Project>
-      <Name>ExeggcuteContent %28Content%29</Name>
+      <Name>ExeggcuteContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>

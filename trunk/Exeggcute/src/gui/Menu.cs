@@ -129,7 +129,6 @@ namespace Exeggcute.src.gui
         {
             float scale = 0.5f;
             Texture2D logo = Assets.Texture["gamelogo"];
-            Console.WriteLine(logo.Width);
             Vector2 pos = new Vector2(Engine.Center2D.X - logo.Width*scale/2, 30);
             batch.Draw(logo, pos, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0.9f);
             

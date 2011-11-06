@@ -11,6 +11,7 @@ namespace Exeggcute.src.entities
 {
     abstract class Entity3D : Entity
     {
+
         public Model Surface { get; protected set; }
         public virtual BoundingSphere ModelHitbox { get; protected set; }
         public Texture2D Texture { get; protected set; }
@@ -48,7 +49,6 @@ namespace Exeggcute.src.entities
                 { "ModelRotZ",        19 },
                 { "Radius",           20 },
                 { "Alignment",        21 },
-
             };
 
             ParamMap = new Dictionary<string, int>();
@@ -73,8 +73,6 @@ namespace Exeggcute.src.entities
                 return ParamMap[lower];
             }
         }
-
-
 
         protected float[] param = new float[22];
         public int ParamCount { get { return param.Length; } }
@@ -280,6 +278,7 @@ namespace Exeggcute.src.entities
         public float BaseModelRadius;
         public Entity3D(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, Vector3 pos)
         {
+            Worlds.World.Register(this);
             this.Position = pos;
             this.Radius = radius;
             this.Surface = model;

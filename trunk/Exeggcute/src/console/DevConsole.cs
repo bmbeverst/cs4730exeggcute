@@ -149,7 +149,7 @@ Keyboard controls:
             {
                 //fixme
                 if (e is ResetException) throw e;
-               WriteLine(
+                WriteLine(
 @"Execution of the command '{0}' terminated unexpectedly.
     Useless information follows:
 {1}", cmd, e.Message);
@@ -187,7 +187,6 @@ Keyboard controls:
 
         public override void Draw2D(SpriteBatch batch)
         {
-
             Parent.Draw2D(batch);
             bgRect.Draw(batch, new Vector2(0, 0));
             textBuffer.Draw(batch, font, promptPos);
@@ -246,7 +245,6 @@ Keyboard controls:
             }
             else
             {
-                Console.WriteLine("here");
                 appendToLine(message);
             }
         }
@@ -384,7 +382,6 @@ Keyboard controls:
                 //fixme code clones
                 output = new List<string>();
                 Worlds.World.ClearTrackers();
-                
             }
             else
             {
