@@ -1,0 +1,6 @@
+﻿model:    knot
+texture:  four
+scale:    0.2
+radius:   12
+mass:     1
+rotation: (0,0,90)
