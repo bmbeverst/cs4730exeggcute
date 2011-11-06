@@ -2,4 +2,4 @@
 font: consolas
 rate: 10
 @Text:
-This is placeholder text and will be filled in later. soi soi soi soi soi soi 
+December 29, 1948. 32 members on board a Douglas DC-3 aircraft are missing after their flight crashed in the Atlantic ocean between Puerto Rico and Miami.

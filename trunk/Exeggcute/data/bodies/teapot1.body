@@ -1,5 +1,5 @@
 ﻿model:    teapot
-texture:  fractalStar
+texture:  fractalCircle
 scale:    0.2
 radius:   5
 mass:     1
