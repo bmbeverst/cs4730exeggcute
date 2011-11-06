@@ -15,4 +15,5 @@ deathScript:  playerrespawn
   alignment:  player
 
 @    Weapon:  0,0plweaponsine0
-@    Weapon:  5,0plweapon1#,opt2,opt3
+@    Weapon:  10,0plweapon0
+@    Weapon:  30,0plweapon1

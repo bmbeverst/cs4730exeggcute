@@ -1,0 +1,21 @@
+﻿@Info:
+       body: douglas
+     health: 1000
+    defence: 1
+deathScript: death0
+ deathSound: shot0
+  itembatch: test
+   gibbatch: gibtest
+    arsenal: douglas1,douglas0
+  alignment: enemy
+
+
+@Behavior:
+shoot 0 100
+moverel (0,-100,0) 200
+shoot 0 100
+wait 900
+shoot 1 100
+moverel (0,100,0) 200
+shoot 1 100
+loop

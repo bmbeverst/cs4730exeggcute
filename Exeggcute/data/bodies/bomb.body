@@ -1,6 +1,6 @@
-﻿model:    boss0
-texture:  fractalSwiss
-scale:    2
-radius:   12
+﻿model:    bomb
+texture:  bomb
+scale:    1
+radius:   4
 mass:     1
-rotation: (0,0,90)
+rotation: (0,0,-90)

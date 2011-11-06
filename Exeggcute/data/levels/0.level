@@ -1,9 +1,9 @@
 ﻿@Info:
-  MiniBoss: guy
-  MainBoss: guy
+  MiniBoss: douglas
+  MainBoss: douglas
 LevelTheme: IntoTheGalaxy
  BossTheme: Birth
-    Roster: test0,test1
+    Roster: level00,level01
 
 @Terrain:
       Depth:  10
@@ -51,9 +51,21 @@ wait 7
 spawn 0 (20,40,0) 0
 wait 7
 
-wait 120
-#spawn 1 (0,40,0) 0
-#wait 900
-killall
+wait 800
+
+
+spawn 1 (-20,40,0) 0
+wait 7
+spawn 1 (-10,40,0) 0
+wait 7
+spawn 1 (0,40,0) 0
+wait 7
+spawn 1 (10,40,0) 0
+wait 7
+spawn 1 (20,40,0) 0
+wait 7
+
+wait 800
+
 songfade 60
 boss

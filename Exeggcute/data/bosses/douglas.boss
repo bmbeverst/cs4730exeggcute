@@ -1,0 +1,27 @@
+﻿#SAMPLE BOSS
+@info:
+name:         Guy'sName #cant contain spaces atm, sorry
+body:         douglas
+entryScript:  entry0
+defeatScript: entry0
+deathScript:  bossdeath0
+hurtSound:    bosshurt4
+intro:        0
+outro:        1
+alignment:    enemy
+
+@spellcard:
+name:         Test1
+behavior:     douglas0
+attack:       douglas0
+duration:     3000
+health:       1000
+items:        test
+
+@spellcard:
+name:         Test2
+behavior:     douglas1
+attack:       douglas1
+duration:     3000
+health:       1000
+items:        test
