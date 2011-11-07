@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+Do not expect to surive much longer. I am going to destroy you.

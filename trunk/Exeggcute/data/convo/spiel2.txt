@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+Who am I? Just consider me a friend. The name is Epsel B. Grevstein but you can call me Epsel. See ya around.

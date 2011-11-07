@@ -1,9 +1,9 @@
 ﻿@Info:
-  MiniBoss: douglas
-  MainBoss: douglas
+  MiniBoss: spielberg
+  MainBoss: spielberg
 LevelTheme: IntoTheGalaxy
  BossTheme: Birth
-    Roster: level00,level01
+    Roster: easy
 
 @Terrain:
       Depth:  10
@@ -40,6 +40,14 @@ Orientation:    Outside
 
 
 @TaskList:
+
+spawn 0 (-20,40,0) 0
+wait 7
+spawn 0 (20,40,0) 0
+wait 7
+
+wait 400
+
 spawn 0 (-20,40,0) 0
 wait 7
 spawn 0 (-10,40,0) 0
@@ -53,19 +61,7 @@ wait 7
 
 wait 800
 
-
-spawn 1 (-20,40,0) 0
-wait 7
-spawn 1 (-10,40,0) 0
-wait 7
-spawn 1 (0,40,0) 0
-wait 7
-spawn 1 (10,40,0) 0
-wait 7
-spawn 1 (20,40,0) 0
-wait 7
-
-wait 800
+killall
 
 songfade 60
 boss

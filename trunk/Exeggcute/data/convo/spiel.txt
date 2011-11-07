@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+YOU. You are new. What the hell are you doing here? You know, you are not the only one down here. Mindless soles roam these floors, and random people have appeared down here over the past several centuries. Who knows where they came from. Maybe you could explore down here and help me discover the secrets of this place? Just be careful, because it is a matter of life or death down here, and others might see you as a threat.

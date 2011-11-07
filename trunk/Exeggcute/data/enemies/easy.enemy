@@ -1,18 +1,18 @@
 ﻿@Info:
        body: diamond0
-     health: 250
+     health: 10
     defence: 1
 deathScript: death0
  deathSound: shot0
   itembatch: test
    gibbatch: gibtest
-    arsenal: testoption #,opt1,opt2,opt3
+    arsenal: easy#,opt1,opt2,opt3
   alignment: enemy
 
 @Behavior: 
 setparam Angle 270
 moverel (0,-30,0) 100
-shoot 0 1800
+shoot 0 20
 wait 900
 moverel (0,50,0) 100
 delete
