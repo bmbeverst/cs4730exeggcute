@@ -1,6 +1,6 @@
 ﻿@Info:
-       body: level31
-     health: 400
+       body: level32
+     health: 200
     defence: 1
 deathScript: death0
  deathSound: shot0

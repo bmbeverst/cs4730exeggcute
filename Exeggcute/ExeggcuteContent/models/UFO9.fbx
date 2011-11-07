@@ -25485,7 +25485,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "ufo0.jpg"
-		RelativeFilename: "/home/brooks/Dropbox/College/CSC/4730/assets/images/ufo0.jpg"
+		RelativeFilename: "../sprites/ufo0.jpg"
 	}
 	Texture: "Texture::ufo0_jpg", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -25510,7 +25510,7 @@ Objects:  {
 		}
 		Media: "Video::ufo0_jpg"
 		FileName: "ufo0.jpg"
-		RelativeFilename: "/home/brooks/Dropbox/College/CSC/4730/assets/images/ufo0.jpg"
+		RelativeFilename: "../sprites/ufo0.jpg"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

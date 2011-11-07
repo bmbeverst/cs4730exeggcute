@@ -1,0 +1,6 @@
+﻿  BodyInfo: torus0
+    Damage: 10
+  Behavior: aimplayer
+Trajectory: slow
+     Spawn: level3
+ ShotSound: 1pew
