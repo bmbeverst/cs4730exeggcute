@@ -209,6 +209,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="models\douglas.fbx">
+      <Name>douglas</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="textures\Bad_Hair_DayFin.jpg">
       <Name>Bad_Hair_DayFin</Name>
       <Importer>TextureImporter</Importer>

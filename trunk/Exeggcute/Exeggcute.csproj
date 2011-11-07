@@ -569,20 +569,45 @@
     <Content Include="data\bodies\knot.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="data\bodies\boss1.body" />
-    <None Include="data\bodies\douglas.body" />
-    <None Include="data\bodies\hairpin1.body" />
-    <None Include="data\bodies\teapot1.body" />
-    <None Include="data\bosses\douglas.boss" />
-    <None Include="data\enemies\boss0.enemy" />
-    <None Include="data\enemies\douglas.enemy" />
-    <None Include="data\enemies\level00.enemy" />
-    <None Include="data\enemies\level01.enemy" />
-    <None Include="data\options\douglas0.option" />
-    <None Include="data\options\douglas1.option" />
-    <None Include="data\scripts\behaviors\douglas0.cl" />
-    <None Include="data\scripts\behaviors\douglas1.cl" />
-    <None Include="data\scripts\spawns\player0.spawn" />
+    <Content Include="data\bodies\boss1.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\bodies\douglas.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\bodies\hairpin1.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\bodies\teapot1.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\bosses\douglas.boss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\enemies\boss0.enemy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\enemies\douglas.enemy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\enemies\level00.enemy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\enemies\level01.enemy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\options\douglas0.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\options\douglas1.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\douglas0.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\behaviors\douglas1.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
