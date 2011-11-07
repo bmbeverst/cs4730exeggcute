@@ -734,6 +734,15 @@
     <Content Include="data\itembatches\pointpower.batch">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\scripts\spawns\level3.spawn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\options\level3.option">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\scripts\trajectories\slow.traj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

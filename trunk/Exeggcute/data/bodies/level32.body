@@ -1,6 +1,6 @@
 ﻿model:    UFO9
-texture:  ufo0
-scale:    8
-radius:   8
+texture:  tile2
+scale:    6
+radius:   6
 mass:     1
 rotation: (-100000,0,-100000)

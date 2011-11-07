@@ -964,7 +964,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "vrag.jpg"
-		RelativeFilename: "vrag.jpg"
+		RelativeFilename: "../sprites/vrag.jpg"
 	}
 	Texture: "Texture::vrag_jpg", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -989,7 +989,7 @@ Objects:  {
 		}
 		Media: "Video::vrag_jpg"
 		FileName: "vrag.jpg"
-		RelativeFilename: "vrag.jpg"
+		RelativeFilename: "../sprites/vrag.jpg"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
