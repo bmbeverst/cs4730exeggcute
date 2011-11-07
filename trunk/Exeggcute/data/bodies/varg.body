@@ -1,0 +1,6 @@
+﻿model:    varg
+texture:  vrag
+scale:    1
+radius:   12
+mass:     1
+rotation: (0,0,90)
