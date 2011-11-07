@@ -1,0 +1,11 @@
+﻿#SAMPLE BOSS
+@info:
+name:         spielberg
+body:         douglas
+entryScript:  entry0
+defeatScript: wait
+deathScript:  bossdeath0
+hurtSound:    bosshurt4
+intro:        spiel
+outro:        spiel2
+alignment:    player

@@ -1,23 +1,24 @@
 ﻿@Info:
-  MiniBoss: guy2
-  MainBoss: guy2
+  MiniBoss: douglas
+  MainBoss: douglas
 LevelTheme: GalaxyPlant
  BossTheme: BowsersFleet
-    Roster: test0,test1
+    Roster: level00,level01
 
 @Terrain:
-      Depth:   10
+      Depth:  10
      Radius:  200
        Cols:   24
        Rows:  200
    TileSize:    4
 ScrollSpeed:    0.0001
-    Texture:    wang8_2
+    Texture:    wang8_3
 Orientation:    Outside
-       Type:    Pulse
+       Type:    Varied
+   Variance:    12
 
 @Lights:
-    Ambient:       0
+    Ambient:       0.5
 
     DirOn:         true
     DirDirection:  (0,1,0)
@@ -50,10 +51,22 @@ wait 7
 spawn 0 (20,40,0) 0
 wait 7
 
-wait 600
-#spawn 1 (0,40,0) 0
-#wait 900
+wait 800
+
+
+spawn 1 (-20,40,0) 0
+wait 7
+spawn 1 (-10,40,0) 0
+wait 7
+spawn 1 (0,40,0) 0
+wait 7
+spawn 1 (10,40,0) 0
+wait 7
+spawn 1 (20,40,0) 0
+wait 7
+
+wait 800
 killall
+
 songfade 60
-wait 60
 boss

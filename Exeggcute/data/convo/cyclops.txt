@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+I am the captain of the USS Cyclops. Today is March 4, 1918 and I sense something is wrong. A man I have never seen before somehow made his way onto my vessel, and is acting strangely. His name was Epsel, I think. Epsel B. Grevstein. We are losing fuel at a much quicker rate than expected, and our communications system is down. I will look into both problems when we get to Bermuda, but I think it has to do with that Epsel guy.

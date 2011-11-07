@@ -1,7 +1,8 @@
 ﻿@Info:
   MiniBoss: alston
   MainBoss: alston
-LevelTheme: HellProminence
+
+ LevelTheme: HellProminence
  BossTheme: NemesisKingBowser
     Roster: level20,level21,level22
 

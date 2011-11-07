@@ -1,0 +1,34 @@
+﻿@info:
+name:         cyclops
+body:         douglas
+entryScript:  entry0
+defeatScript: wait
+deathScript:  bossdeath0
+hurtSound:    bosshurt4
+intro:        genericboss
+outro:        cyclops
+alignment:    enemy
+
+@spellcard:
+name:         Test1
+behavior:     cyc0
+attack:       cyc0
+duration:     3000
+health:       1000
+items:        test
+
+@spellcard:
+name:         Test2
+behavior:     cyc1
+attack:       cyc1
+duration:     3000
+health:       1000
+items:        test
+
+@spellcard:
+name:         Test3
+behavior:     cyc2
+attack:       cyc2
+duration:     5000
+health:       2000
+items:        test

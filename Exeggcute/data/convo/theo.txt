@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+December 30, 1812: Help! My name is Theodosia Burr Alston. I was sailing from Charleston to New York but our route took us farther east than expected. Then someone sunk our boat! If you help us I will make sure you are rewarded handsomely! After all, my dad is Aaron Burr! You know, the Vice President!
