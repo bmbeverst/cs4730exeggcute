@@ -1,0 +1,5 @@
+﻿@Info:
+font: consolas
+rate: 10
+@Text:
+Help! My name is Theodosia Burr Alston. He is makin me hurt you. Free me from this horrible wet place. 

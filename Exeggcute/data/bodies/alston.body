@@ -1,0 +1,6 @@
+﻿model:    hairpin
+texture:  void
+scale:    0.5
+radius:   8
+mass:     1
+rotation: (0,0,0)
