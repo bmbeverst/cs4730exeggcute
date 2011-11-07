@@ -1,0 +1,6 @@
+﻿model:    UFO9
+texture:  tile1
+scale:    6
+radius:   6
+mass:     1
+rotation: (-100000,0,-100000)

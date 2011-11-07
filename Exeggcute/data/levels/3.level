@@ -39,6 +39,7 @@ Orientation:    Outside
 
 
 @TaskList:
+
 spawn 0 (-20,20,0) 0
 wait 7
 spawn 0 (-10,30,0) 0
@@ -78,23 +79,27 @@ wait 7
 spawn 2 (0,15,0) 0
 wait 7
 
-wait 300
 
-spawn 1 (-5,20,0) 0
+wait 1000
+
+spawn 2 (-20,20,0) 0
 wait 7
-spawn 0 (25,45,0) 0
+spawn 2 (0,20,0) 0
 wait 7
-spawn 1 (-25,40,0) 0
-wait 7
-spawn 2 (-10,35,0) 0
-wait 7
-spawn 1 (10,30,0) 0
+spawn 2 (20,20,0) 0
 wait 7
 
-
-wait 1200
+wait 500
 
 killall
 songfade 60
 wait 60
 boss
+
+wait 300
+
+spawn 0 (-20,40,0) 0
+wait 7
+spawn 0 (0,40,0) 0
+wait 7
+spawn 0 (20,40,0) 0

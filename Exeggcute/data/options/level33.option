@@ -1,6 +1,6 @@
-﻿  BodyInfo: hairpin1
+﻿  BodyInfo: torus0
     Damage: 10
   Behavior: aimplayer
 Trajectory: slow
-     Spawn: 0enemy0
+     Spawn: level33
  ShotSound: 1pew
