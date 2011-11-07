@@ -28,7 +28,6 @@ namespace Exeggcute.src.assets
                 }
                 Util.Die("");
             }
-            
         }
     }
 }
