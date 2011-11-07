@@ -65,15 +65,16 @@ namespace Exeggcute.src.loading
                 FieldInfo info = pair.First;
                 string value = pair.Second;
 
-                UnknownType type = UnknownType.MakeType(info, value);
+                
                 try
                 {
+                    UnknownType type = UnknownType.MakeType(info, value);
                     type.SetField(this);
                 }
-                catch (MethodNotFoundError mnf)
+                catch
                 {
                     methodNotFound = true;
-                    methodFails.Add(mnf.Message);
+                    //methodFails.Add(e.Message);
                 }
 
             }

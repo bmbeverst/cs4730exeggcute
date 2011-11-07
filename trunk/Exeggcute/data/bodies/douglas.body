@@ -3,4 +3,4 @@ texture:  fractalSwiss
 scale:    3
 radius:   8
 mass:     1
-rotation: (0,0,180)
+rotation: (0,0,90)

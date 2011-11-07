@@ -52,8 +52,8 @@ namespace Exeggcute.src
 
         private Boss boss;
 
-        private static Song levelTheme;
-        private static Song bossTheme;
+        private Song levelTheme;
+        private Song bossTheme;
 
         public int initialScore;
         public bool IsStarted { get; protected set; }
@@ -85,14 +85,11 @@ namespace Exeggcute.src
             this.roster      = roster;
             this.taskList    = tasks;
 
-
             this.miniBoss    = miniBoss;
             this.mainBoss    = mainBoss;
-            
 
-
-            Level.levelTheme  = levelTheme;
-            Level.bossTheme   = bossTheme;
+            this.levelTheme = levelTheme;
+            this.bossTheme = bossTheme;
 
             this.collider = new EntityManager();
             this.physics  = new PhysicsManager();
@@ -119,6 +116,7 @@ namespace Exeggcute.src
             hud.DoFade(FadeType.In);
             player.SetPosition(Engine.Jail);
             player.ResetFromDemo();
+            Console.WriteLine(levelTheme.Name);
             Worlds.World.RequestPlay(levelTheme);
             miniBoss.AttachConversations(this);
             mainBoss.AttachConversations(this);
