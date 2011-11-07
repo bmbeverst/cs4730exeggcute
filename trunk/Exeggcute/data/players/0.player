@@ -1,7 +1,7 @@
 ﻿#SAMPLE PLAYER
 @Info
 
-       body:  knot
+       body:  player0
 deathScript:  playerrespawn
  deathSound:  playerexplode
       lives:  9

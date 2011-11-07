@@ -233,7 +233,11 @@ namespace Exeggcute.src.graphics
         {
             Rotation += Speed;
             ViewRow = CalculateViewIndex();
-            if (Type != TerrainType.Pulse) return;
+            if (Type != TerrainType.Pulse)
+            {
+                return;
+            }
+
             int spacing = 256 / vertCols;
             for (int j = 0; j < vertRows; j += 1)
             {

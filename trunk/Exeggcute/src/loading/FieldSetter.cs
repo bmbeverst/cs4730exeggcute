@@ -54,13 +54,24 @@ namespace Exeggcute.src.loading
 
         public void SetField(object obj)
         {
+
             MethodInfo parser = getParserMethod();
             if (parser == null)
             {
                 throw new MethodNotFoundError(parserName, parserClassName);
             }
-            object convertedValue = parser.Invoke(null, parameters);
+            object convertedValue;
+            try
+            {
+                convertedValue = parser.Invoke(null, parameters);
+            }
+            catch
+            {
+                Console.WriteLine("handled!");
+                convertedValue = null;
+            }
             fieldInfo.SetValue(obj, convertedValue);
+
         }
 
         public static UnknownType MakeType(FieldInfo fieldInfo, string value)

@@ -45,6 +45,7 @@ namespace Exeggcute.src
 
             Reset(null);
 
+
             base.LoadContent();
         }
 

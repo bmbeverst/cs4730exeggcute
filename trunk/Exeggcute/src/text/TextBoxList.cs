@@ -50,7 +50,10 @@ namespace Exeggcute.src.text
             this.boxes = new List<TextBox>();
             this.timer = new FloatTimer(rate);
             string[] words = message.Split(' ');
-            this.bg = new RectSprite(Size.X, Size.Y, Color.Green, true);
+            //need to create
+            Rectangle hackRect = Util.NearestMult(
+                                     new Rectangle(0, 0, Size.X, Size.Y), 16);
+            this.bg = new RectSprite(hackRect, new Color(0, 170, 0), true);
             
             List<TextLine> lines = parseLines(words, font);
             lines.Reverse();
@@ -101,12 +104,32 @@ namespace Exeggcute.src.text
 
         public void Draw(SpriteBatch batch, Vector2 pos, Color color)
         {
-            bg.Draw(batch, pos);
+            int xOffset = -16;
+            Rectangle buttonBounds = new Rectangle((int)pos.X, (int)pos.Y, bg.Size.X, bg.Size.Y);
+
+            bg.Draw(batch, pos + new Vector2(xOffset, 0));
+            TextBox.UpperLeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Top - 16));
+            TextBox.LowerLeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Bottom));
+            TextBox.UpperRightSprite.Draw(batch, new Vector2(buttonBounds.Right + xOffset, buttonBounds.Top - 16));
+            TextBox.LowerRightSprite.Draw(batch, new Vector2(buttonBounds.Right + xOffset, buttonBounds.Bottom));
+            for (int i = 0; i < buttonBounds.Width / 16; i += 1)
+            {
+                TextBox.TopSprite.Draw(batch, new Vector2(buttonBounds.Left + i * 16 + xOffset, buttonBounds.Top - 16));
+                TextBox.LowerSprite.Draw(batch, new Vector2(buttonBounds.Left + i * 16 + xOffset, buttonBounds.Bottom));
+            }
+            for (int i = 0; i < buttonBounds.Height / 16; i += 1)
+            {
+                TextBox.LeftSprite.Draw(batch, new Vector2(buttonBounds.Left - 16 + xOffset, buttonBounds.Top + i * 16));
+                TextBox.RightSprite.Draw(batch, new Vector2(buttonBounds.Right + xOffset, buttonBounds.Top + i * 16));
+            }
+
+            //bg.Draw(batch, pos);
             TextBox current = boxes[boxPtr];
-            boxes[boxPtr].Draw(batch, font, pos, color, spacingY);
+            boxes[boxPtr].Draw(batch, font, pos + new Vector2(0,10), color, spacingY);
+
             if (current.IsDone && boxPtr != boxes.Count - 1)
             {
-                arrow.Draw(batch, pos);
+                //arrow.Draw(batch, pos);
             }
         }
 

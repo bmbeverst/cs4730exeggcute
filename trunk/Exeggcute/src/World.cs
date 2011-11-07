@@ -136,6 +136,14 @@ namespace Exeggcute.src
 
         }
 
+        public void ResetLights()
+        {
+            Effect effect = Assets.Effect["light0"];
+            effect.CurrentTechnique = effect.Techniques["Textured"];
+
+            effect.Parameters["xAmbient"].SetValue(1);
+        }
+
         public void AddTracker(Tracker tracker)
         {
             trackers.Add(tracker);
@@ -157,6 +165,7 @@ namespace Exeggcute.src
         public void RunInit()
         {
             console.RunInit();
+            ResetLights();
         }
 
         public IEnumerable<Enemy> GetDying()
@@ -261,6 +270,10 @@ namespace Exeggcute.src
 
         private void push(IContext context)
         {
+            if (context is MainMenu)
+            {
+                ToMainMenu();
+            }
             stack.Push(context);
         }
 
@@ -295,6 +308,7 @@ namespace Exeggcute.src
 
         public void Process(BackEvent ent)
         {
+            
             Back();
         }
 
@@ -347,16 +361,7 @@ namespace Exeggcute.src
         /// <param name="ent"></param>
         public void Process(ToMainMenuEvent ent)
         {
-            int count = stack.Count;//stack.Count is a property, not a constant
-            for (int i = 0; i < count; i += 1)
-            {
-                if (Top is MainMenu)
-                {
-                    break;
-                }
-                Top.Unload();
-                stack.Pop();
-            }
+            throw new ResetException(null);
         }
 
         public void Process(ReallyQuitEvent ent)
@@ -422,7 +427,13 @@ namespace Exeggcute.src
             string playerName = ent.PlayerName;
 
             setPlayer(playerName);
-           
+            if (levelName == "0")
+            {
+                foreach (Player player in Assets.Player.GetAssets())
+                {
+                    player.ResetFromDemo();
+                }
+            }
             HUD hud = new HUD();
             if (gameType == GameType.Campaign)
             {
@@ -485,6 +496,7 @@ namespace Exeggcute.src
                 level.Unload();
                 ClearLists();
                 ResetMusic();
+                ResetLights();
                 pop();
                 push(new LevelSummaryMenu(level, player, hud));
             }
@@ -598,7 +610,18 @@ namespace Exeggcute.src
 
         public IContext Pop(/*IContext self*/)
         {
+            if (Top is MainMenu)
+            {
+                ToMainMenu();
+            }
             return stack.Pop();
+        }
+
+        public void ToMainMenu()
+        {
+            songManager.Stop();
+            songManager.Play(Assets.Song["Birth"]);
+            ResetLights();
         }
 
         public void Pause()
@@ -613,7 +636,7 @@ namespace Exeggcute.src
             {
                 SpriteFont font = Assets.Font["consolas"];
                 Color fontColor = Color.Black;
-                Rectangle bounds = new Rectangle(500, 500, 100, 100);
+                Rectangle bounds = new Rectangle(500, 500, 250, 100);
                 List<Button> buttons = new List<Button> {
                     new ListButton(new PauseEvent(), new SpriteText(font, "Continue", fontColor)),
                     new ListButton(new ReallyQuitEvent(QuitType.MainMenu), new SpriteText(font, "Quit to Main Menu", fontColor)),
@@ -659,6 +682,10 @@ namespace Exeggcute.src
 
         public void PushContext(IContext context)
         {
+            if (context is MainMenu)
+            {
+                ToMainMenu();
+            }
             push(context);
         }
         

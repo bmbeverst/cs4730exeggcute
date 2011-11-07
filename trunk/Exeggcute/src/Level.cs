@@ -115,13 +115,14 @@ namespace Exeggcute.src
             initialScore = player.Score;
             hud.DoFade(FadeType.In);
             player.SetPosition(Engine.Jail);
-            player.ResetFromDemo();
+            player.BeginLevel();
             Console.WriteLine(levelTheme.Name);
             Worlds.World.RequestPlay(levelTheme);
             miniBoss.AttachConversations(this);
             mainBoss.AttachConversations(this);
             IsStarted = true;
             loadLights(lightSettings, Assets.Effect["light0"]);
+
 
         }
 
@@ -196,14 +197,14 @@ namespace Exeggcute.src
 
             processHit();
 
-            collider.Collide(Worlds.World.GetPlayerShots(), Worlds.World.GetEnemies());
+            collider.Collide(player, Worlds.World.GetPlayerShots(), Worlds.World.GetEnemies());
             collider.CollideItems(Worlds.World.GetItemList(), player);
 
 
-            collider.UpdateAll(LiveArea);
+            //collider.UpdateAll(LiveArea);
 
 
-            player.Update(controls, playerCanShoot);
+            //player.Update(controls, playerCanShoot);
             player.LockPosition(GameArea);
 
             if (boss != null)
@@ -211,7 +212,7 @@ namespace Exeggcute.src
                 collider.CollideBoss(Worlds.World.GetPlayerShots(), boss);
                 boss.Update();
             }
-
+            base.Update(controls);
         }
 
         /// <summary>

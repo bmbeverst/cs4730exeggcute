@@ -15,6 +15,7 @@ namespace Exeggcute.src.gui
             : base(buttons, bounds, terrain, false)
         {
             this.buttonBoxOutline = new Doodad(buttonBounds, Color.Black, false);
+
         }
 
         public override void Update(ControlManager controls)

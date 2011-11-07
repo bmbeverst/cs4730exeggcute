@@ -14,8 +14,8 @@ LevelTheme: IntoTheGalaxy
 ScrollSpeed:    0.0001
     Texture:    wang8_3
 Orientation:    Outside
-       Type:    Varied
-   Variance:    12
+       Type:    Pulse
+#  Variance:    12
 
 @Lights:
     Ambient:       0.5
