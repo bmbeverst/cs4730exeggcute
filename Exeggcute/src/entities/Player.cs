@@ -343,7 +343,6 @@ namespace Exeggcute.src.entities
                 arsenal.StopAll();
                 base.UpdateMovers();
             }
-
         }
 
         Sprite LifeSprite;
