@@ -1,0 +1,6 @@
+﻿model:    UFO9
+texture:  ufo0
+scale:    8
+radius:   8
+mass:     1
+rotation: (-100000,0,-100000)

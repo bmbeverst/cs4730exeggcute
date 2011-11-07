@@ -1,0 +1,6 @@
+﻿model:    UFO9
+texture:  fractalCircle
+scale:    4
+radius:   4
+mass:     1
+rotation: (-100000,0,-100000)

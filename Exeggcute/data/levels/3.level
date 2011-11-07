@@ -3,7 +3,7 @@
   MainBoss: cyclops
 LevelTheme: GalaxyPlant
  BossTheme: PeachsCastleIsStolen
-    Roster: test0,test1
+    Roster: level30,level31,level32
 
 @Terrain:
       Depth:   10
@@ -14,14 +14,14 @@ LevelTheme: GalaxyPlant
 ScrollSpeed:    0.0001
     Texture:    wang8_4
 Orientation:    Outside
-       Type:    Pulse
+       Type:    Varied
 
 @Lights:
-    Ambient:       0
+    Ambient:       .5
 
     DirOn:         true
-    DirDirection:  (0,1,0)
-    DirLevel:      0
+    DirDirection:  (1,0,-1)
+    DirLevel:      .4
 
     Point1On:      true
     Point1Pos:     (0,10,0)
@@ -39,20 +39,61 @@ Orientation:    Outside
 
 
 @TaskList:
-spawn 0 (-20,40,0) 0
+spawn 0 (-20,20,0) 0
 wait 7
-spawn 0 (-10,40,0) 0
+spawn 1 (-10,30,0) 0
 wait 7
-spawn 0 (0,40,0) 0
+spawn 2 (0,40,0) 0
 wait 7
-spawn 0 (10,40,0) 0
+spawn 1 (10,30,0) 0
 wait 7
-spawn 0 (20,40,0) 0
+spawn 0 (20,20,0) 0
 wait 7
 
 wait 600
-#spawn 1 (0,40,0) 0
-#wait 900
+spawn 2 (-20,25,0) 0
+wait 7
+spawn 2 (0,30,0) 0
+wait 7
+spawn 2 (20,35,0) 0
+wait 7
+spawn 2 (-15,25,0) 0
+wait 7
+spawn 2 (5,35,0) 0
+wait 7
+spawn 2 (25,25,0) 0
+wait 7
+
+wait 800
+spawn 1 (20,15,0) 0
+wait 7
+spawn 0 (5,35,0) 0
+wait 7
+spawn 1 (-5,20,0) 0
+wait 7
+spawn 2 (-15,15,0) 0
+wait 7
+spawn 1 (15,10,0) 0
+wait 7
+spawn 2 (0,15,0) 0
+wait 7
+
+wait 300
+
+spawn 1 (-5,20,0) 0
+wait 7
+spawn 0 (25,45,0) 0
+wait 7
+spawn 1 (-25,40,0) 0
+wait 7
+spawn 2 (-10,35,0) 0
+wait 7
+spawn 1 (10,30,0) 0
+wait 7
+
+
+wait 1200
+
 killall
 songfade 60
 wait 60
