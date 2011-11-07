@@ -1,4 +1,4 @@
 ﻿# sample item batch file
 (1,1,0) #dispersal radius
 point 3 #list of items to drop and amount
-power 1
+power 3
