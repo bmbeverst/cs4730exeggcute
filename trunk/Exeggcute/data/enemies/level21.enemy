@@ -1,0 +1,18 @@
+﻿@Info:
+       body: level20
+     health: 400
+    defence: 1
+deathScript: death0
+ deathSound: shot0
+  itembatch: test
+   gibbatch: gibtest
+    arsenal: testoption
+  alignment: enemy
+
+@Behavior: 
+moverel (0,-30,0) 100
+shoot 0 100
+wait 100
+moverel (0,30,0) 100
+loop
+

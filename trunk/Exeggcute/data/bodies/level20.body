@@ -1,0 +1,6 @@
+﻿model:    ring
+texture:  rainbow
+scale:    0.1
+radius:   2
+mass:     1
+rotation: (-100000,0,-100000)

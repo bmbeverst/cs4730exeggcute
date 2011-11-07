@@ -1,9 +1,9 @@
 ﻿@Info:
-  MiniBoss: guy2
-  MainBoss: guy2
+  MiniBoss: alston
+  MainBoss: alston
 LevelTheme: HellProminence
  BossTheme: NemesisKingBowser
-    Roster: test0,test1
+    Roster: level20,level21,level22
 
 @Terrain:
       Depth:   10
@@ -17,11 +17,11 @@ Orientation:    Outside
        Type:    Pulse
 
 @Lights:
-    Ambient:       0
+    Ambient:       0.1
 
     DirOn:         true
-    DirDirection:  (0,1,0)
-    DirLevel:      0
+    DirDirection:  (1,0,-1)
+    DirLevel:      1
 
     Point1On:      true
     Point1Pos:     (0,10,0)
@@ -35,25 +35,43 @@ Orientation:    Outside
     SpotRange:     10.0
     SpotLevel:     0.0
 
-
-
+	
 
 @TaskList:
 spawn 0 (-20,40,0) 0
 wait 7
-spawn 0 (-10,40,0) 0
+spawn 1 (-10,40,0) 0
 wait 7
-spawn 0 (0,40,0) 0
+spawn 2 (0,40,0) 0
 wait 7
-spawn 0 (10,40,0) 0
+spawn 1 (10,40,0) 0
 wait 7
 spawn 0 (20,40,0) 0
 wait 7
-
-wait 600
-#spawn 1 (0,40,0) 0
-#wait 900
+wait 800
+spawn 2 (-20,40,0) 0
+wait 7
+spawn 1 (-10,40,0) 0
+wait 7
+spawn 0 (0,40,0) 0
+wait 7
+spawn 1 (10,40,0) 0
+wait 7
+spawn 2 (20,40,0) 0
+wait 7
+wait 1000
+spawn 2 (-20,40,0) 0
+wait 7
+spawn 1 (-10,40,0) 0
+wait 7
+spawn 2 (0,40,0) 0
+wait 7
+spawn 1 (10,40,0) 0
+wait 7
+spawn 2 (20,40,0) 0
+wait 7
+wait 1200
 killall
 songfade 60
-wait 60
+wait 30
 boss
