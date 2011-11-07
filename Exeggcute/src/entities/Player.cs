@@ -384,6 +384,7 @@ namespace Exeggcute.src.entities
         {
             power = thresholds[attackPtr] + 1;
             attackPtr += 1;
+            Console.WriteLine("PWOER {0} {1}", power, thresholds[attackPtr]);
             if (power > powerMax || attackPtr == arsenalList.Count || attackPtr > upgrade.Max)
             {
                 attackPtr = 0;

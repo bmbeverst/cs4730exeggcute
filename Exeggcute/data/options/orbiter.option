@@ -1,0 +1,22 @@
+﻿@Info
+BodyInfo:  pyramid0
+Damage:    10
+ShotSound: 0playershot0
+
+@Behavior: 
+setparam angle 90
+setparam positionx 0
+setparam positiony 5
+setparam AngularVelocity 0.1
+wait 10
+setparam AngularVelocity -0.1
+wait 20
+loop
+
+@Trajectory: 
+setparam Speed 0.8
+
+@Spawn: 
+spawn rel 0
+wait 3
+loop

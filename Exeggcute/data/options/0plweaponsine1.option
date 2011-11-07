@@ -11,7 +11,9 @@ moverel (0,6,0) 10
 @Trajectory: fast
 
 @Spawn: 
-spawn rel -5
-spawn rel 5
+spawn rel -10
+spawn rel [-9|-1]
+spawn rel [1|9]
+spawn rel 10
 wait 3
 loop

@@ -1,6 +1,6 @@
 ﻿model:    pyramid
-texture:  void
-scale:    0.1
+texture:  four
+scale:    0.05
 radius:   1
 mass:     1
 rotation: (0,0,0)

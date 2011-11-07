@@ -1,0 +1,6 @@
+﻿model:    knot
+texture:  rainbow
+scale:    0.05
+radius:   1
+mass:     1
+rotation: (0,0,90)
