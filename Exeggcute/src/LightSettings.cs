@@ -3,6 +3,8 @@ using Exeggcute.src.loading;
 using Exeggcute.src.scripting;
 using Microsoft.Xna.Framework;
 
+#pragma warning disable 0649
+
 namespace Exeggcute.src
 {
     class LightSettings : Loadable
