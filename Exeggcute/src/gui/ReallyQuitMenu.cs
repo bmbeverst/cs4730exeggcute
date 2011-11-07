@@ -24,7 +24,7 @@ namespace Exeggcute.src.gui
             : base(buttons, bounds, terrain, false)
         {
             this.question = new SpriteText(font, "Really exit?", Color.White);
-            this.questionPos = new Vector2(buttonBounds.Left - 12, buttonBounds.Top - buttonHeight - 2);
+            this.questionPos = new Vector2(buttonBounds.Left - 12, buttonBounds.Top - buttonHeight - 20);
         }
 
         public void Initialize(QuitType type)

@@ -164,7 +164,6 @@ Keyboard controls:
             if (controls.IsLeftClicking)
             {
                 Entity3D clicked = Worlds.World.GetUnderMouse(controls.MousePosition);
-                Console.WriteLine(clicked);
                 if (clicked != null)
                 {
                     textBuffer.AddToBuffer(clicked.ID + " ");

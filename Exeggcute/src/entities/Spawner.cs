@@ -84,7 +84,6 @@ namespace Exeggcute.src.entities
             debugAngle = FastTrig.Atan2(difference.Y, difference.X + 0.00000001f);
             debugPosition = moverPos;
             arrowPosition = Util.AngleToVector3(debugAngle) + debugPosition;
-            Console.WriteLine(debugPosition);
         }
         /*
          * TODO/FIXME: make spawners Move and MoveRel and MoveTo commands relative to parent!!!
@@ -161,11 +160,11 @@ namespace Exeggcute.src.entities
         /// </summary>
         public override void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
         {
+            return;
             //base.Draw3D(graphics, view, projection);
             Matrix[] transforms = new Matrix[arrow.Bones.Count];
             arrow.CopyAbsoluteBoneTransformsTo(transforms);
             Texture2D debug = Assets.Texture["debug"];
-            Console.WriteLine(arrowPosition);
             foreach (ModelMesh mesh in arrow.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)

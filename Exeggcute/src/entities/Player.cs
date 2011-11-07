@@ -13,6 +13,7 @@ using Exeggcute.src.scripting.arsenal;
 using Exeggcute.src.sound;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src.entities
 {
@@ -389,6 +390,7 @@ namespace Exeggcute.src.entities
                 power = 0;
             }
             this.arsenal = CurrentAttack;
+            this.arsenal.CheckAlignment(Alignment);
         }
 
         public override void Kill()
@@ -406,30 +408,31 @@ namespace Exeggcute.src.entities
         public void Graze(Shot shot)
         {
             graze += 1;
-            Score += graze * graze;
+            Score += 100;
         }
-
+        int itemsCollected = 0;
         public void Collect(Item item)
         {
+            itemsCollected += 1;
             Score += 100;
-            Util.Warn("FIXME");
             //throw new InvalidOperationException("can only collect types of items");
         }
 
         public void Collect(ExtraBomb extraBomb)
         {
             bombs += 1;
-            
+            Score += 1000;
         }
 
         public void Collect(ExtraLife life)
         {
             lives += 1;
+            Score += 10000;
         }
 
         public void Collect(PowerItem pitem)
         {
-
+            Score += 10 * itemsCollected;
             if (power < powerMax)
             {
                 power += 1;
@@ -441,7 +444,7 @@ namespace Exeggcute.src.entities
                 attackPtr < thresholds.Count - 1))
             {
                 attackPtr += 1;
-                Assets.Sfx["powerup"].Play();
+                Assets.Sfx["powerup"].Play(Settings.Global.Audio.SfxVolume, 0, 0);
                 this.arsenal = CurrentAttack;
                 chooseAlignment(Alignment);
             }
@@ -470,6 +473,17 @@ namespace Exeggcute.src.entities
                 mesh.Draw();
             }
 
+        }
+
+        internal void BeginLevel()
+        {
+            this.script = deathScript;
+            ActionPtr = 0;
+        }
+
+        internal void GivePoints(Enemy enemy)
+        {
+            Score += enemy.BaseHealth;
         }
     }
 }

@@ -69,16 +69,19 @@ namespace Exeggcute.src.text
 
         public void Start()
         {
-           // synth.SpeakAsync(total);
+            synth.SpeakAsync(total);
         }
 
         public void Stop()
         {
-            //synth.SpeakAsyncCancelAll();
+            synth.SpeakAsyncCancelAll();
         }
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color, float spacingY)
         {
+
+            
+
             //I don't remember why this works!
             int jMax = linePtr < lines.Count ? linePtr + 1 : linePtr;
             for (int j = 0; j < jMax; j += 1)

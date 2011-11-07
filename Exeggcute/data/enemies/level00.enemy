@@ -4,7 +4,7 @@
     defence: 1
 deathScript: death0
  deathSound: shot0
-  itembatch: test
+  itembatch: pointpower
    gibbatch: gibtest
     arsenal: testoption
   alignment: enemy

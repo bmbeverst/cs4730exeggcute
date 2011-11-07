@@ -25,6 +25,8 @@ namespace Exeggcute.src.entities
 
         protected ItemBatch heldItems;
 
+        public int BaseHealth { get; protected set; }
+
         public Enemy(Model model,
                      Texture2D texture,
                      float scale,
@@ -42,6 +44,7 @@ namespace Exeggcute.src.entities
             : base(model, texture, scale, radius, rotation, behavior, deathSound, arsenal, gibBatch, alignment)
         {
             this.Health = health;
+            this.BaseHealth = health;
             this.Defence = defence;
             this.heldItems = items;
             this.deathScript = deathScript;

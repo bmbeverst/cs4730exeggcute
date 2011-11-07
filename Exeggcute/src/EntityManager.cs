@@ -64,7 +64,7 @@ namespace Exeggcute.src
             }
         }
 
-        public void Collide(IEnumerable<Shot> playerShots, IEnumerable<Enemy> enemies)
+        public void Collide(Player player, IEnumerable<Shot> playerShots, IEnumerable<Enemy> enemies)
         {
             foreach (Shot shot in playerShots)
             {
@@ -74,6 +74,7 @@ namespace Exeggcute.src
                     {
                         enemy.Collide(shot);
                         shot.Collide(enemy);
+                        player.GivePoints(enemy);
                     }
                 }
             }

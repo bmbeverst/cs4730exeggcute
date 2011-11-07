@@ -713,6 +713,9 @@
     <Content Include="data\scripts\trajectories\alston.traj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\itembatches\pointpower.batch">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

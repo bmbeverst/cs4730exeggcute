@@ -99,6 +99,7 @@ namespace Exeggcute.src.assets
         {
             ResetXna();
             ResetData();
+
         }
 
         public static void ResetXna()
