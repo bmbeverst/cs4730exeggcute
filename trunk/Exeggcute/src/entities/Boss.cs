@@ -240,7 +240,7 @@ namespace Exeggcute.src.entities
 
         public override void Draw2D(SpriteBatch batch)
         {
-            if (HealthMeter != null) HealthMeter.Draw(batch, new Vector2(0, 0));
+            if (HealthMeter != null) HealthMeter.Draw(batch, new Vector2(300, 18));
             base.Draw2D(batch);
         }
 

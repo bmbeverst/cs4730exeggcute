@@ -14,6 +14,7 @@ deathScript:  playerrespawn
     special:  0plbomb0
   alignment:  player
 
-@    Weapon:  0,0plweaponsine0
-@    Weapon:  10,0plweapon0
-@    Weapon:  30,0plweapon1
+@    Weapon:  0,0plweaponsine0,
+@    Weapon:  10,0plweaponsine0,orbiter
+@    Weapon:  30,0plweaponsine1
+@    Weapon:  50,0plweaponsine1,orbiter2

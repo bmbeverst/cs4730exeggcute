@@ -42,7 +42,7 @@ namespace Exeggcute.src
             background.Draw(batch, pos + new Vector2(offset, offset));
             foreground.DrawSolidWidth(batch, pos, width*(currentHealth/(float)maxHealth), height);
             string timerString = string.Format("{0:000}/{1:000}", timer.Value, timer.Max);
-            batch.DrawString(font, timerString, new Vector2(0, 0), Color.White);
+            //batch.DrawString(font, timerString, pos + new Vector2(width, Color.White);
         }
     }
 }
