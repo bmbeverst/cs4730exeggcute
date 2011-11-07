@@ -10,7 +10,7 @@ setparam AngularVelocity 0.1
 setparam Speed 0.5
 
 @Trajectory: 
-setparam Speed 0.5
+setparam Speed 0.8
 
 @Spawn: 
 spawn rel 0
