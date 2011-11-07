@@ -1,0 +1,4 @@
+﻿spawn rel 0
+wait 1
+
+loop

@@ -1,6 +1,6 @@
-﻿  BodyInfo: hairpin1
+﻿  BodyInfo: bomb0
     Damage: 10
   Behavior: aimplayer
-Trajectory: semifast
-     Spawn: 0enemy0
+Trajectory: slow
+     Spawn: level33
  ShotSound: 1pew
