@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Text.RegularExpressions;
 
 namespace Exeggcute.src
 {
@@ -30,7 +31,7 @@ namespace Exeggcute.src
             {
                 year -= 2000;
             }
-            string date = string.Format("{0:00}.{1:00}.{2:00}", month, day, year);
+            string date = string.Format("{0:00},{1:00},{2:00}", month, day, year);
 
             this.StringScore = IntToString(score);
             this.IntScore = score;
@@ -48,6 +49,7 @@ namespace Exeggcute.src
 
         public static string IntToString(int x)
         {
+
             return string.Format("{0:000,000,000}", x);
         }
 
@@ -69,7 +71,8 @@ namespace Exeggcute.src
 
         public void Draw(SpriteBatch batch, SpriteFont font, Vector2 pos, Color color)
         {
-            string scoreString = string.Format("{0:000,000,000}    {1,18}    {2}", IntScore, Name, Date);
+
+            string scoreString = string.Format("{0:000,000,000}   {1,18}    {2}", IntScore, Name, Date);
             batch.DrawString(font, scoreString, pos, color);
         }
 

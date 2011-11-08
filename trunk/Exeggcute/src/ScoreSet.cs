@@ -7,6 +7,7 @@ using System.Text;
 using Exeggcute.src.scripting;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Text.RegularExpressions;
 
 namespace Exeggcute.src
 {
@@ -123,9 +124,10 @@ namespace Exeggcute.src
                 while (networkScores.Count < 10) // just make sure always > 10 entries in table
                 {
                     int index = stringData.IndexOf("\n");
+                    Console.WriteLine("String Data {0}", stringData);
                     scoreData = stringData.Substring(0, index);
                     stringData = stringData.Substring(index + 1);
-
+                    
                     score = Int32.Parse(scoreData);
                     Console.WriteLine(score);
 
@@ -182,7 +184,6 @@ namespace Exeggcute.src
             {
                 newEntries.Add(entry);
             }
-
             List<ScoreEntry> listEntries = newEntries.ToList();
             listEntries.Sort();
             int size = listEntries.Count;
@@ -224,7 +225,7 @@ namespace Exeggcute.src
                             return;
                         }
 
-                        String query = "InsertInto" + hackToString(listEntries.ElementAt(i).IntScore) + "&" +
+                        String query = "InsertInto" + listEntries.ElementAt(i).IntScore + "&" +
                                    listEntries.ElementAt(i).Name + "&" + listEntries.ElementAt(i).Date + "\r\n";
                         server.Send(Encoding.ASCII.GetBytes(query));
 
@@ -287,7 +288,8 @@ namespace Exeggcute.src
 
         protected ScoreEntry parseElement(string[] tokens)
         {
-            int score = int.Parse(tokens[0]);
+            string replaced = Regex.Replace(tokens[0], "[.]", "");
+            int score = int.Parse(replaced);
             string name = tokens[1];
             string date = tokens[2];
             return new ScoreEntry(score, name, date);
