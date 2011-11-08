@@ -1,12 +1,7 @@
-﻿100,indiana jones,10.26.11
-
-097,john hammond,10.23.11
-
-096,arnold toht,10.24.11
-096,quint,10.25.11
-095,john quincy adams,10.22.11
-093,henry jones sr.,10.23.11
-092,roy neary,10.24.11
-092,short round,10.25.11
-089,ian malcolm,10.26.11
-084,gertie,10.22.11
+﻿<p>
+    001800000,indiana jones,10.26.11 001700000,john hammond,10.23.11 
+    001600000,arnold toht,10.24.11 001500000,quint,10.25.11 001400000,john quincy 
+    adams,10.22.11 001300000,henry jones sr.,10.23.11 001200000,short round,10.25.11 
+    001100000,ian malcolm,10.26.11 001000000,gertie,10.23.11 000900000,roy 
+    neary,10.25.11
+</p>
