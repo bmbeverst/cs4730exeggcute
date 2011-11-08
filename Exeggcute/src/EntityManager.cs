@@ -41,7 +41,7 @@ namespace Exeggcute.src
                 {
                     return true;
                 }
-                else if (!shot.HasGrazed && shot.Hitbox.Intersects(player.Hitbox))
+                else if (!shot.HasGrazed && shot.Hitbox.Intersects(player.ModelHitbox))
                 {
                     player.Graze(shot);
                     shot.Graze(player);
