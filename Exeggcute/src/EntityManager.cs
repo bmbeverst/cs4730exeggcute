@@ -128,7 +128,7 @@ namespace Exeggcute.src
             }
         }
 
-        public void CollideBoss(IEnumerable<Shot> playerShots, Boss boss)
+        public void CollideBoss(Player player, IEnumerable<Shot> playerShots, Boss boss)
         {
             BoundingSphere bossBox = boss.Hitbox;
             foreach (Shot shot in playerShots)
@@ -137,6 +137,7 @@ namespace Exeggcute.src
                 {
                     shot.Collide(boss);
                     boss.Collide(shot);
+                    player.GivePoints(1000);
                 }
             }
         }
@@ -150,7 +151,14 @@ namespace Exeggcute.src
                     float x = enemy.X;
                     float y = enemy.Y;
                     float z = terrain.Depth;
-                    terrain.Impact(x, y, 0, 0);
+                    try
+                    {
+                        terrain.Impact(x, y, 0, 0);
+                    }
+                    catch
+                    {
+
+                    }
                     enemy.Kill();
                 }
             }

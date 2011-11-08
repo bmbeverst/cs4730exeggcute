@@ -48,7 +48,7 @@ namespace Exeggcute.src
 
         public static string IntToString(int x)
         {
-            return string.Format("{0:000000000}", x);
+            return string.Format("{0:000,000,000}", x);
         }
 
         public override string ToString()

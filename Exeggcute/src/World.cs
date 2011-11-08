@@ -238,7 +238,6 @@ namespace Exeggcute.src
         
         public void Update(ControlManager controls)
         {
-            Console.WriteLine(enemyShots.Count);
             bool toggled = false;
             if (controls[Ctrl.Console].DoEatPress())
             {
@@ -943,6 +942,12 @@ namespace Exeggcute.src
             {
                 return player.Position;
             }
+        }
+
+        internal void GiveScore(int p)
+        {
+            Sandbox level = FindSandbox();
+            level.player.GivePoints(p);
         }
     }
 }

@@ -490,6 +490,10 @@ namespace Exeggcute.src.entities
             ActionPtr = 0;
         }
 
+        internal void GivePoints(int points)
+        {
+            Score += points;
+        }
         internal void GivePoints(Enemy enemy)
         {
             Score += enemy.BaseHealth;

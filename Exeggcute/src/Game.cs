@@ -74,7 +74,7 @@ namespace Exeggcute.src
 
         protected override void Update(GameTime gameTime)
         {
-            Console.WriteLine(1.0f / (gameTime.ElapsedGameTime.Milliseconds / 1000.0f));
+            //Console.WriteLine(1.0f / (gameTime.ElapsedGameTime.Milliseconds / 1000.0f));
             //Console.WriteLine(gameTime.IsRunningSlowly);
             try
             {
