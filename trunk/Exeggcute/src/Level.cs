@@ -209,7 +209,7 @@ namespace Exeggcute.src
 
             if (boss != null)
             {
-                collider.CollideBoss(Worlds.World.GetPlayerShots(), boss);
+                collider.CollideBoss(player, Worlds.World.GetPlayerShots(), boss);
                 boss.Update();
             }
             base.Update(controls);

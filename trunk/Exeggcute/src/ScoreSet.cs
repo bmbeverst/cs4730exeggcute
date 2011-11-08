@@ -239,7 +239,9 @@ namespace Exeggcute.src
         }
         private string hackToString(int score)
         {
-            return string.Format("{0:000,000,000}", score);
+            string retval = string.Format("{0:000,000,000}", score);
+            Console.WriteLine("[[[{0}]]]", retval);
+            return retval;
         }
         private void Clean()
         {

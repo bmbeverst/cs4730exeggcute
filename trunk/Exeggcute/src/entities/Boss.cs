@@ -176,7 +176,7 @@ namespace Exeggcute.src.entities
         public void LoadNext()
         {
             spellPtr += 1;
-            
+            Worlds.World.GiveScore(maxHealth * 100);
             if (spellPtr == attacks.Count)
             {
                 die();
