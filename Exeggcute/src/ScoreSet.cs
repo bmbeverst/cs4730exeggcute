@@ -224,7 +224,7 @@ namespace Exeggcute.src
                             return;
                         }
 
-                        String query = "InsertInto" + listEntries.ElementAt(i).IntScore + "&" +
+                        String query = "InsertInto" + hackToString(listEntries.ElementAt(i).IntScore) + "&" +
                                    listEntries.ElementAt(i).Name + "&" + listEntries.ElementAt(i).Date + "\r\n";
                         server.Send(Encoding.ASCII.GetBytes(query));
 
@@ -237,7 +237,10 @@ namespace Exeggcute.src
             Clean();
             ViewingNetwork = true;
         }
-
+        private string hackToString(int score)
+        {
+            return string.Format("{0:000,000,000}", score);
+        }
         private void Clean()
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse("128.143.69.241"), 9030);
