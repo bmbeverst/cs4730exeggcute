@@ -69,6 +69,7 @@ namespace Exeggcute.src.entities
                                      Alignment);
             cloned.Position = pos.Vector3;
             cloned.Angle = angle.Value;
+            Console.WriteLine(cloned.Position);
             return cloned;
         }
 
