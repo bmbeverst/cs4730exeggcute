@@ -792,6 +792,9 @@
     <Content Include="data\bodies\level41.body">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\bodies\spielberg.body">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="manifest" />
     <Content Include="data\world\bg.terrain">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

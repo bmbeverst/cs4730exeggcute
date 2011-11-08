@@ -40,8 +40,6 @@ Orientation:    Outside
 
 @TaskList:
 
-spawn 1 (0,40,0) 0
-wait 900
 
 wait 120
 spawn 0 (0,0,0) 0
@@ -75,9 +73,11 @@ wait 30
 spawn 0 (0,0,0) 0
 wait 30
 spawn 0 (0,-40,0) 0
-wait 30
+wait 120
 
 
+spawn 1 (0,40,0) 0
+wait 900
 
 #spawn 1 (0,40,0) 0
 #wait 900
