@@ -1,0 +1,6 @@
+﻿model:    bomb
+texture:  ufo0
+scale:    1
+radius:   4
+mass:     1
+rotation: (0,0,-90)

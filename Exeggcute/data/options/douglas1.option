@@ -1,6 +1,6 @@
 ﻿  BodyInfo: hairpin1
     Damage: 10
   Behavior: aimplayer
-Trajectory: semifast
+Trajectory: semislow
      Spawn: 0enemy0
  ShotSound: 1pew

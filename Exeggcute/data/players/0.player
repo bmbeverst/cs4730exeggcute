@@ -4,7 +4,7 @@
        body:  player0
 deathScript:  playerrespawn
  deathSound:  playerexplode
-      lives:  1
+      lives:  8
       bombs:  3
    gibbatch:  gibtest
   moveSpeed:  1.0
