@@ -52,31 +52,31 @@ spawn 0 (20,20,0) 0
 wait 7
 
 wait 600
-spawn 1 (-20,25,0) 0
+spawn 1 (-25,20,0) 0
 wait 7
-spawn 1 (0,30,0) 0
+spawn 1 (-15,30,0) 0
 wait 7
-spawn 1 (20,35,0) 0
+spawn 1 (5,40,0) 0
 wait 7
-spawn 1 (-15,25,0) 0
+spawn 1 (5,40,0) 0
 wait 7
-spawn 1 (5,35,0) 0
+spawn 1 (15,30,0) 0
 wait 7
-spawn 1 (25,25,0) 0
+spawn 1 (25,20,0) 0
 wait 7
 
 wait 800
-spawn 2 (20,15,0) 0
+spawn 2 (-20,20,0) 0
 wait 7
-spawn 2 (5,35,0) 0
+spawn 2 (-20,40,0) 0
 wait 7
-spawn 2 (-5,20,0) 0
+spawn 2 (0,35,0) 0
 wait 7
-spawn 2 (-15,15,0) 0
+spawn 2 (0,25,0) 0
 wait 7
-spawn 2 (15,10,0) 0
+spawn 2 (20,20,0) 0
 wait 7
-spawn 2 (0,15,0) 0
+spawn 2 (20,40,0) 0
 wait 7
 
 

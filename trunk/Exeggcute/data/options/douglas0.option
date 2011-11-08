@@ -1,6 +1,6 @@
-﻿  BodyInfo: bomb
+﻿  BodyInfo: bomb1
     Damage: 10
   Behavior: aimplayer
-Trajectory: semifast
+Trajectory: slow
      Spawn: 0enemy0
  ShotSound: 1pew

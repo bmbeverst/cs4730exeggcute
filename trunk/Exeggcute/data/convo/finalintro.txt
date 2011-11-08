@@ -2,4 +2,4 @@
 font: consolas
 rate: 10
 @Text:
-You are not supposed to have gotten this far. You were not supposed to discover my secret. I am going to take care of you right here. You will not escape!
+Epsel: You are not supposed to have gotten this far. You were not supposed to discover my secret. I am going to take care of you right here. You will not escape!

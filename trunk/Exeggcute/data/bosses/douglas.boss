@@ -3,7 +3,7 @@
 name:         Guy'sName #cant contain spaces atm, sorry
 body:         douglas
 entryScript:  entry0
-defeatScript: entry0
+defeatScript: wait
 deathScript:  bossdeath0
 hurtSound:    bosshurt4
 intro:        0
