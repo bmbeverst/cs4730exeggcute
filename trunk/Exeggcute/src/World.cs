@@ -22,6 +22,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Exeggcute.src.console.trackers;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src
 {
@@ -237,6 +238,7 @@ namespace Exeggcute.src
         
         public void Update(ControlManager controls)
         {
+            Console.WriteLine(enemyShots.Count);
             bool toggled = false;
             if (controls[Ctrl.Console].DoEatPress())
             {
@@ -538,6 +540,18 @@ namespace Exeggcute.src
             push(newContext);
 
         }
+        bool isGameOver = false;
+        public void GameOver()
+        {
+            if (!isGameOver)
+            {
+                GameOverMenu menu = new GameOverMenu();
+                Sandbox level = FindSandbox();
+                menu.Attach(level.hud, level.player, level);
+                push(menu);
+                isGameOver = true;
+            }
+        }
 
         /// <summary>
         /// doPop should be true iff we are loading a level directly from a LevelSummaryMenu
@@ -604,7 +618,7 @@ namespace Exeggcute.src
             current.Move(dir);
             if (current.ResolveCursor())
             {
-                Assets.Sfx["menumove"].Play();
+                Assets.Sfx["menumove"].Play(Settings.Global.Audio.SfxVolume, 0, 0);
             }
         }
 

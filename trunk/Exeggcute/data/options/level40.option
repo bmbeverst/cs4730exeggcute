@@ -1,0 +1,22 @@
+﻿@Info:
+  BodyInfo: level40
+    Damage: 10
+  ShotSound: 1pew
+@Behavior: 
+setparam angle 270
+wait 30
+wait 30
+loop 1
+
+@Trajectory:
+setparam speed 2
+wait 4
+setparam speed 0
+wait 30
+setparam speed 0.5
+
+@Spawn: 
+spawn rel [-10|10]
+wait 6
+loop
+

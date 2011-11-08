@@ -274,6 +274,9 @@ namespace Exeggcute.src.entities
         {
             get { return new Vector2(Position.X, Position.Y); }
         }
+
+        public Matrix[] transforms;
+
         public Vector3 DegRotation;
         public float BaseModelRadius;
         public Entity3D(Model model, Texture2D texture, float scale, float radius, Vector3 rotation, Vector3 pos)
@@ -290,7 +293,8 @@ namespace Exeggcute.src.entities
             this.BaseModelRadius = Util.MergeSpheres(Surface.Meshes).Radius;
 
             adjustMatrix();
-
+            transforms = new Matrix[Surface.Bones.Count];
+            Surface.CopyAbsoluteBoneTransformsTo(transforms);
             Util.SetEffect(Surface, Assets.Effect["light0"]);
 
         }
@@ -411,8 +415,6 @@ namespace Exeggcute.src.entities
         {
             //FIXME subclass!
             if (Surface == null) return;
-            Matrix[] transforms = new Matrix[Surface.Bones.Count];
-            Surface.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in Surface.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)

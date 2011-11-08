@@ -47,7 +47,7 @@ namespace Exeggcute.src
         /// a bool which specifies that they are "Active" or "Initialized"
         /// or something
         /// </summary>
-        public static readonly Vector3 Jail = new Vector3(0, 0, -10000);
+        public static readonly Vector3 Jail = new Vector3(-10000, -10000, -10000);
 
         static Engine()
         {

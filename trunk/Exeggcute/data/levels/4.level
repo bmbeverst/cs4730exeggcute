@@ -3,7 +3,7 @@
   MainBoss: spielbergfinal
 LevelTheme: BattleForTheGrandStar
  BossTheme: jaws
-    Roster: test0,test1
+    Roster: level40,level41
 
 @Terrain:
       Depth:   10
@@ -17,15 +17,15 @@ Orientation:    Outside
        Type:    Pulse
 
 @Lights:
-    Ambient:       0
+    Ambient:       0.3
 
     DirOn:         true
     DirDirection:  (0,1,0)
-    DirLevel:      0
+    DirLevel:      0.5
 
     Point1On:      true
     Point1Pos:     (0,10,0)
-    Point1Level:   0
+    Point1Level:   0.5
 
     SpotOn:        true
     SpotPos:       (0,0,0)
@@ -33,24 +33,52 @@ Orientation:    Outside
     SpotInner:     0.3490
     SpotOuter:     0.6981
     SpotRange:     10.0
-    SpotLevel:     0.0
+    SpotLevel:     1
 
 
 
 
 @TaskList:
-spawn 0 (-20,40,0) 0
-wait 7
-spawn 0 (-10,40,0) 0
-wait 7
-spawn 0 (0,40,0) 0
-wait 7
-spawn 0 (10,40,0) 0
-wait 7
-spawn 0 (20,40,0) 0
-wait 7
 
-wait 600
+spawn 1 (0,40,0) 0
+wait 900
+
+wait 120
+spawn 0 (0,0,0) 0
+wait 120
+spawn 0 (0,0,0) 0
+wait 120
+spawn 0 (0,0,0) 0
+wait 60
+spawn 0 (0,0,0) 0
+wait 60
+spawn 0 (0,0,0) 0
+wait 60
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,0,0) 0
+wait 30
+spawn 0 (0,-40,0) 0
+wait 30
+
+
+
 #spawn 1 (0,40,0) 0
 #wait 900
 killall

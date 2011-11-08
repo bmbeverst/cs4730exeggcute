@@ -43,5 +43,10 @@ namespace Exeggcute.src.entities
             HasGrazed = true;
             //TODO add a sound here!
         }
+
+        public override void Draw3D(GraphicsDevice graphics, Matrix view, Matrix projection)
+        {
+            base.Draw3D(graphics, view, projection);
+        }
     }
 }

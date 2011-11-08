@@ -1,3 +1,3 @@
 ﻿#test init file
-#go sb
-#spawn player 0
+go 0
+spawn player 0

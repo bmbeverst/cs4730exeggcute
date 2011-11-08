@@ -29,8 +29,8 @@ namespace Exeggcute.src
 
         protected float liveBuffer = 1f / 4f;
 
-        protected Player player;
-        protected HUD hud;
+        public Player player { get; protected set; }
+        public HUD hud { get; protected set; }
 
         public Sandbox(WangMesh terrain)
         {
@@ -131,7 +131,7 @@ namespace Exeggcute.src
         public override void Update(ControlManager controls)
         {
             
-            if (player != null)
+            if (player != null && player.Lives >= 0)
             {
                 player.Update(controls, true);
             }
