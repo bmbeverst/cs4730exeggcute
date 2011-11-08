@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Exeggcute.src.config;
 
 namespace Exeggcute.src.gui
 {
@@ -35,6 +36,7 @@ namespace Exeggcute.src.gui
             Color bgColor = new Color(0, 170, 0);
             this.font = Assets.Font["consolas"];
             this.fontColor = Color.White;
+            if (buttons.Count == 0) return;
             this.buttonHeight = buttons[0].Height;
             this.cursor = 0;
             this.buttons = buttons;
@@ -77,22 +79,25 @@ namespace Exeggcute.src.gui
 
         public virtual void Back()
         {
-            cancelSound.Play();
+            cancelSound.Play(Settings.Global.Audio.SfxVolume, 0, 0);
         }
 
         public virtual void Select()
         {
-            selectSound.Play();
+            selectSound.Play(Settings.Global.Audio.SfxVolume, 0, 0);
         }
 
         public override void Update(ControlManager controls)
         {
             ResolveCursor();
-            buttons[cursor].Update(controls);
+            if (buttons != null && buttons.Count != 0)
+            {
+                buttons[cursor].Update(controls);
+            }
             ResolveCursor();
 
             MediaPlayer.GetVisualizationData(soundData);
-            terrain.Update(soundData.Frequencies);
+            if (terrain != null) terrain.Update(soundData.Frequencies);
         }
 
         public override void Draw2D(SpriteBatch batch)
@@ -136,7 +141,7 @@ namespace Exeggcute.src.gui
 
         public override void Draw3D(GraphicsDevice graphics, Camera camera)
         {
-            terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
+            if (terrain != null) terrain.DrawRot(graphics, camera.GetView(), camera.GetProjection(), 0.0001f);
         }
 
 
@@ -164,6 +169,7 @@ namespace Exeggcute.src.gui
 
         public virtual bool ResolveCursor()
         {
+            if (buttons == null || buttons.Count == 0) return false;
             if (loops)
             {
                 cursor = (cursor + buttons.Count) % buttons.Count;

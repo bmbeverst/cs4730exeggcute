@@ -24,7 +24,7 @@ namespace Exeggcute.src.entities
         public float MoveSpeed { get; protected set; }
         public float FocusSpeed { get; protected set; }
 
-        private int lives;
+        public int Lives { get; protected set; }
         private int bombs;
         public int Score { get; protected set; }
 
@@ -106,7 +106,7 @@ namespace Exeggcute.src.entities
             this.graze = 0;
             this.Score = 0;
 
-            this.lives = numLives;
+            this.Lives = numLives;
             this.bombs = numBombs;
             
             this.MoveSpeed = moveSpeed;
@@ -367,7 +367,7 @@ namespace Exeggcute.src.entities
             }
             batch.DrawString(scoreFont, powerString, new Vector2(xStart, yStart + 60), Color.White);
 
-            for (int i = 0; i < lives; i += 1)
+            for (int i = 0; i < Lives; i += 1)
             {
                 LifeSprite.Draw(batch, new Vector2(86, i * 40 + yStart + 120));
             }
@@ -395,11 +395,20 @@ namespace Exeggcute.src.entities
 
         public override void Kill()
         {
-            script = deathScript;
-            ActionPtr = 0;
-            lives -= 1;
-            deathSound.Play();
-            InvulnTimer.Reset();
+            Lives -= 1;
+            if (Lives < 0)
+            {
+                Worlds.World.GameOver();
+            }
+            else
+            {
+                script = deathScript;
+                ActionPtr = 0;
+                
+                deathSound.Play();
+                InvulnTimer.Reset();
+            }
+            Position = new Vector3(-1000, 1000, 1000);
             //spawn the death animation
         }
 
@@ -426,7 +435,7 @@ namespace Exeggcute.src.entities
 
         public void Collect(ExtraLife life)
         {
-            lives += 1;
+            Lives += 1;
             Score += 10000;
         }
 

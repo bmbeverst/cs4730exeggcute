@@ -19,7 +19,12 @@ namespace Exeggcute.src.config
                 {"Dialog", "100" }
             };
 
-        public float MasterVolume { get; protected set; }
+        private float master;
+        public float MasterVolume 
+        {
+            get { return master * 0.5f; }
+            protected set { master = value; }
+        }
 
         private float sfx;
         public float SfxVolume 

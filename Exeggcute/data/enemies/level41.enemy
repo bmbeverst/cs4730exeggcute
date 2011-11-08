@@ -1,0 +1,18 @@
+﻿@Info:
+       body: teapot0
+     health: 30
+    defence: 1
+deathScript: death0
+ deathSound: shot0
+  itembatch: pointpower
+   gibbatch: gibtest
+    arsenal: level41
+  alignment: enemy
+
+@Behavior: 
+moverel (0,-10,0) 60
+shoot 0 900
+wait 900
+moverel (0,10,0) 60
+delete
+

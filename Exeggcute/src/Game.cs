@@ -28,8 +28,8 @@ namespace Exeggcute.src
             graphicsManager.PreferredBackBufferHeight = Engine.YRes;
             graphicsManager.PreferredBackBufferWidth = Engine.XRes;
             //graphicsManager.PreferMultiSampling = true;
-            /*graphicsManager.SynchronizeWithVerticalRetrace = false;
-            this.IsFixedTimeStep = false;*/
+            /*graphicsManager.SynchronizeWithVerticalRetrace = false;*/
+            this.IsFixedTimeStep = false;
             //graphicsManager.IsFullScreen = true;
             InactiveSleepTime = TimeSpan.Zero;
             IsMouseVisible = true;
@@ -74,6 +74,8 @@ namespace Exeggcute.src
 
         protected override void Update(GameTime gameTime)
         {
+            Console.WriteLine(1.0f / (gameTime.ElapsedGameTime.Milliseconds / 1000.0f));
+            //Console.WriteLine(gameTime.IsRunningSlowly);
             try
             {
                 engine.Update();

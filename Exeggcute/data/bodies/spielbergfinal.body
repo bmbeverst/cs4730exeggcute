@@ -1,6 +1,6 @@
 ﻿model:    knot
 texture:  fractalSwiss
-scale:    .1
+scale:    0.3
 radius:   8
 mass:     1
-rotation: (0,0,90)
+rotation: (0,120,90)

@@ -40,7 +40,7 @@ namespace Exeggcute.src.sound
         {
             if (canPlay())
             {
-                sound.Play(volume, 0, 0);
+                sound.Play(Settings.Global.Audio.SfxVolume, 0, 0);
             }
         }
 

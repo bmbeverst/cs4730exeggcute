@@ -1,0 +1,6 @@
+﻿model:    bomb
+texture:  rainbow
+scale:    0.8
+radius:   0.4
+mass:     1
+rotation: (0,0,90)

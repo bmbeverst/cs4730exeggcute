@@ -1,0 +1,18 @@
+﻿@Info:
+       body: teapot0
+     health: 30
+    defence: 1
+deathScript: death0
+ deathSound: shot0
+  itembatch: pointpower
+   gibbatch: gibtest
+    arsenal: level40
+  alignment: enemy
+
+@Behavior: 
+setparam positionx 30
+setparam positiony [40|20]
+setparam speed 0.5
+setparam angle 180
+shoot 0 120
+

@@ -1,0 +1,6 @@
+﻿model:    douglas
+texture:  void
+scale:    0.4
+radius:   0.4
+mass:     1
+rotation: (0,0,90)
