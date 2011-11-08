@@ -1,24 +1,17 @@
 ﻿@Info:
-       body: level33
-     health: 400
+       body: level30
+     health: 100
     defence: 1
 deathScript: death0
  deathSound: shot0
   itembatch: test
    gibbatch: gibtest
-    arsenal: level33
+    arsenal: testoption
   alignment: enemy
 
 @Behavior: 
 moverel (0,-10,0) 100
-shoot 0 200
-wait 50
-shoot 0 200
-moverel (10,20,0) 100
-shoot 0 200
-moverel (-20,-10,0) 100
-shoot 0 200
-moverel (10,0,0) 100
-shoot 0 200
+shoot 0 100
+wait 100
+moverel (0,10,0) 100
 loop
-

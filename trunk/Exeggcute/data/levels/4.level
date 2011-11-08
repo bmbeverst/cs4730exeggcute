@@ -55,5 +55,5 @@ wait 600
 #wait 900
 killall
 songfade 60
-wait 60
+wait 120
 boss

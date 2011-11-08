@@ -15,7 +15,7 @@ name:         Test1
 behavior:     douglas0
 attack:       douglas0
 duration:     3000
-health:       1000
+health:       2000
 items:        test
 
 @spellcard:
@@ -23,5 +23,5 @@ name:         Test2
 behavior:     douglas1
 attack:       douglas1
 duration:     3000
-health:       1000
+health:       3000
 items:        test

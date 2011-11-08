@@ -59,9 +59,9 @@ wait 7
 spawn 0 (20,40,0) 0
 wait 7
 
-wait 800
+wait 500
 
 killall
-
+wait 120
 songfade 60
 boss
