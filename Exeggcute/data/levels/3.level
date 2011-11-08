@@ -3,7 +3,7 @@
   MainBoss: cyclops
 LevelTheme: GalaxyPlant
  BossTheme: PeachsCastleIsStolen
-    Roster: level30,level31,level32
+    Roster: level30,level31,level32,level33
 
 @Terrain:
       Depth:   10
@@ -93,13 +93,13 @@ wait 500
 
 killall
 songfade 60
-wait 60
+wait 120
 boss
 
-wait 300
+wait 200
 
-spawn 0 (-20,40,0) 0
+spawn 3 (-20,40,0) 0
 wait 7
-spawn 0 (0,40,0) 0
+spawn 3 (0,40,0) 0
 wait 7
-spawn 0 (20,40,0) 0
+spawn 3 (20,40,0) 0

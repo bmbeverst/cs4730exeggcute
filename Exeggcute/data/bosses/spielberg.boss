@@ -1,7 +1,7 @@
 ﻿#SAMPLE BOSS
 @info:
 name:         spielberg
-body:         douglas
+body:         spielberg
 entryScript:  entry0
 defeatScript: wait
 deathScript:  bossdeath0

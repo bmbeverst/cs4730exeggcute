@@ -74,5 +74,5 @@ wait 7
 wait 1200
 killall
 songfade 60
-wait 30
+wait 120
 boss
